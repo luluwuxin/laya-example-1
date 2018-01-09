@@ -62,22 +62,33 @@ function LogicServer()
         return ++this.cid_seed;
     }
 
-    this.isAuth = function(cli)
+    this.isAuth = function(socket)
     {
-        return this.clis[cli]!=null;
+        return this.sockets[socket]!=null;
     }
 
-    this.cid2cli = function(cid)
+    this.cid2socket = function(cid)
+    {
+        var info = this.clients[cid];
+        if(info==null)
+            return null;
+        return info.socket;
+    }
+
+    this.socket2cid = function(socket)
+    {
+        var cid = this.sockets[socket];
+        if(cid==null)
+            return null;
+        return cid;
+    }
+
+    this.nid2socket = function(nid)
     {
         return 1;
     }
 
-    this.cli2cid = function(cli)
-    {
-        return 1;
-    }
-
-    this.nid2cli = function(nid)
+    this.nid2cid = function(nid)
     {
         return 1;
     }
@@ -180,11 +191,11 @@ wss.on('connection', function connection(socket, req) {
     });
 
     socket.on('message', function incoming(message) {
-        var pack = JSON.parse(message);
-        if(pack!=null)
-            console.log('received: %s', pack.message);
-        else
-            console.log('received: %s', message);
+        //var pack = JSON.parse(message);
+        //if(pack!=null)
+        //    console.log('received: %s', pack.message);
+        //else
+        //    console.log('received: %s', message);
 
         socket.send(message);
     });
