@@ -1,0 +1,28 @@
+{
+  "name": "cybertron_zero",
+  "version": "1.0.0",
+  "description": "CybertronZero",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.2",
+    "ws": "^4.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/damon-kwok/laya-example.git"
+  },
+  "keywords": [
+    "js"
+  ],
+  "author": "damon-kwok",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/damon-kwok/laya-example/issues"
+  },
+  "homepage": "https://github.com/damon-kwok/laya-example#readme"
+}
