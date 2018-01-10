@@ -26,7 +26,7 @@ function ChatUI()
 	function receiveHandler(data){
         	console.log("recv:"+data);
         	var msg = JSON.parse(data);
-        	this.ta_content.text += msg.method+":"+msg.message+"\n";
+        	this.ta_content.text += msg.method+":"+msg.msg+"\n";
 	}
 
 	function closeHandler(e){
@@ -39,7 +39,7 @@ function ChatUI()
 
     function onBtnClick()
     {
-        var msg = {method:"chat", message:this.input_message.text, hello:[111,222,333]};
+        var msg = {method:"chat", msg:this.input_msg.text, hello:[111,222,333]};
 		this.socket.send(JSON.stringify(msg));
     }
 }

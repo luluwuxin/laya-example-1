@@ -5,7 +5,7 @@ var Dialog=laya.ui.Dialog;
 var ChatPageUI=(function(_super){
 		function ChatPageUI(){
 			
-		    this.input_message=null;
+		    this.input_msg=null;
 		    this.btn_send=null;
 		    this.ta_content=null;
 
@@ -18,10 +18,11 @@ var ChatPageUI=(function(_super){
 		    
 			laya.ui.Component.prototype.createChildren.call(this);
 			this.createView(ChatPageUI.uiView);
-
 		}
 
-		ChatPageUI.uiView={"type":"View","props":{"width":600,"height":400},"child":[{"type":"TextInput","props":{"y":360,"x":47,"width":343,"var":"input_message","text":"hello,world","skin":"comp/textinput.png","height":22}},{"type":"Button","props":{"y":360,"x":466,"var":"btn_send","skin":"comp/button.png","label":"Send"}},{"type":"TextArea","props":{"y":16,"x":15,"width":559,"var":"ta_content","skin":"comp/textarea.png","height":322}}]};
+		STATICATTR$(ChatPageUI,
+		['uiView',function(){return this.uiView={"type":"View","props":{"width":600,"height":400},"child":[{"type":"TextInput","props":{"y":360,"x":47,"width":343,"var":"input_msg","text":"hello,world","skin":"comp/textinput.png","height":22}},{"type":"Button","props":{"y":360,"x":466,"var":"btn_send","skin":"comp/button.png","label":"Send"}},{"type":"TextArea","props":{"y":16,"x":15,"width":559,"var":"ta_content","skin":"comp/textarea.png","height":322}}]};}
+		]);
 		return ChatPageUI;
 	})(View);
 var TestPageUI=(function(_super){
