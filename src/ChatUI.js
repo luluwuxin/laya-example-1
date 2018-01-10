@@ -19,21 +19,22 @@ function ChatUI()
 	this.socket.on(Laya.Event.ERROR, this, errorHandler);
 	
 	function openHandler(event){
-        console.log("connected!");
+        	console.log("connected!");
+		this.socket.send(JSON.stringify({method:"auth", type:0}));
 	}
 
 	function receiveHandler(data){
-        console.log("recv:"+data);
-        var msg = JSON.parse(data);
-        this.ta_content.text += msg.method+":"+msg.message+"\n";
+        	console.log("recv:"+data);
+        	var msg = JSON.parse(data);
+        	this.ta_content.text += msg.method+":"+msg.message+"\n";
 	}
 
 	function closeHandler(e){
-        console.log("disconnected!");
+        	console.log("disconnected!");
 	}
 
 	function errorHandler(e){
-        console.log("err:"+e);
+        	console.log("err:"+e);
 	}
 
     function onBtnClick()
