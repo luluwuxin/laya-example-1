@@ -1,4 +1,3 @@
-console.log("111111111111111");
 
 function Sensor(nid, type)
 {

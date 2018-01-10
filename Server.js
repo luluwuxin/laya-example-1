@@ -44,10 +44,14 @@ function LogicServer()
 
     this.addClient = function(type, socket)
     {
-        var cid = this.genCid();
-        var client = cli.create(type, cid, socket);
-        this.clients[cid]= this.clients[socket]= client;
-        this.cids[cid]=cid;
+        var client = this.clients[socket];
+        if(client==null)
+        {
+            var cid = this.genCid();
+            client = cli.create(type, cid, socket);
+            this.clients[cid]= this.clients[socket]= client;
+            this.cids[cid]=cid;
+        } 
         return client;
     }
 

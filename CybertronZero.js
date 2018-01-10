@@ -52,9 +52,9 @@ wss.on('connection', function connection(socket, req) {
     
     // You might use location.query.access_token to authenticate or share sessions
     // or req.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
-    
     socket.on('close', function incoming(code, reason) {
-	    console.log('disconnect: code=%d, reason="%s"', code, reason);
+        var prename = logic.isAuth(socket) ? "auth" : "unauth";
+	    console.log(prename + ' client disconnect: code=%d, reason="%s"', code, reason);
         logic.removeSocket(socket);
     });
 
@@ -115,5 +115,5 @@ wss.on('connection', function connection(socket, req) {
 
 server.listen(8080, function listening() {
     console.log('Listening on %d', server.address().port);
-    utils.openUrl("http://127.0.0.1:"+server.address().port);
+    //utils.openUrl("http://127.0.0.1:"+server.address().port);
 });
