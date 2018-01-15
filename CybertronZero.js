@@ -47,48 +47,7 @@ const wss = new WebSocket.Server({ server });
 ////////////////////////////////////////////////////////////////////////
 var logic = new LogicServer();
 
-//method:scene_info
-//method:weather_info
-//method:car_info
-// var CaseInfo = {
-	// scene:"IndistrialCity",	path: "default",
-	
-	// weather: {
-		// temperature:25,
-		// time_of_day:"9:00",
-		// rain_type:"HeavyRain",
-		// snow_type:"ModerateSnow",
-		// fog_type:"HeaveFog",
-	// },
-	
-	// traffic:{car_density:50, pdestrain_density:19, car_irregularity:29}
-// };
 
-var SceneInfo={
-	method:"scene_info",
-	scene:"IndistrialCity",
-	path: "default"};
-
-var WeatherInfo = {
-	method:"weather_info",
-	temperature:25,
-	time_of_day:"9:00",
-	// rain_type:"HeavyRain",
-	// snow_type:"ModerateSnow",
-	rain_type:true,
-	snow_type:false,
-	fog_type:"HeaveFog",
-
-};
-var TrafficInfo={
-	method:"traffic_info",
-	car_density:50,
-	pdestrain_density:19,
-	car_irregularity:29};
-
-var RosInfo = {
-
-};
 var cli_web = null; //0
 var cli_ros = null; //1
 var cli_ue4 = null; //2
@@ -160,21 +119,7 @@ wss.on('connection', function connection(socket, req) {
         
         var pack = JSON.parse(msg);
         console.log("received packet:%s", pack.method);
-        switch(pack.method)
-        {
-            case "chat":
-            {
-                logic.broadcast(msg);
-                break;
-            }
-            default:
-            {
-                console.log(pack.method);
-                socket.send(msg); 
-                break;
-            }
-        }
-        
+        logic.procMessage(socket, pack);
     });
     
     console.log("new unauth connect!");

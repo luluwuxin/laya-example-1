@@ -5,6 +5,89 @@ function LogicServer()
     this.clients = new Object();
     this.cids = new Object();
     this.cid_seed = 0;
+
+	//method:scene_info
+	//method:weather_info
+	//method:car_info
+	// var CaseInfo = {
+	// scene:"IndistrialCity",	path: "default",
+	
+	// weather: {
+	// temperature:25,
+	// time_of_day:"9:00",
+	// rain_type:"HeavyRain",
+	// snow_type:"ModerateSnow",
+	// fog_type:"HeaveFog",
+	// },
+	
+	// traffic:{car_density:50, pdestrain_density:19, car_irregularity:29}
+	// };
+
+	this.SceneInfo={
+		method:"scene_info",
+		scene:"IndistrialCity",
+		path: "default"
+	};
+
+	this.WeatherInfo = {
+		method:"weather_info",
+		temperature:25,
+		time_of_day:"9:00",
+		// rain_type:"HeavyRain",
+		// snow_type:"ModerateSnow",
+		rain_type:true,
+		snow_type:false,
+		fog_type:"HeaveFog",
+
+	};
+	
+	this.TrafficInfo={
+		method:"traffic_info",
+		car_density:50,
+		pdestrain_density:19,
+		car_irregularity:29
+	};
+
+	this.RosInfo = {
+
+	};
+
+	this.procMessage = function(socket, pack)
+	{
+		switch(pack.method)
+        {
+            case "chat":
+            {
+                this.broadcast(pack);
+                break;
+            }
+			case "scene_info":
+			{
+				this.SceneInfo = pack;
+				break;
+			}
+			
+			case "weather_info":
+			{
+				this.WeatherInfo = pack;
+				break;
+			}
+			
+			case "traffic_info":
+			{
+				this.TrafficInfo = pack;
+				break;
+			}
+            default:
+            {
+                console.log(pack.method);
+                socket.send(msg); 
+                break;
+            }
+        }
+
+	}
+	
     this.genCid = function()
     {
         return ++this.cid_seed;
@@ -32,15 +115,15 @@ function LogicServer()
     }
 
     /*
-    this.nid2socket = function(nid)
-    {
-        return 1;
-    }
+      this.nid2socket = function(nid)
+      {
+      return 1;
+      }
 
-    this.nid2cid = function(nid)
-    {
-        return 1;
-    }*/
+      this.nid2cid = function(nid)
+      {
+      return 1;
+      }*/
 
     this.addClient = function(type, socket)
     {
@@ -78,12 +161,12 @@ function LogicServer()
         }
     }
     /*
-    this.addNode = function(nid, obj)
-    {
-    }
-    this.removeNode = function(nid)
-    {
-    }*/
+      this.addNode = function(nid, obj)
+      {
+      }
+      this.removeNode = function(nid)
+      {
+      }*/
 
     this.send2Client = function(cid, msg)
     {
@@ -108,13 +191,13 @@ function LogicServer()
     }
 
     /*
-    this.send2Node = function(nid, msg)
-    {
-        if(msg instanceof String)
-        {
-            msg = JSON.parse(msg);
-        }
-    }*/
+      this.send2Node = function(nid, msg)
+      {
+      if(msg instanceof String)
+      {
+      msg = JSON.parse(msg);
+      }
+      }*/
 
     this.broadcast = function(msg, except)
     {
@@ -125,5 +208,8 @@ function LogicServer()
                 client.send(msg);
         }
     }
+
+	///////////////////////////////////
+	
 }
 exports.LogicServer = LogicServer;
