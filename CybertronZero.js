@@ -50,19 +50,19 @@ var logic = new LogicServer();
 //method:scene_info
 //method:weather_info
 //method:car_info
-var CaseInfo = {
-	scene:"IndistrialCity",	path: "default",
-	//
-	weather: {
-		temperature:25,
-		time_of_day:"9:00",
-		rain_type:"HeavyRain",
-		snow_type:"ModerateSnow",
-		fog_type:"HeaveFog",
-	},
-	//
-	traffic:{car_density:50, pdestrain_density:19, car_irregularity:29},	
-};
+// var CaseInfo = {
+	// scene:"IndistrialCity",	path: "default",
+	
+	// weather: {
+		// temperature:25,
+		// time_of_day:"9:00",
+		// rain_type:"HeavyRain",
+		// snow_type:"ModerateSnow",
+		// fog_type:"HeaveFog",
+	// },
+	
+	// traffic:{car_density:50, pdestrain_density:19, car_irregularity:29}
+// };
 
 var SceneInfo={
 	method:"scene_info",
@@ -80,7 +80,7 @@ var WeatherInfo = {
 	fog_type:"HeaveFog",
 
 };
-var TrafficInfo:{
+var TrafficInfo={
 	method:"traffic_info",
 	car_density:50,
 	pdestrain_density:19,
