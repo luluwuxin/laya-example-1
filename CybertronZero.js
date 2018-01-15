@@ -64,7 +64,7 @@ var CaseInfo = {
 	traffic:{car_density:50, pdestrain_density:19, car_irregularity:29},	
 };
 
-var SceneInfo{
+var SceneInfo={
 	method:"scene_info",
 	scene:"IndistrialCity",
 	path: "default"};

@@ -32,7 +32,7 @@ var Handler = laya.utils.Handler;
 
     //function onAssetLoaded()
     //{
-        Laya.stage.addChild(new MainUI());
+        Laya.stage.addChild(new ChatUI());
     //}
     
 })();
