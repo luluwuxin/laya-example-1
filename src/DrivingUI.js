@@ -1,12 +1,13 @@
 ////////////////////////////////////////
 // 创建ChateUI的子类
-function ChatUI()
+
+function DrivingUI()
 {
     var Event = laya.events.Event;
-    ChatUI.super(this);
+    DrivingUI.super(this);
     //btn是编辑器界面设定的，代码里面能直接使用，并且有代码提示
-    this.btn_send.on(Event.CLICK, this, onBtnClick);
-    
+    //this.btn_send.on(Event.CLICK, this, onBtnClick);
+    this.isConnected = false;
 	this.socket = new Laya.Socket();
 
 	//这里我们采用小端
@@ -20,6 +21,7 @@ function ChatUI()
 	
 	function openHandler(event){
         	console.log("connected!");
+			this.isConnected = true;
 		this.socket.send(JSON.stringify({method:"auth", type:0}));
 	}
 
@@ -34,6 +36,7 @@ function ChatUI()
 	}
 
 	function errorHandler(e){
+		if(this.isConnected)
         	console.log("err:"+e);
 	}
 
@@ -43,4 +46,4 @@ function ChatUI()
 		this.socket.send(JSON.stringify(msg));
     }
 }
-Laya.class(ChatUI, "ChatUI", ChatPageUI);
+Laya.class(DrivingUI, "DrivingUI", DrivingPageUI);

@@ -80,12 +80,9 @@ function LogicServer()
     /*
     this.addNode = function(nid, obj)
     {
-
     }
-
     this.removeNode = function(nid)
     {
-
     }*/
 
     this.send2Client = function(cid, msg)

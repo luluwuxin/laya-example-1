@@ -15,8 +15,8 @@ function openUrl(url)
         return;
     }
     console.log("os:"+process.platform + " | "+ cmd+ ' ' + url);
-    var child_process = require("child_process");
-    child_process.exec(cmd + ' ' + url);    
+    var proc = require("child_process");
+    proc.exec(cmd + ' ' + url);    
 }
 
 exports.openUrl = openUrl;

@@ -1,4 +1,6 @@
 
+
+
 function Sensor(nid, type)
 {
     this.nid = nid;
@@ -26,7 +28,7 @@ function Client(cid,socket)
         this.socket.send(msg);
     }
 }
-
+/*
 function WebClient(cid,socket)
 {
     Client.call(this, cid, socket);
@@ -51,14 +53,21 @@ function create(type, cid, socket)
     switch(type)
     {
         case 0:
-            return new WebClient(cid, socket);
+        return new WebClient(cid, socket);
         case 1:
-            return new RosClient(cid, socket);
+        return new RosClient(cid, socket);
         case 2:
-            return new CarClient(cid, socket);
+        return new CarClient(cid, socket);
         default:
-            return new Client(cid, socket);
+        return new Client(cid, socket);
     }
 
+	}*/
+
+function create(type, cid, socket)
+{
+	var cli =  new Client(cid, socket);
+	cli.type = type;
+	return cli;
 }
 exports.create = create;
