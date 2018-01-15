@@ -51,7 +51,39 @@ function LogicServer()
 	this.RosInfo = {
 
 	};
+	
+	this.procAuth = function(socket, pack)
+	{
+		var type = pack.type;
+        var client = logic.addClient(type, socket);
 
+		switch(type)
+		{
+			case 0: //web
+			this.cli_web = client;
+			break;
+
+			case 1: //ros
+			this.cli_ros = client;
+			break;
+			
+			case 2: //ue4
+			this.cli_ue4 = client;
+			break;
+
+			case 3: //ue4d
+			this.cli_ue4_daemon = client;
+			break;
+			
+			default:
+			break;
+		}
+        console.log("auth client:%d", client.cid);
+        pack.cid = client.cid;
+        pack.msg = "welcome!";
+        client.send(pack);
+	}
+	
 	this.procMessage = function(socket, pack)
 	{
 		switch(pack.method)

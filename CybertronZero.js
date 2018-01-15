@@ -48,10 +48,10 @@ const wss = new WebSocket.Server({ server });
 var logic = new LogicServer();
 
 
-var cli_web = null; //0
-var cli_ros = null; //1
-var cli_ue4 = null; //2
-var cli_ue4_daemon = null; //3
+// var cli_web = null; //0
+// var cli_ros = null; //1
+// var cli_ue4 = null; //2
+// var cli_ue4_daemon = null; //3
 ////////////////////////////////////////////////////////////////////////
 wss.on('connection', function connection(socket, req) {
     const location = url.parse(req.url, true);
@@ -82,34 +82,7 @@ wss.on('connection', function connection(socket, req) {
             var pack = JSON.parse(msg);
             if(pack.method=="auth")
             {
-                var type = pack.type;
-                var client = logic.addClient(type, socket);
-
-				switch(type)
-				{
-					case 0: //web
-					cli_web = client;
-					break;
-
-					case 1: //ros
-					cli_ros = client;
-					break;
-					
-					case 2: //ue4
-					cli_ue4 = client;
-					break;
-
-					case 3: //ue4d
-					cli_ue4_daemon = client;
-					break;
-					
-					default:
-					break;
-				}
-                console.log("auth client:%d", client.cid);
-                pack.cid = client.cid;
-                pack.msg = "welcome!";
-                client.send(pack);
+				logic.procAuth(pack);
 			} else
             {
                 socket.send(msg);
