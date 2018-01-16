@@ -51,6 +51,11 @@ function LogicServer()
 	this.RosInfo = {
 
 	};
+
+	this.cli_web = null;
+	this.cli_ros = null;
+	this.cli_ue4 = null;
+	this.cli_ue4_daemon = null;
 	
 	this.procAuth = function(socket, pack)
 	{
@@ -86,6 +91,7 @@ function LogicServer()
 	
 	this.procMessage = function(socket, pack)
 	{
+		var client = this.clients[socket];
 		switch(pack.method)
         {
             case "chat":
@@ -96,20 +102,34 @@ function LogicServer()
 			case "scene_info":
 			{
 				this.SceneInfo = pack;
+				if(this.cli_ue4!=null)
+					this.cli_ue4.send(pack);
 				break;
 			}
 			
 			case "weather_info":
 			{
 				this.WeatherInfo = pack;
+				if(this.cli_ue4!=null)
+					this.cli_ue4.send(pack);
 				break;
 			}
 			
 			case "traffic_info":
 			{
 				this.TrafficInfo = pack;
+				if(this.cli_ue4!=null)
+					this.cli_ue4.send(pack);
 				break;
 			}
+
+			case "ros_info":
+			{
+				this.RosInfo = pack;
+				if(this.cli_web!=null)
+					this.cli_web.send(pack);
+			}
+			
             default:
             {
                 console.log(pack.method);
@@ -242,6 +262,16 @@ function LogicServer()
     }
 
 	///////////////////////////////////
+
+	this.sendUE4Info = function()
+	{
+		if(this.cli_ue4!=null)
+		{
+			this.cli_ue4.send(this.SceneInfo);
+			this.cli_ue4.send(this.WeatherInfo);
+			this.cli_ue4.send(this.TrafficInfo);
+		}
+	}
 	
 }
 exports.LogicServer = LogicServer;

@@ -48,10 +48,6 @@ const wss = new WebSocket.Server({ server });
 var logic = new LogicServer();
 
 
-// var cli_web = null; //0
-// var cli_ros = null; //1
-// var cli_ue4 = null; //2
-// var cli_ue4_daemon = null; //3
 ////////////////////////////////////////////////////////////////////////
 wss.on('connection', function connection(socket, req) {
     const location = url.parse(req.url, true);
@@ -71,28 +67,23 @@ wss.on('connection', function connection(socket, req) {
     socket.on('message', function incoming(msg) {
         console.log('received: %s', msg);
 
-        if(!logic.isAuth(socket))
+		if(msg.indexOf("{")<0)
         {
-            if(msg.indexOf("{")<0)
-            {
-                socket.send(msg);
-                return;
-            }
-            
-            var pack = JSON.parse(msg);
-            if(pack.method=="auth")
-            {
-				logic.procAuth(pack);
-			} else
-            {
-                socket.send(msg);
-            }
+            socket.send(msg);
             return;
         }
         
         var pack = JSON.parse(msg);
-        console.log("received packet:%s", pack.method);
-        logic.procMessage(socket, pack);
+		if(!logic.isAuth(socket))
+        {
+			if(pack.method=="auth")
+				logic.procAuth(pack);
+			else
+				socket.send(msg);
+        }else{
+			console.log("received packet:%s", pack.method);
+			logic.procMessage(socket, pack);	
+		}
     });
     
     console.log("new unauth connect!");
