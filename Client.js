@@ -24,7 +24,7 @@ function Client(cid,socket)
         {
             msg = JSON.stringify(msg);
         }
-
+		console.log("sent->%s", msg);
         this.socket.send(msg);
     }
 }

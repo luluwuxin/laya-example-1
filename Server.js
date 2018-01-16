@@ -25,18 +25,18 @@ function LogicServer()
 
 	this.SceneInfo={
 		method:"scene_info",
-		scene:"IndistrialCity",
+		scene:"IndustrialCity",
 		path: "default"
 	};
 
 	this.WeatherInfo = {
 		method:"weather_info",
 		temperature:25,
-		time_of_day:"9:00",
+		time_of_day:950,
 		// rain_type:"HeavyRain",
 		// snow_type:"ModerateSnow",
-		rain_type:true,
-		snow_type:false,
+		rain_type:false,
+		snow_type:true,
 		fog_type:"HeaveFog",
 
 	};
@@ -60,7 +60,7 @@ function LogicServer()
 	this.procAuth = function(socket, pack)
 	{
 		var type = pack.type;
-        var client = logic.addClient(type, socket);
+        var client = this.addClient(type, socket);
 
 		switch(type)
 		{
@@ -74,6 +74,10 @@ function LogicServer()
 			
 			case 2: //ue4
 			this.cli_ue4 = client;
+			// this.sendUE4Info();
+			this.cli_ue4.send(this.SceneInfo);
+			this.cli_ue4.send(this.WeatherInfo);
+			// this.cli_ue4.send(this.TrafficInfo);
 			break;
 
 			case 3: //ue4d
@@ -133,7 +137,7 @@ function LogicServer()
             default:
             {
                 console.log(pack.method);
-                socket.send(msg); 
+                client.send(pack); 
                 break;
             }
         }

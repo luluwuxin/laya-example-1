@@ -77,7 +77,7 @@ wss.on('connection', function connection(socket, req) {
 		if(!logic.isAuth(socket))
         {
 			if(pack.method=="auth")
-				logic.procAuth(pack);
+				logic.procAuth(socket, pack);
 			else
 				socket.send(msg);
         }else{
@@ -87,8 +87,8 @@ wss.on('connection', function connection(socket, req) {
     });
     
     console.log("new unauth connect!");
-    var welcome = JSON.stringify({method:"hello", msg:"unauth!"});
-    socket.send(welcome);
+    // var welcome = JSON.stringify({method:"hello", msg:"unauth!"});
+    // socket.send(welcome);
 });
 
 server.listen(8080, function listening() {
