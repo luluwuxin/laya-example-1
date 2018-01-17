@@ -22,127 +22,6 @@ function LogicServer()
 	
 	// traffic:{car_density:50, pdestrain_density:19, car_irregularity:29}
 	// };
-
-	this.SceneInfo={
-		method:"scene_info",
-		scene:"IndustrialCity",
-		path: "default"
-	};
-
-	this.WeatherInfo = {
-		method:"weather_info",
-		temperature:25,
-		time_of_day:950,
-		// rain_type:"HeavyRain",
-		// snow_type:"ModerateSnow",
-		rain_type:false,
-		snow_type:true,
-		fog_type:"HeaveFog",
-
-	};
-	
-	this.TrafficInfo={
-		method:"traffic_info",
-		car_density:50,
-		pdestrain_density:19,
-		car_irregularity:29
-	};
-
-	this.RosInfo = {
-
-	};
-
-	this.cli_web = null;
-	this.cli_ros = null;
-	this.cli_ue4 = null;
-	this.cli_ue4_daemon = null;
-	
-	this.procAuth = function(socket, pack)
-	{
-		var type = pack.type;
-        var client = this.addClient(type, socket);
-
-		switch(type)
-		{
-			case 0: //web
-			this.cli_web = client;
-			break;
-
-			case 1: //ros
-			this.cli_ros = client;
-			break;
-			
-			case 2: //ue4
-			this.cli_ue4 = client;
-			// this.sendUE4Info();
-			this.cli_ue4.send(this.SceneInfo);
-			this.cli_ue4.send(this.WeatherInfo);
-			// this.cli_ue4.send(this.TrafficInfo);
-			break;
-
-			case 3: //ue4d
-			this.cli_ue4_daemon = client;
-			break;
-			
-			default:
-			break;
-		}
-        console.log("auth client:%d", client.cid);
-        pack.cid = client.cid;
-        pack.msg = "welcome!";
-        client.send(pack);
-	}
-	
-	this.procMessage = function(socket, pack)
-	{
-		var client = this.clients[socket];
-		switch(pack.method)
-        {
-            case "chat":
-            {
-                this.broadcast(pack);
-                break;
-            }
-			case "scene_info":
-			{
-				this.SceneInfo = pack;
-				if(this.cli_ue4!=null)
-					this.cli_ue4.send(pack);
-				break;
-			}
-			
-			case "weather_info":
-			{
-				this.WeatherInfo = pack;
-				if(this.cli_ue4!=null)
-					this.cli_ue4.send(pack);
-				break;
-			}
-			
-			case "traffic_info":
-			{
-				this.TrafficInfo = pack;
-				if(this.cli_ue4!=null)
-					this.cli_ue4.send(pack);
-				break;
-			}
-
-			case "ros_info":
-			{
-				this.RosInfo = pack;
-				if(this.cli_web!=null)
-					this.cli_web.send(pack);
-			}
-			
-            default:
-            {
-                console.log(pack.method);
-                client.send(pack); 
-                break;
-            }
-        }
-
-	}
 	
     this.genCid = function()
     {
@@ -266,15 +145,171 @@ function LogicServer()
     }
 
 	///////////////////////////////////
+	this.SceneInfo={
+		method:"scene_info",
+		scene:"IndustrialCity",
+		path: "default"
+	};
 
-	this.sendUE4Info = function()
+	this.WeatherInfo = {
+		method:"weather_info",
+		temperature:25,
+		time_of_day:950,
+		// rain_type:"HeavyRain",
+		// snow_type:"ModerateSnow",
+		rain_type:false,
+		snow_type:true,
+		fog_type:"HeaveFog",
+
+	};
+	
+	this.TrafficInfo={
+		method:"traffic_info",
+		car_density:50,
+		pedestrain_density:19,
+		car_irregularity:29
+	};
+
+	this.RosInfo = {
+
+	};
+
+	// 0:摄像头 1:激光雷达 2:毫米波雷达
+	this.CarConfig = {
+		method:"car_config",
+		config:[
+			{sid:1, type:1,x:1,y:20,z:0},
+			{sid:2, type:2,x:0,y:10,z:0}
+		]
+	};
+
+	this.cli_web = null;
+	this.cli_ros = null;
+	this.cli_ue4 = null;
+	this.cli_ue4_daemon = null;
+
+	this.send2web = function(pack)
+	{
+		if(this.cli_web!=null)
+			this.cli_web.send(pack);
+	}
+
+	this.send2ros = function(pack)
+	{
+		if(this.cli_ros!=null)
+			this.cli_ros.send(pack);
+	}
+
+	this.send2ue4 = function(pack)
 	{
 		if(this.cli_ue4!=null)
+			this.cli_ue4.send(pack);
+	}
+
+	this.send2ue4d = function(pack)
+	{
+		if(this.cli_ue4_daemon!=null)
+			this.cli_ue4_daemon.send(pack);
+	}
+
+	////////////////////////////////////////////////////////////////////
+	this.procAuth = function(socket, pack)
+	{
+		var type = pack.type;
+        var client = this.addClient(type, socket);
+
+		switch(type)
 		{
-			this.cli_ue4.send(this.SceneInfo);
-			this.cli_ue4.send(this.WeatherInfo);
-			this.cli_ue4.send(this.TrafficInfo);
+			case 0: //web
+			this.cli_web = client;
+			break;
+
+			case 1: //ros
+			this.cli_ros = client;
+			break;
+			
+			case 2: //ue4
+			this.cli_ue4 = client;
+			// this.cli_ue4.send(this.SceneInfo);
+			// this.cli_ue4.send(this.WeatherInfo);
+			// this.cli_ue4.send(this.TrafficInfo);
+			this.push_ue4_config();
+			break;
+
+			case 3: //ue4d
+			this.cli_ue4_daemon = client;
+			break;
+			
+			default:
+			break;
 		}
+        console.log("auth client:%d", client.cid);
+        pack.cid = client.cid;
+        pack.msg = "welcome!";
+        client.send(pack);
+	}
+	
+	this.procMessage = function(socket, pack)
+	{
+		var client = this.clients[socket];
+		switch(pack.method)
+        {
+            case "chat":
+            {
+                this.broadcast(pack);
+                break;
+            }
+			case "scene_info":
+			{
+				this.SceneInfo = pack;
+				this.send2ue4(pack);
+				break;
+			}
+			
+			case "weather_info":
+			{
+				this.WeatherInfo = pack;
+				this.send2ue4(pack);
+				break;
+			}
+			
+			case "traffic_info":
+			{
+				this.TrafficInfo = pack;
+				this.send2ue4(pack);
+				break;
+			}
+
+			case "ros_info":
+			{
+				this.RosInfo = pack;
+				if(this.cli_web!=null)
+					this.cli_web.send(pack);
+			}
+
+			case "car_config":
+			{
+				this.CarConfig = pack;
+				this.send2ue4(pack);
+				break;
+			}
+			
+            default:
+            {
+                console.log(pack.method);
+                client.send(pack); 
+                break;
+            }
+        }
+
+	}
+
+	this.push_ue4_config = function()
+	{
+		this.send2ue4(this.SceneInfo);
+		this.send2ue4(this.WeatherInfo);
+		this.send2ue4(this.TrafficInfo);
+		this.send2ue4(this.CarConfig);
 	}
 	
 }
