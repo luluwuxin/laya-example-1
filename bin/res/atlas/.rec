@@ -10,6 +10,7 @@ P F7B6B7D7 clip_selectBox.png
 P 755271AE clip_tree_arrow.png
 P 859FD34C clip_tree_folder.png
 P A0E3B8F9 combobox.png
+P 4226C61A fog.png
 P 9EDA959E hscroll$bar.png
 P 1AB768D4 hscroll$down.png
 P 685261D3 hscroll$up.png
@@ -24,6 +25,8 @@ P 9E4DD730 progress$bar.png
 P 3FD78E12 progress.png
 P BF898D6A radio.png
 P BF898D6A radiogroup.png
+P BE8D5062 rain.png
+P 2A7F5E49 snow.png
 P 8CFD9D35 tab.png
 P BDA71F88 textarea.png
 P BDA71F88 textinput.png
@@ -38,6 +41,7 @@ D template/ButtonTab
 P FC49EE94 btn_LargeTabButton_Left.png
 P AE499BA2 btn_LargeTabButton_Middle.png
 P 71BBA39E btn_LargeTabButton_Right.png
+D template/List
 D template/Navigator
 R EBE10BFB bar bottom.png
 P 6349C7D7 btn_BackButton.png
