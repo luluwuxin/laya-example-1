@@ -27,12 +27,12 @@ var Handler = laya.utils.Handler;
     Laya.stage.bgColor = "#f0faf0"; //232628
     //Laya.stage.bgColor = "#ffffff";
 
-    //Laya.loader.load("res/atlas/comp.atlas", 
-    //Handler.create(this, onAssetLoaded), null, Laya.Loader.ATLAS);
+    Laya.loader.load("res/atlas/comp.atlas", 
+    Handler.create(this, onAssetLoaded), null, Laya.Loader.ATLAS);
 
-    //function onAssetLoaded()
-    //{
-        Laya.stage.addChild(new ChatUI());
-    //}
+    function onAssetLoaded()
+    {
+        Laya.stage.addChild(new DrivingUI());
+    }
     
 })();
