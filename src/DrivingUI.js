@@ -10,6 +10,7 @@ function DrivingUI(client)
     this.initPathUI();
     this.initWeatherUI();
     this.initTrafficUI();
+    this.initSensorControlUI();
 
     // Model and WebSocket backend
     this.client = client
@@ -176,6 +177,13 @@ DrivingPageUI.prototype.initTrafficUI = function () {
     this.m_uiTraffic_pedestrainDensity_input.on(Laya.Event.BLUR, this, function (e) {
         // Blur: Model -> UI
         this.client.fire("traffic_info");
+    });
+};
+
+// Init the Sensor Control UI
+DrivingPageUI.prototype.initSensorControlUI = function () {
+    this.m_uiSensor_start.on(Laya.Event.CLICK, this, function () {
+        this.client.startUnreal();
     });
 };
 

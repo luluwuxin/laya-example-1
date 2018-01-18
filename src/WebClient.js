@@ -135,6 +135,15 @@ var WebClient = (function (window, Laya, logger) {
             .fire("traffic_info");
     };
 
+    // Start unreal
+    WebClient.prototype.startUnreal = function () {
+        // Push the data to the node backend.
+        this.socket.send(JSON.stringify(this.scene.scene_info));
+        this.socket.send(JSON.stringify(this.scene.weather_info));
+        this.socket.send(JSON.stringify(this.scene.traffic_info));
+        this.socket.send(JSON.stringify(this.car.car_config));
+    };
+
     // Return a mock car config list for testing
     WebClient.prototype.getMockCarList = function () {
         return [
