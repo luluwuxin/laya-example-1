@@ -175,11 +175,14 @@ function LogicServer()
 	};
 
 	// 0:摄像头 1:激光雷达 2:毫米波雷达
+	//roll:单位degree,范围 0~360
+	//pitch:单位degree,范围 -90~90
+	//yaw:单位degree,范围 0~360
 	this.CarConfig = {
 		method:"car_config",
 		config:[
-			{sid:1, type:1,x:1,y:20,z:0},
-			{sid:2, type:2,x:0,y:10,z:0}
+			{sid:1, type:1,x:1,y:20,z:0,roll:0,pitch:0,yaw:0},
+			{sid:2, type:2,x:0,y:10,z:0,roll:0,pitch:0,yaw:0}
 		]
 	};
 

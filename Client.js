@@ -25,44 +25,50 @@ function Client(cid,socket)
             msg = JSON.stringify(msg);
         }
 		console.log("sent->%s", msg);
-        this.socket.send(msg);
+		try
+		{
+			this.socket.send(msg);
+		}catch(err)
+		{
+			console.log("sent-io-err:"+err);
+		}
     }
 }
 /*
-function WebClient(cid,socket)
-{
-    Client.call(this, cid, socket);
-}
+  function WebClient(cid,socket)
+  {
+  Client.call(this, cid, socket);
+  }
 
-function RosClient(cid,socket)
-{
-    Client.call(this, cid, socket);
+  function RosClient(cid,socket)
+  {
+  Client.call(this, cid, socket);
 
-    this.cameras = new Array();
-    this.lidars=new Array();
-    this.radars=new Array();
-}
+  this.cameras = new Array();
+  this.lidars=new Array();
+  this.radars=new Array();
+  }
 
-function CarClient(cid,socket)
-{
-    Client.call(this, cid, socket);
-}
+  function CarClient(cid,socket)
+  {
+  Client.call(this, cid, socket);
+  }
 
-function create(type, cid, socket)
-{
-    switch(type)
-    {
-        case 0:
-        return new WebClient(cid, socket);
-        case 1:
-        return new RosClient(cid, socket);
-        case 2:
-        return new CarClient(cid, socket);
-        default:
-        return new Client(cid, socket);
-    }
+  function create(type, cid, socket)
+  {
+  switch(type)
+  {
+  case 0:
+  return new WebClient(cid, socket);
+  case 1:
+  return new RosClient(cid, socket);
+  case 2:
+  return new CarClient(cid, socket);
+  default:
+  return new Client(cid, socket);
+  }
 
-	}*/
+  }*/
 
 function create(type, cid, socket)
 {
