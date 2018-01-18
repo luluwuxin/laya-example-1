@@ -100,7 +100,25 @@ DrivingUI.prototype.initPathUI = function () {
     // Mouse events.
     this.m_uiPathList.mouseHandler = new Handler(this, function (e, i) {
         if (e.type === Laya.Event.CLICK) {
-            console.log("Choose " + i + "th path.");
+            var editor = new ObstacleEditor();
+            editor.createMainUI(this);
+
+            // TODO
+            // load data
+            // editor.loadMapData(url);
+            // editor.loadCaseData(url);
+
+            editor.registerEvent(ObstacleEditorEvent.USER_SAVE_CASE, this, function (text)
+            {
+                // do something when user want to save case data.
+                // TODO: send text to server
+            });
+
+            editor.registerEvent(ObstacleEditorEvent.USER_CLOSE_EDITOR, this, function ()
+            {
+                // do something when user close editor.
+                // nothing to do
+            });
         }
     });
 };
