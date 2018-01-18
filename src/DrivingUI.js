@@ -1,16 +1,20 @@
 // Class for the Open Scene Driving webpage.
 //
-function DrivingUI(client)
+function DrivingUI(pages, client)
 {
     DrivingUI.super(this);
 
     // Initialize UI elements
+    this.initBannerUI();
     this.initSceneListUI();
     this.initSettingTabUI();
     this.initPathUI();
     this.initWeatherUI();
     this.initTrafficUI();
     this.initSensorControlUI();
+
+    // Pages for switching
+    this.pages = pages;
 
     // Model and WebSocket backend
     this.client = client
@@ -30,9 +34,29 @@ function DrivingUI(client)
           this.refreshTrafficUI();
       });
 }
+Laya.class(DrivingUI, "DrivingUI", DrivingPageUI);
+
+// Init the banner UI.
+DrivingUI.prototype.initBannerUI = function () {
+    function choosePage(pages, name) {
+        Object.entries(pages).forEach(function (p) {
+            p[1].visible = (p[0] === name);
+        });
+    }
+
+    this.m_uiBanner_home.on(Laya.Event.CLICK, this, function () {
+        choosePage(this.pages, "mainUI");
+    });
+    this.m_uiBanner_setup.on(Laya.Event.CLICK, this, function () {
+        choosePage(this.pages, "setupUI");
+    });
+    this.m_uiBanner_scene.on(Laya.Event.CLICK, this, function () {
+        choosePage(this.pages, "drivingUI");
+    });
+};
 
 // Init the scene list UI.
-DrivingPageUI.prototype.initSceneListUI = function () {
+DrivingUI.prototype.initSceneListUI = function () {
     // Hide the scrollb bar and use dragging.
     this.m_uiSceneList.scrollBar.hide = true;
     this.m_uiSceneList.scrollBar.elasticBackTime = 200;
@@ -47,7 +71,7 @@ DrivingPageUI.prototype.initSceneListUI = function () {
 };
 
 // Init the setting tab UI.
-DrivingPageUI.prototype.initSettingTabUI = function () {
+DrivingUI.prototype.initSettingTabUI = function () {
     this.m_uiSettingTab.on(Laya.Event.CHANGE, this, function () {
         // Available tabs
         var tabs = [
@@ -67,7 +91,7 @@ DrivingPageUI.prototype.initSettingTabUI = function () {
 };
 
 // Init the path UI.
-DrivingPageUI.prototype.initPathUI = function () {
+DrivingUI.prototype.initPathUI = function () {
     // Hide the scrollb bar and use dragging.
     this.m_uiPathList.scrollBar.hide = true;
     this.m_uiPathList.scrollBar.elasticBackTime = 200;
@@ -82,7 +106,7 @@ DrivingPageUI.prototype.initPathUI = function () {
 };
 
 // Init the weather UI.
-DrivingPageUI.prototype.initWeatherUI = function () {
+DrivingUI.prototype.initWeatherUI = function () {
     this.m_uiWeather_temperature.on(Laya.Event.INPUT, this, function (e) {
         // Input: UI -> Model
         var data = parseFloat(e.text);
@@ -124,7 +148,7 @@ DrivingPageUI.prototype.initWeatherUI = function () {
 };
 
 // Init the traffic UI.
-DrivingPageUI.prototype.initTrafficUI = function () {
+DrivingUI.prototype.initTrafficUI = function () {
     this.m_uiTraffic_carDensity_slider.on(Laya.Event.CHANGED, this, function () {
         // Changed: UI -> Model
         this.client.scene.traffic_info.car_density = this.m_uiTraffic_carDensity_slider.value;
@@ -181,14 +205,14 @@ DrivingPageUI.prototype.initTrafficUI = function () {
 };
 
 // Init the Sensor Control UI
-DrivingPageUI.prototype.initSensorControlUI = function () {
+DrivingUI.prototype.initSensorControlUI = function () {
     this.m_uiSensor_start.on(Laya.Event.CLICK, this, function () {
         this.client.startUnreal();
     });
 };
 
 // Refresh the scene list UI.
-DrivingPageUI.prototype.refreshSceneListUI = function () {
+DrivingUI.prototype.refreshSceneListUI = function () {
     var data = [];
 
     this.client.scene_list.forEach(function (v) {
@@ -206,7 +230,7 @@ DrivingPageUI.prototype.refreshSceneListUI = function () {
 };
 
 // Refresh the path UI.
-DrivingPageUI.prototype.refreshPathUI = function () {
+DrivingUI.prototype.refreshPathUI = function () {
     var data = [];
 
     // Not available for now.
@@ -223,7 +247,7 @@ DrivingPageUI.prototype.refreshPathUI = function () {
 };
 
 // Refresh the weather UI.
-DrivingPageUI.prototype.refreshWeatherUI = function () {
+DrivingUI.prototype.refreshWeatherUI = function () {
     this.m_uiWeather_temperature.text = "" + this.client.scene.weather_info.temperature;
     this.m_uiWeather_timeOfDay.text = "" + this.client.scene.weather_info.time_of_day;
     this.m_uiWeather_rainType.selectedIndex = this.client.scene.weather_info.rain_type ? 1 : 0;
@@ -232,7 +256,7 @@ DrivingPageUI.prototype.refreshWeatherUI = function () {
 };
 
 // Refresh the traffic UI.
-DrivingPageUI.prototype.refreshTrafficUI = function () {
+DrivingUI.prototype.refreshTrafficUI = function () {
     this.m_uiTraffic_carDensity_slider.value = this.client.scene.traffic_info.car_density;
     this.m_uiTraffic_carDensity_input.text = "" + this.client.scene.traffic_info.car_density;
     this.m_uiTraffic_carIrregularity_slider.value = this.client.scene.traffic_info.car_irregularity;
@@ -240,5 +264,3 @@ DrivingPageUI.prototype.refreshTrafficUI = function () {
     this.m_uiTraffic_pedestrainDensity_slider.value = this.client.scene.traffic_info.pedestrain_density
     this.m_uiTraffic_pedestrainDensity_input.text = "" + this.client.scene.traffic_info.pedestrain_density;
 };
-
-Laya.class(DrivingUI, "DrivingUI", DrivingPageUI);

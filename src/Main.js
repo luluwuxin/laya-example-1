@@ -36,10 +36,19 @@ var Handler = laya.utils.Handler;
         var client = new WebClient();
 
         // Webpages
-        var drivingUI = new DrivingUI(client);
+        var pages = {};
+        Object.assign(pages, {
+            mainUI:    new MainUI(pages),
+            setupUI:   new SetupUI(pages, client),
+            drivingUI: new DrivingUI(pages, client),
+        });
 
         // Init stage
-        Laya.stage.addChild(drivingUI);
+        Object.values(pages).forEach(function (p) {
+            p.visible = false;
+            Laya.stage.addChild(p);
+        });
+        pages.drivingUI.visible = true;
     }
     
 })();
