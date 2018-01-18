@@ -66,7 +66,7 @@ function create(type, cid, socket)
 
 function create(type, cid, socket)
 {
-	var cli =  new Client(cid, socket);
+	var cli =  new Client(cid, socket); //sdsdsdfsdf
 	cli.type = type;
 	return cli;
 }

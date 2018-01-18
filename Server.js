@@ -222,6 +222,10 @@ function LogicServer()
 		{
 			case 0: //web
 			this.cli_web = client;
+			this.cli_web.send(this.SceneInfo);
+			this.cli_web.send(this.WeatherInfo);
+			this.cli_web.send(this.TrafficInfo);
+			this.cli_web.send(this.CarConfig);
 			break;
 
 			case 1: //ros
