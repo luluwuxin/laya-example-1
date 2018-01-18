@@ -32,7 +32,14 @@ var Handler = laya.utils.Handler;
 
     function onAssetLoaded()
     {
-        Laya.stage.addChild(new DrivingUI());
+        // WebClient is shared across webpages.
+        var client = new WebClient();
+
+        // Webpages
+        var drivingUI = new DrivingUI(client);
+
+        // Init stage
+        Laya.stage.addChild(drivingUI);
     }
     
 })();

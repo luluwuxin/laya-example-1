@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":1,
-    "selecteID":150,
+    "selectedBox":157,
+    "selecteID":158,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#ffffff","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -131,14 +131,13 @@
                                     "props":{"y":0,"x":0,"width":200,"var":"m_uiSceneList","vScrollBarSkin":"comp/vscroll.png","spaceY":16,"repeatX":1,"height":648},
                                     "nodeParent":45,
                                     "label":"List(m_uiSceneList)",
-                                    "isOpen":true,
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
                                     "compId":124,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Box",
                                             "props":{"width":128,"name":"render","left":36},
                                             "nodeParent":124,
@@ -150,7 +149,6 @@
                                             "compId":123,
                                             "child":[
                                                 {
-                                                    "x":90,
                                                     "type":"Image",
                                                     "props":{"width":128,"name":"image","height":128},
                                                     "nodeParent":123,
@@ -164,7 +162,6 @@
                                                     "$HIDDEN":false
                                                 },
                                                 {
-                                                    "x":90,
                                                     "type":"Label",
                                                     "props":{"width":128,"valign":"middle","top":8,"overflow":"hidden","name":"label","fontSize":16,"align":"center"},
                                                     "nodeParent":123,
@@ -177,7 +174,6 @@
                                                         ]
                                                 },
                                                 {
-                                                    "x":90,
                                                     "type":"Button",
                                                     "props":{"y":0,"x":0,"width":128,"skin":"comp/checkbox.png","name":"button","height":128,"alpha":0.1},
                                                     "nodeParent":123,
@@ -879,12 +875,50 @@
                                     "nodeParent":48,
                                     "label":"HBox",
                                     "isOpen":true,
-                                    "isDirectory":false,
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
+                                    "hasChild":true,
                                     "compId":79,
                                     "child":[
-                                        ]
+                                        {
+                                            "x":75,
+                                            "type":"VBox",
+                                            "props":{"width":240,"top":0,"bottom":0},
+                                            "nodeParent":79,
+                                            "label":"VBox",
+                                            "isOpen":true,
+                                            "isDirectory":true,
+                                            "isAniNode":true,
+                                            "hasChild":true,
+                                            "compId":155,
+                                            "child":[
+                                                {
+                                                    "x":90,
+                                                    "type":"HBox",
+                                                    "props":{"right":0,"left":0,"height":288},
+                                                    "nodeParent":155,
+                                                    "label":"HBox",
+                                                    "isOpen":true,
+                                                    "isDirectory":true,
+                                                    "isAniNode":true,
+                                                    "hasChild":true,
+                                                    "compId":157,
+                                                    "child":[
+                                                        {
+                                                            "x":105,
+                                                            "type":"Button",
+                                                            "props":{"width":48,"var":"m_uiSensor_start","top":24,"skin":"comp/checkbox.png","left":24,"height":48},
+                                                            "nodeParent":157,
+                                                            "label":"Button(m_uiSensor_start)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":158,
+                                                            "child":[
+                                                                ]
+                                                        }]
+                                                }]
+                                        }]
                                 },
                                 {
                                     "x":60,
