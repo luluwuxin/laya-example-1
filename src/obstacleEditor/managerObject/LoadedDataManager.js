@@ -10,12 +10,36 @@ class LoadedDataManager extends EventObject
     {
         super();
 
+        // member variable
         this._obstacleManager = obstacleManager;
         this._user = user;
 
+        this._dataDirtyFlag = false;
         this.mapData = null;
         this.mapDataDirectory = "";
         this.caseFilePath = "";
+
+        // event
+        this._obstacleManager.registerEvent(ObstacleManagerEvent.ADDED, this, this._onDataChanged);
+        this._obstacleManager.registerEvent(ObstacleManagerEvent.REMOVED, this, this._onDataChanged);
+    }
+
+    _onDataChanged()
+    {
+        this._dataDirtyFlag = true;
+    }
+
+    _listenObstacleChange(obstacle)
+    {
+        obstacle.registerEvent(ObstacleEvent.BASE_INFO_CHANGED, this, this._onDataChanged);
+        obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, this._onDataChanged);
+        obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, this._onDataChanged);
+        obstacle.registerEvent(ObjectEvent.VALUE_CHANGED, this, this._onDataChanged);
+    }
+
+    _listenRoutePointChange(routePoint)
+    {
+        routePoint.registerEvent(ObjectEvent.VALUE_CHANGED, this, this._onDataChanged);
     }
 
     getMapImagePath (dir)
@@ -78,18 +102,20 @@ class LoadedDataManager extends EventObject
                 firstObstacle = obstacle;
             }
             this._obstacleManager.addObstacle(obstacle);
+            this._listenObstacleChange(obstacle);
             var moveStatesObj = obstacleObj["moveStates"];
             var lastTimestampSec = 0;
             for (var moveStateObj of moveStatesObj)
             {
                 var pose = new Pose(Quat.fromJson(moveStateObj["quat"]), Vec3.fromJson(moveStateObj["tran"]));
                 var currentTimestampSec = moveStateObj["timestamp_sec"];
-                var route = new RoutePoint2D(this.mapData, pose, currentTimestampSec - lastTimestampSec, moveStateObj["is_reversing"]);
+                var routePoint = new RoutePoint2D(this.mapData, pose, currentTimestampSec - lastTimestampSec, moveStateObj["is_reversing"]);
                 lastTimestampSec = currentTimestampSec;
-                obstacle.addRoutePoint(route);
+                obstacle.addRoutePoint(routePoint);
+                this._listenRoutePointChange(routePoint);
                 if (obstacle == firstObstacle && firstRoutePoint == null)
                 {
-                    firstRoutePoint = route;
+                    firstRoutePoint = routePoint;
                 }
             }
         }
@@ -102,6 +128,7 @@ class LoadedDataManager extends EventObject
             this._user.selectRoutePoint(firstRoutePoint);
         }
 
+        this._dataDirtyFlag = false;
         this.sendEvent(LoadedDataManagerEvent.CASE_DATA_LOADED);
     }
 
@@ -115,5 +142,10 @@ class LoadedDataManager extends EventObject
         var jsonObj = this._obstacleManager.toJson();
         var str = JSON.stringify(jsonObj);
         return str;
+    }
+
+    hasUnsavedData()
+    {
+        return this._dataDirtyFlag;
     }
 }
