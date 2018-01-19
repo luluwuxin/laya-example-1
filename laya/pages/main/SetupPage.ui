@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":1,
-    "selecteID":27,
+    "selectedBox":32,
+    "selecteID":33,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#ffffff","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -212,7 +212,7 @@
                 {
                     "x":30,
                     "type":"HBox",
-                    "props":{"right":0,"left":0,"height":648},
+                    "props":{"y":72,"right":0,"left":0,"height":648},
                     "nodeParent":2,
                     "label":"HBox",
                     "isOpen":true,
@@ -227,13 +227,14 @@
                             "props":{"width":200,"top":0,"bottom":0},
                             "nodeParent":17,
                             "label":"VBox",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":18,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"List",
                                     "props":{"y":0,"x":0,"width":200,"var":"m_uiCarList","vScrollBarSkin":"comp/vscroll.png","spaceY":16,"repeatX":1,"height":648},
                                     "nodeParent":18,
@@ -304,7 +305,7 @@
                         {
                             "x":45,
                             "type":"VBox",
-                            "props":{"width":1080,"top":0,"bottom":0},
+                            "props":{"x":200,"width":1080,"top":0,"bottom":0},
                             "nodeParent":17,
                             "label":"VBox",
                             "isOpen":true,
@@ -319,14 +320,13 @@
                                     "props":{"top":480,"left":60},
                                     "nodeParent":25,
                                     "label":"Box",
-                                    "isOpen":true,
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
                                     "compId":26,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"List",
                                             "props":{"width":360,"spaceX":16,"repeatY":1,"height":82,"hScrollBarSkin":"comp/hscroll.png"},
                                             "nodeParent":26,
@@ -338,7 +338,6 @@
                                             "compId":27,
                                             "child":[
                                                 {
-                                                    "x":90,
                                                     "type":"Box",
                                                     "props":{"top":10,"name":"render","height":64},
                                                     "nodeParent":27,
@@ -350,7 +349,6 @@
                                                     "compId":28,
                                                     "child":[
                                                         {
-                                                            "x":105,
                                                             "type":"Image",
                                                             "props":{"width":48,"name":"image","height":48},
                                                             "nodeParent":28,
@@ -364,7 +362,6 @@
                                                             "$HIDDEN":false
                                                         },
                                                         {
-                                                            "x":105,
                                                             "type":"Label",
                                                             "props":{"width":48,"valign":"middle","text":"censor","overflow":"hidden","name":"label","bottom":5,"align":"center"},
                                                             "nodeParent":28,
@@ -378,7 +375,6 @@
                                                             "$HIDDEN":false
                                                         },
                                                         {
-                                                            "x":105,
                                                             "type":"Button",
                                                             "props":{"width":48,"skin":"comp/checkbox.png","name":"button","height":48,"alpha":0.1},
                                                             "nodeParent":28,
@@ -396,6 +392,32 @@
                                             "$HIDDEN":false
                                         }],
                                     "$HIDDEN":false
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Box",
+                                    "props":{"width":480,"var":"m_uiCarBox","top":50,"left":50,"height":360},
+                                    "nodeParent":25,
+                                    "label":"Box(m_uiCarBox)",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":32,
+                                    "child":[
+                                        {
+                                            "x":75,
+                                            "type":"Label",
+                                            "props":{"top":0,"right":0,"left":0,"bottom":0,"bgColor":"#005c6e","alpha":0.5},
+                                            "nodeParent":32,
+                                            "label":"Label",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":33,
+                                            "child":[
+                                                ]
+                                        }]
                                 }],
                             "$HIDDEN":false
                         }],

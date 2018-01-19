@@ -18,6 +18,7 @@ var Handler = laya.utils.Handler;
 
     // 不支持WebGL时自动切换至Canvas
     Laya.init(Laya.Browser.width, Laya.Browser.height, WebGL);
+    Laya3D.init(0, 0, true);
 
     Laya.stage.alignV = Stage.ALIGN_MIDDLE;
     Laya.stage.alignH = Stage.ALIGN_CENTER;

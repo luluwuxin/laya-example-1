@@ -7,6 +7,7 @@ function SetupUI(pages, client)
     // Initialize UI elements
     this.initBannerUI();
     this.initCarListUI();
+    this.initCarBoxUI();
 
     // Pages for switching
     this.pages = pages;
@@ -53,6 +54,14 @@ SetupUI.prototype.initCarListUI = function () {
             console.log("Choose " + i + "th car.");
         }
     });
+};
+
+// Init the sensor box UI.
+SetupUI.prototype.initCarBoxUI = function () {
+    // Init the car and sensors renderer
+    this.carRenderer = new CarRenderer(this.m_uiCarBox);
+    this.carRenderer.loadCar("res/LayaScene_SuvCar/SuvCar.lh");
+    this.carRenderer.loadAxis();
 };
 
 // Refresh the scene list UI.
