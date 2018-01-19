@@ -87,12 +87,12 @@ CarRenderer.prototype.refreshCarConfig = function (car_config) {
         var pos = new Laya.Vector3(
             s.x / 100,
             s.z / 100, 
-            s.y / 100,
+            s.y / 100
         );
         var rot = new Laya.Vector3(
             s.roll,
             -s.yaw,
-            s.pitch,
+            s.pitch
         );
         var scl = new Laya.Vector3(5, 3, 3);
 
