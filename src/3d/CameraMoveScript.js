@@ -7,7 +7,8 @@ function CameraMoveScript() {
     this.yawPitchRoll = new Laya.Vector3();
     this.tempRotationZ = new Laya.Quaternion();
     this.isMouseDown = false;
-    this.rotaionSpeed = 0.00006;
+    this.rotaionSpeed = 0.0006;
+    this.origin = new Laya.Vector3(0, 0, 0);
 
     this.mainCameraAnimation = null;
     this.scene = null;
@@ -56,6 +57,15 @@ CameraMoveScript.prototype.updateRotation = function () {
     if (Math.abs(yprElem[1]) < 1.50) {
         Laya.Quaternion.createFromYawPitchRoll(yprElem[0], yprElem[1], yprElem[2], this.tempRotationZ);
         this.camera.transform.localRotation = this.tempRotationZ;
+
+        // Above is the script from Laya to update the rotation of the camera.
+        // We continue to update the position so that the camera orbit the car.
+        var distance = Laya.Vector3.distance(this.origin, this.camera.transform.position);
+        var forward = this.camera.transform.forward;
+        forward.x *= -distance;
+        forward.y *= -distance;
+        forward.z *= -distance;
+        this.camera.transform.position = forward;
     }
 }
 

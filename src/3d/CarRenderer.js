@@ -9,7 +9,7 @@ function CarRenderer(parent) {
 
     // Add a default camera.
     this.camera = this.scene.addChild(new Laya.Camera());
-    this.camera.transform.position = new Laya.Vector3(0, 10, 10);
+    this.camera.transform.position = new Laya.Vector3(0, 6, 6);
     this.camera.transform.rotate(new Laya.Vector3(-45, 0, 0), true, false);
     this.camera.addComponent(CameraMoveScript);
 
