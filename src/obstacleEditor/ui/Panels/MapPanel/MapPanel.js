@@ -253,10 +253,6 @@ function MapPanelScript(dependences)
 
     this.putPointToMapCenter = function (x, y)
     {
-        this._mainPanel.commitMeasure();
-        this._mainPanel.boxttt.commitMeasure();
-        this.commitMeasure();
-        this.mainContainer.commitMeasure();
         x = Math.max(0, x - this.mainContainer.width / 2);
         y = Math.max(0, y - this.mainContainer.height / 2);
 

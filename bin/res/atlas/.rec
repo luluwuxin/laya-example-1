@@ -49,7 +49,6 @@ D template/ButtonTab
 P FC49EE94 btn_LargeTabButton_Left.png
 P AE499BA2 btn_LargeTabButton_Middle.png
 P 71BBA39E btn_LargeTabButton_Right.png
-D template/List
 D template/Navigator
 R EBE10BFB bar bottom.png
 P 6349C7D7 btn_BackButton.png

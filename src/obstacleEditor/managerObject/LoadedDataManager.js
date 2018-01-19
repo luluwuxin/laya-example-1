@@ -42,20 +42,20 @@ class LoadedDataManager extends EventObject
         routePoint.registerEvent(ObjectEvent.VALUE_CHANGED, this, this._onDataChanged);
     }
 
-    getMapImagePath (dir)
+    _getMapImagePath (dir)
     {
         return dir + "\\" + "map.png";
     }
 
-    getMapInfoFilePath (dir)
+    _getMapInfoFilePath (dir)
     {
         return dir + "\\" + "mapInfo.json";
     }
 
     loadMapData(mapDataDirectory)
     {
-        var mapImagePath = this.getMapImagePath(mapDataDirectory);
-        var mapInfoFilePath = this.getMapInfoFilePath(mapDataDirectory);
+        var mapImagePath = this._getMapImagePath(mapDataDirectory);
+        var mapInfoFilePath = this._getMapInfoFilePath(mapDataDirectory);
         FileHelper.readFile(mapInfoFilePath, this, function(text)
         {
             if (text == "")
@@ -82,12 +82,12 @@ class LoadedDataManager extends EventObject
             }
             else
             {
-                this.loadCaseByJsonObject(JSON.parse(text));
+                this._loadCaseByJsonObject(JSON.parse(text));
             }
         });
     }
 
-    loadCaseByJsonObject(jsonObj)
+    _loadCaseByJsonObject(jsonObj)
     {
         this._user.clear();
         this._obstacleManager.clear();
