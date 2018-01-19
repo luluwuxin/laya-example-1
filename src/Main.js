@@ -51,7 +51,7 @@ var Handler = laya.utils.Handler;
             p.visible = false;
             Laya.stage.addChild(p);
         });
-        pages.drivingUI.visible = true;
+        pages.setupUI.visible = true;
     }
     
 })();

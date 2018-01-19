@@ -155,7 +155,7 @@ var WebClient = (function (window, Laya, logger) {
                 car_config: {
                     method: "car_config",
                     config: [
-                        {sid:0,type:0,x:1,y:20,z:0,roll:0,pitch:0,yaw:0},
+                        {sid:0,type:0,x:188,y:0,z:110,roll:0,pitch:0,yaw:0},
                         {sid:1,type:1,x:1,y:20,z:0,roll:0,pitch:0,yaw:0},
                         {sid:2,type:2,x:0,y:10,z:0,roll:0,pitch:0,yaw:0},
                     ],

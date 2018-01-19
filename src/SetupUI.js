@@ -16,8 +16,10 @@ function SetupUI(pages, client)
     this.client = client
       .on("__init_car_list", this, function () {
           this.refreshCarListUI();
+          this.refreshCarBoxUI();
       })
       .on("car_config", this, function () {
+          this.refreshCarBoxUI();
       });
 }
 Laya.class(SetupUI, "SetupUI", SetupPageUI);
@@ -56,7 +58,7 @@ SetupUI.prototype.initCarListUI = function () {
     });
 };
 
-// Init the sensor box UI.
+// Init the car and sensor box UI.
 SetupUI.prototype.initCarBoxUI = function () {
     // Init the car and sensors renderer
     this.carRenderer = new CarRenderer(this.m_uiCarBox);
@@ -78,4 +80,9 @@ SetupUI.prototype.refreshCarListUI = function () {
     ];
 
     this.m_uiCarList.array = data;
+};
+
+// Refresh the car and sensor box UI.
+SetupUI.prototype.refreshCarBoxUI = function () {
+    this.carRenderer.refreshCarConfig(this.client.car.car_config);
 };
