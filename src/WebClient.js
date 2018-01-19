@@ -23,10 +23,14 @@ var WebClient = (function (window, Laya, logger) {
         this.socket.on(Laya.Event.OPEN, this, function (e) {
             logger.info("WebSocket open: " + e.target.url);
 
-            // Replace this as soon as scene list is supported
+            // Replace this as soon as car/scene list is supported
             if (!this.__init_scene_list) {
                 this.__init_scene_list = true;
                 this.fire("__init_scene_list");
+            }
+            if (!this.__init_car_list) {
+                this.__init_car_list = true;
+                this.fire("__init_car_list");
             }
 
             // Claim that this is a Web Client
@@ -151,8 +155,9 @@ var WebClient = (function (window, Laya, logger) {
                 car_config: {
                     method: "car_config",
                     config: [
-                        {sid:1, type:1, x:1, y:20, z:0},
-                        {sid:2, type:2, x:0, y:10, z:0},
+                        {sid:0,type:0,x:188,y:0,z:110,roll:0,pitch:0,yaw:0},
+                        {sid:1,type:1,x:1,y:20,z:0,roll:0,pitch:0,yaw:0},
+                        {sid:2,type:2,x:0,y:10,z:0,roll:0,pitch:0,yaw:0},
                     ],
                 },
             },

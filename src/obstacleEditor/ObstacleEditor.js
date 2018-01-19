@@ -26,19 +26,47 @@ class ObstacleEditor extends EventObject
         DependencesHelper.setDependences(this, dependences);
     }
 
+    _userWantToSaveCaseData()
+    {
+        this.sendEvent(ObstacleEditorEvent.USER_SAVE_CASE, this.getCaseData());
+    }
+
     createMainUI(container)
     {
         var mainPanel = new ObstacleEditorMainPanelScript(this._dependences);
         container.addChild(mainPanel);
         mainPanel.saveButton.on(Event.CLICK, this, function()
         {
-            this.sendEvent(ObstacleEditorEvent.USER_SAVE_CASE);
+            this._userWantToSaveCaseData();
         });
         mainPanel.closeButton.on(Event.CLICK, this, function()
         {
-            // TODO: if there is unsaved data, ask user if he wants to save it.
-            mainPanel.destroy();
-            this.sendEvent(ObstacleEditorEvent.USER_CLOSE_EDITOR);
+            var closeFunc = function()
+            {
+                mainPanel.destroy();
+                this.sendEvent(ObstacleEditorEvent.USER_CLOSE_EDITOR);
+            };
+
+            if (this._loadedDataManager.hasUnsavedData())
+            {
+                new AskPopupWindowScript(
+                    "You have unsaved data, save it?"
+                    , this
+                    , function()
+                    {
+                        this._userWantToSaveCaseData();
+                        closeFunc.call(this);
+                    }
+                    , function ()
+                    {
+                        closeFunc.call(this);
+                    }
+                ).popup();
+            }
+            else
+            {
+                closeFunc.call(this);
+            }
         });
     }
 

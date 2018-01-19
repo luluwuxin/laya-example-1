@@ -5,33 +5,33 @@ class EventsManager
 {
     constructor()
     {
-        this.registeredEvents = {};
+        this._registeredEvents = {};
     }
 
     clearEvent (event)
     {
-        if (event in this.registeredEvents)
+        if (event in this._registeredEvents)
         {
-            this.registeredEvents[event] = [];
+            this._registeredEvents[event] = [];
         }
     }
 
     registerEvent (event, caller, method, ...args)
     {
-        if (!(event in this.registeredEvents))
+        if (!(event in this._registeredEvents))
         {
-            this.registeredEvents[event] = [];
+            this._registeredEvents[event] = [];
         }
-        this.registeredEvents[event].push({caller: caller, method: method, args: args});
+        this._registeredEvents[event].push({caller: caller, method: method, args: args});
     }
 
     unregisterEvent (event, caller, method)
     {
-        if (!(event in this.registeredEvents))
+        if (!(event in this._registeredEvents))
         {
             return;
         }
-        var methods = this.registeredEvents[event];
+        var methods = this._registeredEvents[event];
         for (var i = methods.length - 1; i >= 0; i--)
         {
             if (methods[i].caller == caller && methods[i].method == method)
@@ -48,11 +48,11 @@ class EventsManager
             return;
         }
         logDebug("Send event[{0}]".format(event));
-        if (!(event in this.registeredEvents))
+        if (!(event in this._registeredEvents))
         {
             return;
         }
-        var methods = this.registeredEvents[event];
+        var methods = this._registeredEvents[event];
         for (var i = 0; i < methods.length; i++)
         {
             methods[i].method.call(methods[i].caller, ...methods[i].args, sender, ...args);

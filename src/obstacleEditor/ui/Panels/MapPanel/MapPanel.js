@@ -109,19 +109,6 @@ function MapPanelScript(dependences)
         }
     }
 
-    function onMapImageLoaded()
-    {
-        this._mapImageIsLoading = false;
-        
-        if (this._dataWhenMapImageLoading.pointPutToMapCenter != null)
-        {
-            var point = this._dataWhenMapImageLoading.pointPutToMapCenter;
-            this.putPointToMapCenter(point.x, point.y);
-        }
-
-        this._dataWhenMapImageLoading = {};   
-    }
-
     function onObstacleAdded(sender, obstacle, index)
     {
         this.addObstacle(obstacle, index);
@@ -266,11 +253,6 @@ function MapPanelScript(dependences)
 
     this.putPointToMapCenter = function (x, y)
     {
-        if (this._mapImageIsLoading)
-        {
-            this._dataWhenMapImageLoading.pointPutToMapCenter = {x: x, y: y};
-            return;
-        }
         x = Math.max(0, x - this.mainContainer.width / 2);
         y = Math.max(0, y - this.mainContainer.height / 2);
 
@@ -331,8 +313,6 @@ function MapPanelScript(dependences)
         this.mapImage.skin = this._mapData.mapImagePath;
         this.mapImage.height = this._mapData.mapInfo.height;
         this.mapImage.width = this._mapData.mapInfo.width;
-        this._mapImageIsLoading = true;
-        this._dataWhenMapImageLoading = {};
         
         this.initObstacleInfo();
         this._initMiniMap();
@@ -357,13 +337,10 @@ function MapPanelScript(dependences)
 
     // member variable
     this._obstacleRouteUIs = {};
-    this._mapImageIsLoading = false;
-    this._dataWhenMapImageLoading = {};
 
     // event
     this._loadedDataManager.registerEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this, onMapDataLoaded);
     this._loadedDataManager.registerEvent(LoadedDataManagerEvent.CASE_DATA_LOADED, this, onCaseDataLoaded);
-    this.mapImage.on(Event.LOADED, this, onMapImageLoaded);
     // do nothing, because map data hasn't been loaded.
 }
 Laya.class(MapPanelScript, "MapPanelUI", MapPanelUI);

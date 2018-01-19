@@ -5,23 +5,23 @@ class KeyboardEventsManager extends EventObject
     constructor()
     {
         super();
-        this.viceKeys = new Set
+        this._viceKeys = new Set
         ([
             Keyboard.CONTROL,
             Keyboard.ALTERNATE,
             Keyboard.SHIFT,
         ]);
-        Laya.stage.on(Event.KEY_DOWN, this, this.onKeyDown);
+        Laya.stage.on(Event.KEY_DOWN, this, this._onKeyDown);
     }
     
-    isViceKey(keyCode)
+    _isViceKey(keyCode)
     {
-        return this.viceKeys.has(keyCode);
+        return this._viceKeys.has(keyCode);
     }
 
-    getCurrentViceKey()
+    _getCurrentViceKey()
     {
-        for (var viceKey of this.viceKeys)
+        for (var viceKey of this._viceKeys)
         {
             if (KeyBoardManager.hasKeyDown(viceKey))
             {
@@ -31,26 +31,26 @@ class KeyboardEventsManager extends EventObject
         return null;
     }
 
-    getKeyEvent(mainKey, viceKey = null)
+    _getKeyEvent(mainKey, viceKey = null)
     {
         return "[" + mainKey + "]" + "[" + viceKey + "]";
     }
 
-    onKeyDown(event)
+    _onKeyDown(event)
     {
         var keyCode = event.keyCode;
 
-        if (this.isViceKey(keyCode))
+        if (this._isViceKey(keyCode))
         {
             return;
         }
-        var viceKey = this.getCurrentViceKey();
-        this.sendEvent(this.getKeyEvent(keyCode, viceKey));
+        var viceKey = this._getCurrentViceKey();
+        this.sendEvent(this._getKeyEvent(keyCode, viceKey));
     }
 
     registerKeyEvent(mainKey, caller, method, viceKey = null)
     {
-        var event = this.getKeyEvent(mainKey, viceKey);
+        var event = this._getKeyEvent(mainKey, viceKey);
         this.clearEvent(event);
         this.registerEvent(event, caller, method);
     }
