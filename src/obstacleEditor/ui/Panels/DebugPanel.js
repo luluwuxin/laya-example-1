@@ -16,7 +16,7 @@ function DebugPanelScript(dependences)
 
     function onSaveCaseButtonClick()
     {
-        this._loadedDataManager.saveCaseData();
+        this._loadedDataManager.downloadCaseData();
     }
 
     function onLoadCaseButtonClick()

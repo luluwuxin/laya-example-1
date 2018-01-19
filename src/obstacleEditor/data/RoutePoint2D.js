@@ -3,9 +3,20 @@ var RoutePointEvent =
     LINK_LINE_CHANGED: "link line changed"
 };
 
+// variable | unit
+//   x, y   |  cm
+//   speed  |  cm/s
+// timstamp |  s
 class RoutePoint2D extends EventObject
 {
-    constructor(mapData = null, pose = new Pose(), timestampFromPrevPoint = 2, isReversing = false)
+    constructor(
+        mapData = null,
+        pose = new Pose(), 
+        isReversing = false,
+        timestampInterval = 1,
+        speed = 500,
+        lockType = RoutePointLockType.SPEED
+        )
     {
         super();
         this.x = pose.vec3.x;
@@ -19,8 +30,10 @@ class RoutePoint2D extends EventObject
             this.z = 0;
         }
         this.rotation = Math.atan2(pose.quat.z, pose.quat.w) * 2 / Math.PI * 180;
-        this.timestampFromPrevPoint = timestampFromPrevPoint;
+        this.timestampInterval = timestampInterval;
+        this.speed = speed;
         this.isReversing = isReversing;
+        this.lockType = lockType;
 
         // Variables below shall be set after it added to obstacle.
         this.obstacle = null;
@@ -34,13 +47,13 @@ class RoutePoint2D extends EventObject
             return 0;
         }
 
-        if (this.index == 0)
+        if (this.hasPrevRoutePoint())
         {
-            return this.timestampFromPrevPoint;
+            return this.prevRoutePoint().getTimestampSec() + this.timestampInterval;
         }
         else
         {
-            return this.obstacle.getRoutePoint(this.index - 1).getTimestampSec() + this.timestampFromPrevPoint;
+            return this.timestampInterval;
         }
     }
 
@@ -51,7 +64,7 @@ class RoutePoint2D extends EventObject
         ret.y = this.y;
         ret.z = this.z;
         ret.rotation = this.rotation;
-        ret.timestampFromPrevPoint = this.timestampFromPrevPoint;
+        ret.timestampInterval = this.timestampInterval;
         ret.isReversing = this.isReversing;
         return ret;
     }
@@ -72,32 +85,159 @@ class RoutePoint2D extends EventObject
                 "z": this.z
             },
             "is_reversing": this.isReversing,
-            "timestamp_sec": this.getTimestampSec()
+            "timestamp_interval": this.timestampInterval,
+            "speed": this.speed,
+            "lock_type": this.lockType
         };
     }
 
+    _setValueInternal(...kvPair)
+    {
+        return super.setValue(...kvPair);
+    }
     setValue(...kvPair)
     {
         var keys = super.setValue(...kvPair);
-        var checkedKeys = ["isReversing", "x", "y", "rotation"];
-        var poseChanged = false;
-        for (var key of checkedKeys)
+        function checkKey(checkedKeys)
         {
-            if (keys.has(key))
+            for (var key of checkedKeys)
             {
-                poseChanged = true;
-                break;
+                if (keys.has(key))
+                {
+                    return true;
+                }
             }
+            return false;
         }
+        var poseChanged = checkKey(["isReversing", "x", "y", "rotation"]);
         if (poseChanged)
         {
-            this.sendEvent(RoutePointEvent.LINK_LINE_CHANGED);
-
-            // TODO: If only isReversing is set, it's not neccessary to refresh prev point's link line.
-            if (this.index > 0)
+            if (this.hasPrevRoutePoint())
             {
-                this.obstacle.getRoutePoint(this.index - 1).sendEvent(RoutePointEvent.LINK_LINE_CHANGED);
+                this.prevRoutePoint()._refreshLinkLine();
             }
+            this._refreshLinkLine();
+        }
+
+        var intervalInfoChanged = checkKey(["timestampInterval", "speed"]);
+        if (intervalInfoChanged)
+        {
+            this._refreshTimeOrSpeed(keys);
+        }
+    }
+
+    static getBezierControlPoint(pointS, pointE)
+    {
+        function getControlPoint(point, isStartPoint, isReversing, dirDis)
+        {
+            var rad = point.rotation / 180 * Math.PI;
+            var dirY = Math.sin(rad);
+            var dirX = Math.cos(rad);
+            var dir = {x: dirX, y: dirY};
+            if (isReversing)
+            {
+                dir = {x: -dir.x, y: -dir.y};
+            }
+            if (isStartPoint == false)
+            {
+                dir = {x: -dir.x, y: -dir.y};
+            }
+            return new Vec3(point.x + dir.x * dirDis, point.y + dir.y * dirDis);
+        }
+        var dis = Math.sqrt((pointS.x - pointE.x) ** 2 + (pointS.y - pointE.y) ** 2);
+        var dirDis = Math.min(500, dis / 2.5);
+        var p1 = getControlPoint(pointS, true, pointS.isReversing, dirDis);
+        var p2 = getControlPoint(pointE, false, pointS.isReversing, dirDis);
+        return [p1, p2];
+    };
+
+    _refreshLinkLine()
+    {
+        function _getBezierCurve()
+        {
+            var nextPoint = this.nextRoutePoint();
+            var p0 = new Vec3(this.x, this.y);
+            var p3 = new Vec3(nextPoint.x, nextPoint.y);
+            var p12 = RoutePoint2D.getBezierControlPoint(this, nextPoint);
+            return new CubicBezierCurve(p0, p12[0], p12[1], p3);
+        }
+        if (this.hasNextRoutePoint())
+        {
+            // refresh link line
+            this.linkLineLength = _getBezierCurve.call(this).getLength();
+            this.nextRoutePoint()._refreshTimeOrSpeed();
+        }
+
+        this.sendEvent(RoutePointEvent.LINK_LINE_CHANGED);
+    }
+
+    _refreshTimeOrSpeed (keys = null)
+    {
+        if (this.hasPrevRoutePoint() == false)
+        {
+            return;
+        }
+        var prevPoint = this.prevRoutePoint();
+        var prevLinkLineLength = prevPoint.linkLineLength;
+        var prevSpeed = prevPoint.speed;
+        var setSpeed = false;
+        if (keys != null && keys.has("speed"))
+        {
+            setSpeed = false;
+        }
+        else if (keys != null && keys.has("timestampInterval"))
+        {
+            setSpeed = true;
+        }
+        else
+        {
+            setSpeed = (this.lockType == RoutePointLockType.TIMESTAMP_FROM_PREV_POINT);
+        }
+        if (setSpeed)
+        {
+            this._setValueInternal("speed", prevLinkLineLength * 2 / this.timestampInterval - prevSpeed);
+            if (this.hasNextRoutePoint())
+            {
+                this.nextRoutePoint()._refreshTimeOrSpeed();
+            }
+        }
+        else
+        {
+            this._setValueInternal("timestampInterval", prevLinkLineLength * 2 / (prevSpeed + this.speed));
+        }
+    }
+
+    hasNextRoutePoint()
+    {
+        return this.obstacle != null && this.index + 1 < this.obstacle.getRoutePointCount();
+    }
+
+    hasPrevRoutePoint()
+    {
+        return this.index > 0;
+    }
+
+    nextRoutePoint()
+    {
+        if (this.hasNextRoutePoint())
+        {
+            return this.obstacle.getRoutePoint(this.index + 1);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    prevRoutePoint()
+    {
+        if (this.hasPrevRoutePoint())
+        {
+            return this.obstacle.getRoutePoint(this.index - 1);
+        }
+        else
+        {
+            return null;
         }
     }
 }

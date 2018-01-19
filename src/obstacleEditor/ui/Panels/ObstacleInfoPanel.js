@@ -204,16 +204,7 @@ function ObstacleInfoPanelScript(dependences)
 
     // init ui
     //// init typeComboBox
-    var typeListString = "";
-    for (var key in ObstacleType)
-    {
-        if (typeListString != "")
-        {
-            typeListString += ",";
-        }
-        typeListString += ObstacleType[key];
-    }
-    this.typeComboBox.labels = typeListString;
+    UIHelper.setComboLabels(this.typeComboBox, ObstacleType);
 
     // event
     this.routePointList.renderHandler = new Handler(this, onRoutePointListRender);

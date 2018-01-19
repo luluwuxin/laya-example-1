@@ -28,6 +28,33 @@ class Vec3
         this.z = z;
     }
 
+    mul(val)
+    {
+        return new Vec3(
+            this.x * val,
+            this.y * val,
+            this.z * val
+        );
+    }
+
+    add(vec3)
+    {
+        return new Vec3(
+            this.x + vec3.x,
+            this.y + vec3.y,
+            this.z + vec3.z
+        );
+    }
+
+    getDis(vec3 = new Vec3())
+    {
+        return Math.sqrt(
+            (this.x - vec3.x) ** 2
+            + (this.y - vec3.y) ** 2
+            + (this.z - vec3.z) ** 2
+        );
+    }
+
     static fromJson(jsonObj)
     {
         var ret = new Vec3();
