@@ -12,7 +12,6 @@ function Client(cid,socket)
 {
     this.cid = cid;
     this.socket = socket;
-
     this.send = function(msg)
     {
         //if(msg instanceof String)
@@ -24,15 +23,21 @@ function Client(cid,socket)
         {
             msg = JSON.stringify(msg);
         }
-		console.log("sent->%s", msg);
+		
 		try
 		{
 			this.socket.send(msg);
+			console.log("sent:%s->%s", this.socket.remoteAddress, msg);
 		}catch(err)
 		{
-			console.log("sent-io-err:"+err);
+			console.log("sent:"+this.socket.remoteAddress+" err:"+err);
 		}
     }
+
+	this.getInfo = function()
+	{
+		return this.socket.remoteAddress;
+	}
 }
 /*
   function WebClient(cid,socket)
