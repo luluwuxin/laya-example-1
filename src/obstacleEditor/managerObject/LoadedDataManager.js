@@ -104,13 +104,17 @@ class LoadedDataManager extends EventObject
             this._obstacleManager.addObstacle(obstacle);
             this._listenObstacleChange(obstacle);
             var moveStatesObj = obstacleObj["moveStates"];
-            var lastTimestampSec = 0;
             for (var moveStateObj of moveStatesObj)
             {
                 var pose = new Pose(Quat.fromJson(moveStateObj["quat"]), Vec3.fromJson(moveStateObj["tran"]));
-                var currentTimestampSec = moveStateObj["timestamp_sec"];
-                var routePoint = new RoutePoint2D(this.mapData, pose, currentTimestampSec - lastTimestampSec, moveStateObj["is_reversing"]);
-                lastTimestampSec = currentTimestampSec;
+                var routePoint = new RoutePoint2D(
+                    this.mapData,
+                    pose,
+                    moveStateObj["is_reversing"],
+                    moveStateObj["timestamp_interval"],
+                    moveStateObj["speed"],
+                    moveStateObj["lock_type"]
+                );
                 obstacle.addRoutePoint(routePoint);
                 this._listenRoutePointChange(routePoint);
                 if (obstacle == firstObstacle && firstRoutePoint == null)
@@ -134,7 +138,7 @@ class LoadedDataManager extends EventObject
 
     downloadCaseData()
     {
-        FileHelper.createAndDownloadFile("case.json", getCaseData());
+        FileHelper.createAndDownloadFile("case.json", this.getCaseData());
     }
 
     getCaseData()

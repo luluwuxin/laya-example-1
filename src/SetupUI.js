@@ -64,6 +64,14 @@ SetupUI.prototype.initCarBoxUI = function () {
     this.carRenderer = new CarRenderer(this.m_uiCarBox);
     this.carRenderer.loadCar("res/LayaScene_SuvCar/SuvCar.lh");
     this.carRenderer.loadAxis();
+
+    this.m_uiCarBox.on(Laya.Event.CLICK, this, function (e) {
+        // Laya scene and viewport are in global space.
+        var hit = this.carRenderer.select(e.stageX, e.stageY);
+        if (hit) {
+            console.log(hit);
+        }
+    });
 };
 
 // Refresh the scene list UI.

@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":4,
-    "selecteID":19,
+    "selectedBox":28,
+    "selecteID":16,
     "props":{"width":200,"top":0,"sceneWidth":600,"sceneHeight":400,"sceneColor":"#000000","right":0,"left":0,"height":170,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -40,172 +40,327 @@
         },
         {
             "x":15,
-            "type":"Panel",
-            "props":{"var":"contentPanel","top":30,"right":1,"left":1,"bottom":1},
+            "type":"VBox",
+            "props":{"var":"contentPanel","top":24,"right":1,"left":1,"bottom":1},
             "nodeParent":1,
-            "label":"Panel(contentPanel)",
+            "label":"VBox(contentPanel)",
             "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
-            "compId":4,
+            "compId":22,
             "child":[
                 {
                     "x":30,
-                    "type":"Label",
-                    "props":{"width":50,"top":2,"text":"x:","name":"xLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                    "nodeParent":4,
-                    "label":"Label(xLabel)",
-                    "isDirectory":false,
+                    "type":"Box",
+                    "props":{"right":0,"name":"xBox","left":0,"height":18},
+                    "nodeParent":22,
+                    "label":"Box(xBox)",
+                    "isOpen":false,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
-                    "compId":5,
+                    "hasChild":true,
+                    "compId":23,
                     "child":[
-                        ]
+                        {
+                            "type":"Label",
+                            "props":{"y":2,"x":5,"width":50,"top":2,"text":"x:","name":"xLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":23,
+                            "label":"Label(xLabel)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":5,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "type":"TextInput",
+                            "props":{"y":0,"x":70,"var":"xInput","type":"number","top":0,"right":0,"promptColor":"#808080","prompt":"input","left":70,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":23,
+                            "label":"TextInput(xInput)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":6,
+                            "child":[
+                                ]
+                        }]
                 },
                 {
                     "x":30,
-                    "type":"TextInput",
-                    "props":{"var":"xInput","type":"number","top":0,"right":0,"promptColor":"#808080","prompt":"input","left":70,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                    "nodeParent":4,
-                    "label":"TextInput(xInput)",
-                    "isDirectory":false,
+                    "type":"Box",
+                    "props":{"y":10,"x":10,"right":0,"name":"yBox","left":0,"height":18},
+                    "nodeParent":22,
+                    "label":"Box(yBox)",
+                    "isOpen":true,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
-                    "compId":6,
+                    "hasChild":true,
+                    "compId":24,
                     "child":[
-                        ]
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "props":{"x":5,"width":50,"top":2,"text":"y:","name":"yLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":24,
+                            "label":"Label(yLabel)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":8,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"TextInput",
+                            "props":{"x":70,"var":"yInput","type":"number","top":0,"right":0,"promptColor":"#808080","prompt":"input","left":70,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":24,
+                            "label":"TextInput(yInput)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":9,
+                            "child":[
+                                ]
+                        }]
                 },
                 {
                     "x":30,
-                    "type":"Label",
-                    "props":{"width":50,"top":20,"text":"y:","name":"yLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                    "nodeParent":4,
-                    "label":"Label(yLabel)",
-                    "isDirectory":false,
+                    "type":"Box",
+                    "props":{"y":20,"x":20,"right":0,"name":"rotationBox","left":0,"height":18},
+                    "nodeParent":22,
+                    "label":"Box(rotationBox)",
+                    "isOpen":true,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
-                    "compId":8,
+                    "hasChild":true,
+                    "compId":25,
                     "child":[
-                        ]
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "props":{"x":5,"width":50,"top":2,"text":"rotation:","name":"rotationLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":25,
+                            "label":"Label(rotationLabel)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":10,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"TextInput",
+                            "props":{"x":70,"var":"rotationInput","type":"number","top":0,"right":0,"promptColor":"#808080","prompt":"input","left":70,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":25,
+                            "label":"TextInput(rotationInput)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":11,
+                            "child":[
+                                ]
+                        }]
                 },
                 {
                     "x":30,
-                    "type":"TextInput",
-                    "props":{"var":"yInput","type":"number","top":18,"right":0,"promptColor":"#808080","prompt":"input","left":70,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                    "nodeParent":4,
-                    "label":"TextInput(yInput)",
-                    "isDirectory":false,
+                    "type":"Box",
+                    "props":{"y":30,"x":30,"right":0,"name":"timeInterBox","left":0,"height":18},
+                    "nodeParent":22,
+                    "label":"Box(timeInterBox)",
+                    "isOpen":true,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
-                    "compId":9,
+                    "hasChild":true,
+                    "compId":26,
                     "child":[
-                        ]
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "props":{"x":5,"width":50,"top":2,"text":"time inter:","name":"timestampIntervalLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":26,
+                            "label":"Label(timestampIntervalLabel)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":12,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"TextInput",
+                            "props":{"x":70,"var":"timestampIntervalInput","type":"number","top":0,"right":0,"promptColor":"#808080","prompt":"input","left":70,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":26,
+                            "label":"TextInput(timestampIntervalInput)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":13,
+                            "child":[
+                                ]
+                        }]
                 },
                 {
                     "x":30,
-                    "type":"Label",
-                    "props":{"width":50,"top":38,"text":"rotation:","name":"rotationLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                    "nodeParent":4,
-                    "label":"Label(rotationLabel)",
-                    "isDirectory":false,
+                    "type":"Box",
+                    "props":{"y":40,"x":40,"right":0,"name":"speedBox","left":0,"height":18},
+                    "nodeParent":22,
+                    "label":"Box(speedBox)",
+                    "isOpen":true,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
-                    "compId":10,
+                    "hasChild":true,
+                    "compId":27,
                     "child":[
-                        ]
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "props":{"x":5,"width":50,"top":2,"text":"speed:","name":"speedLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":27,
+                            "label":"Label(speedLabel)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":20,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"TextInput",
+                            "props":{"x":70,"var":"speedInput","type":"number","top":0,"right":0,"promptColor":"#808080","prompt":"input","left":70,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":27,
+                            "label":"TextInput(speedInput)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":21,
+                            "child":[
+                                ]
+                        }]
                 },
                 {
                     "x":30,
-                    "type":"TextInput",
-                    "props":{"var":"rotationInput","type":"number","top":36,"right":0,"promptColor":"#808080","prompt":"input","left":70,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                    "nodeParent":4,
-                    "label":"TextInput(rotationInput)",
-                    "isDirectory":false,
+                    "type":"Box",
+                    "props":{"y":90,"x":0,"right":0,"name":"lockTypeBox","left":0,"height":18},
+                    "nodeParent":22,
+                    "label":"Box(lockTypeBox)",
+                    "isOpen":true,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
-                    "compId":11,
+                    "hasChild":true,
+                    "compId":29,
                     "child":[
-                        ]
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "props":{"y":20,"x":5,"width":50,"top":2,"text":"lock type:","name":"lockTypeLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":29,
+                            "label":"Label(lockTypeLabel)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":31,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"ComboBox",
+                            "props":{"width":70,"var":"lockTypeComboBox","top":2,"skin":"comp/combobox.png","left":72,"labels":"label1,label2","height":15},
+                            "nodeParent":29,
+                            "label":"ComboBox(lockTypeComboBox)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":33,
+                            "child":[
+                                ]
+                        }]
                 },
                 {
                     "x":30,
-                    "type":"Label",
-                    "props":{"width":50,"top":56,"text":"time inter:","name":"timestampFromPrevPointLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                    "nodeParent":4,
-                    "label":"Label(timestampFromPrevPointLabel)",
-                    "isDirectory":false,
+                    "type":"Box",
+                    "props":{"y":90,"x":0,"right":0,"name":"totalTimeBox","left":0,"height":18},
+                    "nodeParent":22,
+                    "label":"Box(totalTimeBox)",
+                    "isOpen":true,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
-                    "compId":12,
+                    "hasChild":true,
+                    "compId":28,
                     "child":[
-                        ]
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "props":{"x":5,"width":50,"top":2,"text":"total time:","name":"timestampLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":28,
+                            "label":"Label(timestampLabel)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":14,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "props":{"x":72,"width":50,"var":"timestampValueLabel","top":2,"text":"0","left":72,"height":15,"fontSize":12,"font":"Arial","color":"#c1c1c1"},
+                            "nodeParent":28,
+                            "label":"Label(timestampValueLabel)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":16,
+                            "child":[
+                                ]
+                        }]
                 },
                 {
                     "x":30,
-                    "type":"TextInput",
-                    "props":{"var":"timestampFromPrevPointInput","type":"number","top":54,"right":0,"promptColor":"#808080","prompt":"input","left":70,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                    "nodeParent":4,
-                    "label":"TextInput(timestampFromPrevPointInput)",
-                    "isDirectory":false,
+                    "type":"Box",
+                    "props":{"y":108,"x":0,"right":0,"name":"reversingBox","left":0,"height":18},
+                    "nodeParent":22,
+                    "label":"Box(reversingBox)",
+                    "isOpen":true,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
-                    "compId":13,
+                    "hasChild":true,
+                    "compId":30,
                     "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Label",
-                    "props":{"width":50,"top":74,"text":"total time:","name":"timestampLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                    "nodeParent":4,
-                    "label":"Label(timestampLabel)",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":14,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Label",
-                    "props":{"width":50,"var":"timestampValueLabel","top":74,"text":"0","left":72,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                    "nodeParent":4,
-                    "label":"Label(timestampValueLabel)",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":16,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"Label",
-                    "props":{"width":50,"top":92,"text":"reversing:","name":"reversingLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                    "nodeParent":4,
-                    "label":"Label(reversingLabel)",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":17,
-                    "child":[
-                        ]
-                },
-                {
-                    "x":30,
-                    "type":"CheckBox",
-                    "props":{"width":10,"var":"reversingCheckBox","top":92,"skin":"comp/checkbox.png","left":72,"height":10},
-                    "nodeParent":4,
-                    "label":"CheckBox(reversingCheckBox)",
-                    "isDirectory":false,
-                    "isAniNode":true,
-                    "hasChild":false,
-                    "compId":19,
-                    "child":[
-                        ]
-                }]
+                        {
+                            "x":45,
+                            "type":"Label",
+                            "props":{"x":5,"width":50,"top":2,"text":"reversing:","name":"reversingLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                            "nodeParent":30,
+                            "label":"Label(reversingLabel)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":17,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"CheckBox",
+                            "props":{"x":72,"width":10,"var":"reversingCheckBox","top":0,"skin":"comp/checkbox.png","left":72,"height":10},
+                            "nodeParent":30,
+                            "label":"CheckBox(reversingCheckBox)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":19,
+                            "child":[
+                                ]
+                        }]
+                }],
+            "$HIDDEN":false
         }],
     "animations":[
         {

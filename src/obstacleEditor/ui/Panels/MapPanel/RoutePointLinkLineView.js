@@ -30,26 +30,10 @@ class RoutePointLinkLineView
         var nextPoint = point.obstacle.getRoutePoint(point.index + 1);
         var p0 = {x: point.x, y: point.y};
         var p3 = {x: nextPoint.x, y: nextPoint.y};
-        var getControlPoint = function(p, rotation, controlReverse, limit, isReversing)
-        {
-            var rad = rotation / 180 * Math.PI;
-            var dirY = Math.sin(rad);
-            var dirX = Math.cos(rad);
-            var dir = {x: dirX, y: dirY};
-            if (isReversing)
-            {
-                dir = {x: -dir.x, y: -dir.y};
-            }
-            if (controlReverse)
-            {
-                dir = {x: -dir.x, y: -dir.y};
-            }
-            var dirDis = Math.min(500, limit); // xxx: speed * 100cm/m * 1s
-            return {x: p.x + dir.x * dirDis, y: p.y + dir.y * dirDis};
-        };
-        var limit = Math.sqrt(((p3.x - p0.x) ** 2) + ((p3.y - p0.y) ** 2)) / 3;
-        var p1 = getControlPoint(p0, point.rotation, false, limit, point.isReversing);
-        var p2 = getControlPoint(p3, nextPoint.rotation, true, limit, point.isReversing);
+        
+        var p12 = RoutePoint2D.getBezierControlPoint(point, nextPoint);
+        var p1 = p12[0];
+        var p2 = p12[1];
         // Laya can only draw second-order curve, but the data is for third-order.
         // So use two 2nd-order curves to express a 3rd-order curve.
         // WARNING: The curve drawed by this method is a bit different from the really curve!! 

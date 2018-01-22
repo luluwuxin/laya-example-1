@@ -45,7 +45,6 @@ class Obstacle extends EventObject
     // index = -1 means push_back, or the route point will be inserted before index-th element.
     addRoutePoint (routePoint, index = -1)
     {
-        routePoint.obstacle = this;
         if (index == -1)
         {
             this.route.points.push(routePoint);
@@ -55,7 +54,10 @@ class Obstacle extends EventObject
         {
             this.route.points.splice(index, 0, routePoint);
         }
+
+        routePoint.obstacle = this;
         routePoint.index = index;
+
         for (var i = index + 1; i < this.route.points.length; i++)
         {
             this.route.points[i].index = i;
@@ -67,10 +69,11 @@ class Obstacle extends EventObject
         {
             this.route.points[i].sendEvent(ObjectEvent.VALUE_CHANGED, new Set(["index"]));
         }
+        routePoint._refreshLinkLine();
         // link line of prev point shall change
         if (index > 0)
         {
-            this.route.points[index - 1].sendEvent(RoutePointEvent.LINK_LINE_CHANGED);
+            this.route.points[index - 1]._refreshLinkLine();
         }
     }
 
@@ -92,7 +95,7 @@ class Obstacle extends EventObject
         // link line of prev point shall change
         if (index > 0)
         {
-            this.route.points[index - 1].sendEvent(RoutePointEvent.LINK_LINE_CHANGED);
+            this.route.points[index - 1]._refreshLinkLine();
         }
     }
 
