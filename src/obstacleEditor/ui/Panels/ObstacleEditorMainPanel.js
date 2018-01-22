@@ -8,10 +8,7 @@ function ObstacleEditorMainPanelScript(dependences)
 
     function onSaveButtonClick(sender)
     {
-        if (this._saveCaseCallback != null)
-        {
-            this._saveCaseCallback.call(this._saveCaseCaller);
-        }
+        this._saveCase();
     }
 
     function onCloseButtonClick(sender)
@@ -32,7 +29,7 @@ function ObstacleEditorMainPanelScript(dependences)
                 , this
                 , function()
                 {
-                    this._userWantToSaveCaseData();
+                    this._saveCase();
                     closeFunc.call(this);
                 }
                 , function ()
@@ -48,6 +45,14 @@ function ObstacleEditorMainPanelScript(dependences)
     }
 
     //#regionend event
+
+    this._saveCase = function ()
+    {
+        if (this._saveCaseCallback != null)
+        {
+            this._saveCaseCallback.call(this._saveCaseCaller);
+        }
+    }
 
     this.setSaveCaseCallback = function (caller, saveCaseCallback)
     {
