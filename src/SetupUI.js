@@ -8,7 +8,8 @@ function SetupUI(pages, client)
     this.initBannerUI();
     this.initCarListUI();
     this.initCarBoxUI();
-    this.initPropListUI();
+    this.initInventoryListUI();
+    this.initParameterListUI();
 
     // Pages for switching
     this.pages = pages;
@@ -18,11 +19,11 @@ function SetupUI(pages, client)
       .on("__init_car_list", this, function () {
           this.refreshCarListUI();
           this.refreshCarBoxUI();
-          this.refreshPropListUI();
+          this.refreshParameterListUI();
       })
       .on("car_config", this, function () {
           this.refreshCarBoxUI();
-          this.refreshPropListUI();
+          this.refreshParameterListUI();
       });
 }
 Laya.class(SetupUI, "SetupUI", SetupPageUI);
@@ -71,19 +72,87 @@ SetupUI.prototype.initCarBoxUI = function () {
     this.m_uiCarBox.on(Laya.Event.CLICK, this, function (e) {
         // Laya scene and viewport are in global space.
         this.selectInfo = this.carRenderer.select(e.stageX, e.stageY);
-        this.refreshPropListUI();
+        this.refreshParameterListUI();
     });
 };
 
-// Init the property list UI.
-SetupUI.prototype.initPropListUI = function () {
+// Init the inventory list UI.
+SetupUI.prototype.initInventoryListUI = function () {
     // Hide the scrollb bar and use dragging.
-    this.m_uiPropList.scrollBar.hide = true;
-    this.m_uiPropList.scrollBar.elasticBackTime = 200;
-    this.m_uiPropList.scrollBar.elasticDistance = 50;
+    this.m_uiInventoryList.scrollBar.hide = true;
+
+    // Allow dragging (into car box).
+    this.m_uiInventoryList.on(Laya.Event.RENDER, this, function (e) {
+        var templateJson = e.getChildByName("templateJson").text;
+        var image = e.getChildByName("image");
+        var button = e.getChildByName("button");
+        button.on(Laya.Event.MOUSE_DOWN, this, function (e) {
+            // A new dynamic image object as the dragging indicator.
+            var indicator = new Laya.Image(button.skin);
+            indicator.x = e.stageX;
+            indicator.y = e.stageY;
+            Laya.stage.addChild(indicator);
+
+            // Enable dragging on the indicator.
+            indicator.startDrag();
+
+            // Drop the indicator onto some object.
+            indicator.on(Laya.Event.DRAG_END, this, function (e) {
+                // Car Box ?
+                indicator.stopDrag();
+                if (this.m_uiCarBox.hitTestPoint(indicator.x, indicator.y)) {
+                    this.client.addSensor(JSON.parse(templateJson));
+                }
+                indicator.destroy();
+            });
+        });
+    });
+
+    // Initial inventory.
+    this.m_uiInventoryList.array = [
+        {
+            label: {
+                text: "Camera",
+            },
+            templateJson: {
+                text: JSON.stringify({
+                    sid: -1, type: 0, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
+                    fov: 60, ResolutionWidth: 1024, ResolutionHeight:768,
+                }),
+            },
+        },
+        {
+            label: {
+                text: "Lidar",
+            },
+            templateJson: {
+                text: JSON.stringify({
+                    sid: -1, type: 0, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
+                }),
+            },
+        },
+        {
+            label: {
+                text: "Radar",
+            },
+            templateJson: {
+                text: JSON.stringify({
+                    sid: -1, type: 0, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
+                }),
+            },
+        },
+    ];
+};
+
+// Init the parameter list UI.
+SetupUI.prototype.initParameterListUI = function () {
+    // Hide the scrollb bar and use dragging.
+    this.m_uiParameterList.scrollBar.hide = true;
+    this.m_uiParameterList.scrollBar.elasticBackTime = 200;
+    this.m_uiParameterList.scrollBar.elasticDistance = 50;
 
     // Add callbacks for the items in the list.
-    this.m_uiPropList.on(Laya.Event.RENDER, this, function (e) {
+    this.m_uiParameterList.on(Laya.Event.RENDER, this, function (e) {
         var label = e.getChildByName("label");
         var input = e.getChildByName("input");
         input.on(Laya.Event.INPUT, this, function (e) {
@@ -94,7 +163,7 @@ SetupUI.prototype.initPropListUI = function () {
                     this.selectObj[label.text] = data;
                 }
             } else if (typeof this.selectObj[label.text] === "string") {
-                this.selectObj[label.text] = data;
+                this.selectObj[label.text] = e.text;
             }
             // Refresh the preview
             this.refreshCarBoxUI();
@@ -105,8 +174,8 @@ SetupUI.prototype.initPropListUI = function () {
         });
     });
 
-    // No properties by default.
-    this.m_uiPropList.array = [];
+    // No parameters by default.
+    this.m_uiParameterList.array = [];
 };
 
 // Refresh the scene list UI.
@@ -130,14 +199,14 @@ SetupUI.prototype.refreshCarBoxUI = function () {
     this.carRenderer.refreshCarConfig(this.client.car.car_config);
 };
 
-// Refresh the property list UI.
-SetupUI.prototype.refreshPropListUI = function () {
+// Refresh the parameters list UI.
+SetupUI.prototype.refreshParameterListUI = function () {
     // Nothing to show.
     if (!this.selectInfo) {
         return;
     }
 
-    // A list of property name and its value.
+    // A list of parameter name and its value.
     var data = [];
 
     if (this.selectInfo && this.selectInfo.type === "sensor") {
@@ -163,5 +232,5 @@ SetupUI.prototype.refreshPropListUI = function () {
         }
     }
 
-    this.m_uiPropList.array = data;
+    this.m_uiParameterList.array = data;
 };

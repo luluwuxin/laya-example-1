@@ -1,8 +1,7 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":25,
-    "selecteID":34,
+    "selectedBox":1,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#ffffff","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -324,17 +323,18 @@
                                     "props":{"top":480,"left":60},
                                     "nodeParent":25,
                                     "label":"Box",
-                                    "isOpen":false,
+                                    "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
                                     "compId":26,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"List",
-                                            "props":{"width":360,"spaceX":16,"repeatY":1,"height":82,"hScrollBarSkin":"comp/hscroll.png"},
+                                            "props":{"width":360,"var":"m_uiInventoryList","spaceX":16,"repeatY":1,"height":82,"hScrollBarSkin":"comp/hscroll.png"},
                                             "nodeParent":26,
-                                            "label":"List",
+                                            "label":"List(m_uiInventoryList)",
                                             "isOpen":true,
                                             "isDirectory":true,
                                             "isAniNode":true,
@@ -342,6 +342,7 @@
                                             "compId":27,
                                             "child":[
                                                 {
+                                                    "x":90,
                                                     "type":"Box",
                                                     "props":{"top":10,"name":"render","height":64},
                                                     "nodeParent":27,
@@ -353,6 +354,7 @@
                                                     "compId":28,
                                                     "child":[
                                                         {
+                                                            "x":105,
                                                             "type":"Image",
                                                             "props":{"width":48,"name":"image","height":48},
                                                             "nodeParent":28,
@@ -366,6 +368,7 @@
                                                             "$HIDDEN":false
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"Label",
                                                             "props":{"width":48,"valign":"middle","text":"censor","overflow":"hidden","name":"label","bottom":5,"align":"center"},
                                                             "nodeParent":28,
@@ -379,6 +382,7 @@
                                                             "$HIDDEN":false
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"Button",
                                                             "props":{"width":48,"skin":"comp/checkbox.png","name":"button","height":48,"alpha":0.1},
                                                             "nodeParent":28,
@@ -390,6 +394,19 @@
                                                             "child":[
                                                                 ],
                                                             "$HIDDEN":false
+                                                        },
+                                                        {
+                                                            "x":105,
+                                                            "type":"Label",
+                                                            "props":{"visible":false,"text":"label","name":"templateJson"},
+                                                            "nodeParent":28,
+                                                            "label":"Label(templateJson)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":false,
+                                                            "hasChild":false,
+                                                            "compId":39,
+                                                            "child":[
+                                                                ]
                                                         }],
                                                     "$HIDDEN":false
                                                 }],
@@ -437,9 +454,9 @@
                                         {
                                             "x":75,
                                             "type":"List",
-                                            "props":{"width":300,"var":"m_uiPropList","vScrollBarSkin":"comp/vscroll.png","spaceY":5,"repeatX":1,"height":400},
+                                            "props":{"width":300,"var":"m_uiParameterList","vScrollBarSkin":"comp/vscroll.png","spaceY":5,"repeatX":1,"height":400},
                                             "nodeParent":34,
-                                            "label":"List(m_uiPropList)",
+                                            "label":"List(m_uiParameterList)",
                                             "isOpen":true,
                                             "isDirectory":true,
                                             "isAniNode":true,

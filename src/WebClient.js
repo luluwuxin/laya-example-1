@@ -124,6 +124,25 @@ var WebClient = (function (window, Laya, logger) {
         return this;
     };
 
+    // Add a sensor.
+    WebClient.prototype.addSensor = function (sensor) {
+        // car_config has not been loaded yet.
+        if (!this.car) return;
+
+        // Look for the next available sensor id.
+        var sidMax = -1;
+        this.car.car_config.config.forEach(function (v) {
+            sidMax = Math.max(sidMax, v.sid);
+        });
+        sensor.sid = sidMax + 1;
+
+        // Add to the sensor list.
+        this.car.car_config.config.push(sensor);
+
+        // Fire
+        this.fire("car_config");
+    };
+
     // Choose a scene from the list.
     WebClient.prototype.chooseScene = function (i) {
         if (typeof i !== "number" || i < 0 || i >= this.scene_list.length) {
