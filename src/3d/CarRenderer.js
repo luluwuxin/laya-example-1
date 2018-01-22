@@ -69,7 +69,7 @@ CarRenderer.prototype.refreshCarConfig = function (car_config) {
 
         // Material
         var material = new Laya.StandardMaterial();
-        material.albedo = new Laya.Vector4(1, 0, 0, 0.1);
+        material.albedo = new Laya.Vector4(1, 0, 0, 0.3);
         material.renderMode = Laya.StandardMaterial.RENDERMODE_DEPTHREAD_TRANSPARENTDOUBLEFACE;
         material.disableLight();
         mesh.meshRender.material = material;
@@ -104,7 +104,7 @@ CarRenderer.prototype.refreshCarConfig = function (car_config) {
             -s.yaw,
             s.pitch
         );
-        var scl = new Laya.Vector3(5, 3, 3);
+        var scl = new Laya.Vector3(3, 3, 3);
 
         x.localRotationEuler = rot.clone();
         x.localScale = scl.clone();
