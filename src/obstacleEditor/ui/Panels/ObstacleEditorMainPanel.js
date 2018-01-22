@@ -6,6 +6,16 @@ function ObstacleEditorMainPanelScript(dependences)
         this.debugPanel.visible = !this.debugPanel.visible;
     }
 
+    function onUndoButtonClick()
+    {
+        this._historyManager.undo();
+    }
+
+    function onRedoButtonClick()
+    {
+        this._historyManager.redo();
+    }
+
     function onSaveButtonClick(sender)
     {
         this._saveCase();
@@ -91,6 +101,8 @@ function ObstacleEditorMainPanelScript(dependences)
     this._keyboardEventsManager.registerKeyEvent(Keyboard.D, this, onDebugPanelOpenKeyDown, Keyboard.SHIFT);
     this.saveButton.on(Event.CLICK, this, onSaveButtonClick);
     this.closeButton.on(Event.CLICK, this, onCloseButtonClick);
+    this.undoButton.on(Event.CLICK, this, onUndoButtonClick);
+    this.redoButton.on(Event.CLICK, this, onRedoButtonClick);
 }
 
 Laya.class(ObstacleEditorMainPanelScript, "ObstacleEditorMainPanelUI", ObstacleEditorMainPanelUI);

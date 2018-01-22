@@ -96,7 +96,7 @@ function ObstaclePanelScript(dependences)
         {
             this.obstacleList.array.splice(index, 0, {obstacle: obstacle});
         }
-        obstacle.registerEvent(ObstacleEvent.BASE_INFO_CHANGED, this, onObstacleBaseInfoChanged);
+        obstacle.registerEvent(ObjectEvent.VALUE_CHANGED, this, onObstacleBaseInfoChanged);
     }
 
     this.clearObstacle = function()

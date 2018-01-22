@@ -150,14 +150,14 @@ function ObstacleInfoPanelScript(dependences)
             // Unregister original obstacle's point added/removed event.
             oriObstacle.unregisterEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, onRoutePointAdded);
             oriObstacle.unregisterEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, onRoutePointRemoved);
-            oriObstacle.unregisterEvent(ObstacleEvent.BASE_INFO_CHANGED, this, onObstacleBaseInfoChanged);
+            oriObstacle.unregisterEvent(ObjectEvent.VALUE_CHANGED, this, onObstacleBaseInfoChanged);
         }
         if (obstacle != null)
         {
             // Register new obstacle's point added/removed event.
             obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, onRoutePointAdded);
             obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, onRoutePointRemoved);
-            obstacle.registerEvent(ObstacleEvent.BASE_INFO_CHANGED, this, onObstacleBaseInfoChanged);
+            obstacle.registerEvent(ObjectEvent.VALUE_CHANGED, this, onObstacleBaseInfoChanged);
         }
 
         this.setObstacleInfo(obstacle);

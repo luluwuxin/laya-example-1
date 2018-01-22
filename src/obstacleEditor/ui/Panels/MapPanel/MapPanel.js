@@ -102,11 +102,7 @@ function MapPanelScript(dependences)
 
     function onCaseDataLoaded(sender)
     {
-        var routePoint = this._user.getSelectedRoutePoint();
-        if (routePoint != null)
-        {
-            this.putRoutePointToMapCenter(routePoint);
-        }
+
     }
 
     function onObstacleAdded(sender, obstacle, index)

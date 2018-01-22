@@ -44,4 +44,12 @@
         if (logLevel > logLevelList.Error) return;
         logManager.log("Error", msg);
     }
+
+    this.assert = function(val, msg)
+    {
+        if (val == false)
+        {
+            this.logError(msg);
+        }
+    }
 })();

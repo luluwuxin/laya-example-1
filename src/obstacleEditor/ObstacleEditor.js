@@ -16,11 +16,13 @@ class ObstacleEditor extends EventObject
         var obstacleManager = new ObstacleManager();
         var user = new User(obstacleManager);
         var loadedDataManager = new LoadedDataManager(obstacleManager, user);
+        var historyManager = new HistoryManager(obstacleManager, loadedDataManager, user);
         var dependences = {
             user: user,
             obstacleManager: obstacleManager,
             keyboardEventsManager: keyboardEventsManager,
-            loadedDataManager: loadedDataManager
+            loadedDataManager: loadedDataManager,
+            historyManager: historyManager
         };
 
         DependencesHelper.setDependences(this, dependences);
