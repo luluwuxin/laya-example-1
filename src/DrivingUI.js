@@ -32,6 +32,9 @@ function DrivingUI(pages, client)
       })
       .on("traffic_info", this, function () {
           this.refreshTrafficUI();
+      })
+      .on("ros_status", this, function () {
+          this.refreshSensorControlUI();
       });
 }
 Laya.class(DrivingUI, "DrivingUI", DrivingPageUI);
@@ -224,9 +227,17 @@ DrivingUI.prototype.initTrafficUI = function () {
 
 // Init the Sensor Control UI
 DrivingUI.prototype.initSensorControlUI = function () {
-    this.m_uiSensor_start.on(Laya.Event.CLICK, this, function () {
-        this.client.startUnreal();
+    this.m_uiSensorButton.on(Laya.Event.CLICK, this, function () {
+        this.client.startRos();
     });
+
+    // Hide the scrollb bar and use dragging.
+    this.m_uiSensorList.scrollBar.hide = true;
+    this.m_uiSensorList.scrollBar.elasticBackTime = 200;
+    this.m_uiSensorList.scrollBar.elasticDistance = 50;
+
+    // No data
+    this.m_uiSensorList.array = [];
 };
 
 // Refresh the scene list UI.
@@ -281,4 +292,22 @@ DrivingUI.prototype.refreshTrafficUI = function () {
     this.m_uiTraffic_carIrregularity_input.text = "" + this.client.scene.traffic_info.car_irregularity;
     this.m_uiTraffic_pedestrainDensity_slider.value = this.client.scene.traffic_info.pedestrain_density
     this.m_uiTraffic_pedestrainDensity_input.text = "" + this.client.scene.traffic_info.pedestrain_density;
+};
+
+// Refresh the sensor control UI.
+DrivingUI.prototype.refreshSensorControlUI = function () {
+    var data = [];
+
+    this.client.ros.ros_status.config.forEach(function (v) {
+        data.push({
+            checkbox: {
+                selected: v.running,
+            },
+            label: {
+                text: v.name,
+            },
+        });
+    });
+
+    this.m_uiSensorList.array = data;
 };

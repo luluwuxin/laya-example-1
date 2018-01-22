@@ -7,6 +7,7 @@ var WebClient = (function (window, Laya, logger) {
         this.car        = JSON.parse(JSON.stringify(this.car_list[0]));
         this.scene_list = this.getMockSceneList();
         this.scene      = JSON.parse(JSON.stringify(this.scene_list[0]));
+        this.ros        = this.getMockRosInfo();
         this.callbacks  = {};
         this.init();
     }
@@ -98,6 +99,10 @@ var WebClient = (function (window, Laya, logger) {
             Object.assign(this.car.car_config, json);
             break;
 
+        case "ros_status":
+            Object.assign(this.ros.ros_status, json);
+            break;
+
         }
 
         // Fire callbacks to refresh the webpage
@@ -172,7 +177,21 @@ var WebClient = (function (window, Laya, logger) {
             .fire("traffic_info");
     };
 
-    // Start unreal
+    // Start Ros
+    WebClient.prototype.startRos = function () {
+        // Make a copy of the ros_status. ros_status will be pushed from the
+        // backend with start=true.
+        var ros_status = JSON.parse(JSON.stringify(this.ros.ros_status));
+
+        Object.assign(ros_status, {
+            start: true,
+        });
+
+        // Push the data to the node backend.
+        this.socket.send(JSON.stringify(ros_status));
+    };
+
+    // Start Unreal
     WebClient.prototype.startUnreal = function () {
         // Push the data to the node backend.
         this.socket.send(JSON.stringify(this.scene.scene_info));
@@ -243,6 +262,20 @@ var WebClient = (function (window, Laya, logger) {
                 },
             },
         ];
+    };
+
+    WebClient.prototype.getMockRosInfo = function () {
+        return {
+            ros_status: {
+                method: "ros_status",
+                config: [
+                    { sid: 1, type: 0, name: "raw_point", running: false },
+                    { sid: 2, type: 1, name: "raw_image", running: false },
+                    { sid: 3, type: 2, name: "raw_gps", running: false },
+                    { sid: 4, type: 3, name: "raw_imu", running: false },
+                ],
+            },
+        };
     };
 
     return WebClient;
