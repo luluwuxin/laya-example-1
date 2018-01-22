@@ -143,6 +143,20 @@ var WebClient = (function (window, Laya, logger) {
         this.fire("car_config");
     };
 
+    // Remove a sensor.
+    WebClient.prototype.removeSensor = function (sid) {
+        // car_config has not been loaded yet.
+        if (!this.car) return;
+
+        // Remove the sensor with the specified sid
+        this.car.car_config.config = this.car.car_config.config.filter(function (v) {
+            return v.sid !== sid;
+        });
+
+        // Fire
+        this.fire("car_config");
+    };
+
     // Choose a scene from the list.
     WebClient.prototype.chooseScene = function (i) {
         if (typeof i !== "number" || i < 0 || i >= this.scene_list.length) {

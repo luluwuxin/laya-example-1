@@ -1,7 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":1,
+    "selectedBox":34,
+    "selecteID":40,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#ffffff","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -453,8 +454,21 @@
                                     "child":[
                                         {
                                             "x":75,
+                                            "type":"Button",
+                                            "props":{"x":225,"visible":false,"var":"m_uiParameterList_delete","skin":"comp/button.png","label":"Delete"},
+                                            "nodeParent":34,
+                                            "label":"Button(m_uiParameterList_delete)",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":40,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "x":75,
                                             "type":"List",
-                                            "props":{"width":300,"var":"m_uiParameterList","vScrollBarSkin":"comp/vscroll.png","spaceY":5,"repeatX":1,"height":400},
+                                            "props":{"y":30,"width":300,"var":"m_uiParameterList","vScrollBarSkin":"comp/vscroll.png","spaceY":5,"repeatX":1,"height":400},
                                             "nodeParent":34,
                                             "label":"List(m_uiParameterList)",
                                             "isOpen":true,

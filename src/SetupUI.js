@@ -174,6 +174,14 @@ SetupUI.prototype.initParameterListUI = function () {
         });
     });
 
+    // Delete button.
+    this.m_uiParameterList_delete.on(Laya.Event.CLICK, this, function () {
+        if (this.selectInfo && this.selectInfo.type === "sensor") {
+            this.client.removeSensor(this.selectInfo.sid);
+            this.selectInfo = undefined;
+        }
+    });
+
     // No parameters by default.
     this.m_uiParameterList.array = [];
 };
@@ -233,4 +241,7 @@ SetupUI.prototype.refreshParameterListUI = function () {
     }
 
     this.m_uiParameterList.array = data;
+
+    // Show delete button if we have something to show (or delete..)
+    this.m_uiParameterList_delete.visible = data.length > 0;
 };
