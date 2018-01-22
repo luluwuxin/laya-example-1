@@ -1,9 +1,9 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":38,
-    "selecteID":45,
-    "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#ffffff","right":0,"renderType":"instance","left":0,"bottom":0},
+    "selectedBox":1,
+    "selecteID":1,
+    "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#ffffff","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
     "isOpen":true,
@@ -22,42 +22,41 @@
             "isDirectory":true,
             "isAniNode":true,
             "hasChild":true,
-            "compId":31,
+            "compId":2,
             "child":[
                 {
                     "x":30,
                     "type":"HBox",
                     "props":{"right":0,"left":0,"height":72},
-                    "nodeParent":31,
+                    "nodeParent":2,
                     "label":"HBox",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
-                    "compId":32,
+                    "compId":3,
                     "child":[
                         {
-                            "x":45,
                             "type":"HBox",
                             "props":{"top":0,"left":40,"bottom":0},
-                            "nodeParent":32,
+                            "nodeParent":3,
                             "label":"HBox",
                             "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
-                            "compId":33,
+                            "compId":4,
                             "child":[
                                 {
                                     "type":"Label",
                                     "props":{"valign":"middle","text":"CYBERTRON-","fontSize":26,"color":"#000000","centerY":0,"bold":true},
-                                    "nodeParent":33,
+                                    "nodeParent":4,
                                     "label":"Label",
                                     "isOpen":false,
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":34,
+                                    "compId":5,
                                     "child":[
                                         ],
                                     "$HIDDEN":false
@@ -65,122 +64,153 @@
                                 {
                                     "type":"Label",
                                     "props":{"valign":"middle","text":"ZERO","fontSize":26,"color":"#02aef0","centerY":0,"bold":true},
-                                    "nodeParent":33,
+                                    "nodeParent":4,
                                     "label":"Label",
                                     "isOpen":false,
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":35,
+                                    "compId":6,
                                     "child":[
                                         ]
                                 }],
                             "$HIDDEN":false
                         },
                         {
-                            "x":45,
                             "type":"HBox",
                             "props":{"top":10,"right":10,"align":"top"},
-                            "nodeParent":32,
+                            "nodeParent":3,
                             "label":"HBox",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
-                            "compId":38,
+                            "compId":7,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Label",
                                     "props":{"var":"m_uiBanner_home","valign":"middle","underline":true,"text":"Home","fontSize":16,"color":"#0000ff"},
-                                    "nodeParent":38,
+                                    "nodeParent":7,
                                     "label":"Label(m_uiBanner_home)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":39,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"Label",
-                                    "props":{"width":16,"valign":"middle","text":"|","fontSize":16,"align":"center"},
-                                    "nodeParent":38,
-                                    "label":"Label",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":40,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"Label",
-                                    "props":{"y":10,"x":10,"var":"m_uiBanner_setup","valign":"middle","underline":true,"text":"Setup","fontSize":16,"color":"#0000ff"},
-                                    "nodeParent":38,
-                                    "label":"Label(m_uiBanner_setup)",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":41,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"Label",
-                                    "props":{"y":10,"x":10,"width":16,"valign":"middle","text":"|","fontSize":16,"align":"center"},
-                                    "nodeParent":38,
-                                    "label":"Label",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":42,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"Label",
-                                    "props":{"y":10,"x":10,"var":"m_uiBanner_scene","valign":"middle","underline":true,"text":"Scene","fontSize":16,"color":"#0000ff"},
-                                    "nodeParent":38,
-                                    "label":"Label(m_uiBanner_scene)",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":43,
+                                    "compId":8,
                                     "child":[
                                         ],
                                     "$HIDDEN":true
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
-                                    "props":{"y":10,"x":10,"width":16,"valign":"middle","text":"|","fontSize":16,"align":"center"},
-                                    "nodeParent":38,
+                                    "props":{"width":16,"valign":"middle","text":"|","fontSize":16,"align":"center"},
+                                    "nodeParent":7,
                                     "label":"Label",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":44,
+                                    "compId":9,
                                     "child":[
                                         ]
                                 },
                                 {
-                                    "x":60,
+                                    "type":"Label",
+                                    "props":{"y":10,"x":10,"var":"m_uiBanner_setup","valign":"middle","underline":true,"text":"Setup","fontSize":16,"color":"#0000ff"},
+                                    "nodeParent":7,
+                                    "label":"Label(m_uiBanner_setup)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":10,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "props":{"y":10,"x":10,"width":16,"valign":"middle","text":"|","fontSize":16,"align":"center"},
+                                    "nodeParent":7,
+                                    "label":"Label",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":11,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "props":{"y":10,"x":10,"var":"m_uiBanner_scene","valign":"middle","underline":true,"text":"Scene","fontSize":16,"color":"#0000ff"},
+                                    "nodeParent":7,
+                                    "label":"Label(m_uiBanner_scene)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":12,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "type":"Label",
+                                    "props":{"y":10,"x":10,"width":16,"valign":"middle","text":"|","fontSize":16,"align":"center"},
+                                    "nodeParent":7,
+                                    "label":"Label",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":13,
+                                    "child":[
+                                        ]
+                                },
+                                {
                                     "type":"Label",
                                     "props":{"y":20,"x":20,"var":"m_uiBanner_scenario","valign":"middle","underline":true,"text":"Scenario","fontSize":16,"color":"#0000ff"},
-                                    "nodeParent":38,
+                                    "nodeParent":7,
                                     "label":"Label(m_uiBanner_scenario)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":45,
+                                    "compId":14,
                                     "child":[
                                         ],
                                     "$HIDDEN":false
+                                }]
+                        }]
+                },
+                {
+                    "x":30,
+                    "type":"HBox",
+                    "props":{"right":0,"left":0,"height":648},
+                    "nodeParent":2,
+                    "label":"HBox",
+                    "isOpen":true,
+                    "isDirectory":true,
+                    "isAniNode":true,
+                    "hasChild":true,
+                    "compId":15,
+                    "child":[
+                        {
+                            "x":45,
+                            "type":"VBox",
+                            "props":{"width":200,"top":0,"bottom":0},
+                            "nodeParent":15,
+                            "label":"VBox",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":16,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"Button",
+                                    "props":{"width":64,"var":"m_uiScenarioButton","skin":"comp/checkbox.png","left":10,"label":"Add","height":64,"bottom":10},
+                                    "nodeParent":16,
+                                    "label":"Button(m_uiScenarioButton)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":17,
+                                    "child":[
+                                        ]
                                 }]
                         }]
                 }]

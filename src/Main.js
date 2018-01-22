@@ -41,9 +41,10 @@ var Handler = laya.utils.Handler;
         // Webpages
         var pages = {};
         Object.assign(pages, {
-            mainUI:    new MainUI(pages),
-            setupUI:   new SetupUI(pages, client),
-            drivingUI: new DrivingUI(pages, client),
+            mainUI:     new MainUI(pages),
+            setupUI:    new SetupUI(pages, client),
+            drivingUI:  new DrivingUI(pages, client),
+            scenarioUI: new ScenarioUI(pages, client),
         });
 
         // Init stage
