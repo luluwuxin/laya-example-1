@@ -74,23 +74,30 @@ wss.on('connection', function connection(socket, req) {
     });
 
     socket.on('message', function incoming(msg) {
-		if(msg.indexOf("{")<0)
-        {
-            socket.send(msg);
-            return;
-        }
-        
-        var pack = JSON.parse(msg);
-		if(!logic.isAuth(socket))
-        {
-			if(pack.method=="auth")
-				logic.procAuth(socket, pack);
-			else
-				socket.send(msg);
-        }else{
-			console.log("received packet:%s", pack.method);
-			logic.procMessage(socket, pack);	
+		// if(msg.indexOf("{")<0)
+        // {
+            // socket.send(msg);
+            // return;
+        // }
+		
+        try{
+			var pack = JSON.parse(msg);
+			if(!logic.isAuth(socket))
+			{
+				if(pack.method=="auth")
+					logic.procAuth(socket, pack);
+				else
+					socket.send(msg);
+			}else{
+				console.log("received packet:%s", pack.method);
+				logic.procMessage(socket, pack);	
+			}	
+		}catch(err)
+		{
+			console.log("json parse err:"+err);
+			socket.send(msg);
 		}
+        
     });
     
 	console.log("!new! unauth connect:%s!", socket.remoteAddress);

@@ -170,8 +170,15 @@ function LogicServer()
 		car_irregularity:29
 	};
 
+	// 0:PointCloud 1:Image 2:IMU 3:GPS
 	this.RosInfo = {
-
+		method:"ros_status",
+		config:[
+			{sid:1, type:0, name:"raw_point", running:false},
+			{sid:2, type:1, name:"raw_image", running:false},
+			{sid:3, type:2, name:"raw_gps", running:false},
+			{sid:4, type:3, name:"raw_imu", running:false}
+		]
 	};
 
 	// 0:摄像头 1:激光雷达 2:毫米波雷达
@@ -186,6 +193,8 @@ function LogicServer()
 		]
 	};
 
+	this.CarState = {method:"car_state",
+					 speed:18.093740463256836,accer:-0.34551405906677246,steer:-1};
 	this.cli_web = null;
 	this.cli_ros = null;
 	this.cli_ue4 = null;
@@ -229,6 +238,7 @@ function LogicServer()
 			this.cli_web.send(this.WeatherInfo);
 			this.cli_web.send(this.TrafficInfo);
 			this.cli_web.send(this.CarConfig);
+			this.cli_web.send(this.RosInfo);
 			break;
 
 			case 1: //ros
@@ -311,7 +321,19 @@ function LogicServer()
 				this.cli_ue4.send(this.CarConfig);
 				break;
 			}
-			
+
+			case "car_state":
+			{
+				this.car_state = pack;
+				this.cli_web.send(this.car_state);
+				break;
+			}
+
+			case "run":
+			{
+				break;
+			}
+
             default:
             {
                 console.log(pack.method);
