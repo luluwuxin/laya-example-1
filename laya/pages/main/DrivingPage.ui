@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":186,
-    "selecteID":190,
+    "selectedBox":191,
+    "selecteID":192,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#ffffff","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -1099,7 +1099,8 @@
                                                                     "hasChild":false,
                                                                     "compId":179,
                                                                     "child":[
-                                                                        ]
+                                                                        ],
+                                                                    "$HIDDEN":true
                                                                 }]
                                                         },
                                                         {
@@ -1245,6 +1246,32 @@
                                                                         }]
                                                                 }]
                                                         }]
+                                                }]
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"VBox",
+                                            "props":{"width":500,"top":0,"bottom":0},
+                                            "nodeParent":79,
+                                            "label":"VBox",
+                                            "isOpen":true,
+                                            "isDirectory":true,
+                                            "isAniNode":true,
+                                            "hasChild":true,
+                                            "compId":191,
+                                            "child":[
+                                                {
+                                                    "x":90,
+                                                    "type":"Button",
+                                                    "props":{"width":64,"var":"m_uiDriveButton","skin":"comp/checkbox.png","left":5,"label":"label","height":64,"bottom":5},
+                                                    "nodeParent":191,
+                                                    "label":"Button(m_uiDriveButton)",
+                                                    "isDirectory":false,
+                                                    "isAniNode":true,
+                                                    "hasChild":false,
+                                                    "compId":192,
+                                                    "child":[
+                                                        ]
                                                 }]
                                         }]
                                 },
