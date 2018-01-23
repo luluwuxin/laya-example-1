@@ -196,7 +196,9 @@ var WebClient = (function (window, Laya, logger) {
 
     // Start Sim
     WebClient.prototype.startSim = function () {
-        //
+        this.socket.send(JSON.stringify({
+            method: "sumo_ready",
+        }));
     };
 
     // Start Driving
@@ -206,6 +208,9 @@ var WebClient = (function (window, Laya, logger) {
         this.socket.send(JSON.stringify(this.scene.weather_info));
         this.socket.send(JSON.stringify(this.scene.traffic_info));
         this.socket.send(JSON.stringify(this.car.car_config));
+        this.socket.send(JSON.stringify({
+            method: "ready",
+        }));
     };
 
     // Return a mock car config list for testing
