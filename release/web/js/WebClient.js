@@ -17,8 +17,7 @@ var WebClient = (function (window, Laya, logger) {
         this.socket = new Laya.Socket();
         this.socket.endian = Laya.Byte.LITTLE_ENDIAN;
         this.socket.connectByUrl("ws://" + 
-                                (window.location.host || "10.2.10.215") +
-                                ":8080");
+                                (window.location.host || "10.2.10.215:8080"));
 
         // On connection established
         this.socket.on(Laya.Event.OPEN, this, function (e) {
