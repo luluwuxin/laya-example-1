@@ -173,6 +173,7 @@ function LogicServer()
 	// 0:PointCloud 1:Image 2:IMU 3:GPS
 	this.RosInfo = {
 		method:"ros_status",
+		start:false,
 		config:[
 			{sid:1, type:0, name:"raw_point", running:false},
 			{sid:2, type:1, name:"raw_image", running:false},
@@ -185,14 +186,54 @@ function LogicServer()
 	//roll:单位degree,范围 0~360
 	//pitch:单位degree,范围 -90~90
 	//yaw:单位degree,范围 0~360
+	
 	this.CarConfig = {
 		method:"car_config",
 		config:[
-			{sid:1, type:1,x:1,y:20,z:0,roll:0,pitch:0,yaw:0},
-			{sid:2, type:2,x:0,y:10,z:0,roll:0,pitch:0,yaw:0}
+			{sid:1, type:1,x:0,y:20,z:200.0,roll:0,pitch:0,yaw:0},
+			{sid:2, type:2,x:0,y:55.0,z:200.0,roll:0,pitch:0,yaw:0,
+			 params:
+			 {
+				 LongRangeAzimuthFieldOfView:20.0,
+				 MidRangeAzimuthFieldOfView:90.0,
+				 VerticalFieldOfView:5.0,
+				 MinRange:100.0,
+				 LongRangeMaxRange:10000.0,
+				 MidRangeMaxRange:5000.0,
+				 MinRangeRate:-10000.0,
+				 MaxRangeRate:10000.0,
+				 LongRangeAzimuthResolution:4.0,
+				 MidRangeAzimuthResolution:12.0,
+				 VerticalResolution:10.0,
+				 LongRangeRangeResolution:250.0,
+				 MidRangeRangeResolution:125.0,
+				 RangeRateResolution:50.0,
+				 MaxNumDetections:64,
+				 UseMidRange:true
+			 }
+			},
+			{sid:3, type:0,x:188.0,y:0.0,z:110.0,roll:0,pitch:0,yaw:0,fov:45,
+			 params:
+			 {
+				 ResolutionWidth:1024,
+				 ResolutionHeight:768
+			 }
+			},
+			{sid:4, type:0,x:193.0,y:-55.0,z:103.0,roll:0,pitch:0,yaw:0, 
+			 params:
+			 {
+				 fov:60,ResolutionWidth:1920,ResolutionHeight:1024
+			 }
+			},
+			{sid:5, type:0,x:188.0,y:55.0,z:103.0,roll:0,pitch:0,yaw:0,
+			 params:
+			 {
+				 fov:90,ResolutionWidth:2560,ResolutionHeight:1440
+			 }
+			}
 		]
 	};
-
+	
 	this.CarState = {method:"car_state",
 					 speed:18.093740463256836,accer:-0.34551405906677246,steer:-1};
 	this.cli_web = null;

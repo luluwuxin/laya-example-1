@@ -89,7 +89,7 @@ wss.on('connection', function connection(socket, req) {
 				else
 					socket.send(msg);
 			}else{
-				console.log("received packet:%s", pack.method);
+				console.log("received !unauth! packet:%s", pack.method);
 				logic.procMessage(socket, pack);	
 			}	
 		}catch(err)
