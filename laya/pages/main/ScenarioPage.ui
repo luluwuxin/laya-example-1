@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":1,
-    "selecteID":1,
+    "selecteID":18,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#ffffff","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -211,6 +211,47 @@
                                     "compId":17,
                                     "child":[
                                         ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"List",
+                                    "props":{"y":0,"x":0,"width":200,"var":"m_uiScenarioList","vScrollBarSkin":"comp/vscroll.png","selectEnable":true,"repeatX":1,"height":648},
+                                    "nodeParent":16,
+                                    "label":"List(m_uiScenarioList)",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":20,
+                                    "child":[
+                                        {
+                                            "x":75,
+                                            "type":"Box",
+                                            "props":{"y":0,"x":0,"name":"render"},
+                                            "nodeParent":20,
+                                            "label":"Box(render)",
+                                            "isOpen":true,
+                                            "isDirectory":true,
+                                            "isAniNode":false,
+                                            "hasChild":true,
+                                            "compId":19,
+                                            "child":[
+                                                {
+                                                    "x":90,
+                                                    "type":"Label",
+                                                    "props":{"text":"label","name":"label"},
+                                                    "nodeParent":19,
+                                                    "label":"Label(label)",
+                                                    "isDirectory":false,
+                                                    "isAniNode":false,
+                                                    "hasChild":false,
+                                                    "compId":18,
+                                                    "child":[
+                                                        ]
+                                                }],
+                                            "$HIDDEN":false
+                                        }],
+                                    "$HIDDEN":false
                                 }]
                         }]
                 }]

@@ -194,8 +194,13 @@ var WebClient = (function (window, Laya, logger) {
         this.socket.send(JSON.stringify(ros_status));
     };
 
-    // Start Unreal
-    WebClient.prototype.startUnreal = function () {
+    // Start Sim
+    WebClient.prototype.startSim = function () {
+        //
+    };
+
+    // Start Driving
+    WebClient.prototype.startDrive = function () {
         // Push the data to the node backend.
         this.socket.send(JSON.stringify(this.scene.scene_info));
         this.socket.send(JSON.stringify(this.scene.weather_info));

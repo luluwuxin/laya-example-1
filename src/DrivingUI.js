@@ -12,6 +12,8 @@ function DrivingUI(pages, client)
     this.initWeatherUI();
     this.initTrafficUI();
     this.initSensorControlUI();
+    this.initSimControlUI();
+    this.initDriveControlUI();
 
     // Pages for switching
     this.pages = pages;
@@ -245,6 +247,20 @@ DrivingUI.prototype.initSensorControlUI = function () {
 
     // No data
     this.m_uiSensorList.array = [];
+};
+
+// Init the Sim Control UI
+DrivingUI.prototype.initSimControlUI = function () {
+    this.m_uiSimButton.on(Laya.Event.CLICK, this, function () {
+        this.client.startSim();
+    });
+};
+
+// Init the Drive Control UI
+DrivingUI.prototype.initDriveControlUI = function () {
+    this.m_uiDriveButton.on(Laya.Event.CLICK, this, function () {
+        this.client.startDrive();
+    });
 };
 
 // Refresh the scene list UI.

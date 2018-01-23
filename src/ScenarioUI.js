@@ -37,6 +37,30 @@ ScenarioUI.prototype.initBannerUI = function () {
 
 // Init the scenario list UI.
 ScenarioUI.prototype.initScenarioListUI = function () {
+    // Hide the scrollb bar and use dragging.
+    this.m_uiScenarioList.scrollBar.hide = true;
+    this.m_uiScenarioList.scrollBar.elasticBackTime = 200;
+    this.m_uiScenarioList.scrollBar.elasticDistance = 50;
+
+    this.m_uiScenarioList.on(Laya.Event.CHANGE, this, function () {
+        console.log("select scenario " + this.m_uiScenarioList.selectedIndex);
+    });
+
+    // Mock data
+    this.m_uiScenarioList.array = [
+        {
+            label: {
+                text: "scenario 1",
+            },
+        },
+        {
+            label: {
+                text: "scenario 2",
+            },
+        },
+    ];
+
+
     // Add scenario button.
     this.m_uiScenarioButton.on(Laya.Event.CLICK, this, function() {
         var editor = new ObstacleEditor();
