@@ -131,7 +131,7 @@ function useSelectionInfo()
         obstacle = this._obstacleManager.getObstacle(this._saveInfo.obstacleIndex)
         this._user.selectObstacle(obstacle);
     }
-    if (this._saveInfo.routePointIndex != -1)
+    if (this._saveInfo.routePointIndex != -1 && obstacle != null)
     {
         this._user.selectRoutePoint(obstacle.getRoutePoint(this._saveInfo.routePointIndex));
     }
