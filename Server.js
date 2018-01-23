@@ -366,7 +366,22 @@ function LogicServer()
 			case "car_state":
 			{
 				this.car_state = pack;
-				this.cli_web.send(this.car_state);
+				if(client == this.cli_web)
+					this.cli_ue4.send(this.car_state);
+				else if(client == this.cli_ue4)
+					this.cli_web.send(this.car_state);
+				break;
+			}
+
+			case "sumo_ready":
+			{
+				this.cli_ue4.send(pack);
+				break;
+			}
+			
+			case "ready":
+			{
+				this.cli_ros.send(pack);
 				break;
 			}
 

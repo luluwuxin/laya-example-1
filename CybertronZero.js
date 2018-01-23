@@ -39,7 +39,7 @@ const app = express();
 // app.use(function (req, res) {
 // res.send({ msg: "hello" });
 // });
-app.use(express.static("release/layaweb/v1.0.0"))
+app.use(express.static("release/web"))
 
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
