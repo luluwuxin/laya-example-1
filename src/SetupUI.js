@@ -69,7 +69,7 @@ SetupUI.prototype.initCarListUI = function () {
 SetupUI.prototype.initCarBoxUI = function () {
     // Init the car and sensors renderer
     this.carRenderer = new CarRenderer(this.m_uiCarBox);
-    this.carRenderer.loadCar("res/LayaScene_SuvCar/SuvCar.lh");
+    this.carRenderer.loadCar("LayaScene_SuvCar/SuvCar.lh");
     // this.carRenderer.loadAxis();
 
     this.m_uiCarBox.on(Laya.Event.CLICK, this, function (e) {
