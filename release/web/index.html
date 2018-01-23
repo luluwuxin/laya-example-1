@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8' />
+	<title>CYBERTRON-ZERO</title>
+	<meta name='viewport' content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no'
+	/>
+	<meta name="renderer" content="webkit">
+	<meta name='apple-mobile-web-app-capable' content='yes' />
+	<meta name='full-screen' content='true' />
+	<meta name='x5-fullscreen' content='true' />
+	<meta name='360-fullscreen' content='true' />
+	<meta name="laya" screenorientation ="landscape"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+	<meta http-equiv='expires' content='0' />
+	<meta http-equiv="Cache-Control" content="no-siteapp"/>
+</head>
+<body>
+	<!--核心包，封装了显示对象渲染，事件，时间管理，时间轴动画，缓动，消息交互,socket，本地存储，鼠标触摸，声音，加载，颜色滤镜，位图字体等-->
+	<script type="text/javascript" src="libs/laya.core.js"></script>
+	<!--封装了webgl渲染管线，如果使用webgl渲染，可以在初始化时调用Laya.init(1000,800,laya.webgl.WebGL);-->
+    <script type="text/javascript" src="libs/laya.webgl.js"></script>
+	<!--是动画模块，包含了swf动画，骨骼动画等-->
+    <script type="text/javascript" src="libs/laya.ani.js"></script>
+	<!--包含更多webgl滤镜，比如外发光，阴影，模糊以及更多-->
+    <script type="text/javascript" src="libs/laya.filter.js"></script>
+	<!--封装了html动态排版功能-->
+    <script type="text/javascript" src="libs/laya.html.js"></script>
+	<!--粒子类库-->
+    <script type="text/javascript" src="libs/laya.particle.js"></script>
+	<!--提供tileMap解析支持-->
+    <script type="text/javascript" src="libs/laya.tiledmap.js"></script>
+	<!--提供了制作UI的各种组件实现-->
+    <script type="text/javascript" src="libs/laya.ui.js"></script>
+    <script type="text/javascript" src="libs/laya.d3.js"></script>
+	<script src="js/ui/layaUI.max.all.js"></script>
+	<!--自定义的js(bin/js文件夹下)文件自动添加到下面jsfile模块标签里面里，js的顺序可以手动修改，修改后保留修改的顺序，新增加的js会默认依次追加到标签里-->
+	<!--删除标签，ide不会自动添加js文件，请谨慎操作-->
+	<!--jsfile--startTag-->
+	<!-- ======== obstacle editor start tag ======== -->
+	<!-- base class -->
+	<script src="js/obstacleEditor/data/BaseObject.js"></script>
+	<script src="js/obstacleEditor/data/EventObject.js"></script>
+	<!-- struct -->
+	<script src="js/obstacleEditor/data/MapData.js"></script>
+	<script src="js/obstacleEditor/data/Obstacle.js"></script>
+	<script src="js/obstacleEditor/data/ObstacleManager.js"></script>
+	<script src="js/obstacleEditor/data/Route.js"></script>
+	<script src="js/obstacleEditor/data/RoutePoint.js"></script>
+	<script src="js/obstacleEditor/data/RoutePoint2D.js"></script>
+	<script src="js/obstacleEditor/data/User.js"></script>
+	<!-- math -->
+	<script src="js/obstacleEditor/math/BezierCurve.js"></script>
+	<script src="js/obstacleEditor/math/Pose.js"></script>
+	<!-- enum -->
+	<script src="js/obstacleEditor/enum/ObstacleEnum.js"></script>
+	<script src="js/obstacleEditor/enum/RoutePointEnum.js"></script>
+	<!-- func -->
+	<script src="js/obstacleEditor/func/AssetsPath.js"></script>
+	<script src="js/obstacleEditor/func/DependencesHelper.js"></script>
+	<script src="js/obstacleEditor/func/FileHelper.js"></script>
+	<script src="js/obstacleEditor/func/MathHelper.js"></script>
+	<script src="js/obstacleEditor/func/ObjectHelper.js"></script>
+	<script src="js/obstacleEditor/func/StringHelper.js"></script>
+	<script src="js/obstacleEditor/func/UIHelper.js"></script>
+	<!-- manager -->
+	<script src="js/obstacleEditor/managerObject/HistoryManager.js"></script>
+	<script src="js/obstacleEditor/managerObject/EventsManager.js"></script>
+	<script src="js/obstacleEditor/managerObject/KeyboardEventsManager.js"></script>
+	<script src="js/obstacleEditor/managerObject/LoadedDataManager.js"></script>
+	<script src="js/obstacleEditor/managerObject/LogManager.js"></script>
+	<!-- ui -->
+	<script src="js/obstacleEditor/ui/Common/PopupWindow/AskPopupWindow.js"></script>
+	<script src="js/obstacleEditor/ui/Panels/DebugPanel.js"></script>
+	<script src="js/obstacleEditor/ui/Panels/MapPanel/MapPanel.js"></script>
+	<script src="js/obstacleEditor/ui/Panels/MapPanel/RoutePointLinkLineView.js"></script>
+	<script src="js/obstacleEditor/ui/Panels/MapPanel/RoutePointView.js"></script>
+	<script src="js/obstacleEditor/ui/Panels/ObstacleInfoPanel.js"></script>
+	<script src="js/obstacleEditor/ui/Panels/ObstaclePanel.js"></script>
+	<script src="js/obstacleEditor/ui/Panels/RoutePointInfoPanel.js"></script>
+	<script src="js/obstacleEditor/ui/Panels/ObstacleEditorMainPanel.js"></script>
+	<!-- main -->
+	<script src="js/obstacleEditor/ObstacleEditor.js"></script>
+	<!-- ======== obstacle editor end tag ======== -->
+	<script src="js/3d/CameraMoveScript.js"></script>
+	<script src="js/3d/CarRenderer.js"></script>
+	<script src="js/3d/SensorMesh.js"></script>
+	<script src="js/WebClient.js"></script>
+	<script src="js/Page_Driving.js"></script>
+	<script src="js/ChatUI.js"></script>
+	<script src="js/TestUI.js"></script>
+	<script src="js/MainUI.js"></script>
+	<script src="js/SetupUI.js"></script>
+	<script src="js/DrivingUI.js"></script>
+	<script src="js/ScenarioUI.js"></script>
+	<script src="js/Main.js"></script>
+	<!--jsfile--endTag-->
+</body>
+</html>
