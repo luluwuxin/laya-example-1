@@ -160,13 +160,20 @@ SetupUI.prototype.initParameterListUI = function () {
         var input = e.getChildByName("input");
         input.on(Laya.Event.INPUT, this, function (e) {
             // Input: UI -> Model
-            if (typeof this.selectObj[label.text] === "number") {
+            // Generalize: selectObj should be a shadow object and its setter
+            //             to set the property of the raw object without knowing
+            //             the parameter is sensor.x or sensor.params.x
+            var paramsObj = this.selectObj || {};
+            if (typeof paramsObj.params === "object" && paramsObj.params.hasOwnProperty(label.text)) {
+                paramsObj = paramsObj.params;
+            }
+            if (typeof paramsObj[label.text] === "number") {
                 var data = parseFloat(e.text);
                 if (isFinite(data)) {
-                    this.selectObj[label.text] = data;
+                    paramsObj[label.text] = data;
                 }
-            } else if (typeof this.selectObj[label.text] === "string") {
-                this.selectObj[label.text] = e.text;
+            } else if (typeof paramsObj[label.text] === "string") {
+                paramsObj[label.text] = e.text;
             }
             // Refresh the preview
             this.refreshCarBoxUI();
@@ -222,7 +229,7 @@ SetupUI.prototype.refreshParameterListUI = function () {
 
     if (this.selectInfo && this.selectInfo.type === "sensor") {
         // Find the sensor whose .sid matches the current selection.
-        var blacklist = ["sid", "type"];
+        var blacklist = ["sid", "type", "params"];
         var selectInfo = this.selectInfo;
         var sensor = this.client.car.car_config.config.find(function (v) {
             return v.sid === selectInfo.sid;
@@ -240,6 +247,18 @@ SetupUI.prototype.refreshParameterListUI = function () {
                     },
                 });
             });
+            if (typeof sensor.params === "object") {
+                Object.entries(sensor.params).forEach(function (kv) {
+                    data.push({
+                        label: {
+                            text: kv[0],
+                        },
+                        input: {
+                            text: "" + kv[1],
+                        },
+                    });
+                });
+            }
         }
     }
 
