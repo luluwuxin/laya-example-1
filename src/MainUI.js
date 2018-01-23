@@ -6,6 +6,7 @@ function MainUI(pages)
 
     // Initialize UI elements
     this.initBannerUI();
+    this.initMainUI();
 
     // Pages for switching
     this.pages = pages;
@@ -30,6 +31,25 @@ MainUI.prototype.initBannerUI = function () {
         choosePage(this.pages, "drivingUI");
     });
     this.m_uiBanner_scenario.on(Laya.Event.CLICK, this, function () {
+        choosePage(this.pages, "scenarioUI");
+    });
+};
+
+// Init the main UI.
+MainUI.prototype.initMainUI = function () {
+    function choosePage(pages, name) {
+        Object.entries(pages).forEach(function (p) {
+            p[1].visible = (p[0] === name);
+        });
+    }
+
+    this.m_uiButton_setup.on(Laya.Event.CLICK, this, function () {
+        choosePage(this.pages, "setupUI");
+    });
+    this.m_uiButton_driving.on(Laya.Event.CLICK, this, function () {
+        choosePage(this.pages, "drivingUI");
+    });
+    this.m_uiButton_scenario.on(Laya.Event.CLICK, this, function () {
         choosePage(this.pages, "scenarioUI");
     });
 };

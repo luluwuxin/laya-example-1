@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":66,
-    "selecteID":72,
+    "selectedBox":73,
+    "selecteID":74,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -43,13 +43,14 @@
                     "props":{"right":0,"left":0,"height":36},
                     "nodeParent":31,
                     "label":"HBox",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":32,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "props":{"top":0,"skin":"custom/bg_banner.png","right":0,"left":0,"bottom":0},
                             "nodeParent":32,
@@ -63,17 +64,19 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"HBox",
                             "props":{"left":0,"centerY":0},
                             "nodeParent":32,
                             "label":"HBox",
-                            "isOpen":false,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":33,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
                                     "props":{"skin":"custom/logo.png"},
                                     "nodeParent":33,
@@ -88,6 +91,7 @@
                             "$HIDDEN":false
                         },
                         {
+                            "x":45,
                             "type":"HBox",
                             "props":{"right":10,"centerY":0},
                             "nodeParent":32,
@@ -264,9 +268,9 @@
                                         {
                                             "x":75,
                                             "type":"Button",
-                                            "props":{"width":200,"label":"label","height":200},
+                                            "props":{"width":240,"var":"m_uiButton_setup","height":240},
                                             "nodeParent":68,
-                                            "label":"Button",
+                                            "label":"Button(m_uiButton_setup)",
                                             "isDirectory":false,
                                             "isAniNode":true,
                                             "hasChild":false,
@@ -290,13 +294,39 @@
                                         {
                                             "x":75,
                                             "type":"Button",
-                                            "props":{"width":200,"label":"label","height":200},
+                                            "props":{"width":240,"var":"m_uiButton_driving","height":240},
                                             "nodeParent":70,
-                                            "label":"Button",
+                                            "label":"Button(m_uiButton_driving)",
                                             "isDirectory":false,
                                             "isAniNode":true,
                                             "hasChild":false,
                                             "compId":71,
+                                            "child":[
+                                                ]
+                                        }]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"VBox",
+                                    "props":{},
+                                    "nodeParent":72,
+                                    "label":"VBox",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":73,
+                                    "child":[
+                                        {
+                                            "x":75,
+                                            "type":"Button",
+                                            "props":{"width":240,"var":"m_uiButton_scenario","height":240},
+                                            "nodeParent":73,
+                                            "label":"Button(m_uiButton_scenario)",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":74,
                                             "child":[
                                                 ]
                                         }]
