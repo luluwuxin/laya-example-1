@@ -13,10 +13,34 @@ function ObstaclePanelScript(dependences)
         this._user.selectObstacle(obstacle);
     }
 
+    function onObstacleImageLoaded(image)
+    {
+        // Make it h/w ratio correctly.
+        var height = image.source.sourceHeight;
+        var width = image.source.sourceWidth;
+        var imageHeight = 80;
+        var imageWidth = 100;
+        var targetHeight = 0;
+        var targetWidth = 0;
+        if (height / width > imageHeight / imageWidth)
+        {
+            targetHeight = imageHeight;
+            targetWidth = width * targetHeight / height;
+        }
+        else
+        {
+            targetWidth = imageWidth;
+            targetHeight = height * targetWidth / width;
+        }
+        image.width = targetWidth;
+        image.height = targetHeight;
+    }
+
     function onObstacleListRender(obj, index)
     {
         var obstacle = obj.dataSource.obstacle;
         var isSelected = obstacle === this._user.getSelectedObstacle();
+        var obstacleImage = obj.getChildByName("obstacleImage");
         var selectedMark = obj.getChildByName("selectedMark");
         var nameLabel = obj.getChildByName("nameLabel");
         var removeButton = obj.getChildByName("removeButton");
@@ -28,6 +52,11 @@ function ObstaclePanelScript(dependences)
         if (selectedMark != null)
         {
             selectedMark.visible = isSelected;
+        }
+        if (obstacleImage != null)
+        {
+            obstacleImage.once(Event.LOADED, this, onObstacleImageLoaded, [obstacleImage]);
+            obstacleImage.skin = getObstacleIconByType(obstacle.type);
         }
         obj.on(Event.CLICK, this, onObstacleButtonClick, [obstacle]);
         obj.on(Event.RIGHT_CLICK, this, onObstacleRemoveButtonClick, [obstacle]);

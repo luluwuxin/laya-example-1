@@ -337,6 +337,9 @@ function MapPanelScript(dependences)
     // event
     this._loadedDataManager.registerEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this, onMapDataLoaded);
     this._loadedDataManager.registerEvent(LoadedDataManagerEvent.CASE_DATA_LOADED, this, onCaseDataLoaded);
+
+    ObjectHelper.swallowScrollMouseDown(this.mainContainer.hScrollBar);
+    ObjectHelper.swallowScrollMouseDown(this.mainContainer.vScrollBar);
     // do nothing, because map data hasn't been loaded.
 }
 Laya.class(MapPanelScript, "MapPanelUI", MapPanelUI);

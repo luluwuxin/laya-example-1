@@ -3,9 +3,9 @@ function getObstacleIconByType(type)
     switch (type)
     {
     case ObstacleType.CAR:
-        return "comp/button.png";
+        return "custom/temp_car.png";
     case ObstacleType.MAN:
-        return "comp/image.png";
+        return "custom/temp_man.png";
     case ObstacleType.MAN:
         return "comp/image.png";
     default:
