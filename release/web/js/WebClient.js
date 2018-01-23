@@ -204,7 +204,7 @@ var WebClient = (function (window, Laya, logger) {
             method: "scene_list",
             data: [
                 {
-                    scene: "IndistrialCity",
+                    scene: "IndustrialCity",
                 },
                 {
                     scene: "ShengBangJie",
