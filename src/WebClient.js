@@ -103,6 +103,9 @@ var WebClient = (function (window, Laya, logger) {
             Object.assign(this.ros.ros_status, json);
             break;
 
+        case "car_state":
+            Object.assign(this.car.car_state, json);
+            break;
         }
 
         // Fire callbacks to refresh the webpage
@@ -211,6 +214,12 @@ var WebClient = (function (window, Laya, logger) {
                         {sid:1,type:1,x:1,y:20,z:0,roll:0,pitch:0,yaw:0},
                         {sid:2,type:2,x:0,y:10,z:0,roll:0,pitch:0,yaw:0},
                     ],
+                },
+                car_state: {
+                    method: "car_state",
+                    speed: 18.093740463256836,
+                    accer: -0.34551405906677246,
+                    steer: -1,
                 },
             },
         ];

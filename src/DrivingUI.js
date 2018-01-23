@@ -23,6 +23,7 @@ function DrivingUI(pages, client)
           this.refreshWeatherUI();
           this.refreshTrafficUI();
           this.refreshSceneListUI();
+          this.refreshCarStateUI();
       })
       .on("scene_info", this, function () {
           this.refreshPathUI();
@@ -35,6 +36,9 @@ function DrivingUI(pages, client)
       })
       .on("ros_status", this, function () {
           this.refreshSensorControlUI();
+      })
+      .on("car_state", this, function () {
+          this.refreshCarStateUI();
       });
 }
 Laya.class(DrivingUI, "DrivingUI", DrivingPageUI);
@@ -299,8 +303,12 @@ DrivingUI.prototype.refreshTrafficUI = function () {
 
 // Refresh the sensor control UI.
 DrivingUI.prototype.refreshSensorControlUI = function () {
-    var data = [];
+    // No data ?
+    if (!this.client.ros.ros_status) {
+        this.m_uiSensorList.array = [];
+    }
 
+    var data = [];
     this.client.ros.ros_status.config.forEach(function (v) {
         data.push({
             checkbox: {
@@ -311,6 +319,18 @@ DrivingUI.prototype.refreshSensorControlUI = function () {
             },
         });
     });
-
     this.m_uiSensorList.array = data;
+};
+
+// Refresh the car state UI.
+DrivingUI.prototype.refreshCarStateUI = function () {
+    // No data ?
+    if (!this.client.car.car_state) {
+        return;
+    }
+
+    this.m_uiDrive_speed.text = this.client.car.car_state.speed.toFixed(3);
+    this.m_uiDrive_accer.text = this.client.car.car_state.accer.toFixed(3);
+    this.m_uiDrive_steerSlider.value = this.client.car.car_state.steer;
+    this.m_uiDrive_steerImage.rotation = this.client.car.car_state.steer * 540;
 };
