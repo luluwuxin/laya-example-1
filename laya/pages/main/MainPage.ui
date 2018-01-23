@@ -1,9 +1,9 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":38,
-    "selecteID":45,
-    "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#ffffff","right":0,"renderType":"instance","left":0,"bottom":0},
+    "selectedBox":31,
+    "selecteID":32,
+    "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
     "isOpen":true,
@@ -14,8 +14,21 @@
     "child":[
         {
             "x":15,
+            "type":"Image",
+            "props":{"top":0,"skin":"background/bg_page.png","right":0,"left":0,"bottom":0},
+            "nodeParent":1,
+            "label":"Image",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":63,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
             "type":"VBox",
-            "props":{"width":1280,"top":0,"bottom":0},
+            "props":{"top":0,"right":0,"left":0,"bottom":0},
             "nodeParent":1,
             "label":"VBox",
             "isOpen":true,
@@ -27,19 +40,31 @@
                 {
                     "x":30,
                     "type":"HBox",
-                    "props":{"right":0,"left":0,"height":72},
+                    "props":{"right":0,"left":0,"height":36},
                     "nodeParent":31,
                     "label":"HBox",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":32,
                     "child":[
                         {
-                            "x":45,
+                            "type":"Image",
+                            "props":{"top":0,"skin":"custom/bg_banner.png","right":0,"left":0,"bottom":0},
+                            "nodeParent":32,
+                            "label":"Image",
+                            "isOpen":true,
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":61,
+                            "child":[
+                                ]
+                        },
+                        {
                             "type":"HBox",
-                            "props":{"top":0,"left":40,"bottom":0},
+                            "props":{"left":0,"centerY":0},
                             "nodeParent":32,
                             "label":"HBox",
                             "isOpen":false,
@@ -49,50 +74,33 @@
                             "compId":33,
                             "child":[
                                 {
-                                    "type":"Label",
-                                    "props":{"valign":"middle","text":"CYBERTRON-","fontSize":26,"color":"#000000","centerY":0,"bold":true},
+                                    "type":"Image",
+                                    "props":{"skin":"custom/logo.png"},
                                     "nodeParent":33,
-                                    "label":"Label",
-                                    "isOpen":false,
+                                    "label":"Image",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":34,
-                                    "child":[
-                                        ],
-                                    "$HIDDEN":false
-                                },
-                                {
-                                    "type":"Label",
-                                    "props":{"valign":"middle","text":"ZERO","fontSize":26,"color":"#02aef0","centerY":0,"bold":true},
-                                    "nodeParent":33,
-                                    "label":"Label",
-                                    "isOpen":false,
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":35,
+                                    "compId":46,
                                     "child":[
                                         ]
                                 }],
                             "$HIDDEN":false
                         },
                         {
-                            "x":45,
                             "type":"HBox",
-                            "props":{"top":10,"right":10,"align":"top"},
+                            "props":{"right":10,"centerY":0},
                             "nodeParent":32,
                             "label":"HBox",
-                            "isOpen":true,
+                            "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":38,
                             "child":[
                                 {
-                                    "x":60,
                                     "type":"Label",
-                                    "props":{"var":"m_uiBanner_home","valign":"middle","underline":true,"text":"Home","fontSize":16,"color":"#0000ff"},
+                                    "props":{"var":"m_uiBanner_home","valign":"middle","text":"Home","height":18,"color":"#f0f0f0","centerY":0},
                                     "nodeParent":38,
                                     "label":"Label(m_uiBanner_home)",
                                     "isDirectory":false,
@@ -103,22 +111,33 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
-                                    "type":"Label",
-                                    "props":{"width":16,"valign":"middle","text":"|","fontSize":16,"align":"center"},
+                                    "type":"Box",
+                                    "props":{"width":10,"centerY":0},
                                     "nodeParent":38,
-                                    "label":"Label",
-                                    "isDirectory":false,
+                                    "label":"Box",
+                                    "isOpen":false,
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":40,
+                                    "hasChild":true,
+                                    "compId":54,
                                     "child":[
-                                        ]
+                                        {
+                                            "type":"Image",
+                                            "props":{"width":1,"skin":"custom/pixel_gray30.png","sizeGrid":"0,5,0,110","height":16,"centerY":0,"centerX":0},
+                                            "nodeParent":54,
+                                            "label":"Image",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":52,
+                                            "child":[
+                                                ]
+                                        }],
+                                    "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
-                                    "props":{"y":10,"x":10,"var":"m_uiBanner_setup","valign":"middle","underline":true,"text":"Setup","fontSize":16,"color":"#0000ff"},
+                                    "props":{"var":"m_uiBanner_setup","valign":"middle","text":"Setup","height":18,"color":"#f0f0f0","centerY":0},
                                     "nodeParent":38,
                                     "label":"Label(m_uiBanner_setup)",
                                     "isDirectory":false,
@@ -129,22 +148,33 @@
                                         ]
                                 },
                                 {
-                                    "x":60,
-                                    "type":"Label",
-                                    "props":{"y":10,"x":10,"width":16,"valign":"middle","text":"|","fontSize":16,"align":"center"},
+                                    "type":"Box",
+                                    "props":{"width":10,"centerY":0},
                                     "nodeParent":38,
-                                    "label":"Label",
-                                    "isDirectory":false,
+                                    "label":"Box",
+                                    "isOpen":false,
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":42,
+                                    "hasChild":true,
+                                    "compId":55,
                                     "child":[
-                                        ]
+                                        {
+                                            "type":"Image",
+                                            "props":{"width":1,"skin":"custom/pixel_gray30.png","sizeGrid":"0,5,0,110","height":16,"centerY":0,"centerX":0},
+                                            "nodeParent":55,
+                                            "label":"Image",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":56,
+                                            "child":[
+                                                ]
+                                        }],
+                                    "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
-                                    "props":{"y":10,"x":10,"var":"m_uiBanner_scene","valign":"middle","underline":true,"text":"Scene","fontSize":16,"color":"#0000ff"},
+                                    "props":{"var":"m_uiBanner_scene","valign":"middle","text":"Scene","height":18,"color":"#f0f0f0","centerY":0},
                                     "nodeParent":38,
                                     "label":"Label(m_uiBanner_scene)",
                                     "isDirectory":false,
@@ -153,25 +183,36 @@
                                     "compId":43,
                                     "child":[
                                         ],
-                                    "$HIDDEN":true
+                                    "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
-                                    "type":"Label",
-                                    "props":{"y":10,"x":10,"width":16,"valign":"middle","text":"|","fontSize":16,"align":"center"},
+                                    "type":"Box",
+                                    "props":{"width":10,"centerY":0},
                                     "nodeParent":38,
-                                    "label":"Label",
-                                    "isDirectory":false,
+                                    "label":"Box",
+                                    "isOpen":false,
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":44,
+                                    "hasChild":true,
+                                    "compId":57,
                                     "child":[
-                                        ]
+                                        {
+                                            "type":"Image",
+                                            "props":{"width":1,"skin":"custom/pixel_gray30.png","sizeGrid":"0,5,0,110","height":16,"centerY":0,"centerX":0},
+                                            "nodeParent":57,
+                                            "label":"Image",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":58,
+                                            "child":[
+                                                ]
+                                        }],
+                                    "$HIDDEN":false
                                 },
                                 {
-                                    "x":60,
                                     "type":"Label",
-                                    "props":{"y":20,"x":20,"var":"m_uiBanner_scenario","valign":"middle","underline":true,"text":"Scenario","fontSize":16,"color":"#0000ff"},
+                                    "props":{"var":"m_uiBanner_scenario","valign":"middle","text":"Scenario","height":18,"color":"#f0f0f0","centerY":0},
                                     "nodeParent":38,
                                     "label":"Label(m_uiBanner_scenario)",
                                     "isDirectory":false,
@@ -183,6 +224,19 @@
                                     "$HIDDEN":false
                                 }]
                         }]
+                },
+                {
+                    "x":30,
+                    "type":"HBox",
+                    "props":{"top":36,"right":0,"left":0,"bottom":0},
+                    "nodeParent":31,
+                    "label":"HBox",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":66,
+                    "child":[
+                        ]
                 }]
         }],
     "animations":[
