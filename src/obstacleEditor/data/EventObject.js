@@ -36,10 +36,17 @@ class EventObject extends BaseObject
         var keys = new Set();
         for (var i = 0; i < kvPair.length; i += 2)
         {
+            if (ValueHelper.equal(this[kvPair[i]], kvPair[i + 1]))
+            {
+                continue;
+            }
             this[kvPair[i]] = kvPair[i + 1];
             keys.add(kvPair[i]);
         }
-        this.sendEvent(ObjectEvent.VALUE_CHANGED, keys);
+        if (keys.size > 0)
+        {
+            this.sendEvent(ObjectEvent.VALUE_CHANGED, keys);
+        }
         return keys;
     }
 
