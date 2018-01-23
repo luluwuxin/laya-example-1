@@ -1,4 +1,7 @@
-/release
+/bin/*
+!/bin/libs
+!/bin/index.html
+!/bin/unpack.json
 /node_modules
 /.laya
 /src/ui/layaUI.max.all.js

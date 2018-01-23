@@ -8,11 +8,18 @@ class EventsManager
         this._registeredEvents = {};
     }
 
-    clearEvent (event)
+    clearEvent (event = null)
     {
-        if (event in this._registeredEvents)
+        if (event == null)
         {
-            this._registeredEvents[event] = [];
+            this._registeredEvents = {}
+        }
+        else
+        {
+            if (event in this._registeredEvents)
+            {
+                this._registeredEvents[event] = [];
+            }
         }
     }
 

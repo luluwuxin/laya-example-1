@@ -16,6 +16,11 @@ class ObstacleManager extends EventObject
         return this._obstacles;
     }
 
+    getObstacle(index)
+    {
+        return this._obstacles[index];
+    }
+
     getObstacleCount()
     {
         return this._obstacles.length;
@@ -55,11 +60,6 @@ class ObstacleManager extends EventObject
         var index = this.getObstacleIndex(obstacle);
         this._obstacles.splice(index, 1);
         this.sendEvent(ObstacleManagerEvent.REMOVED, obstacle, index);
-    }
-
-    getObstacles()
-    {
-        return this._obstacles;
     }
 
     clear()

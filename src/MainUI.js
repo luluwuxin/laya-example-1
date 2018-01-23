@@ -29,5 +29,8 @@ MainUI.prototype.initBannerUI = function () {
     this.m_uiBanner_scene.on(Laya.Event.CLICK, this, function () {
         choosePage(this.pages, "drivingUI");
     });
+    this.m_uiBanner_scenario.on(Laya.Event.CLICK, this, function () {
+        choosePage(this.pages, "scenarioUI");
+    });
 };
 

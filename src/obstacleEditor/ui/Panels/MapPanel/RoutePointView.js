@@ -38,6 +38,7 @@ function RoutePointViewScript(obstacleUI, routePoint)
     function onMouseMoveDragMode()
     {
         this.inDraggingMode = true;
+        this._historyManager.disableRecordHistory();
         this.followMouse();
     }
 
@@ -49,6 +50,7 @@ function RoutePointViewScript(obstacleUI, routePoint)
     this.stopDragging = function()
     {
         this.inDraggingMode = false;
+        this._historyManager.enableRecordHistory();
         this.watchMouseMoveDragMode(false);
     }
 
@@ -96,6 +98,7 @@ function RoutePointViewScript(obstacleUI, routePoint)
     function onMouseMoveRotationMode()
     {
         this.inRotationMode = true;
+        this._historyManager.disableRecordHistory();
         var radian = this.getCurrentMouseRadian();
         var deltaRadian = radian - this._initMouseRadianRotationMode;
         var targetRotation = deltaRadian * 180 / Math.PI + this._initRotationRotationMode;
@@ -118,6 +121,7 @@ function RoutePointViewScript(obstacleUI, routePoint)
     this.stopRotation = function()
     {
         this.inRotationMode = false;
+        this._historyManager.enableRecordHistory();
         this.watchMouseMoveRotationMode(false);
     }
 
@@ -138,6 +142,13 @@ function RoutePointViewScript(obstacleUI, routePoint)
     }
     //#endregion rotation mode
     
+    this.destroy = function()
+    {
+        Object.getPrototypeOf(this).destroy.call(this);
+        this._routePoint.unregisterEvent(ObjectEvent.VALUE_CHANGED, this, onRoutePointValueChanged);
+        this._user.unregisterEvent(UserEvent.ROUTE_POINT_SELECTED, this, onRoutePointSelected);
+    }
+
     this.update = function(keys)
     {
         var index = this._routePoint.index;

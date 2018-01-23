@@ -1,8 +1,7 @@
 var ObstacleEvent = 
 {
     ROUTE_POINT_ADDED: "route point added",
-    ROUTE_POINT_REMOVED: "route point removed",
-    BASE_INFO_CHANGED: "base info changed"
+    ROUTE_POINT_REMOVED: "route point removed"
 };
 
 class Obstacle extends EventObject
@@ -17,14 +16,12 @@ class Obstacle extends EventObject
 
     setName(name)
     {
-        this.name = name;
-        this.sendEvent(ObstacleEvent.BASE_INFO_CHANGED);
+        this.setValue("name", name);
     }
 
     setType(type)
     {
-        this.type = type;
-        this.sendEvent(ObstacleEvent.BASE_INFO_CHANGED);
+        this.setValue("type", type);
     }
 
     getRoutePoint(index)
@@ -86,6 +83,7 @@ class Obstacle extends EventObject
             this.route.points[i].index = i;
         }
 
+        routePoint.clearEvent();
         // Send events after all operation finished, or in callback it will get incorrect value.
         this.sendEvent(ObstacleEvent.ROUTE_POINT_REMOVED, routePoint);
         for (var i = index; i < this.route.points.length; i++)

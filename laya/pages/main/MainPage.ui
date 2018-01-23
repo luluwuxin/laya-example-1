@@ -152,7 +152,8 @@
                                     "hasChild":false,
                                     "compId":43,
                                     "child":[
-                                        ]
+                                        ],
+                                    "$HIDDEN":true
                                 },
                                 {
                                     "x":60,

@@ -1,6 +1,7 @@
 var LoadedDataManagerEvent = 
 {
     MAP_DATA_LOADED: "map data loaded",
+    CASE_DATA_START_LOAD: "case data start load",
     CASE_DATA_LOADED: "case data loaded"
 };
 
@@ -31,10 +32,9 @@ class LoadedDataManager extends EventObject
 
     _listenObstacleChange(obstacle)
     {
-        obstacle.registerEvent(ObstacleEvent.BASE_INFO_CHANGED, this, this._onDataChanged);
+        obstacle.registerEvent(ObjectEvent.VALUE_CHANGED, this, this._onDataChanged);
         obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, this._onDataChanged);
         obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, this._onDataChanged);
-        obstacle.registerEvent(ObjectEvent.VALUE_CHANGED, this, this._onDataChanged);
     }
 
     _listenRoutePointChange(routePoint)
@@ -82,13 +82,14 @@ class LoadedDataManager extends EventObject
             }
             else
             {
-                this._loadCaseByJsonObject(JSON.parse(text));
+                this.loadCaseByJsonObject(JSON.parse(text));
             }
         });
     }
 
-    _loadCaseByJsonObject(jsonObj)
+    loadCaseByJsonObject(jsonObj)
     {
+        this.sendEvent(LoadedDataManagerEvent.CASE_DATA_START_LOAD);
         this._user.clear();
         this._obstacleManager.clear();
         var obstaclesObj = jsonObj["obstacles"];

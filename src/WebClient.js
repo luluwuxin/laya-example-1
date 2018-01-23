@@ -7,6 +7,7 @@ var WebClient = (function (window, Laya, logger) {
         this.car        = JSON.parse(JSON.stringify(this.car_list[0]));
         this.scene_list = this.getMockSceneList();
         this.scene      = JSON.parse(JSON.stringify(this.scene_list[0]));
+        this.ros        = this.getMockRosInfo();
         this.callbacks  = {};
         this.init();
     }
@@ -98,6 +99,13 @@ var WebClient = (function (window, Laya, logger) {
             Object.assign(this.car.car_config, json);
             break;
 
+        case "ros_status":
+            Object.assign(this.ros.ros_status, json);
+            break;
+
+        case "car_state":
+            Object.assign(this.car.car_state, json);
+            break;
         }
 
         // Fire callbacks to refresh the webpage
@@ -124,6 +132,39 @@ var WebClient = (function (window, Laya, logger) {
         return this;
     };
 
+    // Add a sensor.
+    WebClient.prototype.addSensor = function (sensor) {
+        // car_config has not been loaded yet.
+        if (!this.car) return;
+
+        // Look for the next available sensor id.
+        var sidMax = -1;
+        this.car.car_config.config.forEach(function (v) {
+            sidMax = Math.max(sidMax, v.sid);
+        });
+        sensor.sid = sidMax + 1;
+
+        // Add to the sensor list.
+        this.car.car_config.config.push(sensor);
+
+        // Fire
+        this.fire("car_config");
+    };
+
+    // Remove a sensor.
+    WebClient.prototype.removeSensor = function (sid) {
+        // car_config has not been loaded yet.
+        if (!this.car) return;
+
+        // Remove the sensor with the specified sid
+        this.car.car_config.config = this.car.car_config.config.filter(function (v) {
+            return v.sid !== sid;
+        });
+
+        // Fire
+        this.fire("car_config");
+    };
+
     // Choose a scene from the list.
     WebClient.prototype.chooseScene = function (i) {
         if (typeof i !== "number" || i < 0 || i >= this.scene_list.length) {
@@ -139,13 +180,37 @@ var WebClient = (function (window, Laya, logger) {
             .fire("traffic_info");
     };
 
-    // Start unreal
-    WebClient.prototype.startUnreal = function () {
+    // Start Ros
+    WebClient.prototype.startRos = function () {
+        // Make a copy of the ros_status. ros_status will be pushed from the
+        // backend with start=true.
+        var ros_status = JSON.parse(JSON.stringify(this.ros.ros_status));
+
+        Object.assign(ros_status, {
+            start: true,
+        });
+
+        // Push the data to the node backend.
+        this.socket.send(JSON.stringify(ros_status));
+    };
+
+    // Start Sim
+    WebClient.prototype.startSim = function () {
+        this.socket.send(JSON.stringify({
+            method: "sumo_ready",
+        }));
+    };
+
+    // Start Driving
+    WebClient.prototype.startDrive = function () {
         // Push the data to the node backend.
         this.socket.send(JSON.stringify(this.scene.scene_info));
         this.socket.send(JSON.stringify(this.scene.weather_info));
         this.socket.send(JSON.stringify(this.scene.traffic_info));
         this.socket.send(JSON.stringify(this.car.car_config));
+        this.socket.send(JSON.stringify({
+            method: "ready",
+        }));
     };
 
     // Return a mock car config list for testing
@@ -159,6 +224,12 @@ var WebClient = (function (window, Laya, logger) {
                         {sid:1,type:1,x:1,y:20,z:0,roll:0,pitch:0,yaw:0},
                         {sid:2,type:2,x:0,y:10,z:0,roll:0,pitch:0,yaw:0},
                     ],
+                },
+                car_state: {
+                    method: "car_state",
+                    speed: 18.093740463256836,
+                    accer: -0.34551405906677246,
+                    steer: -1,
                 },
             },
         ];
@@ -210,6 +281,20 @@ var WebClient = (function (window, Laya, logger) {
                 },
             },
         ];
+    };
+
+    WebClient.prototype.getMockRosInfo = function () {
+        return {
+            ros_status: {
+                method: "ros_status",
+                config: [
+                    { sid: 1, type: 0, name: "raw_point", running: false },
+                    { sid: 2, type: 1, name: "raw_image", running: false },
+                    { sid: 3, type: 2, name: "raw_gps", running: false },
+                    { sid: 4, type: 3, name: "raw_imu", running: false },
+                ],
+            },
+        };
     };
 
     return WebClient;

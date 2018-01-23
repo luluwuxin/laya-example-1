@@ -12,6 +12,8 @@ function DrivingUI(pages, client)
     this.initWeatherUI();
     this.initTrafficUI();
     this.initSensorControlUI();
+    this.initSimControlUI();
+    this.initDriveControlUI();
 
     // Pages for switching
     this.pages = pages;
@@ -23,6 +25,7 @@ function DrivingUI(pages, client)
           this.refreshWeatherUI();
           this.refreshTrafficUI();
           this.refreshSceneListUI();
+          this.refreshCarStateUI();
       })
       .on("scene_info", this, function () {
           this.refreshPathUI();
@@ -32,6 +35,12 @@ function DrivingUI(pages, client)
       })
       .on("traffic_info", this, function () {
           this.refreshTrafficUI();
+      })
+      .on("ros_status", this, function () {
+          this.refreshSensorControlUI();
+      })
+      .on("car_state", this, function () {
+          this.refreshCarStateUI();
       });
 }
 Laya.class(DrivingUI, "DrivingUI", DrivingPageUI);
@@ -52,6 +61,9 @@ DrivingUI.prototype.initBannerUI = function () {
     });
     this.m_uiBanner_scene.on(Laya.Event.CLICK, this, function () {
         choosePage(this.pages, "drivingUI");
+    });
+    this.m_uiBanner_scenario.on(Laya.Event.CLICK, this, function () {
+        choosePage(this.pages, "scenarioUI");
     });
 };
 
@@ -224,8 +236,30 @@ DrivingUI.prototype.initTrafficUI = function () {
 
 // Init the Sensor Control UI
 DrivingUI.prototype.initSensorControlUI = function () {
-    this.m_uiSensor_start.on(Laya.Event.CLICK, this, function () {
-        this.client.startUnreal();
+    this.m_uiSensorButton.on(Laya.Event.CLICK, this, function () {
+        this.client.startRos();
+    });
+
+    // Hide the scrollb bar and use dragging.
+    this.m_uiSensorList.scrollBar.hide = true;
+    this.m_uiSensorList.scrollBar.elasticBackTime = 200;
+    this.m_uiSensorList.scrollBar.elasticDistance = 50;
+
+    // No data
+    this.m_uiSensorList.array = [];
+};
+
+// Init the Sim Control UI
+DrivingUI.prototype.initSimControlUI = function () {
+    this.m_uiSimButton.on(Laya.Event.CLICK, this, function () {
+        this.client.startSim();
+    });
+};
+
+// Init the Drive Control UI
+DrivingUI.prototype.initDriveControlUI = function () {
+    this.m_uiDriveButton.on(Laya.Event.CLICK, this, function () {
+        this.client.startDrive();
     });
 };
 
@@ -281,4 +315,38 @@ DrivingUI.prototype.refreshTrafficUI = function () {
     this.m_uiTraffic_carIrregularity_input.text = "" + this.client.scene.traffic_info.car_irregularity;
     this.m_uiTraffic_pedestrainDensity_slider.value = this.client.scene.traffic_info.pedestrain_density
     this.m_uiTraffic_pedestrainDensity_input.text = "" + this.client.scene.traffic_info.pedestrain_density;
+};
+
+// Refresh the sensor control UI.
+DrivingUI.prototype.refreshSensorControlUI = function () {
+    // No data ?
+    if (!this.client.ros.ros_status) {
+        this.m_uiSensorList.array = [];
+    }
+
+    var data = [];
+    this.client.ros.ros_status.config.forEach(function (v) {
+        data.push({
+            checkbox: {
+                selected: v.running,
+            },
+            label: {
+                text: v.name,
+            },
+        });
+    });
+    this.m_uiSensorList.array = data;
+};
+
+// Refresh the car state UI.
+DrivingUI.prototype.refreshCarStateUI = function () {
+    // No data ?
+    if (!this.client.car.car_state) {
+        return;
+    }
+
+    this.m_uiDrive_speed.text = this.client.car.car_state.speed.toFixed(3);
+    this.m_uiDrive_accer.text = this.client.car.car_state.accer.toFixed(3);
+    this.m_uiDrive_steerSlider.value = this.client.car.car_state.steer;
+    this.m_uiDrive_steerImage.rotation = this.client.car.car_state.steer * 540;
 };
