@@ -25,8 +25,8 @@ var Handler = laya.utils.Handler;
 
     //Laya.stage.scaleMode = Stage.SCALE_SHOWALL;
     Laya.stage.scaleMode = Stage.SCALE_FIXED_AUTO;
-    Laya.stage.bgColor = "#f0faf0"; //232628
-    //Laya.stage.bgColor = "#ffffff";
+    //Laya.stage.bgColor = "#f0faf0"; //232628
+    Laya.stage.bgColor = "#ffffff";
 
     Laya.loader.load([
         "res/atlas/comp.atlas",
@@ -52,7 +52,7 @@ var Handler = laya.utils.Handler;
             p.visible = false;
             Laya.stage.addChild(p);
         });
-        pages.drivingUI.visible = true;
+        pages.mainUI.visible = true;
     }
     
 })();

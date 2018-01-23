@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":31,
-    "selecteID":32,
+    "selectedBox":66,
+    "selecteID":72,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -231,12 +231,77 @@
                     "props":{"top":36,"right":0,"left":0,"bottom":0},
                     "nodeParent":31,
                     "label":"HBox",
-                    "isDirectory":false,
+                    "isOpen":true,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
+                    "hasChild":true,
                     "compId":66,
                     "child":[
-                        ]
+                        {
+                            "x":45,
+                            "type":"HBox",
+                            "props":{"centerY":0,"centerX":0},
+                            "nodeParent":66,
+                            "label":"HBox",
+                            "isOpen":true,
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":72,
+                            "child":[
+                                {
+                                    "x":60,
+                                    "type":"VBox",
+                                    "props":{},
+                                    "nodeParent":72,
+                                    "label":"VBox",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":68,
+                                    "child":[
+                                        {
+                                            "x":75,
+                                            "type":"Button",
+                                            "props":{"width":200,"label":"label","height":200},
+                                            "nodeParent":68,
+                                            "label":"Button",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":67,
+                                            "child":[
+                                                ]
+                                        }]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"VBox",
+                                    "props":{},
+                                    "nodeParent":72,
+                                    "label":"VBox",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":70,
+                                    "child":[
+                                        {
+                                            "x":75,
+                                            "type":"Button",
+                                            "props":{"width":200,"label":"label","height":200},
+                                            "nodeParent":70,
+                                            "label":"Button",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":71,
+                                            "child":[
+                                                ]
+                                        }]
+                                }]
+                        }]
                 }]
         }],
     "animations":[

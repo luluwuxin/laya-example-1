@@ -98,6 +98,12 @@ class RoutePoint2D extends EventObject
     setValue(...kvPair)
     {
         var keys = super.setValue(...kvPair);
+
+        if (keys.size == 0)
+        {
+            return;
+        }
+
         function checkKey(checkedKeys)
         {
             for (var key of checkedKeys)

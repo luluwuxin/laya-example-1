@@ -49,8 +49,11 @@ function RoutePointViewScript(obstacleUI, routePoint)
 
     this.stopDragging = function()
     {
-        this.inDraggingMode = false;
-        this._historyManager.enableRecordHistory();
+        if (this.inDraggingMode)
+        {
+            this.inDraggingMode = false;
+            this._historyManager.enableRecordHistory();
+        }
         this.watchMouseMoveDragMode(false);
     }
 

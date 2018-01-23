@@ -100,11 +100,6 @@ function MapPanelScript(dependences)
         this.initEvent();
     }
 
-    function onCaseDataLoaded(sender)
-    {
-
-    }
-
     function onObstacleAdded(sender, obstacle, index)
     {
         this.addObstacle(obstacle, index);
@@ -135,12 +130,22 @@ function MapPanelScript(dependences)
         this._refreshMiniMapFrame();
     }
 
-    function onMiniMapButtonClick(event)
+    
+
+    function onMiniMapButtonCancel(event)
     {
-        var ratio = this.miniMapBox.width / this._mapData.mapInfo.width;
-        var x = this.miniMapButton.mouseX / ratio;
-        var y = this.miniMapButton.mouseY / ratio;
-        this.putPointToMapCenter(x, y);
+        this.miniMapButton.off(Event.MOUSE_MOVE, this, onMiniMapButtonMove);
+    }
+
+    function onMiniMapButtonMove(event)
+    {
+        this._miniMapFollowMouse(event);
+    }
+
+    function onMiniMapButtonDown(event)
+    {
+        this.miniMapButton.on(Event.MOUSE_MOVE, this, onMiniMapButtonMove);
+        this._miniMapFollowMouse(event);
     }
 
     function onMainContainerMouseDown()
@@ -203,6 +208,14 @@ function MapPanelScript(dependences)
 
     //#endregion event callback
 
+    this._miniMapFollowMouse = function(event)
+    {
+        var ratio = this.miniMapBox.width / this._mapData.mapInfo.width;
+        var x = this.miniMapButton.mouseX / ratio;
+        var y = this.miniMapButton.mouseY / ratio;
+        this.putPointToMapCenter(x, y);
+    }
+
     this.initEvent = function ()
     {
         this._obstacleManager.registerEvent(ObstacleManagerEvent.ADDED, this, onObstacleAdded);
@@ -210,7 +223,9 @@ function MapPanelScript(dependences)
         this._user.registerEvent(UserEvent.OBSTACLE_SELECTED, this, onObstacleSelected);
         this.mainContainer.vScrollBar.on(Event.CHANGE, this, onMapScrolled);
         this.mainContainer.hScrollBar.on(Event.CHANGE, this, onMapScrolled);
-        this.miniMapButton.on(Event.CLICK, this, onMiniMapButtonClick);
+        this.miniMapButton.on(Event.MOUSE_DOWN, this, onMiniMapButtonDown);
+        this.miniMapButton.on(Event.MOUSE_UP, this, onMiniMapButtonCancel);
+        this.miniMapButton.on(Event.MOUSE_OUT, this, onMiniMapButtonCancel);
         this.mainContainer.on(Event.MOUSE_DOWN, this, onMainContainerMouseDown);
         this.mainContainer.on(Event.MOUSE_UP, this, onMainContainerMouseUp);
     }
@@ -336,7 +351,9 @@ function MapPanelScript(dependences)
 
     // event
     this._loadedDataManager.registerEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this, onMapDataLoaded);
-    this._loadedDataManager.registerEvent(LoadedDataManagerEvent.CASE_DATA_LOADED, this, onCaseDataLoaded);
+
+    ObjectHelper.swallowScrollMouseDown(this.mainContainer.hScrollBar);
+    ObjectHelper.swallowScrollMouseDown(this.mainContainer.vScrollBar);
     // do nothing, because map data hasn't been loaded.
 }
 Laya.class(MapPanelScript, "MapPanelUI", MapPanelUI);

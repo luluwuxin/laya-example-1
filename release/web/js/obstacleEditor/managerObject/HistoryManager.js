@@ -20,6 +20,7 @@ function addHistory()
 {
     if (this._historyEnabled == false)
     {
+        this._historyDirty = true;
         return;
     }
     var length = this._historyList.length;
@@ -130,7 +131,7 @@ function useSelectionInfo()
         obstacle = this._obstacleManager.getObstacle(this._saveInfo.obstacleIndex)
         this._user.selectObstacle(obstacle);
     }
-    if (this._saveInfo.routePointIndex != -1)
+    if (this._saveInfo.routePointIndex != -1 && obstacle != null)
     {
         this._user.selectRoutePoint(obstacle.getRoutePoint(this._saveInfo.routePointIndex));
     }
@@ -143,6 +144,7 @@ class HistoryManager
         this._historyList = [];
         this._currentIndex = -1;
         this._historyEnabled = true;
+        this._historyDirty = false;
         this._isDoMode = false;
         this._obstacleManager = obstacleManager;
         this._loadedDataManager = loadedDataManager;
@@ -172,15 +174,29 @@ class HistoryManager
 
     disableRecordHistory()
     {
+        if (this._historyEnabled == false)
+        {
+            logError("Logic error, there shall be no action to disable record when it's already disabled.");
+            console.trace();
+            return;
+        }
         this._historyEnabled = false;
+        this._historyDirty = false;
     }
 
     enableRecordHistory(recordNow = true)
     {
+        if (this._historyEnabled)
+        {
+            logError("Logic error, there shall be no action to enable record when it's already enabled.");
+            console.trace();
+            return;
+        }
         this._historyEnabled = true;
-        if (recordNow)
+        if (recordNow && this._historyDirty)
         {
             addHistory.call(this);
+            this._historyDirty = false;
         }
     }
 

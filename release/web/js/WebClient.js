@@ -3,12 +3,11 @@
 var WebClient = (function (window, Laya, logger) {
 
     function WebClient() {
-        this.car_list   = this.getMockCarList();
-        this.car        = JSON.parse(JSON.stringify(this.car_list[0]));
-        this.scene_list = this.getMockSceneList();
-        this.scene      = JSON.parse(JSON.stringify(this.scene_list[0]));
-        this.ros        = this.getMockRosInfo();
-        this.callbacks  = {};
+        this.car_list  = this.getMockCarList();
+        this.car       = JSON.parse(JSON.stringify(this.car_list[0]));
+        this.scene     = {};
+        this.ros       = this.getMockRosInfo();
+        this.callbacks = {};
         this.init();
     }
 
@@ -23,15 +22,14 @@ var WebClient = (function (window, Laya, logger) {
         this.socket.on(Laya.Event.OPEN, this, function (e) {
             logger.info("WebSocket open: " + e.target.url);
 
-            // Replace this as soon as car/scene list is supported
-            if (!this.__init_scene_list) {
-                this.__init_scene_list = true;
-                this.fire("__init_scene_list");
-            }
+            // Replace this as soon as car list is supported
             if (!this.__init_car_list) {
                 this.__init_car_list = true;
                 this.fire("__init_car_list");
             }
+
+            // Init internal hard-coded settings
+            this.initHardcodeData();
 
             // Claim that this is a Web Client
             this.socket.send(JSON.stringify({
@@ -81,29 +79,32 @@ var WebClient = (function (window, Laya, logger) {
         // Update the model
         switch (json.method) {
 
+        case "scene_list":
+            this.scene.scene_list = Object.assign(this.scene.scene_list || {}, json);
+            break;
+
         case "scene_info":
-            // Only one scene for now. Shouldn't the user choose a scene in browser?
-            Object.assign(this.scene.scene_info, json);
+            this.scene.scene_info = Object.assign(this.scene.scene_info || {}, json);
             break;
 
         case "weather_info":
-            Object.assign(this.scene.weather_info, json);
+            this.scene.weather_info = Object.assign(this.scene.weather_info || {}, json);
             break;
 
         case "traffic_info":
-            Object.assign(this.scene.traffic_info, json);
+            this.scene.traffic_info = Object.assign(this.scene.traffic_info || {}, json);
             break;
 
         case "car_config":
-            Object.assign(this.car.car_config, json);
-            break;
-
-        case "ros_status":
-            Object.assign(this.ros.ros_status, json);
+            this.car.car_config = Object.assign(this.car.car_config || {}, json);
             break;
 
         case "car_state":
-            Object.assign(this.car.car_state, json);
+            this.car.car_state = Object.assign(this.car.car_state || {}, json);
+            break;
+
+        case "ros_status":
+            this.ros.ros_status = Object.assign(this.ros.ros_status || {}, json);
             break;
         }
 
@@ -164,21 +165,6 @@ var WebClient = (function (window, Laya, logger) {
         this.fire("car_config");
     };
 
-    // Choose a scene from the list.
-    WebClient.prototype.chooseScene = function (i) {
-        if (typeof i !== "number" || i < 0 || i >= this.scene_list.length) {
-            throw new Error("Invalid scene index: " + i);
-        }
-
-        // Discard the current scene settings.
-        this.scene = JSON.parse(JSON.stringify(this.scene_list[i]));
-
-        // Fire
-        this.fire("scene_info")
-            .fire("weather_info")
-            .fire("traffic_info");
-    };
-
     // Start Ros
     WebClient.prototype.startRos = function () {
         // Make a copy of the ros_status. ros_status will be pushed from the
@@ -212,6 +198,21 @@ var WebClient = (function (window, Laya, logger) {
         }));
     };
 
+    // Hard-code stuff
+    WebClient.prototype.initHardcodeData = function () {
+        this.handleJsonMessage({
+            method: "scene_list",
+            data: [
+                {
+                    scene: "IndistrialCity",
+                },
+                {
+                    scene: "ShengBangJie",
+                },
+            ]
+        })
+    };
+
     // Return a mock car config list for testing
     WebClient.prototype.getMockCarList = function () {
         return [
@@ -229,54 +230,6 @@ var WebClient = (function (window, Laya, logger) {
                     speed: 18.093740463256836,
                     accer: -0.34551405906677246,
                     steer: -1,
-                },
-            },
-        ];
-    };
-
-    // Return a mock scene for testing.
-    WebClient.prototype.getMockSceneList = function () {
-        return [
-            {
-                scene_info: {
-                    method: "scene_info",
-                    scene: "IndistrialCity",
-                    path: "default",
-                },
-                weather_info: {
-                    method: "weather_info",
-                    temperature: 25,
-                    time_of_day: "9:00",
-                    rain_type: true,
-                    snow_type: false,
-                    fog_type: "HeaveFog",
-                },
-                traffic_info: {
-                    method: "traffic_info",
-                    car_density: 50,
-                    pedestrain_density: 19,
-                    car_irregularity: 29,
-                },
-            },
-            {
-                scene_info: {
-                    method: "scene_info",
-                    scene: "Changning",
-                    path: "default",
-                },
-                weather_info: {
-                    method: "weather_info",
-                    temperature: -10,
-                    time_of_day: "19:00",
-                    rain_type: false,
-                    snow_type: true,
-                    fog_type: "",
-                },
-                traffic_info: {
-                    method: "traffic_info",
-                    car_density: 500,
-                    pedestrain_density: 109,
-                    car_irregularity: 209,
                 },
             },
         ];

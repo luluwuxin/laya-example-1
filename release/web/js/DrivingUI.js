@@ -20,12 +20,8 @@ function DrivingUI(pages, client)
 
     // Model and WebSocket backend
     this.client = client
-      .on("__init_scene_list", this, function () {
-          this.refreshPathUI();
-          this.refreshWeatherUI();
-          this.refreshTrafficUI();
+      .on("scene_list", this, function () {
           this.refreshSceneListUI();
-          this.refreshCarStateUI();
       })
       .on("scene_info", this, function () {
           this.refreshPathUI();
@@ -77,7 +73,8 @@ DrivingUI.prototype.initSceneListUI = function () {
     // Mouse events.
     this.m_uiSceneList.mouseHandler = new Handler(this, function (e, i) {
         if (e.type === Laya.Event.CLICK) {
-            this.client.chooseScene(i);
+            this.client.scene.scene_info.scene =
+                this.client.scene.scene_list.data[i].scene;
         }
     });
 };
@@ -267,10 +264,10 @@ DrivingUI.prototype.initDriveControlUI = function () {
 DrivingUI.prototype.refreshSceneListUI = function () {
     var data = [];
 
-    this.client.scene_list.forEach(function (v) {
+    this.client.scene.scene_list.data.forEach(function (v) {
         data.push({
             label: {
-                text: v.scene_info.scene,
+                text: v.scene,
             },
             image: {
                 skin: "",
