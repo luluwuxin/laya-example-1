@@ -41,14 +41,9 @@ class LoadedDataManager extends EventObject
         routePoint.registerEvent(ObjectEvent.VALUE_CHANGED, this, this._onDataChanged);
     }
 
-    _getMapConfigFilePath(mapDirectory)
+    loadMapDataByMapName(mapName)
     {
-        return mapDirectory + "/" + "config.json";
-    }
-
-    loadMapData(mapDirectory)
-    {
-        var mapConfigFilePath = this._getMapConfigFilePath(mapDirectory);
+        var mapConfigFilePath = AssetsPath.getMapConfigFilePath(mapName);
         FileHelper.readFile(mapConfigFilePath, this, function(text)
         {
             if (text == "")
@@ -57,14 +52,20 @@ class LoadedDataManager extends EventObject
             }
             else
             {
-                var mapConfig = JSON.parse(text);
-                this.mapData = new MapData(mapConfig, mapDirectory);
-                this.sendEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this.mapData);
+                this.loadMapData(mapName, text);
+                
             }
         });
     }
 
-    loadCaseData(caseFilePath)
+    loadMapData(mapName, mapDataString)
+    {
+        var mapDataJson = JSON.parse(mapDataString);
+        this.mapData = new MapData(mapDataJson, mapName);
+        this.sendEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this.mapData);
+    }
+
+    loadCaseDataByFilePath(caseFilePath)
     {
         FileHelper.readFile(caseFilePath, this, function(text)
         {
@@ -74,9 +75,14 @@ class LoadedDataManager extends EventObject
             }
             else
             {
-                this.loadCaseByJsonObject(JSON.parse(text));
+                this.loadCase(text);
             }
         });
+    }
+
+    loadCase(text)
+    {
+        this.loadCaseByJsonObject(JSON.parse(text));
     }
 
     loadCaseByJsonObject(jsonObj)
@@ -131,10 +137,15 @@ class LoadedDataManager extends EventObject
 
     downloadCaseData()
     {
-        FileHelper.createAndDownloadFile("case.json", this.getCaseData());
+        FileHelper.createAndDownloadFile("case.json", this.getCaseDataJsonString());
     }
 
-    getCaseData()
+    getMapDataJsonString()
+    {
+        return JSON.stringify(this.mapData.mapDataJson);
+    }
+
+    getCaseDataJsonString()
     {
         var jsonObj = this._obstacleManager.toJson();
         var str = JSON.stringify(jsonObj);

@@ -1,9 +1,10 @@
 class MapData
 {
-    constructor(mapConfig, rootDirectory)
+    constructor(mapDataJson, mapName)
     {
-        this.rootDirectory = rootDirectory;
-        ObjectHelper.clone(mapConfig, this);
+        this.mapName = mapName;
+        this.mapDataJson = mapDataJson;
+        ObjectHelper.clone(mapDataJson, this);
 
         // Init.
         this.obstacleTypes = [];
@@ -15,7 +16,7 @@ class MapData
 
     _getPath(relativePath)
     {
-        return this.rootDirectory + "/" + relativePath;
+        return AssetsPath.getMapDirectory(this.mapName) + "/" + relativePath;
     }
 
     getMapImagePath()
