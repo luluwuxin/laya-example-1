@@ -1,7 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":1,
+    "selectedBox":33,
+    "selecteID":46,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -268,7 +269,7 @@
                                         {
                                             "x":75,
                                             "type":"Button",
-                                            "props":{"width":240,"var":"m_uiButton_setup","height":240},
+                                            "props":{"width":240,"var":"m_uiButton_setup","skin":"custom/button_main_setup.png","height":240},
                                             "nodeParent":68,
                                             "label":"Button(m_uiButton_setup)",
                                             "isDirectory":false,
@@ -294,7 +295,7 @@
                                         {
                                             "x":75,
                                             "type":"Button",
-                                            "props":{"width":240,"var":"m_uiButton_driving","height":240},
+                                            "props":{"width":240,"var":"m_uiButton_driving","skin":"custom/button_main_driving.png","height":240},
                                             "nodeParent":70,
                                             "label":"Button(m_uiButton_driving)",
                                             "isDirectory":false,
@@ -320,7 +321,7 @@
                                         {
                                             "x":75,
                                             "type":"Button",
-                                            "props":{"width":240,"var":"m_uiButton_scenario","height":240},
+                                            "props":{"width":240,"var":"m_uiButton_scenario","skin":"custom/button_main_scenario.png","height":240},
                                             "nodeParent":73,
                                             "label":"Button(m_uiButton_scenario)",
                                             "isDirectory":false,
