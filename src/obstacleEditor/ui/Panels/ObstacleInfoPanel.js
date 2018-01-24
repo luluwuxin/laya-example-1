@@ -117,6 +117,13 @@ function ObstacleInfoPanelScript(dependences)
         }
         this._user.selectRoutePoint(addedRoutePoint);
     }
+
+    function onMapDataLoaded()
+    {
+        // init typeComboBox
+        UIHelper.setComboLabels(this.typeComboBox, this._loadedDataManager.mapData.getObstacleTypes());
+    }
+
     //#endregion event callback
 
     this.updateRoutePointItem = function(routePoint)
@@ -203,10 +210,9 @@ function ObstacleInfoPanelScript(dependences)
     DependencesHelper.setDependences(this, dependences);
 
     // init ui
-    //// init typeComboBox
-    UIHelper.setComboLabels(this.typeComboBox, ObstacleType);
 
     // event
+    this._loadedDataManager.registerEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this, onMapDataLoaded);
     this.routePointList.renderHandler = new Handler(this, onRoutePointListRender);
     this.addRoutePointButton.on(Event.CLICK, this, onAddRoutePointButtonClick);
     this.typeComboBox.on(Event.CHANGE, this, onTypeChanged);

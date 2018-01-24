@@ -1,11 +1,15 @@
 class ObjectHelper
 {
-    static clone(obj)
+    static clone(from, to = null)
     {
         var ret = {};
-        for (var key in obj)
+        if (to != null)
         {
-            ret[key] = obj[key];
+            ret = to;
+        }
+        for (var key in from)
+        {
+            ret[key] = from[key];
         }
         return ret;
     }

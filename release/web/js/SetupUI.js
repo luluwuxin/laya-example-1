@@ -52,10 +52,7 @@ SetupUI.prototype.initBannerUI = function () {
 
 // Init the car list UI.
 SetupUI.prototype.initCarListUI = function () {
-    // Hide the scrollb bar and use dragging.
-    this.m_uiCarList.scrollBar.hide = true;
-    this.m_uiCarList.scrollBar.elasticBackTime = 200;
-    this.m_uiCarList.scrollBar.elasticDistance = 50;
+    this.m_uiCarList.array = [];
 
     // Mouse events.
     this.m_uiCarList.mouseHandler = new Handler(this, function (e, i) {
@@ -81,17 +78,17 @@ SetupUI.prototype.initCarBoxUI = function () {
 
 // Init the inventory list UI.
 SetupUI.prototype.initInventoryListUI = function () {
-    // Hide the scrollb bar and use dragging.
-    this.m_uiInventoryList.scrollBar.hide = true;
-
     // Allow dragging (into car box).
     this.m_uiInventoryList.on(Laya.Event.RENDER, this, function (e) {
         var templateJson = e.getChildByName("templateJson").text;
-        var image = e.getChildByName("image");
-        var button = e.getChildByName("button");
-        button.on(Laya.Event.MOUSE_DOWN, this, function (e) {
+        var icon = e.getChildByName("icon");
+        var label = e.getChildByName("label");
+        e.on(Laya.Event.MOUSE_DOWN, this, function (e) {
+            // Already dragging ?
+            if (e.indicator) return;
+
             // A new dynamic image object as the dragging indicator.
-            var indicator = new Laya.Image(button.skin);
+            var indicator = e.indicator = new Laya.Image(icon.skin);
             indicator.x = e.stageX;
             indicator.y = e.stageY;
             Laya.stage.addChild(indicator);
@@ -99,15 +96,21 @@ SetupUI.prototype.initInventoryListUI = function () {
             // Enable dragging on the indicator.
             indicator.startDrag();
 
-            // Drop the indicator onto some object.
-            indicator.on(Laya.Event.DRAG_END, this, function (e) {
+            function HandleDrop() {
                 // Car Box ?
-                indicator.stopDrag();
-                if (this.m_uiCarBox.hitTestPoint(indicator.x, indicator.y)) {
-                    this.client.addSensor(JSON.parse(templateJson));
+                if (e.indicator) {
+                    indicator.stopDrag();
+                    if (this.m_uiCarBox.hitTestPoint(indicator.x, indicator.y)) {
+                        this.client.addSensor(JSON.parse(templateJson));
+                    }
+                    indicator.destroy();
                 }
-                indicator.destroy();
-            });
+                e.indicator = undefined;
+            }
+
+            // Drop the indicator onto some object.
+            indicator.on(Laya.Event.DRAG_END, this, HandleDrop);
+            indicator.on(Laya.Event.MOUSE_UP, this, HandleDrop);
         });
     });
 
@@ -117,10 +120,17 @@ SetupUI.prototype.initInventoryListUI = function () {
             label: {
                 text: "Camera",
             },
+            icon: {
+                skin: "custom/image_inventory_camera.png",
+            },
             templateJson: {
                 text: JSON.stringify({
                     sid: -1, type: 0, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
-                    fov: 60, ResolutionWidth: 1024, ResolutionHeight:768,
+                    params: {
+                        fov: 45,
+                        ResolutionWidth: 1024,
+                        ResolutionHeight: 768,
+                    },
                 }),
             },
         },
@@ -128,9 +138,12 @@ SetupUI.prototype.initInventoryListUI = function () {
             label: {
                 text: "Lidar",
             },
+            icon: {
+                skin: "custom/image_inventory_lidar.png",
+            },
             templateJson: {
                 text: JSON.stringify({
-                    sid: -1, type: 0, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
+                    sid: -1, type: 1, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
                 }),
             },
         },
@@ -138,9 +151,30 @@ SetupUI.prototype.initInventoryListUI = function () {
             label: {
                 text: "Radar",
             },
+            icon: {
+                skin: "custom/image_inventory_radar.png",
+            },
             templateJson: {
                 text: JSON.stringify({
-                    sid: -1, type: 0, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
+                    sid: -1, type: 2, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
+                    params: {
+                        LongRangeAzimuthFieldOfView: 20,
+                        MidRangeAzimuthFieldOfView: 90,
+                        VerticalFieldOfView: 5,
+                        MinRange: 100,
+                        LongRangeMaxRange: 10000,
+                        MidRangeMaxRange: 5000,
+                        MinRangeRate: -10000,
+                        MaxRangeRate: 10000,
+                        LongRangeAzimuthResolution: 4,
+                        MidRangeAzimuthResolution: 12,
+                        VerticalResolution: 10,
+                        LongRangeRangeResolution: 250,
+                        MidRangeRangeResolution: 125,
+                        RangeRateResolution: 50,
+                        MaxNumDetections: 64,
+                        UseMidRange: true,
+                    },
                 }),
             },
         },
@@ -149,11 +183,6 @@ SetupUI.prototype.initInventoryListUI = function () {
 
 // Init the parameter list UI.
 SetupUI.prototype.initParameterListUI = function () {
-    // Hide the scrollb bar and use dragging.
-    this.m_uiParameterList.scrollBar.hide = true;
-    this.m_uiParameterList.scrollBar.elasticBackTime = 200;
-    this.m_uiParameterList.scrollBar.elasticDistance = 50;
-
     // Add callbacks for the items in the list.
     this.m_uiParameterList.on(Laya.Event.RENDER, this, function (e) {
         var label = e.getChildByName("label");
@@ -201,10 +230,7 @@ SetupUI.prototype.refreshCarListUI = function () {
     var data = [
         {
             label: {
-                text: "default",
-            },
-            image: {
-                skin: "",
+                text: "SUV",
             },
         }
     ];

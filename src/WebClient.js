@@ -205,9 +205,11 @@ var WebClient = (function (window, Laya, logger) {
             data: [
                 {
                     scene: "IndustrialCity",
+                    image: "custom/image_scene_IndustrialCity.png",
                 },
                 {
                     scene: "ShengBangJie",
+                    image: "custom/image_scene_ShengBangJie.png",
                 },
             ]
         })

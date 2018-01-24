@@ -17,7 +17,6 @@ class LoadedDataManager extends EventObject
 
         this._dataDirtyFlag = false;
         this.mapData = null;
-        this.mapDataDirectory = "";
         this.caseFilePath = "";
 
         // event
@@ -42,31 +41,24 @@ class LoadedDataManager extends EventObject
         routePoint.registerEvent(ObjectEvent.VALUE_CHANGED, this, this._onDataChanged);
     }
 
-    _getMapImagePath (dir)
+    _getMapConfigFilePath(mapDirectory)
     {
-        return dir + "\\" + "map.png";
+        return mapDirectory + "/" + "config.json";
     }
 
-    _getMapInfoFilePath (dir)
+    loadMapData(mapDirectory)
     {
-        return dir + "\\" + "mapInfo.json";
-    }
-
-    loadMapData(mapDataDirectory)
-    {
-        var mapImagePath = this._getMapImagePath(mapDataDirectory);
-        var mapInfoFilePath = this._getMapInfoFilePath(mapDataDirectory);
-        FileHelper.readFile(mapInfoFilePath, this, function(text)
+        var mapConfigFilePath = this._getMapConfigFilePath(mapDirectory);
+        FileHelper.readFile(mapConfigFilePath, this, function(text)
         {
             if (text == "")
             {
-                logError("Load map faile. Path: [{0}]".format(mapDataDirectory));
+                logError("Load map faile. Path: [{0}]".format(mapConfigFilePath));
             }
             else
             {
-                this.mapDataDirectory = mapDataDirectory;
-                var mapInfo = JSON.parse(text);
-                this.mapData = new MapData(mapInfo, mapImagePath);
+                var mapConfig = JSON.parse(text);
+                this.mapData = new MapData(mapConfig, mapDirectory);
                 this.sendEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this.mapData);
             }
         });
@@ -124,6 +116,9 @@ class LoadedDataManager extends EventObject
                 }
             }
         }
+        this._dataDirtyFlag = false;
+        this.sendEvent(LoadedDataManagerEvent.CASE_DATA_LOADED);
+
         if (firstObstacle != null)
         {
             this._user.selectObstacle(firstObstacle);
@@ -132,9 +127,6 @@ class LoadedDataManager extends EventObject
         {
             this._user.selectRoutePoint(firstRoutePoint);
         }
-
-        this._dataDirtyFlag = false;
-        this.sendEvent(LoadedDataManagerEvent.CASE_DATA_LOADED);
     }
 
     downloadCaseData()

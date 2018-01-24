@@ -18,8 +18,16 @@ function CarRenderer(parent) {
 
     // Render into parent node rectangle.
     var p0 = parent.localToGlobal(new Laya.Point(0, 0));
-    var p1 = parent.localToGlobal(new Laya.Point(parent.width, parent.height));
+    var p1 = parent.localToGlobal(new Laya.Point(640, 480));
     this.camera.viewport = new Laya.Viewport(p0.x, p0.y, p1.x-p0.x, p1.y-p0.y);
+
+    // Resize when Laya finishes layout the page.
+    var camera = this.camera;
+    setTimeout(function() {
+        var p0 = parent.localToGlobal(new Laya.Point(0, 0));
+        var p1 = parent.localToGlobal(new Laya.Point(parent.width, parent.height));
+        camera.viewport = new Laya.Viewport(p0.x, p0.y, p1.x-p0.x, p1.y-p0.y);
+    }, 1);
 
     // A list of sensors 3D sprite meshes.
     this.sensors = [];
