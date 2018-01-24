@@ -1,9 +1,10 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":205,
-    "selecteID":207,
-    "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#ffffff","right":0,"left":0,"bottom":0},
+    "selectedBox":1,
+    "selecteID":79,
+    "referenceLines":null,
+    "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
     "isOpen":true,
@@ -14,10 +15,23 @@
     "child":[
         {
             "x":15,
-            "type":"VBox",
-            "props":{"width":1280,"top":0,"bottom":0},
+            "type":"Image",
+            "props":{"top":0,"skin":"background/bg_page.png","right":0,"left":0,"bottom":0},
             "nodeParent":1,
-            "label":"VBox",
+            "label":"Image",
+            "isDirectory":false,
+            "isAniNode":true,
+            "hasChild":false,
+            "compId":208,
+            "child":[
+                ]
+        },
+        {
+            "x":15,
+            "type":"Box",
+            "props":{"top":0,"right":0,"left":0,"bottom":0},
+            "nodeParent":1,
+            "label":"Box",
             "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
@@ -26,184 +40,209 @@
             "child":[
                 {
                     "x":30,
-                    "type":"HBox",
-                    "props":{"right":0,"left":0,"height":72},
+                    "type":"Box",
+                    "props":{"right":0,"left":0,"height":36},
                     "nodeParent":29,
-                    "label":"HBox",
+                    "label":"Box",
                     "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
-                    "compId":30,
+                    "compId":209,
                     "child":[
                         {
-                            "type":"HBox",
-                            "props":{"top":0,"left":40,"bottom":0},
-                            "nodeParent":30,
-                            "label":"HBox",
-                            "isOpen":false,
-                            "isDirectory":true,
+                            "type":"Image",
+                            "props":{"top":0,"skin":"custom/bg_banner.png","right":0,"left":0,"bottom":0},
+                            "nodeParent":209,
+                            "label":"Image",
+                            "isDirectory":false,
                             "isAniNode":true,
-                            "hasChild":true,
-                            "compId":38,
+                            "hasChild":false,
+                            "compId":210,
                             "child":[
-                                {
-                                    "type":"Label",
-                                    "props":{"valign":"middle","text":"CYBERTRON-","fontSize":26,"color":"#000000","centerY":0,"bold":true},
-                                    "nodeParent":38,
-                                    "label":"Label",
-                                    "isOpen":false,
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":39,
-                                    "child":[
-                                        ],
-                                    "$HIDDEN":false
-                                },
-                                {
-                                    "type":"Label",
-                                    "props":{"valign":"middle","text":"ZERO","fontSize":26,"color":"#02aef0","centerY":0,"bold":true},
-                                    "nodeParent":38,
-                                    "label":"Label",
-                                    "isOpen":false,
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":40,
-                                    "child":[
-                                        ]
-                                }],
-                            "$HIDDEN":false
+                                ]
                         },
                         {
-                            "type":"Box",
-                            "props":{"centerY":0,"centerX":0},
-                            "nodeParent":30,
-                            "label":"Box",
-                            "isOpen":true,
+                            "type":"HBox",
+                            "props":{"left":0,"centerY":0},
+                            "nodeParent":209,
+                            "label":"HBox",
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
-                            "compId":43,
+                            "compId":211,
                             "child":[
                                 {
-                                    "type":"Label",
-                                    "props":{"valign":"middle","text":"Open Scene Driving","fontSize":32,"centerY":0,"align":"center"},
-                                    "nodeParent":43,
-                                    "label":"Label",
+                                    "type":"Image",
+                                    "props":{"skin":"custom/logo.png"},
+                                    "nodeParent":211,
+                                    "label":"Image",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":41,
+                                    "compId":212,
                                     "child":[
                                         ]
                                 }]
                         },
                         {
                             "type":"HBox",
-                            "props":{"top":10,"right":10,"align":"top"},
-                            "nodeParent":30,
+                            "props":{"right":10,"centerY":0},
+                            "nodeParent":209,
                             "label":"HBox",
-                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
-                            "compId":159,
+                            "compId":213,
                             "child":[
                                 {
                                     "type":"Label",
-                                    "props":{"var":"m_uiBanner_home","valign":"middle","underline":true,"text":"Home","fontSize":16,"color":"#0000ff"},
-                                    "nodeParent":159,
+                                    "props":{"var":"m_uiBanner_home","valign":"middle","text":"Home","height":18,"color":"#f0f0f0","centerY":0},
+                                    "nodeParent":213,
                                     "label":"Label(m_uiBanner_home)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":160,
+                                    "compId":214,
                                     "child":[
                                         ]
                                 },
                                 {
-                                    "type":"Label",
-                                    "props":{"width":16,"valign":"middle","text":"|","fontSize":16,"align":"center"},
-                                    "nodeParent":159,
-                                    "label":"Label",
-                                    "isDirectory":false,
+                                    "type":"Box",
+                                    "props":{"width":10,"centerY":0},
+                                    "nodeParent":213,
+                                    "label":"Box",
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":161,
+                                    "hasChild":true,
+                                    "compId":215,
                                     "child":[
-                                        ]
+                                        {
+                                            "type":"Image",
+                                            "props":{"width":1,"skin":"custom/pixel_gray30.png","sizeGrid":"0,5,0,110","height":16,"centerY":0,"centerX":0},
+                                            "nodeParent":215,
+                                            "label":"Image",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":216,
+                                            "child":[
+                                                ]
+                                        }]
                                 },
                                 {
                                     "type":"Label",
-                                    "props":{"y":10,"x":10,"var":"m_uiBanner_setup","valign":"middle","underline":true,"text":"Setup","fontSize":16,"color":"#0000ff"},
-                                    "nodeParent":159,
+                                    "props":{"var":"m_uiBanner_setup","valign":"middle","text":"Setup","height":18,"color":"#f0f0f0","centerY":0},
+                                    "nodeParent":213,
                                     "label":"Label(m_uiBanner_setup)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":162,
+                                    "compId":217,
                                     "child":[
                                         ]
                                 },
                                 {
-                                    "type":"Label",
-                                    "props":{"y":10,"x":10,"width":16,"valign":"middle","text":"|","fontSize":16,"align":"center"},
-                                    "nodeParent":159,
-                                    "label":"Label",
-                                    "isDirectory":false,
+                                    "type":"Box",
+                                    "props":{"width":10,"centerY":0},
+                                    "nodeParent":213,
+                                    "label":"Box",
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":163,
+                                    "hasChild":true,
+                                    "compId":218,
                                     "child":[
-                                        ]
+                                        {
+                                            "type":"Image",
+                                            "props":{"width":1,"skin":"custom/pixel_gray30.png","sizeGrid":"0,5,0,110","height":16,"centerY":0,"centerX":0},
+                                            "nodeParent":218,
+                                            "label":"Image",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":219,
+                                            "child":[
+                                                ]
+                                        }]
                                 },
                                 {
                                     "type":"Label",
-                                    "props":{"y":10,"x":10,"var":"m_uiBanner_scene","valign":"middle","underline":true,"text":"Scene","fontSize":16,"color":"#0000ff"},
-                                    "nodeParent":159,
+                                    "props":{"var":"m_uiBanner_scene","valign":"middle","text":"Scene","height":18,"color":"#f0f0f0","centerY":0},
+                                    "nodeParent":213,
                                     "label":"Label(m_uiBanner_scene)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":164,
+                                    "compId":220,
                                     "child":[
                                         ]
                                 },
                                 {
-                                    "type":"Label",
-                                    "props":{"y":10,"x":10,"width":16,"valign":"middle","text":"|","fontSize":16,"align":"center"},
-                                    "nodeParent":159,
-                                    "label":"Label",
-                                    "isDirectory":false,
+                                    "type":"Box",
+                                    "props":{"width":10,"centerY":0},
+                                    "nodeParent":213,
+                                    "label":"Box",
+                                    "isDirectory":true,
                                     "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":165,
+                                    "hasChild":true,
+                                    "compId":221,
                                     "child":[
-                                        ]
+                                        {
+                                            "type":"Image",
+                                            "props":{"width":1,"skin":"custom/pixel_gray30.png","sizeGrid":"0,5,0,110","height":16,"centerY":0,"centerX":0},
+                                            "nodeParent":221,
+                                            "label":"Image",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":222,
+                                            "child":[
+                                                ]
+                                        }]
                                 },
                                 {
                                     "type":"Label",
-                                    "props":{"y":20,"x":20,"var":"m_uiBanner_scenario","valign":"middle","underline":true,"text":"Scenario","fontSize":16,"color":"#0000ff"},
-                                    "nodeParent":159,
+                                    "props":{"var":"m_uiBanner_scenario","valign":"middle","text":"Scenario","height":18,"color":"#f0f0f0","centerY":0},
+                                    "nodeParent":213,
                                     "label":"Label(m_uiBanner_scenario)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":166,
+                                    "compId":223,
                                     "child":[
-                                        ],
-                                    "$HIDDEN":false
+                                        ]
+                                }]
+                        },
+                        {
+                            "type":"HBox",
+                            "props":{"centerY":0,"centerX":0},
+                            "nodeParent":209,
+                            "label":"HBox",
+                            "isDirectory":true,
+                            "isAniNode":true,
+                            "hasChild":true,
+                            "compId":224,
+                            "child":[
+                                {
+                                    "type":"Label",
+                                    "props":{"valign":"middle","text":"Open Scene Driving","fontSize":16,"color":"#f0f0f0","align":"center"},
+                                    "nodeParent":224,
+                                    "label":"Label",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":225,
+                                    "child":[
+                                        ]
                                 }]
                         }]
                 },
                 {
                     "x":30,
-                    "type":"HBox",
-                    "props":{"right":0,"left":0,"height":648},
+                    "type":"Box",
+                    "props":{"top":36,"right":0,"left":0,"bottom":0},
                     "nodeParent":29,
-                    "label":"HBox",
+                    "label":"Box",
                     "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
@@ -212,10 +251,10 @@
                     "child":[
                         {
                             "x":45,
-                            "type":"VBox",
-                            "props":{"width":200,"top":0,"bottom":0},
+                            "type":"Box",
+                            "props":{"width":210,"top":0,"bottom":0},
                             "nodeParent":44,
-                            "label":"VBox",
+                            "label":"Box",
                             "isOpen":false,
                             "isDirectory":true,
                             "isAniNode":true,
@@ -224,10 +263,9 @@
                             "child":[
                                 {
                                     "type":"List",
-                                    "props":{"y":0,"x":0,"width":200,"var":"m_uiSceneList","vScrollBarSkin":"comp/vscroll.png","spaceY":16,"repeatX":1,"height":648},
+                                    "props":{"var":"m_uiSceneList","vScrollBarSkin":"custom/vscroll.png","top":20,"spaceY":16,"right":5,"repeatX":1,"left":5,"bottom":20},
                                     "nodeParent":45,
                                     "label":"List(m_uiSceneList)",
-                                    "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
@@ -235,10 +273,9 @@
                                     "child":[
                                         {
                                             "type":"Box",
-                                            "props":{"width":128,"name":"render","left":36},
+                                            "props":{"width":180,"name":"render","height":120,"centerX":0},
                                             "nodeParent":124,
                                             "label":"Box(render)",
-                                            "isOpen":true,
                                             "isDirectory":true,
                                             "isAniNode":false,
                                             "hasChild":true,
@@ -246,7 +283,7 @@
                                             "child":[
                                                 {
                                                     "type":"Image",
-                                                    "props":{"width":128,"name":"image","height":128},
+                                                    "props":{"top":5,"skin":"custom/image_scene_IndustrialCity.png","right":5,"name":"image","left":5,"bottom":5},
                                                     "nodeParent":123,
                                                     "label":"Image(image)",
                                                     "isDirectory":false,
@@ -254,12 +291,11 @@
                                                     "hasChild":false,
                                                     "compId":122,
                                                     "child":[
-                                                        ],
-                                                    "$HIDDEN":false
+                                                        ]
                                                 },
                                                 {
                                                     "type":"Label",
-                                                    "props":{"width":128,"valign":"middle","top":8,"overflow":"hidden","name":"label","fontSize":16,"align":"center"},
+                                                    "props":{"valign":"middle","text":"Scene Name","right":5,"overflow":"hidden","name":"label","left":5,"height":20,"color":"#f0f0f0","bottom":5,"bgColor":"#000000","alpha":0.7,"align":"center"},
                                                     "nodeParent":123,
                                                     "label":"Label(label)",
                                                     "isDirectory":false,
@@ -268,31 +304,16 @@
                                                     "compId":121,
                                                     "child":[
                                                         ]
-                                                },
-                                                {
-                                                    "type":"Button",
-                                                    "props":{"y":0,"x":0,"width":128,"skin":"comp/checkbox.png","name":"button","height":128,"alpha":0.1},
-                                                    "nodeParent":123,
-                                                    "label":"Button(button)",
-                                                    "isDirectory":false,
-                                                    "isAniNode":false,
-                                                    "hasChild":false,
-                                                    "compId":128,
-                                                    "child":[
-                                                        ],
-                                                    "$HIDDEN":false
-                                                }],
-                                            "$LOCKED":true
+                                                }]
                                         }]
-                                }],
-                            "$HIDDEN":false
+                                }]
                         },
                         {
                             "x":45,
-                            "type":"VBox",
-                            "props":{"width":1080,"top":0,"bottom":0},
+                            "type":"Box",
+                            "props":{"top":0,"right":0,"left":210,"bottom":0},
                             "nodeParent":44,
-                            "label":"VBox",
+                            "label":"Box",
                             "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
@@ -301,703 +322,583 @@
                             "child":[
                                 {
                                     "x":60,
-                                    "type":"Tab",
-                                    "props":{"var":"m_uiSettingTab","skin":"comp/tab.png","selectedIndex":0,"right":0,"left":0,"labels":"Path,Weather,Traffic","height":26,"direction":"horizontal"},
+                                    "type":"Box",
+                                    "props":{"top":15,"right":15,"left":15,"bottom":15},
                                     "nodeParent":48,
-                                    "label":"Tab(m_uiSettingTab)",
-                                    "isOpen":false,
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":77,
-                                    "child":[
-                                        ]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"HBox",
-                                    "props":{"visible":true,"var":"m_uiPath","top":26,"right":0,"left":0,"height":82},
-                                    "nodeParent":48,
-                                    "label":"HBox(m_uiPath)",
-                                    "isOpen":false,
+                                    "label":"Box",
+                                    "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
-                                    "compId":78,
+                                    "compId":227,
                                     "child":[
                                         {
-                                            "type":"List",
-                                            "props":{"y":0,"x":0,"width":1080,"var":"m_uiPathList","spaceX":16,"repeatY":1,"height":82,"hScrollBarSkin":"comp/hscroll.png"},
-                                            "nodeParent":78,
-                                            "label":"List(m_uiPathList)",
-                                            "isOpen":true,
+                                            "x":75,
+                                            "type":"Image",
+                                            "props":{"top":19,"skin":"custom/bg_tabitem.png","right":0,"left":0,"height":117},
+                                            "nodeParent":227,
+                                            "label":"Image",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":228,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"Tab",
+                                            "props":{"var":"m_uiSettingTab","top":0,"skin":"custom/tab.png","selectedIndex":0,"right":0,"left":2,"labels":"Path,Weather,Traffic","labelColors":"#606060,#f0f0f0,#f0f0f0,#606060","height":21,"direction":"horizontal"},
+                                            "nodeParent":227,
+                                            "label":"Tab(m_uiSettingTab)",
+                                            "isDirectory":false,
+                                            "isAniNode":true,
+                                            "hasChild":false,
+                                            "compId":77,
+                                            "child":[
+                                                ]
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"Box",
+                                            "props":{"visible":true,"var":"m_uiPath","top":21,"right":0,"left":0,"height":110},
+                                            "nodeParent":227,
+                                            "label":"Box(m_uiPath)",
+                                            "isOpen":false,
                                             "isDirectory":true,
                                             "isAniNode":true,
                                             "hasChild":true,
-                                            "compId":152,
+                                            "compId":78,
                                             "child":[
                                                 {
-                                                    "type":"Box",
-                                                    "props":{"top":10,"name":"render","height":64},
-                                                    "nodeParent":152,
-                                                    "label":"Box(render)",
-                                                    "isOpen":true,
+                                                    "type":"List",
+                                                    "props":{"var":"m_uiPathList","top":10,"spaceX":16,"right":20,"repeatY":1,"left":20,"bottom":10},
+                                                    "nodeParent":78,
+                                                    "label":"List(m_uiPathList)",
                                                     "isDirectory":true,
-                                                    "isAniNode":false,
+                                                    "isAniNode":true,
                                                     "hasChild":true,
-                                                    "compId":151,
+                                                    "compId":152,
                                                     "child":[
                                                         {
-                                                            "type":"Image",
-                                                            "props":{"width":48,"name":"image","height":48},
-                                                            "nodeParent":151,
-                                                            "label":"Image(image)",
-                                                            "isDirectory":false,
+                                                            "type":"Box",
+                                                            "props":{"width":72,"name":"render","height":92,"centerY":0},
+                                                            "nodeParent":152,
+                                                            "label":"Box(render)",
+                                                            "isDirectory":true,
                                                             "isAniNode":false,
-                                                            "hasChild":false,
-                                                            "compId":153,
+                                                            "hasChild":true,
+                                                            "compId":151,
                                                             "child":[
-                                                                ]
+                                                                {
+                                                                    "type":"Image",
+                                                                    "props":{"width":72,"skin":"custom/image_path_default.png","name":"image","height":72,"centerY":-5,"centerX":0},
+                                                                    "nodeParent":151,
+                                                                    "label":"Image(image)",
+                                                                    "isDirectory":false,
+                                                                    "isAniNode":false,
+                                                                    "hasChild":false,
+                                                                    "compId":153,
+                                                                    "child":[
+                                                                        ]
+                                                                },
+                                                                {
+                                                                    "type":"Label",
+                                                                    "props":{"valign":"middle","text":"Path","overflow":"hidden","name":"label","color":"#f0f0f0","centerX":0,"bottom":0,"align":"center"},
+                                                                    "nodeParent":151,
+                                                                    "label":"Label(label)",
+                                                                    "isDirectory":false,
+                                                                    "isAniNode":false,
+                                                                    "hasChild":false,
+                                                                    "compId":150,
+                                                                    "child":[
+                                                                        ]
+                                                                }]
+                                                        }]
+                                                }],
+                                            "$HIDDEN":true
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"Box",
+                                            "props":{"visible":false,"var":"m_uiWeather","top":21,"right":0,"left":0,"height":110},
+                                            "nodeParent":227,
+                                            "label":"Box(m_uiWeather)",
+                                            "isOpen":false,
+                                            "isDirectory":true,
+                                            "isAniNode":true,
+                                            "hasChild":true,
+                                            "compId":82,
+                                            "child":[
+                                                {
+                                                    "type":"HBox",
+                                                    "props":{"top":10,"right":20,"left":20,"bottom":10,"align":"middle"},
+                                                    "nodeParent":82,
+                                                    "label":"HBox",
+                                                    "isOpen":true,
+                                                    "isDirectory":true,
+                                                    "isAniNode":true,
+                                                    "hasChild":true,
+                                                    "compId":230,
+                                                    "child":[
+                                                        {
+                                                            "type":"VBox",
+                                                            "props":{"space":12,"align":"center"},
+                                                            "nodeParent":230,
+                                                            "label":"VBox",
+                                                            "isOpen":true,
+                                                            "isDirectory":true,
+                                                            "isAniNode":true,
+                                                            "hasChild":true,
+                                                            "compId":85,
+                                                            "child":[
+                                                                {
+                                                                    "type":"HBox",
+                                                                    "props":{"space":15,"align":"middle"},
+                                                                    "nodeParent":85,
+                                                                    "label":"HBox",
+                                                                    "isOpen":true,
+                                                                    "isDirectory":true,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":true,
+                                                                    "compId":88,
+                                                                    "child":[
+                                                                        {
+                                                                            "type":"Label",
+                                                                            "props":{"width":90,"valign":"middle","text":"Temperature:","color":"#f0f0f0","align":"right"},
+                                                                            "nodeParent":88,
+                                                                            "label":"Label",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":91,
+                                                                            "child":[
+                                                                                ]
+                                                                        },
+                                                                        {
+                                                                            "type":"TextInput",
+                                                                            "props":{"width":90,"var":"m_uiWeather_temperature","valign":"middle","skin":"custom/bg_listitem.png","color":"#f0f0f0"},
+                                                                            "nodeParent":88,
+                                                                            "label":"TextInput(m_uiWeather_temperature)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":92,
+                                                                            "child":[
+                                                                                ]
+                                                                        }]
+                                                                },
+                                                                {
+                                                                    "type":"HBox",
+                                                                    "props":{"space":15,"align":"middle"},
+                                                                    "nodeParent":85,
+                                                                    "label":"HBox",
+                                                                    "isOpen":null,
+                                                                    "isDirectory":true,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":true,
+                                                                    "compId":93,
+                                                                    "child":[
+                                                                        {
+                                                                            "type":"Label",
+                                                                            "props":{"width":90,"valign":"middle","text":"Time of Day:","color":"#f0f0f0","align":"right"},
+                                                                            "nodeParent":93,
+                                                                            "label":"Label",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":94,
+                                                                            "child":[
+                                                                                ]
+                                                                        },
+                                                                        {
+                                                                            "type":"TextInput",
+                                                                            "props":{"width":90,"var":"m_uiWeather_timeOfDay","valign":"middle","skin":"custom/bg_listitem.png","color":"#f0f0f0"},
+                                                                            "nodeParent":93,
+                                                                            "label":"TextInput(m_uiWeather_timeOfDay)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":95,
+                                                                            "child":[
+                                                                                ]
+                                                                        }]
+                                                                }]
                                                         },
                                                         {
-                                                            "type":"Label",
-                                                            "props":{"width":48,"valign":"middle","overflow":"hidden","name":"label","bottom":5,"align":"center"},
-                                                            "nodeParent":151,
-                                                            "label":"Label(label)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":false,
-                                                            "hasChild":false,
-                                                            "compId":150,
+                                                            "type":"VBox",
+                                                            "props":{"space":12,"align":"center"},
+                                                            "nodeParent":230,
+                                                            "label":"VBox",
+                                                            "isOpen":null,
+                                                            "isDirectory":true,
+                                                            "isAniNode":true,
+                                                            "hasChild":true,
+                                                            "compId":100,
                                                             "child":[
-                                                                ]
+                                                                {
+                                                                    "type":"HBox",
+                                                                    "props":{"space":15,"align":"middle"},
+                                                                    "nodeParent":100,
+                                                                    "label":"HBox",
+                                                                    "isDirectory":true,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":true,
+                                                                    "compId":108,
+                                                                    "child":[
+                                                                        {
+                                                                            "type":"Label",
+                                                                            "props":{"width":50,"valign":"middle","text":"Rain:","color":"#f0f0f0","align":"right"},
+                                                                            "nodeParent":108,
+                                                                            "label":"Label",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":109,
+                                                                            "child":[
+                                                                                ]
+                                                                        },
+                                                                        {
+                                                                            "type":"ComboBox",
+                                                                            "props":{"width":90,"var":"m_uiWeather_rainType","skin":"custom/combobox.png","selectedIndex":0,"labels":"No,Yes","labelColors":"#f0f0f0,#f0f0f0,#f0f0f0,#606060"},
+                                                                            "nodeParent":108,
+                                                                            "label":"ComboBox(m_uiWeather_rainType)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":111,
+                                                                            "child":[
+                                                                                ]
+                                                                        }]
+                                                                }]
                                                         },
                                                         {
-                                                            "type":"Button",
-                                                            "props":{"width":48,"skin":"comp/checkbox.png","name":"button","height":48,"alpha":0.1},
-                                                            "nodeParent":151,
-                                                            "label":"Button(button)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":false,
-                                                            "hasChild":false,
-                                                            "compId":154,
+                                                            "type":"VBox",
+                                                            "props":{"space":12,"align":"center"},
+                                                            "nodeParent":230,
+                                                            "label":"VBox",
+                                                            "isOpen":null,
+                                                            "isDirectory":true,
+                                                            "isAniNode":true,
+                                                            "hasChild":true,
+                                                            "compId":103,
                                                             "child":[
-                                                                ],
+                                                                {
+                                                                    "type":"HBox",
+                                                                    "props":{"space":15,"align":"middle"},
+                                                                    "nodeParent":103,
+                                                                    "label":"HBox",
+                                                                    "isDirectory":true,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":true,
+                                                                    "compId":113,
+                                                                    "child":[
+                                                                        {
+                                                                            "type":"Label",
+                                                                            "props":{"width":50,"valign":"middle","text":"Snow:","color":"#f0f0f0","align":"right"},
+                                                                            "nodeParent":113,
+                                                                            "label":"Label",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":114,
+                                                                            "child":[
+                                                                                ]
+                                                                        },
+                                                                        {
+                                                                            "type":"ComboBox",
+                                                                            "props":{"width":90,"var":"m_uiWeather_snowType","skin":"custom/combobox.png","selectedIndex":0,"labels":"No,Yes","labelColors":"#f0f0f0,#f0f0f0,#f0f0f0,#606060"},
+                                                                            "nodeParent":113,
+                                                                            "label":"ComboBox(m_uiWeather_snowType)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":115,
+                                                                            "child":[
+                                                                                ]
+                                                                        }]
+                                                                }]
+                                                        },
+                                                        {
+                                                            "type":"VBox",
+                                                            "props":{"space":12,"align":"center"},
+                                                            "nodeParent":230,
+                                                            "label":"VBox",
+                                                            "isOpen":true,
+                                                            "isDirectory":true,
+                                                            "isAniNode":true,
+                                                            "hasChild":true,
+                                                            "compId":106,
+                                                            "child":[
+                                                                {
+                                                                    "type":"HBox",
+                                                                    "props":{"space":15,"align":"middle"},
+                                                                    "nodeParent":106,
+                                                                    "label":"HBox",
+                                                                    "isOpen":true,
+                                                                    "isDirectory":true,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":true,
+                                                                    "compId":117,
+                                                                    "child":[
+                                                                        {
+                                                                            "type":"Label",
+                                                                            "props":{"width":50,"valign":"middle","text":"Fog:","color":"#f0f0f0","align":"right"},
+                                                                            "nodeParent":117,
+                                                                            "label":"Label",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":118,
+                                                                            "child":[
+                                                                                ]
+                                                                        },
+                                                                        {
+                                                                            "type":"ComboBox",
+                                                                            "props":{"width":90,"var":"m_uiWeather_fogType","skin":"custom/combobox.png","selectedIndex":0,"labels":"No,Yes","labelColors":"#f0f0f0,#f0f0f0,#f0f0f0,#606060"},
+                                                                            "nodeParent":117,
+                                                                            "label":"ComboBox(m_uiWeather_fogType)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":119,
+                                                                            "child":[
+                                                                                ]
+                                                                        }]
+                                                                }]
+                                                        }]
+                                                }],
+                                            "$HIDDEN":true
+                                        },
+                                        {
+                                            "x":75,
+                                            "type":"Box",
+                                            "props":{"visible":false,"var":"m_uiTraffic","top":21,"right":0,"left":0,"height":110},
+                                            "nodeParent":227,
+                                            "label":"Box(m_uiTraffic)",
+                                            "isOpen":false,
+                                            "isDirectory":true,
+                                            "isAniNode":true,
+                                            "hasChild":true,
+                                            "compId":83,
+                                            "child":[
+                                                {
+                                                    "type":"HBox",
+                                                    "props":{"top":10,"right":20,"left":20,"bottom":10,"align":"middle"},
+                                                    "nodeParent":83,
+                                                    "label":"HBox",
+                                                    "isOpen":true,
+                                                    "isDirectory":true,
+                                                    "isAniNode":true,
+                                                    "hasChild":true,
+                                                    "compId":231,
+                                                    "child":[
+                                                        {
+                                                            "type":"VBox",
+                                                            "props":{"space":12,"align":"center"},
+                                                            "nodeParent":231,
+                                                            "label":"VBox",
+                                                            "isOpen":true,
+                                                            "isDirectory":true,
+                                                            "isAniNode":true,
+                                                            "hasChild":true,
+                                                            "compId":129,
+                                                            "child":[
+                                                                {
+                                                                    "type":"HBox",
+                                                                    "props":{"space":15,"align":"middle"},
+                                                                    "nodeParent":129,
+                                                                    "label":"HBox",
+                                                                    "isOpen":false,
+                                                                    "isDirectory":true,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":true,
+                                                                    "compId":132,
+                                                                    "child":[
+                                                                        {
+                                                                            "type":"Label",
+                                                                            "props":{"width":90,"valign":"middle","text":"Car Density:","color":"#f0f0f0","align":"right"},
+                                                                            "nodeParent":132,
+                                                                            "label":"Label",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":133,
+                                                                            "child":[
+                                                                                ]
+                                                                        },
+                                                                        {
+                                                                            "type":"HSlider",
+                                                                            "props":{"var":"m_uiTraffic_carDensity_slider","value":50,"skin":"custom/hslider2.png","min":0,"max":100,"centerY":6},
+                                                                            "nodeParent":132,
+                                                                            "label":"HSlider(m_uiTraffic_carDensity_slider)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":134,
+                                                                            "child":[
+                                                                                ]
+                                                                        },
+                                                                        {
+                                                                            "type":"TextInput",
+                                                                            "props":{"width":50,"var":"m_uiTraffic_carDensity_input","skin":"custom/bg_listitem.png","color":"#f0f0f0"},
+                                                                            "nodeParent":132,
+                                                                            "label":"TextInput(m_uiTraffic_carDensity_input)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":135,
+                                                                            "child":[
+                                                                                ]
+                                                                        }]
+                                                                },
+                                                                {
+                                                                    "type":"HBox",
+                                                                    "props":{"space":15,"align":"middle"},
+                                                                    "nodeParent":129,
+                                                                    "label":"HBox",
+                                                                    "isOpen":true,
+                                                                    "isDirectory":true,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":true,
+                                                                    "compId":136,
+                                                                    "child":[
+                                                                        {
+                                                                            "type":"Label",
+                                                                            "props":{"width":90,"valign":"middle","text":"Car Irregularity:","color":"#f0f0f0","align":"right"},
+                                                                            "nodeParent":136,
+                                                                            "label":"Label",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":137,
+                                                                            "child":[
+                                                                                ]
+                                                                        },
+                                                                        {
+                                                                            "type":"HSlider",
+                                                                            "props":{"var":"m_uiTraffic_carIrregularity_slider","value":50,"skin":"custom/hslider2.png","min":0,"max":100,"centerY":6},
+                                                                            "nodeParent":136,
+                                                                            "label":"HSlider(m_uiTraffic_carIrregularity_slider)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":138,
+                                                                            "child":[
+                                                                                ],
+                                                                            "$HIDDEN":true
+                                                                        },
+                                                                        {
+                                                                            "type":"TextInput",
+                                                                            "props":{"width":50,"var":"m_uiTraffic_carIrregularity_input","skin":"custom/bg_listitem.png","color":"#f0f0f0"},
+                                                                            "nodeParent":136,
+                                                                            "label":"TextInput(m_uiTraffic_carIrregularity_input)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":139,
+                                                                            "child":[
+                                                                                ]
+                                                                        }]
+                                                                }]
+                                                        },
+                                                        {
+                                                            "type":"VBox",
+                                                            "props":{"space":12,"align":"center"},
+                                                            "nodeParent":231,
+                                                            "label":"VBox",
+                                                            "isOpen":true,
+                                                            "isDirectory":true,
+                                                            "isAniNode":true,
+                                                            "hasChild":true,
+                                                            "compId":140,
+                                                            "child":[
+                                                                {
+                                                                    "type":"HBox",
+                                                                    "props":{"space":15,"align":"middle"},
+                                                                    "nodeParent":140,
+                                                                    "label":"HBox",
+                                                                    "isOpen":true,
+                                                                    "isDirectory":true,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":true,
+                                                                    "compId":142,
+                                                                    "child":[
+                                                                        {
+                                                                            "type":"Label",
+                                                                            "props":{"width":90,"valign":"middle","text":"Pedestrain Densty:","color":"#f0f0f0","align":"right"},
+                                                                            "nodeParent":142,
+                                                                            "label":"Label",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":143,
+                                                                            "child":[
+                                                                                ]
+                                                                        },
+                                                                        {
+                                                                            "type":"HSlider",
+                                                                            "props":{"var":"m_uiTraffic_pedestrainDensity_slider","value":50,"skin":"custom/hslider2.png","min":0,"max":100,"centerY":6},
+                                                                            "nodeParent":142,
+                                                                            "label":"HSlider(m_uiTraffic_pedestrainDensity_slider)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":144,
+                                                                            "child":[
+                                                                                ]
+                                                                        },
+                                                                        {
+                                                                            "type":"TextInput",
+                                                                            "props":{"width":50,"var":"m_uiTraffic_pedestrainDensity_input","skin":"custom/bg_listitem.png","color":"#f0f0f0"},
+                                                                            "nodeParent":142,
+                                                                            "label":"TextInput(m_uiTraffic_pedestrainDensity_input)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":145,
+                                                                            "child":[
+                                                                                ]
+                                                                        }]
+                                                                }],
                                                             "$HIDDEN":false
                                                         }]
                                                 }]
-                                        }],
-                                    "$HIDDEN":false
+                                        }]
                                 },
                                 {
                                     "x":60,
                                     "type":"HBox",
-                                    "props":{"visible":false,"var":"m_uiWeather","top":26,"right":0,"left":0,"height":82},
-                                    "nodeParent":48,
-                                    "label":"HBox(m_uiWeather)",
-                                    "isOpen":false,
-                                    "isDirectory":true,
-                                    "isAniNode":true,
-                                    "hasChild":true,
-                                    "compId":82,
-                                    "child":[
-                                        {
-                                            "type":"VBox",
-                                            "props":{"width":270,"top":0,"space":5,"bottom":0,"align":"center"},
-                                            "nodeParent":82,
-                                            "label":"VBox",
-                                            "isOpen":true,
-                                            "isDirectory":true,
-                                            "isAniNode":true,
-                                            "hasChild":true,
-                                            "compId":85,
-                                            "child":[
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"width":1,"height":10},
-                                                    "nodeParent":85,
-                                                    "label":"HBox",
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":97,
-                                                    "child":[
-                                                        ],
-                                                    "$HIDDEN":false
-                                                },
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"x":20,"space":10},
-                                                    "nodeParent":85,
-                                                    "label":"HBox",
-                                                    "isOpen":true,
-                                                    "isDirectory":true,
-                                                    "isAniNode":true,
-                                                    "hasChild":true,
-                                                    "compId":88,
-                                                    "child":[
-                                                        {
-                                                            "type":"Label",
-                                                            "props":{"width":90,"valign":"middle","text":"Temperature:","height":26,"align":"right"},
-                                                            "nodeParent":88,
-                                                            "label":"Label",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":91,
-                                                            "child":[
-                                                                ]
-                                                        },
-                                                        {
-                                                            "type":"TextInput",
-                                                            "props":{"width":120,"var":"m_uiWeather_temperature","valign":"middle","skin":"comp/textinput.png","height":26},
-                                                            "nodeParent":88,
-                                                            "label":"TextInput(m_uiWeather_temperature)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":92,
-                                                            "child":[
-                                                                ],
-                                                            "$HIDDEN":false
-                                                        }]
-                                                },
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"x":20,"space":10},
-                                                    "nodeParent":85,
-                                                    "label":"HBox",
-                                                    "isOpen":true,
-                                                    "isDirectory":true,
-                                                    "isAniNode":true,
-                                                    "hasChild":true,
-                                                    "compId":93,
-                                                    "child":[
-                                                        {
-                                                            "type":"Label",
-                                                            "props":{"width":90,"valign":"middle","text":"Time of Day:","height":26,"align":"right"},
-                                                            "nodeParent":93,
-                                                            "label":"Label",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":94,
-                                                            "child":[
-                                                                ]
-                                                        },
-                                                        {
-                                                            "type":"TextInput",
-                                                            "props":{"width":120,"var":"m_uiWeather_timeOfDay","valign":"middle","skin":"comp/textinput.png","height":26},
-                                                            "nodeParent":93,
-                                                            "label":"TextInput(m_uiWeather_timeOfDay)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":95,
-                                                            "child":[
-                                                                ]
-                                                        }]
-                                                }]
-                                        },
-                                        {
-                                            "type":"VBox",
-                                            "props":{"width":82,"top":0,"bottom":0},
-                                            "nodeParent":82,
-                                            "label":"VBox",
-                                            "isOpen":true,
-                                            "isDirectory":true,
-                                            "isAniNode":true,
-                                            "hasChild":true,
-                                            "compId":98,
-                                            "child":[
-                                                {
-                                                    "type":"Image",
-                                                    "props":{"top":20,"skin":"comp/rain.png","right":20,"left":20,"bottom":20},
-                                                    "nodeParent":98,
-                                                    "label":"Image",
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":99,
-                                                    "child":[
-                                                        ]
-                                                }]
-                                        },
-                                        {
-                                            "type":"VBox",
-                                            "props":{"width":180,"top":0,"space":5,"bottom":0,"align":"center"},
-                                            "nodeParent":82,
-                                            "label":"VBox",
-                                            "isOpen":false,
-                                            "isDirectory":true,
-                                            "isAniNode":true,
-                                            "hasChild":true,
-                                            "compId":100,
-                                            "child":[
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"width":1,"height":10},
-                                                    "nodeParent":100,
-                                                    "label":"HBox",
-                                                    "isOpen":false,
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":107,
-                                                    "child":[
-                                                        ]
-                                                },
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"space":10},
-                                                    "nodeParent":100,
-                                                    "label":"HBox",
-                                                    "isOpen":true,
-                                                    "isDirectory":true,
-                                                    "isAniNode":true,
-                                                    "hasChild":true,
-                                                    "compId":108,
-                                                    "child":[
-                                                        {
-                                                            "type":"Label",
-                                                            "props":{"width":30,"valign":"middle","text":"Type:","height":26,"color":"#000000","align":"right"},
-                                                            "nodeParent":108,
-                                                            "label":"Label",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":109,
-                                                            "child":[
-                                                                ]
-                                                        },
-                                                        {
-                                                            "type":"ComboBox",
-                                                            "props":{"width":120,"var":"m_uiWeather_rainType","skin":"comp/combobox.png","selectedIndex":0,"labels":"No,Yes","height":26},
-                                                            "nodeParent":108,
-                                                            "label":"ComboBox(m_uiWeather_rainType)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":111,
-                                                            "child":[
-                                                                ]
-                                                        }]
-                                                }]
-                                        },
-                                        {
-                                            "type":"VBox",
-                                            "props":{"width":82,"top":0,"bottom":0},
-                                            "nodeParent":82,
-                                            "label":"VBox",
-                                            "isOpen":false,
-                                            "isDirectory":true,
-                                            "isAniNode":true,
-                                            "hasChild":true,
-                                            "compId":101,
-                                            "child":[
-                                                {
-                                                    "type":"Image",
-                                                    "props":{"top":20,"skin":"comp/snow.png","right":20,"left":20,"bottom":20},
-                                                    "nodeParent":101,
-                                                    "label":"Image",
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":102,
-                                                    "child":[
-                                                        ]
-                                                }]
-                                        },
-                                        {
-                                            "type":"VBox",
-                                            "props":{"width":180,"top":0,"space":5,"bottom":0},
-                                            "nodeParent":82,
-                                            "label":"VBox",
-                                            "isOpen":false,
-                                            "isDirectory":true,
-                                            "isAniNode":true,
-                                            "hasChild":true,
-                                            "compId":103,
-                                            "child":[
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"width":1,"height":10},
-                                                    "nodeParent":103,
-                                                    "label":"HBox",
-                                                    "isOpen":false,
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":112,
-                                                    "child":[
-                                                        ]
-                                                },
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"space":10},
-                                                    "nodeParent":103,
-                                                    "label":"HBox",
-                                                    "isOpen":true,
-                                                    "isDirectory":true,
-                                                    "isAniNode":true,
-                                                    "hasChild":true,
-                                                    "compId":113,
-                                                    "child":[
-                                                        {
-                                                            "type":"Label",
-                                                            "props":{"width":30,"valign":"middle","text":"Type:","height":26,"color":"#000000","align":"right"},
-                                                            "nodeParent":113,
-                                                            "label":"Label",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":114,
-                                                            "child":[
-                                                                ]
-                                                        },
-                                                        {
-                                                            "type":"ComboBox",
-                                                            "props":{"width":120,"var":"m_uiWeather_snowType","skin":"comp/combobox.png","selectedIndex":0,"labels":"No,Yes","height":26},
-                                                            "nodeParent":113,
-                                                            "label":"ComboBox(m_uiWeather_snowType)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":115,
-                                                            "child":[
-                                                                ]
-                                                        }]
-                                                }]
-                                        },
-                                        {
-                                            "type":"VBox",
-                                            "props":{"width":82,"top":0,"bottom":0},
-                                            "nodeParent":82,
-                                            "label":"VBox",
-                                            "isOpen":false,
-                                            "isDirectory":true,
-                                            "isAniNode":true,
-                                            "hasChild":true,
-                                            "compId":104,
-                                            "child":[
-                                                {
-                                                    "type":"Image",
-                                                    "props":{"top":20,"skin":"comp/fog.png","right":20,"left":20,"bottom":20},
-                                                    "nodeParent":104,
-                                                    "label":"Image",
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":105,
-                                                    "child":[
-                                                        ]
-                                                }]
-                                        },
-                                        {
-                                            "type":"VBox",
-                                            "props":{"width":180,"top":0,"space":5,"bottom":0},
-                                            "nodeParent":82,
-                                            "label":"VBox",
-                                            "isOpen":false,
-                                            "isDirectory":true,
-                                            "isAniNode":true,
-                                            "hasChild":true,
-                                            "compId":106,
-                                            "child":[
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"width":1,"height":10},
-                                                    "nodeParent":106,
-                                                    "label":"HBox",
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":116,
-                                                    "child":[
-                                                        ]
-                                                },
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"space":10},
-                                                    "nodeParent":106,
-                                                    "label":"HBox",
-                                                    "isOpen":true,
-                                                    "isDirectory":true,
-                                                    "isAniNode":true,
-                                                    "hasChild":true,
-                                                    "compId":117,
-                                                    "child":[
-                                                        {
-                                                            "type":"Label",
-                                                            "props":{"width":30,"valign":"middle","text":"Type:","height":26,"color":"#000000","align":"right"},
-                                                            "nodeParent":117,
-                                                            "label":"Label",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":118,
-                                                            "child":[
-                                                                ]
-                                                        },
-                                                        {
-                                                            "type":"ComboBox",
-                                                            "props":{"width":120,"var":"m_uiWeather_fogType","skin":"comp/combobox.png","selectedIndex":0,"labels":"No,Yes","height":26},
-                                                            "nodeParent":117,
-                                                            "label":"ComboBox(m_uiWeather_fogType)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":119,
-                                                            "child":[
-                                                                ]
-                                                        }]
-                                                }]
-                                        }],
-                                    "$HIDDEN":true
-                                },
-                                {
-                                    "x":60,
-                                    "type":"HBox",
-                                    "props":{"visible":false,"var":"m_uiTraffic","top":26,"right":0,"left":0,"height":82},
-                                    "nodeParent":48,
-                                    "label":"HBox(m_uiTraffic)",
-                                    "isOpen":false,
-                                    "isDirectory":true,
-                                    "isAniNode":true,
-                                    "hasChild":true,
-                                    "compId":83,
-                                    "child":[
-                                        {
-                                            "type":"VBox",
-                                            "props":{"width":360,"top":0,"space":5,"bottom":0,"align":"center"},
-                                            "nodeParent":83,
-                                            "label":"VBox",
-                                            "isOpen":true,
-                                            "isDirectory":true,
-                                            "isAniNode":true,
-                                            "hasChild":true,
-                                            "compId":129,
-                                            "child":[
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"width":1,"height":10},
-                                                    "nodeParent":129,
-                                                    "label":"HBox",
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":131,
-                                                    "child":[
-                                                        ]
-                                                },
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"x":20,"space":10},
-                                                    "nodeParent":129,
-                                                    "label":"HBox",
-                                                    "isOpen":true,
-                                                    "isDirectory":true,
-                                                    "isAniNode":true,
-                                                    "hasChild":true,
-                                                    "compId":132,
-                                                    "child":[
-                                                        {
-                                                            "type":"Label",
-                                                            "props":{"width":120,"valign":"middle","text":"Car Density:","height":26,"align":"right"},
-                                                            "nodeParent":132,
-                                                            "label":"Label",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":133,
-                                                            "child":[
-                                                                ]
-                                                        },
-                                                        {
-                                                            "type":"HSlider",
-                                                            "props":{"var":"m_uiTraffic_carDensity_slider","value":50,"skin":"comp/hslider.png","min":0,"max":100,"centerY":6},
-                                                            "nodeParent":132,
-                                                            "label":"HSlider(m_uiTraffic_carDensity_slider)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":134,
-                                                            "child":[
-                                                                ]
-                                                        },
-                                                        {
-                                                            "type":"TextInput",
-                                                            "props":{"width":50,"var":"m_uiTraffic_carDensity_input","skin":"comp/textinput.png","height":26},
-                                                            "nodeParent":132,
-                                                            "label":"TextInput(m_uiTraffic_carDensity_input)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":135,
-                                                            "child":[
-                                                                ]
-                                                        }]
-                                                },
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"y":10,"x":30,"space":10},
-                                                    "nodeParent":129,
-                                                    "label":"HBox",
-                                                    "isOpen":true,
-                                                    "isDirectory":true,
-                                                    "isAniNode":true,
-                                                    "hasChild":true,
-                                                    "compId":136,
-                                                    "child":[
-                                                        {
-                                                            "type":"Label",
-                                                            "props":{"width":120,"valign":"middle","text":"Car Irregularity:","height":26,"align":"right"},
-                                                            "nodeParent":136,
-                                                            "label":"Label",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":137,
-                                                            "child":[
-                                                                ]
-                                                        },
-                                                        {
-                                                            "type":"HSlider",
-                                                            "props":{"var":"m_uiTraffic_carIrregularity_slider","value":50,"skin":"comp/hslider.png","min":0,"max":100,"centerY":6},
-                                                            "nodeParent":136,
-                                                            "label":"HSlider(m_uiTraffic_carIrregularity_slider)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":138,
-                                                            "child":[
-                                                                ]
-                                                        },
-                                                        {
-                                                            "type":"TextInput",
-                                                            "props":{"width":50,"var":"m_uiTraffic_carIrregularity_input","skin":"comp/textinput.png","height":26},
-                                                            "nodeParent":136,
-                                                            "label":"TextInput(m_uiTraffic_carIrregularity_input)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":139,
-                                                            "child":[
-                                                                ]
-                                                        }]
-                                                }]
-                                        },
-                                        {
-                                            "type":"VBox",
-                                            "props":{"y":10,"x":10,"width":360,"top":0,"space":5,"bottom":0,"align":"center"},
-                                            "nodeParent":83,
-                                            "label":"VBox",
-                                            "isOpen":true,
-                                            "isDirectory":true,
-                                            "isAniNode":true,
-                                            "hasChild":true,
-                                            "compId":140,
-                                            "child":[
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"width":1,"height":10},
-                                                    "nodeParent":140,
-                                                    "label":"HBox",
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":141,
-                                                    "child":[
-                                                        ]
-                                                },
-                                                {
-                                                    "type":"HBox",
-                                                    "props":{"x":20,"space":10},
-                                                    "nodeParent":140,
-                                                    "label":"HBox",
-                                                    "isOpen":true,
-                                                    "isDirectory":true,
-                                                    "isAniNode":true,
-                                                    "hasChild":true,
-                                                    "compId":142,
-                                                    "child":[
-                                                        {
-                                                            "type":"Label",
-                                                            "props":{"width":120,"valign":"middle","text":"Pedestrain Densty:","height":26,"align":"right"},
-                                                            "nodeParent":142,
-                                                            "label":"Label",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":143,
-                                                            "child":[
-                                                                ]
-                                                        },
-                                                        {
-                                                            "type":"HSlider",
-                                                            "props":{"var":"m_uiTraffic_pedestrainDensity_slider","value":50,"skin":"comp/hslider.png","min":0,"max":100,"centerY":6},
-                                                            "nodeParent":142,
-                                                            "label":"HSlider(m_uiTraffic_pedestrainDensity_slider)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":144,
-                                                            "child":[
-                                                                ]
-                                                        },
-                                                        {
-                                                            "type":"TextInput",
-                                                            "props":{"width":50,"var":"m_uiTraffic_pedestrainDensity_input","skin":"comp/textinput.png","height":26},
-                                                            "nodeParent":142,
-                                                            "label":"TextInput(m_uiTraffic_pedestrainDensity_input)",
-                                                            "isDirectory":false,
-                                                            "isAniNode":true,
-                                                            "hasChild":false,
-                                                            "compId":145,
-                                                            "child":[
-                                                                ]
-                                                        }]
-                                                }]
-                                        }],
-                                    "$HIDDEN":true
-                                },
-                                {
-                                    "x":60,
-                                    "type":"HBox",
-                                    "props":{"top":108,"right":0,"left":0,"height":432},
+                                    "props":{"top":200,"right":0,"left":0,"height":432},
                                     "nodeParent":48,
                                     "label":"HBox",
-                                    "isOpen":true,
+                                    "isOpen":null,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
                                     "compId":79,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"VBox",
                                             "props":{"width":240,"top":0,"bottom":0},
                                             "nodeParent":79,
                                             "label":"VBox",
-                                            "isOpen":true,
                                             "isDirectory":true,
                                             "isAniNode":true,
                                             "hasChild":true,
                                             "compId":155,
                                             "child":[
                                                 {
-                                                    "x":90,
                                                     "type":"HBox",
                                                     "props":{"right":0,"left":0,"height":288},
                                                     "nodeParent":155,
                                                     "label":"HBox",
-                                                    "isOpen":true,
                                                     "isDirectory":true,
                                                     "isAniNode":true,
                                                     "hasChild":true,
                                                     "compId":157,
                                                     "child":[
                                                         {
-                                                            "x":105,
                                                             "type":"Button",
                                                             "props":{"width":48,"var":"m_uiSensorButton","top":24,"skin":"comp/checkbox.png","left":24,"height":48},
                                                             "nodeParent":157,
@@ -1010,31 +911,26 @@
                                                                 ]
                                                         },
                                                         {
-                                                            "x":105,
                                                             "type":"List",
                                                             "props":{"width":150,"var":"m_uiSensorList","vScrollBarSkin":"comp/vscroll.png","top":15,"right":10,"repeatX":1,"height":200},
                                                             "nodeParent":157,
                                                             "label":"List(m_uiSensorList)",
-                                                            "isOpen":true,
                                                             "isDirectory":true,
                                                             "isAniNode":true,
                                                             "hasChild":true,
                                                             "compId":170,
                                                             "child":[
                                                                 {
-                                                                    "x":120,
                                                                     "type":"Box",
                                                                     "props":{"y":0,"x":0,"width":80,"name":"render","height":32},
                                                                     "nodeParent":170,
                                                                     "label":"Box(render)",
-                                                                    "isOpen":true,
                                                                     "isDirectory":true,
                                                                     "isAniNode":false,
                                                                     "hasChild":true,
                                                                     "compId":169,
                                                                     "child":[
                                                                         {
-                                                                            "x":135,
                                                                             "type":"CheckBox",
                                                                             "props":{"width":64,"skin":"comp/checkbox.png","name":"checkbox","height":32,"centerY":0},
                                                                             "nodeParent":169,
@@ -1044,11 +940,9 @@
                                                                             "hasChild":false,
                                                                             "compId":168,
                                                                             "child":[
-                                                                                ],
-                                                                            "$HIDDEN":true
+                                                                                ]
                                                                         },
                                                                         {
-                                                                            "x":135,
                                                                             "type":"Label",
                                                                             "props":{"text":"label","name":"label","left":64},
                                                                             "nodeParent":169,
@@ -1059,37 +953,31 @@
                                                                             "compId":172,
                                                                             "child":[
                                                                                 ]
-                                                                        }],
-                                                                    "$HIDDEN":true
+                                                                        }]
                                                                 }]
                                                         }]
                                                 },
                                                 {
-                                                    "x":90,
                                                     "type":"HBox",
                                                     "props":{"right":0,"left":0,"height":144},
                                                     "nodeParent":155,
                                                     "label":"HBox",
-                                                    "isOpen":true,
                                                     "isDirectory":true,
                                                     "isAniNode":true,
                                                     "hasChild":true,
                                                     "compId":173,
                                                     "child":[
                                                         {
-                                                            "x":105,
                                                             "type":"VBox",
                                                             "props":{},
                                                             "nodeParent":173,
                                                             "label":"VBox",
-                                                            "isOpen":true,
                                                             "isDirectory":true,
                                                             "isAniNode":true,
                                                             "hasChild":true,
                                                             "compId":177,
                                                             "child":[
                                                                 {
-                                                                    "x":120,
                                                                     "type":"Button",
                                                                     "props":{"width":64,"var":"m_uiSimButton","top":20,"skin":"comp/checkbox.png","left":20,"height":64},
                                                                     "nodeParent":177,
@@ -1099,36 +987,30 @@
                                                                     "hasChild":false,
                                                                     "compId":179,
                                                                     "child":[
-                                                                        ],
-                                                                    "$HIDDEN":true
+                                                                        ]
                                                                 }]
                                                         },
                                                         {
-                                                            "x":105,
                                                             "type":"VBox",
                                                             "props":{},
                                                             "nodeParent":173,
                                                             "label":"VBox",
-                                                            "isOpen":true,
                                                             "isDirectory":true,
                                                             "isAniNode":true,
                                                             "hasChild":true,
                                                             "compId":178,
                                                             "child":[
                                                                 {
-                                                                    "x":120,
                                                                     "type":"HBox",
                                                                     "props":{},
                                                                     "nodeParent":178,
                                                                     "label":"HBox",
-                                                                    "isOpen":true,
                                                                     "isDirectory":true,
                                                                     "isAniNode":true,
                                                                     "hasChild":true,
                                                                     "compId":180,
                                                                     "child":[
                                                                         {
-                                                                            "x":135,
                                                                             "type":"CheckBox",
                                                                             "props":{"skin":"comp/checkbox.png","label":"Car"},
                                                                             "nodeParent":180,
@@ -1141,7 +1023,6 @@
                                                                                 ]
                                                                         },
                                                                         {
-                                                                            "x":135,
                                                                             "type":"CheckBox",
                                                                             "props":{"skin":"comp/checkbox.png","label":"Pedestrain"},
                                                                             "nodeParent":180,
@@ -1155,19 +1036,16 @@
                                                                         }]
                                                                 },
                                                                 {
-                                                                    "x":120,
                                                                     "type":"HBox",
                                                                     "props":{},
                                                                     "nodeParent":178,
                                                                     "label":"HBox",
-                                                                    "isOpen":true,
                                                                     "isDirectory":true,
                                                                     "isAniNode":true,
                                                                     "hasChild":true,
                                                                     "compId":183,
                                                                     "child":[
                                                                         {
-                                                                            "x":135,
                                                                             "type":"Label",
                                                                             "props":{"text":"States:"},
                                                                             "nodeParent":183,
@@ -1181,21 +1059,18 @@
                                                                         }]
                                                                 },
                                                                 {
-                                                                    "x":120,
                                                                     "type":"HBox",
                                                                     "props":{},
                                                                     "nodeParent":178,
                                                                     "label":"HBox",
-                                                                    "isOpen":true,
                                                                     "isDirectory":true,
                                                                     "isAniNode":true,
                                                                     "hasChild":true,
                                                                     "compId":186,
                                                                     "child":[
                                                                         {
-                                                                            "x":135,
                                                                             "type":"Label",
-                                                                            "props":{"text":"0"},
+                                                                            "props":{"text":0},
                                                                             "nodeParent":186,
                                                                             "label":"Label",
                                                                             "isDirectory":false,
@@ -1206,7 +1081,6 @@
                                                                                 ]
                                                                         },
                                                                         {
-                                                                            "x":135,
                                                                             "type":"Label",
                                                                             "props":{"text":"Cars"},
                                                                             "nodeParent":186,
@@ -1219,9 +1093,8 @@
                                                                                 ]
                                                                         },
                                                                         {
-                                                                            "x":135,
                                                                             "type":"Label",
-                                                                            "props":{"text":"0"},
+                                                                            "props":{"text":0},
                                                                             "nodeParent":186,
                                                                             "label":"Label",
                                                                             "isDirectory":false,
@@ -1232,7 +1105,6 @@
                                                                                 ]
                                                                         },
                                                                         {
-                                                                            "x":135,
                                                                             "type":"Label",
                                                                             "props":{"text":"Pedestrain"},
                                                                             "nodeParent":186,
@@ -1249,19 +1121,16 @@
                                                 }]
                                         },
                                         {
-                                            "x":75,
                                             "type":"VBox",
                                             "props":{"width":500,"top":0,"bottom":0},
                                             "nodeParent":79,
                                             "label":"VBox",
-                                            "isOpen":true,
                                             "isDirectory":true,
                                             "isAniNode":true,
                                             "hasChild":true,
                                             "compId":191,
                                             "child":[
                                                 {
-                                                    "x":90,
                                                     "type":"Button",
                                                     "props":{"width":64,"var":"m_uiDriveButton","skin":"comp/checkbox.png","left":5,"label":"label","height":64,"bottom":5},
                                                     "nodeParent":191,
@@ -1274,55 +1143,46 @@
                                                         ]
                                                 },
                                                 {
-                                                    "x":90,
                                                     "type":"Box",
                                                     "props":{"top":0,"right":0},
                                                     "nodeParent":191,
                                                     "label":"Box",
-                                                    "isOpen":true,
                                                     "isDirectory":true,
                                                     "isAniNode":true,
                                                     "hasChild":true,
                                                     "compId":193,
                                                     "child":[
                                                         {
-                                                            "x":105,
                                                             "type":"HBox",
                                                             "props":{},
                                                             "nodeParent":193,
                                                             "label":"HBox",
-                                                            "isOpen":true,
                                                             "isDirectory":true,
                                                             "isAniNode":true,
                                                             "hasChild":true,
                                                             "compId":195,
                                                             "child":[
                                                                 {
-                                                                    "x":120,
                                                                     "type":"VBox",
                                                                     "props":{},
                                                                     "nodeParent":195,
                                                                     "label":"VBox",
-                                                                    "isOpen":true,
                                                                     "isDirectory":true,
                                                                     "isAniNode":true,
                                                                     "hasChild":true,
                                                                     "compId":196,
                                                                     "child":[
                                                                         {
-                                                                            "x":135,
                                                                             "type":"HBox",
                                                                             "props":{},
                                                                             "nodeParent":196,
                                                                             "label":"HBox",
-                                                                            "isOpen":true,
                                                                             "isDirectory":true,
                                                                             "isAniNode":true,
                                                                             "hasChild":true,
                                                                             "compId":197,
                                                                             "child":[
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Label",
                                                                                     "props":{"text":"Speed:"},
                                                                                     "nodeParent":197,
@@ -1335,7 +1195,6 @@
                                                                                         ]
                                                                                 },
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Label",
                                                                                     "props":{"var":"m_uiDrive_speed","text":"label"},
                                                                                     "nodeParent":197,
@@ -1348,7 +1207,6 @@
                                                                                         ]
                                                                                 },
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Label",
                                                                                     "props":{"text":"km/h"},
                                                                                     "nodeParent":197,
@@ -1359,23 +1217,19 @@
                                                                                     "compId":200,
                                                                                     "child":[
                                                                                         ]
-                                                                                }],
-                                                                            "$HIDDEN":false
+                                                                                }]
                                                                         },
                                                                         {
-                                                                            "x":135,
                                                                             "type":"HBox",
                                                                             "props":{},
                                                                             "nodeParent":196,
                                                                             "label":"HBox",
-                                                                            "isOpen":true,
                                                                             "isDirectory":true,
                                                                             "isAniNode":true,
                                                                             "hasChild":true,
                                                                             "compId":201,
                                                                             "child":[
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Label",
                                                                                     "props":{"text":"Accel:"},
                                                                                     "nodeParent":201,
@@ -1388,7 +1242,6 @@
                                                                                         ]
                                                                                 },
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Label",
                                                                                     "props":{"var":"m_uiDrive_accer","text":"label"},
                                                                                     "nodeParent":201,
@@ -1401,7 +1254,6 @@
                                                                                         ]
                                                                                 },
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Label",
                                                                                     "props":{"text":"m/s^2"},
                                                                                     "nodeParent":201,
@@ -1416,19 +1268,16 @@
                                                                         }]
                                                                 },
                                                                 {
-                                                                    "x":120,
                                                                     "type":"VBox",
                                                                     "props":{},
                                                                     "nodeParent":195,
                                                                     "label":"VBox",
-                                                                    "isOpen":true,
                                                                     "isDirectory":true,
                                                                     "isAniNode":true,
                                                                     "hasChild":true,
                                                                     "compId":205,
                                                                     "child":[
                                                                         {
-                                                                            "x":135,
                                                                             "type":"HSlider",
                                                                             "props":{"var":"m_uiDrive_steerSlider","skin":"comp/hslider.png","min":-1,"max":1},
                                                                             "nodeParent":205,
@@ -1441,7 +1290,6 @@
                                                                                 ]
                                                                         },
                                                                         {
-                                                                            "x":135,
                                                                             "type":"Image",
                                                                             "props":{"var":"m_uiDrive_steerImage","skin":"comp/checkbox.png","anchorY":0.5,"anchorX":0.5},
                                                                             "nodeParent":205,
@@ -1457,24 +1305,9 @@
                                                         }]
                                                 }]
                                         }]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"HBox",
-                                    "props":{"top":540,"right":0,"left":0,"height":108},
-                                    "nodeParent":48,
-                                    "label":"HBox",
-                                    "isDirectory":false,
-                                    "isAniNode":true,
-                                    "hasChild":false,
-                                    "compId":80,
-                                    "child":[
-                                        ]
-                                }],
-                            "$HIDDEN":false
+                                }]
                         }]
-                }],
-            "$HIDDEN":false
+                }]
         }],
     "animations":[
         {

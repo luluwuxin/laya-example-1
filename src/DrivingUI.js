@@ -65,16 +65,11 @@ DrivingUI.prototype.initBannerUI = function () {
 
 // Init the scene list UI.
 DrivingUI.prototype.initSceneListUI = function () {
-    // Hide the scrollb bar and use dragging.
-    this.m_uiSceneList.scrollBar.hide = true;
-    this.m_uiSceneList.scrollBar.elasticBackTime = 200;
-    this.m_uiSceneList.scrollBar.elasticDistance = 50;
-
     // Mouse events.
     this.m_uiSceneList.mouseHandler = new Handler(this, function (e, i) {
         if (e.type === Laya.Event.CLICK) {
-            this.client.scene.scene_info.scene =
-                this.client.scene.scene_list.data[i].scene;
+            // Choose the selected i-th scene.
+            this.client.scene.scene_info.scene = this.client.scene.scene_list.data[i].scene;
         }
     });
 };
@@ -101,35 +96,13 @@ DrivingUI.prototype.initSettingTabUI = function () {
 
 // Init the path UI.
 DrivingUI.prototype.initPathUI = function () {
-    // Hide the scrollb bar and use dragging.
-    this.m_uiPathList.scrollBar.hide = true;
-    this.m_uiPathList.scrollBar.elasticBackTime = 200;
-    this.m_uiPathList.scrollBar.elasticDistance = 50;
-
     // Mouse events.
     this.m_uiPathList.mouseHandler = new Handler(this, function (e, i) {
         if (e.type === Laya.Event.CLICK) {
-            var editor = new ObstacleEditor();
-            editor.createMainUI(this);
-
-            // TODO
-            // load data
-            // editor.loadMapData(url);
-            // editor.loadCaseData(url);
-
-            editor.registerEvent(ObstacleEditorEvent.USER_SAVE_CASE, this, function (text)
-            {
-                // do something when user want to save case data.
-                // TODO: send text to server
-            });
-
-            editor.registerEvent(ObstacleEditorEvent.USER_CLOSE_EDITOR, this, function ()
-            {
-                // do something when user close editor.
-                // nothing to do
-            });
+            // Only default path now.
         }
     });
+    this.m_uiPathList.array = [];
 };
 
 // Init the weather UI.
@@ -270,7 +243,7 @@ DrivingUI.prototype.refreshSceneListUI = function () {
                 text: v.scene,
             },
             image: {
-                skin: "",
+                skin: v.image,
             },
         });
     });
@@ -285,10 +258,10 @@ DrivingUI.prototype.refreshPathUI = function () {
     // Not available for now.
     data.push({
         label: {
-            text: "default",
+            text: "Default",
         },
         image: {
-            skin: "",
+            skin: "custom/image_path_default.png",
         },
     });
 
