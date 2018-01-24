@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":233,
-    "selecteID":170,
+    "selectedBox":169,
+    "selecteID":168,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -943,7 +943,7 @@
                                                         {
                                                             "x":105,
                                                             "type":"Button",
-                                                            "props":{"width":48,"var":"m_uiSensorButton","top":80,"skin":"custom/button_start.png","left":50,"height":48},
+                                                            "props":{"var":"m_uiSensorButton","top":50,"skin":"custom/button_start.png","left":50},
                                                             "nodeParent":233,
                                                             "label":"Button(m_uiSensorButton)",
                                                             "isDirectory":false,
@@ -956,28 +956,31 @@
                                                         {
                                                             "x":105,
                                                             "type":"List",
-                                                            "props":{"y":60,"x":65,"width":150,"var":"m_uiSensorList","vScrollBarSkin":"comp/vscroll.png","top":15,"right":10,"repeatX":1,"height":200},
+                                                            "props":{"width":200,"var":"m_uiSensorList","top":50,"spaceY":5,"right":30,"repeatX":1,"bottom":30},
                                                             "nodeParent":233,
                                                             "label":"List(m_uiSensorList)",
-                                                            "isOpen":null,
+                                                            "isOpen":true,
                                                             "isDirectory":true,
                                                             "isAniNode":true,
                                                             "hasChild":true,
                                                             "compId":170,
                                                             "child":[
                                                                 {
+                                                                    "x":120,
                                                                     "type":"Box",
-                                                                    "props":{"y":0,"x":0,"width":80,"name":"render","height":32},
+                                                                    "props":{"width":150,"name":"render","height":30},
                                                                     "nodeParent":170,
                                                                     "label":"Box(render)",
+                                                                    "isOpen":true,
                                                                     "isDirectory":true,
                                                                     "isAniNode":false,
                                                                     "hasChild":true,
                                                                     "compId":169,
                                                                     "child":[
                                                                         {
+                                                                            "x":135,
                                                                             "type":"CheckBox",
-                                                                            "props":{"width":64,"skin":"comp/checkbox.png","name":"checkbox","height":32,"centerY":0},
+                                                                            "props":{"width":36,"skin":"custom/checkbox_switch2.png","name":"checkbox","left":10,"height":20,"centerY":0},
                                                                             "nodeParent":169,
                                                                             "label":"CheckBox(checkbox)",
                                                                             "isDirectory":false,
@@ -988,8 +991,9 @@
                                                                                 ]
                                                                         },
                                                                         {
+                                                                            "x":135,
                                                                             "type":"Label",
-                                                                            "props":{"text":"label","name":"label","left":64},
+                                                                            "props":{"valign":"middle","text":"Sensor","overflow":"hidden","name":"label","left":55,"color":"#f0f0f0","centerY":0,"align":"left"},
                                                                             "nodeParent":169,
                                                                             "label":"Label(label)",
                                                                             "isDirectory":false,
@@ -1008,13 +1012,14 @@
                                                     "props":{"right":400,"left":0,"height":150,"bottom":0},
                                                     "nodeParent":232,
                                                     "label":"Box",
-                                                    "isOpen":false,
+                                                    "isOpen":true,
                                                     "isDirectory":true,
                                                     "isAniNode":true,
                                                     "hasChild":true,
                                                     "compId":235,
                                                     "child":[
                                                         {
+                                                            "x":105,
                                                             "type":"Image",
                                                             "props":{"top":5,"skin":"custom/bg_inset.png","right":5,"left":5,"bottom":5},
                                                             "nodeParent":235,
@@ -1027,6 +1032,7 @@
                                                                 ]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"Box",
                                                             "props":{"top":5,"right":5,"left":5,"height":26},
                                                             "nodeParent":235,
@@ -1061,6 +1067,19 @@
                                                                     "child":[
                                                                         ]
                                                                 }]
+                                                        },
+                                                        {
+                                                            "x":105,
+                                                            "type":"Button",
+                                                            "props":{"var":"m_uiSimButton","top":50,"skin":"custom/button_start.png","left":50},
+                                                            "nodeParent":235,
+                                                            "label":"Button(m_uiSimButton)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":179,
+                                                            "child":[
+                                                                ]
                                                         }]
                                                 },
                                                 {
@@ -1069,13 +1088,14 @@
                                                     "props":{"y":0,"x":640,"width":400,"top":0,"right":0,"bottom":0},
                                                     "nodeParent":232,
                                                     "label":"Box",
-                                                    "isOpen":false,
+                                                    "isOpen":true,
                                                     "isDirectory":true,
                                                     "isAniNode":true,
                                                     "hasChild":true,
                                                     "compId":237,
                                                     "child":[
                                                         {
+                                                            "x":105,
                                                             "type":"Image",
                                                             "props":{"top":5,"skin":"custom/bg_inset.png","right":5,"left":5,"bottom":5},
                                                             "nodeParent":237,
@@ -1086,6 +1106,228 @@
                                                             "compId":238,
                                                             "child":[
                                                                 ]
+                                                        },
+                                                        {
+                                                            "x":105,
+                                                            "type":"Button",
+                                                            "props":{"var":"m_uiDriveButton","skin":"custom/button_start.png","left":50,"bottom":50},
+                                                            "nodeParent":237,
+                                                            "label":"Button(m_uiDriveButton)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":192,
+                                                            "child":[
+                                                                ]
+                                                        },
+                                                        {
+                                                            "x":105,
+                                                            "type":"HBox",
+                                                            "props":{"top":40,"space":20,"right":40},
+                                                            "nodeParent":237,
+                                                            "label":"HBox",
+                                                            "isOpen":true,
+                                                            "isDirectory":true,
+                                                            "isAniNode":true,
+                                                            "hasChild":true,
+                                                            "compId":246,
+                                                            "child":[
+                                                                {
+                                                                    "x":120,
+                                                                    "type":"VBox",
+                                                                    "props":{"space":5},
+                                                                    "nodeParent":246,
+                                                                    "label":"VBox",
+                                                                    "isOpen":false,
+                                                                    "isDirectory":true,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":true,
+                                                                    "compId":196,
+                                                                    "child":[
+                                                                        {
+                                                                            "type":"HBox",
+                                                                            "props":{"align":"middle"},
+                                                                            "nodeParent":196,
+                                                                            "label":"HBox",
+                                                                            "isOpen":true,
+                                                                            "isDirectory":true,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":true,
+                                                                            "compId":197,
+                                                                            "child":[
+                                                                                {
+                                                                                    "type":"Label",
+                                                                                    "props":{"width":50,"valign":"middle","text":"Speed:","color":"#f0f0f0","align":"right"},
+                                                                                    "nodeParent":197,
+                                                                                    "label":"Label",
+                                                                                    "isDirectory":false,
+                                                                                    "isAniNode":true,
+                                                                                    "hasChild":false,
+                                                                                    "compId":198,
+                                                                                    "child":[
+                                                                                        ]
+                                                                                },
+                                                                                {
+                                                                                    "type":"Box",
+                                                                                    "props":{"width":20,"height":1},
+                                                                                    "nodeParent":197,
+                                                                                    "label":"Box",
+                                                                                    "isDirectory":false,
+                                                                                    "isAniNode":true,
+                                                                                    "hasChild":false,
+                                                                                    "compId":247,
+                                                                                    "child":[
+                                                                                        ]
+                                                                                },
+                                                                                {
+                                                                                    "type":"Label",
+                                                                                    "props":{"var":"m_uiDrive_speed","valign":"middle","text":"N/A","color":"#f0f0f0","align":"center"},
+                                                                                    "nodeParent":197,
+                                                                                    "label":"Label(m_uiDrive_speed)",
+                                                                                    "isDirectory":false,
+                                                                                    "isAniNode":true,
+                                                                                    "hasChild":false,
+                                                                                    "compId":199,
+                                                                                    "child":[
+                                                                                        ]
+                                                                                },
+                                                                                {
+                                                                                    "type":"Box",
+                                                                                    "props":{"width":20,"height":1},
+                                                                                    "nodeParent":197,
+                                                                                    "label":"Box",
+                                                                                    "isDirectory":false,
+                                                                                    "isAniNode":true,
+                                                                                    "hasChild":false,
+                                                                                    "compId":248,
+                                                                                    "child":[
+                                                                                        ]
+                                                                                },
+                                                                                {
+                                                                                    "type":"Label",
+                                                                                    "props":{"valign":"middle","text":"km/h","color":"#f0f0f0"},
+                                                                                    "nodeParent":197,
+                                                                                    "label":"Label",
+                                                                                    "isDirectory":false,
+                                                                                    "isAniNode":true,
+                                                                                    "hasChild":false,
+                                                                                    "compId":200,
+                                                                                    "child":[
+                                                                                        ]
+                                                                                }]
+                                                                        },
+                                                                        {
+                                                                            "type":"HBox",
+                                                                            "props":{},
+                                                                            "nodeParent":196,
+                                                                            "label":"HBox",
+                                                                            "isOpen":true,
+                                                                            "isDirectory":true,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":true,
+                                                                            "compId":201,
+                                                                            "child":[
+                                                                                {
+                                                                                    "type":"Label",
+                                                                                    "props":{"width":50,"valign":"middle","text":"Accel:","color":"#f0f0f0","align":"right"},
+                                                                                    "nodeParent":201,
+                                                                                    "label":"Label",
+                                                                                    "isDirectory":false,
+                                                                                    "isAniNode":true,
+                                                                                    "hasChild":false,
+                                                                                    "compId":202,
+                                                                                    "child":[
+                                                                                        ]
+                                                                                },
+                                                                                {
+                                                                                    "type":"Box",
+                                                                                    "props":{"width":20,"height":1},
+                                                                                    "nodeParent":201,
+                                                                                    "label":"Box",
+                                                                                    "isDirectory":false,
+                                                                                    "isAniNode":true,
+                                                                                    "hasChild":false,
+                                                                                    "compId":249,
+                                                                                    "child":[
+                                                                                        ]
+                                                                                },
+                                                                                {
+                                                                                    "type":"Label",
+                                                                                    "props":{"var":"m_uiDrive_accer","valign":"middle","text":"N/A","color":"#f0f0f0","align":"center"},
+                                                                                    "nodeParent":201,
+                                                                                    "label":"Label(m_uiDrive_accer)",
+                                                                                    "isDirectory":false,
+                                                                                    "isAniNode":true,
+                                                                                    "hasChild":false,
+                                                                                    "compId":203,
+                                                                                    "child":[
+                                                                                        ]
+                                                                                },
+                                                                                {
+                                                                                    "type":"Box",
+                                                                                    "props":{"width":20,"height":1},
+                                                                                    "nodeParent":201,
+                                                                                    "label":"Box",
+                                                                                    "isDirectory":false,
+                                                                                    "isAniNode":true,
+                                                                                    "hasChild":false,
+                                                                                    "compId":250,
+                                                                                    "child":[
+                                                                                        ]
+                                                                                },
+                                                                                {
+                                                                                    "type":"Label",
+                                                                                    "props":{"valign":"middle","text":"m/s^2","color":"#f0f0f0"},
+                                                                                    "nodeParent":201,
+                                                                                    "label":"Label",
+                                                                                    "isDirectory":false,
+                                                                                    "isAniNode":true,
+                                                                                    "hasChild":false,
+                                                                                    "compId":204,
+                                                                                    "child":[
+                                                                                        ]
+                                                                                }]
+                                                                        }]
+                                                                },
+                                                                {
+                                                                    "x":120,
+                                                                    "type":"VBox",
+                                                                    "props":{"space":5,"align":"center"},
+                                                                    "nodeParent":246,
+                                                                    "label":"VBox",
+                                                                    "isOpen":true,
+                                                                    "isDirectory":true,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":true,
+                                                                    "compId":205,
+                                                                    "child":[
+                                                                        {
+                                                                            "x":135,
+                                                                            "type":"HSlider",
+                                                                            "props":{"var":"m_uiDrive_steerSlider","skin":"custom/hslider2.png","min":-1,"max":1,"centerX":0},
+                                                                            "nodeParent":205,
+                                                                            "label":"HSlider(m_uiDrive_steerSlider)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":206,
+                                                                            "child":[
+                                                                                ]
+                                                                        },
+                                                                        {
+                                                                            "x":135,
+                                                                            "type":"Image",
+                                                                            "props":{"var":"m_uiDrive_steerImage","top":30,"skin":"custom/image_steer.png","rotation":0,"centerX":0,"anchorY":0.5,"anchorX":0.5},
+                                                                            "nodeParent":205,
+                                                                            "label":"Image(m_uiDrive_steerImage)",
+                                                                            "isDirectory":false,
+                                                                            "isAniNode":true,
+                                                                            "hasChild":false,
+                                                                            "compId":207,
+                                                                            "child":[
+                                                                                ]
+                                                                        }]
+                                                                }]
                                                         }]
                                                 }]
                                         }]
@@ -1105,185 +1347,6 @@
                                         {
                                             "x":75,
                                             "type":"VBox",
-                                            "props":{"width":240,"top":0,"bottom":0},
-                                            "nodeParent":79,
-                                            "label":"VBox",
-                                            "isOpen":true,
-                                            "isDirectory":true,
-                                            "isAniNode":true,
-                                            "hasChild":true,
-                                            "compId":155,
-                                            "child":[
-                                                {
-                                                    "x":90,
-                                                    "type":"HBox",
-                                                    "props":{"right":0,"left":0,"height":144},
-                                                    "nodeParent":155,
-                                                    "label":"HBox",
-                                                    "isOpen":false,
-                                                    "isDirectory":true,
-                                                    "isAniNode":true,
-                                                    "hasChild":true,
-                                                    "compId":173,
-                                                    "child":[
-                                                        {
-                                                            "type":"VBox",
-                                                            "props":{},
-                                                            "nodeParent":173,
-                                                            "label":"VBox",
-                                                            "isOpen":null,
-                                                            "isDirectory":true,
-                                                            "isAniNode":true,
-                                                            "hasChild":true,
-                                                            "compId":177,
-                                                            "child":[
-                                                                {
-                                                                    "type":"Button",
-                                                                    "props":{"width":64,"var":"m_uiSimButton","top":20,"skin":"comp/checkbox.png","left":20,"height":64},
-                                                                    "nodeParent":177,
-                                                                    "label":"Button(m_uiSimButton)",
-                                                                    "isDirectory":false,
-                                                                    "isAniNode":true,
-                                                                    "hasChild":false,
-                                                                    "compId":179,
-                                                                    "child":[
-                                                                        ]
-                                                                }]
-                                                        },
-                                                        {
-                                                            "type":"VBox",
-                                                            "props":{},
-                                                            "nodeParent":173,
-                                                            "label":"VBox",
-                                                            "isOpen":null,
-                                                            "isDirectory":true,
-                                                            "isAniNode":true,
-                                                            "hasChild":true,
-                                                            "compId":178,
-                                                            "child":[
-                                                                {
-                                                                    "type":"HBox",
-                                                                    "props":{},
-                                                                    "nodeParent":178,
-                                                                    "label":"HBox",
-                                                                    "isDirectory":true,
-                                                                    "isAniNode":true,
-                                                                    "hasChild":true,
-                                                                    "compId":180,
-                                                                    "child":[
-                                                                        {
-                                                                            "type":"CheckBox",
-                                                                            "props":{"skin":"comp/checkbox.png","label":"Car"},
-                                                                            "nodeParent":180,
-                                                                            "label":"CheckBox",
-                                                                            "isDirectory":false,
-                                                                            "isAniNode":true,
-                                                                            "hasChild":false,
-                                                                            "compId":181,
-                                                                            "child":[
-                                                                                ]
-                                                                        },
-                                                                        {
-                                                                            "type":"CheckBox",
-                                                                            "props":{"skin":"comp/checkbox.png","label":"Pedestrain"},
-                                                                            "nodeParent":180,
-                                                                            "label":"CheckBox",
-                                                                            "isDirectory":false,
-                                                                            "isAniNode":true,
-                                                                            "hasChild":false,
-                                                                            "compId":182,
-                                                                            "child":[
-                                                                                ]
-                                                                        }]
-                                                                },
-                                                                {
-                                                                    "type":"HBox",
-                                                                    "props":{},
-                                                                    "nodeParent":178,
-                                                                    "label":"HBox",
-                                                                    "isDirectory":true,
-                                                                    "isAniNode":true,
-                                                                    "hasChild":true,
-                                                                    "compId":183,
-                                                                    "child":[
-                                                                        {
-                                                                            "type":"Label",
-                                                                            "props":{"text":"States:"},
-                                                                            "nodeParent":183,
-                                                                            "label":"Label",
-                                                                            "isDirectory":false,
-                                                                            "isAniNode":true,
-                                                                            "hasChild":false,
-                                                                            "compId":184,
-                                                                            "child":[
-                                                                                ]
-                                                                        }]
-                                                                },
-                                                                {
-                                                                    "type":"HBox",
-                                                                    "props":{},
-                                                                    "nodeParent":178,
-                                                                    "label":"HBox",
-                                                                    "isDirectory":true,
-                                                                    "isAniNode":true,
-                                                                    "hasChild":true,
-                                                                    "compId":186,
-                                                                    "child":[
-                                                                        {
-                                                                            "type":"Label",
-                                                                            "props":{"text":0},
-                                                                            "nodeParent":186,
-                                                                            "label":"Label",
-                                                                            "isDirectory":false,
-                                                                            "isAniNode":true,
-                                                                            "hasChild":false,
-                                                                            "compId":187,
-                                                                            "child":[
-                                                                                ]
-                                                                        },
-                                                                        {
-                                                                            "type":"Label",
-                                                                            "props":{"text":"Cars"},
-                                                                            "nodeParent":186,
-                                                                            "label":"Label",
-                                                                            "isDirectory":false,
-                                                                            "isAniNode":true,
-                                                                            "hasChild":false,
-                                                                            "compId":188,
-                                                                            "child":[
-                                                                                ]
-                                                                        },
-                                                                        {
-                                                                            "type":"Label",
-                                                                            "props":{"text":0},
-                                                                            "nodeParent":186,
-                                                                            "label":"Label",
-                                                                            "isDirectory":false,
-                                                                            "isAniNode":true,
-                                                                            "hasChild":false,
-                                                                            "compId":189,
-                                                                            "child":[
-                                                                                ]
-                                                                        },
-                                                                        {
-                                                                            "type":"Label",
-                                                                            "props":{"text":"Pedestrain"},
-                                                                            "nodeParent":186,
-                                                                            "label":"Label",
-                                                                            "isDirectory":false,
-                                                                            "isAniNode":true,
-                                                                            "hasChild":false,
-                                                                            "compId":190,
-                                                                            "child":[
-                                                                                ]
-                                                                        }]
-                                                                }]
-                                                        }]
-                                                }]
-                                        },
-                                        {
-                                            "x":75,
-                                            "type":"VBox",
                                             "props":{"width":500,"top":0,"bottom":0},
                                             "nodeParent":79,
                                             "label":"VBox",
@@ -1295,179 +1358,29 @@
                                             "child":[
                                                 {
                                                     "x":90,
-                                                    "type":"Button",
-                                                    "props":{"width":64,"var":"m_uiDriveButton","skin":"comp/checkbox.png","left":5,"label":"label","height":64,"bottom":5},
-                                                    "nodeParent":191,
-                                                    "label":"Button(m_uiDriveButton)",
-                                                    "isDirectory":false,
-                                                    "isAniNode":true,
-                                                    "hasChild":false,
-                                                    "compId":192,
-                                                    "child":[
-                                                        ]
-                                                },
-                                                {
-                                                    "x":90,
                                                     "type":"Box",
                                                     "props":{"top":0,"right":0},
                                                     "nodeParent":191,
                                                     "label":"Box",
-                                                    "isOpen":null,
+                                                    "isOpen":true,
                                                     "isDirectory":true,
                                                     "isAniNode":true,
                                                     "hasChild":true,
                                                     "compId":193,
                                                     "child":[
                                                         {
+                                                            "x":105,
                                                             "type":"HBox",
                                                             "props":{},
                                                             "nodeParent":193,
                                                             "label":"HBox",
-                                                            "isDirectory":true,
+                                                            "isOpen":true,
+                                                            "isDirectory":false,
                                                             "isAniNode":true,
-                                                            "hasChild":true,
+                                                            "hasChild":false,
                                                             "compId":195,
                                                             "child":[
-                                                                {
-                                                                    "type":"VBox",
-                                                                    "props":{},
-                                                                    "nodeParent":195,
-                                                                    "label":"VBox",
-                                                                    "isDirectory":true,
-                                                                    "isAniNode":true,
-                                                                    "hasChild":true,
-                                                                    "compId":196,
-                                                                    "child":[
-                                                                        {
-                                                                            "type":"HBox",
-                                                                            "props":{},
-                                                                            "nodeParent":196,
-                                                                            "label":"HBox",
-                                                                            "isDirectory":true,
-                                                                            "isAniNode":true,
-                                                                            "hasChild":true,
-                                                                            "compId":197,
-                                                                            "child":[
-                                                                                {
-                                                                                    "type":"Label",
-                                                                                    "props":{"text":"Speed:"},
-                                                                                    "nodeParent":197,
-                                                                                    "label":"Label",
-                                                                                    "isDirectory":false,
-                                                                                    "isAniNode":true,
-                                                                                    "hasChild":false,
-                                                                                    "compId":198,
-                                                                                    "child":[
-                                                                                        ]
-                                                                                },
-                                                                                {
-                                                                                    "type":"Label",
-                                                                                    "props":{"var":"m_uiDrive_speed","text":"label"},
-                                                                                    "nodeParent":197,
-                                                                                    "label":"Label(m_uiDrive_speed)",
-                                                                                    "isDirectory":false,
-                                                                                    "isAniNode":true,
-                                                                                    "hasChild":false,
-                                                                                    "compId":199,
-                                                                                    "child":[
-                                                                                        ]
-                                                                                },
-                                                                                {
-                                                                                    "type":"Label",
-                                                                                    "props":{"text":"km/h"},
-                                                                                    "nodeParent":197,
-                                                                                    "label":"Label",
-                                                                                    "isDirectory":false,
-                                                                                    "isAniNode":true,
-                                                                                    "hasChild":false,
-                                                                                    "compId":200,
-                                                                                    "child":[
-                                                                                        ]
-                                                                                }]
-                                                                        },
-                                                                        {
-                                                                            "type":"HBox",
-                                                                            "props":{},
-                                                                            "nodeParent":196,
-                                                                            "label":"HBox",
-                                                                            "isDirectory":true,
-                                                                            "isAniNode":true,
-                                                                            "hasChild":true,
-                                                                            "compId":201,
-                                                                            "child":[
-                                                                                {
-                                                                                    "type":"Label",
-                                                                                    "props":{"text":"Accel:"},
-                                                                                    "nodeParent":201,
-                                                                                    "label":"Label",
-                                                                                    "isDirectory":false,
-                                                                                    "isAniNode":true,
-                                                                                    "hasChild":false,
-                                                                                    "compId":202,
-                                                                                    "child":[
-                                                                                        ]
-                                                                                },
-                                                                                {
-                                                                                    "type":"Label",
-                                                                                    "props":{"var":"m_uiDrive_accer","text":"label"},
-                                                                                    "nodeParent":201,
-                                                                                    "label":"Label(m_uiDrive_accer)",
-                                                                                    "isDirectory":false,
-                                                                                    "isAniNode":true,
-                                                                                    "hasChild":false,
-                                                                                    "compId":203,
-                                                                                    "child":[
-                                                                                        ]
-                                                                                },
-                                                                                {
-                                                                                    "type":"Label",
-                                                                                    "props":{"text":"m/s^2"},
-                                                                                    "nodeParent":201,
-                                                                                    "label":"Label",
-                                                                                    "isDirectory":false,
-                                                                                    "isAniNode":true,
-                                                                                    "hasChild":false,
-                                                                                    "compId":204,
-                                                                                    "child":[
-                                                                                        ]
-                                                                                }]
-                                                                        }]
-                                                                },
-                                                                {
-                                                                    "type":"VBox",
-                                                                    "props":{},
-                                                                    "nodeParent":195,
-                                                                    "label":"VBox",
-                                                                    "isDirectory":true,
-                                                                    "isAniNode":true,
-                                                                    "hasChild":true,
-                                                                    "compId":205,
-                                                                    "child":[
-                                                                        {
-                                                                            "type":"HSlider",
-                                                                            "props":{"var":"m_uiDrive_steerSlider","skin":"comp/hslider.png","min":-1,"max":1},
-                                                                            "nodeParent":205,
-                                                                            "label":"HSlider(m_uiDrive_steerSlider)",
-                                                                            "isDirectory":false,
-                                                                            "isAniNode":true,
-                                                                            "hasChild":false,
-                                                                            "compId":206,
-                                                                            "child":[
-                                                                                ]
-                                                                        },
-                                                                        {
-                                                                            "type":"Image",
-                                                                            "props":{"var":"m_uiDrive_steerImage","skin":"comp/checkbox.png","anchorY":0.5,"anchorX":0.5},
-                                                                            "nodeParent":205,
-                                                                            "label":"Image(m_uiDrive_steerImage)",
-                                                                            "isDirectory":false,
-                                                                            "isAniNode":true,
-                                                                            "hasChild":false,
-                                                                            "compId":207,
-                                                                            "child":[
-                                                                                ]
-                                                                        }]
-                                                                }]
+                                                                ]
                                                         }]
                                                 }]
                                         }],

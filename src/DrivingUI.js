@@ -210,11 +210,6 @@ DrivingUI.prototype.initSensorControlUI = function () {
         this.client.startRos();
     });
 
-    // Hide the scrollb bar and use dragging.
-    this.m_uiSensorList.scrollBar.hide = true;
-    this.m_uiSensorList.scrollBar.elasticBackTime = 200;
-    this.m_uiSensorList.scrollBar.elasticDistance = 50;
-
     // No data
     this.m_uiSensorList.array = [];
 };
