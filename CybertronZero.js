@@ -52,12 +52,13 @@ var logic = new LogicServer();
 wss.on('connection', function connection(socket, req) {
     const location = url.parse(req.url, true);
 	
-     socket.remoteAddress = req.headers['x-forwarded-for'] ||
+    const remoteAddress = req.headers['x-forwarded-for'] ||
 			req.connection.remoteAddress ||
 			req.socket.remoteAddress ||
-			req.connection.socket.remoteAddress;
+		   req.connection.socket.remoteAddress;
 
-	// console.log("111:"+ req.headers['x-forwarded-for'] +
+	socket.remoteAddress = remoteAddress.split(":")[3];
+		// console.log("111:"+ req.headers['x-forwarded-for'] +
         // " 222:"+req.connection.remoteAddress +
         // " 333:" +req.socket.remoteAddress +
         // " 444:" +req.connection.socket.remoteAddress;
