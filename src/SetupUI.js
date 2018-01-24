@@ -121,7 +121,11 @@ SetupUI.prototype.initInventoryListUI = function () {
             templateJson: {
                 text: JSON.stringify({
                     sid: -1, type: 0, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
-                    fov: 60, ResolutionWidth: 1024, ResolutionHeight:768,
+                    params: {
+                        fov: 45,
+                        ResolutionWidth: 1024,
+                        ResolutionHeight: 768,
+                    },
                 }),
             },
         },
@@ -134,7 +138,7 @@ SetupUI.prototype.initInventoryListUI = function () {
             },
             templateJson: {
                 text: JSON.stringify({
-                    sid: -1, type: 0, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
+                    sid: -1, type: 1, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
                 }),
             },
         },
@@ -147,7 +151,25 @@ SetupUI.prototype.initInventoryListUI = function () {
             },
             templateJson: {
                 text: JSON.stringify({
-                    sid: -1, type: 0, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
+                    sid: -1, type: 2, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
+                    params: {
+                        LongRangeAzimuthFieldOfView: 20,
+                        MidRangeAzimuthFieldOfView: 90,
+                        VerticalFieldOfView: 5,
+                        MinRange: 100,
+                        LongRangeMaxRange: 10000,
+                        MidRangeMaxRange: 5000,
+                        MinRangeRate: -10000,
+                        MaxRangeRate: 10000,
+                        LongRangeAzimuthResolution: 4,
+                        MidRangeAzimuthResolution: 12,
+                        VerticalResolution: 10,
+                        LongRangeRangeResolution: 250,
+                        MidRangeRangeResolution: 125,
+                        RangeRateResolution: 50,
+                        MaxNumDetections: 64,
+                        UseMidRange: true,
+                    },
                 }),
             },
         },

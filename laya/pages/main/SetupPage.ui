@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":36,
-    "selecteID":38,
+    "selectedBox":37,
+    "selecteID":36,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -475,7 +475,7 @@
                                 {
                                     "x":60,
                                     "type":"Box",
-                                    "props":{"width":260,"top":70,"right":80,"bottom":40},
+                                    "props":{"width":330,"top":70,"right":50,"bottom":40},
                                     "nodeParent":25,
                                     "label":"Box",
                                     "isOpen":true,
@@ -575,7 +575,7 @@
                                                         {
                                                             "x":105,
                                                             "type":"Box",
-                                                            "props":{"width":240,"name":"render","height":24,"centerX":0},
+                                                            "props":{"width":300,"name":"render","height":24,"centerX":0},
                                                             "nodeParent":37,
                                                             "label":"Box(render)",
                                                             "isOpen":true,
@@ -587,7 +587,7 @@
                                                                 {
                                                                     "x":120,
                                                                     "type":"Label",
-                                                                    "props":{"width":100,"valign":"middle","text":"Parameter Name","name":"label","left":10,"color":"#f0f0f0","centerY":0,"align":"right"},
+                                                                    "props":{"width":170,"valign":"middle","text":"Parameter Name","name":"label","left":10,"color":"#f0f0f0","centerY":0,"align":"right"},
                                                                     "nodeParent":36,
                                                                     "label":"Label(label)",
                                                                     "isDirectory":false,
@@ -600,7 +600,7 @@
                                                                 {
                                                                     "x":120,
                                                                     "type":"TextInput",
-                                                                    "props":{"width":100,"valign":"middle","text":"TextInput","skin":"custom/bg_listitem.png","right":10,"name":"input","color":"#f0f0f0","centerY":0,"align":"left"},
+                                                                    "props":{"width":90,"valign":"middle","text":"TextInput","skin":"custom/bg_listitem.png","right":10,"name":"input","color":"#f0f0f0","centerY":0,"align":"left"},
                                                                     "nodeParent":36,
                                                                     "label":"TextInput(input)",
                                                                     "isDirectory":false,
