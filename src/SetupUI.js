@@ -78,17 +78,17 @@ SetupUI.prototype.initCarBoxUI = function () {
 
 // Init the inventory list UI.
 SetupUI.prototype.initInventoryListUI = function () {
-    // Hide the scrollb bar and use dragging.
-    this.m_uiInventoryList.scrollBar.hide = true;
-
     // Allow dragging (into car box).
     this.m_uiInventoryList.on(Laya.Event.RENDER, this, function (e) {
         var templateJson = e.getChildByName("templateJson").text;
-        var image = e.getChildByName("image");
-        var button = e.getChildByName("button");
-        button.on(Laya.Event.MOUSE_DOWN, this, function (e) {
+        var icon = e.getChildByName("icon");
+        var label = e.getChildByName("label");
+        e.on(Laya.Event.MOUSE_DOWN, this, function (e) {
+            // Already dragging ?
+            if (e.indicator) return;
+
             // A new dynamic image object as the dragging indicator.
-            var indicator = new Laya.Image(button.skin);
+            var indicator = e.indicator = new Laya.Image(icon.skin);
             indicator.x = e.stageX;
             indicator.y = e.stageY;
             Laya.stage.addChild(indicator);
@@ -97,13 +97,14 @@ SetupUI.prototype.initInventoryListUI = function () {
             indicator.startDrag();
 
             // Drop the indicator onto some object.
-            indicator.on(Laya.Event.DRAG_END, this, function (e) {
+            indicator.on(Laya.Event.DRAG_END, this, function () {
                 // Car Box ?
                 indicator.stopDrag();
                 if (this.m_uiCarBox.hitTestPoint(indicator.x, indicator.y)) {
                     this.client.addSensor(JSON.parse(templateJson));
                 }
                 indicator.destroy();
+                e.indicator = undefined;
             });
         });
     });
@@ -113,6 +114,9 @@ SetupUI.prototype.initInventoryListUI = function () {
         {
             label: {
                 text: "Camera",
+            },
+            icon: {
+                skin: "custom/image_inventory_camera.png",
             },
             templateJson: {
                 text: JSON.stringify({
@@ -125,6 +129,9 @@ SetupUI.prototype.initInventoryListUI = function () {
             label: {
                 text: "Lidar",
             },
+            icon: {
+                skin: "custom/image_inventory_lidar.png",
+            },
             templateJson: {
                 text: JSON.stringify({
                     sid: -1, type: 0, x: 0, y: 0, z: 0, roll: 0, pitch: 0, yaw: 0,
@@ -134,6 +141,9 @@ SetupUI.prototype.initInventoryListUI = function () {
         {
             label: {
                 text: "Radar",
+            },
+            icon: {
+                skin: "custom/image_inventory_radar.png",
             },
             templateJson: {
                 text: JSON.stringify({
@@ -146,11 +156,6 @@ SetupUI.prototype.initInventoryListUI = function () {
 
 // Init the parameter list UI.
 SetupUI.prototype.initParameterListUI = function () {
-    // Hide the scrollb bar and use dragging.
-    this.m_uiParameterList.scrollBar.hide = true;
-    this.m_uiParameterList.scrollBar.elasticBackTime = 200;
-    this.m_uiParameterList.scrollBar.elasticDistance = 50;
-
     // Add callbacks for the items in the list.
     this.m_uiParameterList.on(Laya.Event.RENDER, this, function (e) {
         var label = e.getChildByName("label");

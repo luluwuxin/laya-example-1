@@ -4,4 +4,6 @@
    <item name="custom/button_main_setup.png" type="Button" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
    <item name="custom/button_main_driving.png" type="Button" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
    <item name="custom/button_main_scenario.png" type="Button" compress="0" pack="1" quality="80" props="" picType="0" scale="0"/>
+   <item name="custom/bg_float.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=20,20,20,20" picType="0" scale="0"/>
+   <item name="custom/bg_listitem.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=3,10,5,10" picType="0" scale="0"/>
 </res>
