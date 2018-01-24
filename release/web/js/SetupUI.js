@@ -96,16 +96,21 @@ SetupUI.prototype.initInventoryListUI = function () {
             // Enable dragging on the indicator.
             indicator.startDrag();
 
-            // Drop the indicator onto some object.
-            indicator.on(Laya.Event.DRAG_END, this, function () {
+            function HandleDrop() {
                 // Car Box ?
-                indicator.stopDrag();
-                if (this.m_uiCarBox.hitTestPoint(indicator.x, indicator.y)) {
-                    this.client.addSensor(JSON.parse(templateJson));
+                if (e.indicator) {
+                    indicator.stopDrag();
+                    if (this.m_uiCarBox.hitTestPoint(indicator.x, indicator.y)) {
+                        this.client.addSensor(JSON.parse(templateJson));
+                    }
+                    indicator.destroy();
                 }
-                indicator.destroy();
                 e.indicator = undefined;
-            });
+            }
+
+            // Drop the indicator onto some object.
+            indicator.on(Laya.Event.DRAG_END, this, HandleDrop);
+            indicator.on(Laya.Event.MOUSE_UP, this, HandleDrop);
         });
     });
 
