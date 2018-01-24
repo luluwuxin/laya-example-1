@@ -7,6 +7,7 @@ var WebClient = (function (window, Laya, logger) {
         this.car       = JSON.parse(JSON.stringify(this.car_list[0]));
         this.scene     = {};
         this.ros       = this.getMockRosInfo();
+        this.scenario  = {};
         this.callbacks = {};
         this.init();
     }
@@ -105,6 +106,10 @@ var WebClient = (function (window, Laya, logger) {
 
         case "ros_status":
             this.ros.ros_status = Object.assign(this.ros.ros_status || {}, json);
+            break;
+
+        case "scenario_info":
+            this.scenario.scenario_info = Object.assign(this.scenario.scenario_info || {}, json);
             break;
         }
 
