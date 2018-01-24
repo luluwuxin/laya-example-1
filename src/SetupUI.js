@@ -52,10 +52,7 @@ SetupUI.prototype.initBannerUI = function () {
 
 // Init the car list UI.
 SetupUI.prototype.initCarListUI = function () {
-    // Hide the scrollb bar and use dragging.
-    this.m_uiCarList.scrollBar.hide = true;
-    this.m_uiCarList.scrollBar.elasticBackTime = 200;
-    this.m_uiCarList.scrollBar.elasticDistance = 50;
+    this.m_uiCarList.array = [];
 
     // Mouse events.
     this.m_uiCarList.mouseHandler = new Handler(this, function (e, i) {
@@ -201,10 +198,7 @@ SetupUI.prototype.refreshCarListUI = function () {
     var data = [
         {
             label: {
-                text: "default",
-            },
-            image: {
-                skin: "",
+                text: "SUV",
             },
         }
     ];

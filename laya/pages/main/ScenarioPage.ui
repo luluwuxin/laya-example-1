@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":1,
-    "selecteID":18,
+    "selecteID":20,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#ffffff","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -215,7 +215,7 @@
                                 {
                                     "x":60,
                                     "type":"List",
-                                    "props":{"y":0,"x":0,"width":200,"var":"m_uiScenarioList","vScrollBarSkin":"comp/vscroll.png","selectEnable":true,"repeatX":1,"height":648},
+                                    "props":{"y":0,"x":0,"width":200,"var":"m_uiScenarioList","vScrollBarSkin":"comp/vscroll.png","selectEnable":true,"repeatX":1,"height":500},
                                     "nodeParent":16,
                                     "label":"List(m_uiScenarioList)",
                                     "isOpen":true,
