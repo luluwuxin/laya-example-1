@@ -85,17 +85,21 @@ wss.on('connection', function connection(socket, req) {
 			if(!logic.isAuth(socket))
 			{
 				if(pack.method=="auth")
+				{
 					logic.procAuth(socket, pack);
+				}
 				else
+				{
+					console.log("%s !!unauth!! message:%s", socket.remoteAddress, msg);
 					socket.send(msg);
+				}
 			}else{
-				console.log("received !unauth! packet:%s", pack.method);
 				logic.procMessage(socket, pack);	
 			}	
 		}catch(err)
 		{
-			console.log("json parse err:"+err);
-			socket.send(msg);
+			console.log("%s error:%s", socket.remoteAddress, err);
+			// socket.send(msg);
 		}
         
     });
@@ -105,7 +109,7 @@ wss.on('connection', function connection(socket, req) {
     // socket.send(welcome);
 });
 
-server.listen(8080, function listening() {
+server.listen(8081, function listening() {
     console.log('Listening on %d', server.address().port);
     //utils.openUrl("http://127.0.0.1:"+server.address().port);
 });

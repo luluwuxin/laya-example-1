@@ -270,7 +270,13 @@ function LogicServer()
 	{
 		var type = pack.type;
         var client = this.addClient(type, socket);
-		console.log('receivedAuth: %s:%s', client.getInfo(), JSON.stringify(pack));
+		// console.log('receivedAuth: %s:%s', client.getInfo(), JSON.stringify(pack));
+
+		console.log("============>auth client %d:%s", client.cid, client.getInfo());
+        pack.cid = client.cid;
+        pack.msg = "welcome!";
+        client.send(pack);
+		
 		switch(type)
 		{
 			case 0: //web
@@ -288,7 +294,7 @@ function LogicServer()
 			
 			case 2: //ue4
 			this.cli_ue4 = client;
-			this.cli_ue4.send(this.SceneInfo);
+			this.send2ue4(this.SceneInfo);
 			// this.cli_ue4.send(this.WeatherInfo);
 			// this.cli_ue4.send(this.TrafficInfo);
 			// this.cli_ue4.send(this.Carclient);
@@ -302,16 +308,12 @@ function LogicServer()
 			default:
 			break;
 		}
-        console.log("auth client %d:%s", client.cid, client.getInfo());
-        pack.cid = client.cid;
-        pack.msg = "welcome!";
-        client.send(pack);
 	}
 	
 	this.procMessage = function(socket, pack)
 	{
 		var client = this.clients[socket];
-		console.log('receivedPack: %s:!!!%s!!!', client.getInfo(), pack.method);
+		console.log('receivedPack: %s:!!!%s!!!', client.getInfo(), JSON.stringify(pack));
 		switch(pack.method)
         {
             case "chat":
@@ -344,7 +346,7 @@ function LogicServer()
 			{
 				this.RosInfo = pack;
 				if(this.cli_web!=null)
-					this.cli_web.send(pack);
+					this.send2web(pack);
 				break;
 			}
 
@@ -357,31 +359,34 @@ function LogicServer()
 
 			case "loading":
 			{
-				this.cli_ue4.send(this.WeatherInfo);
-				this.cli_ue4.send(this.TrafficInfo);
-				this.cli_ue4.send(this.CarConfig);
+				this.send2ue4(this.WeatherInfo);
+				this.send2ue4(this.TrafficInfo);
+				this.send2ue4(this.CarConfig);
 				break;
 			}
 
 			case "car_state":
 			{
-				this.car_state = pack;
+				this.CarState = pack;
 				if(client == this.cli_web)
-					this.cli_ue4.send(this.car_state);
+					this.send2ue4(this.CarState);
 				else if(client == this.cli_ue4)
-					this.cli_web.send(this.car_state);
+					this.send2web(this.CarState);
 				break;
 			}
 
 			case "sumo_ready":
 			{
-				this.cli_ue4.send(pack);
+				if(client == this.cli_web)
+					this.send2ue4(pack);
+				else if(client == this.cli_ue4)
+					this.send2web(pack);
 				break;
 			}
 			
 			case "ready":
 			{
-				this.cli_ros.send(pack);
+				this.send2ros(pack);
 				break;
 			}
 
