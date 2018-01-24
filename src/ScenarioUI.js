@@ -45,11 +45,6 @@ ScenarioUI.prototype.initBannerUI = function () {
 ScenarioUI.prototype.initScenarioListUI = function () {
     this.m_uiScenarioList.array = [];
 
-    // Hide the scrollb bar and use dragging.
-    this.m_uiScenarioList.scrollBar.hide = true;
-    this.m_uiScenarioList.scrollBar.elasticBackTime = 200;
-    this.m_uiScenarioList.scrollBar.elasticDistance = 50;
-
     this.m_uiScenarioList.on(Laya.Event.CHANGE, this, function () {
         // Clone the scenario being edited.
         this.client.case.current = JSON.parse(JSON.stringify(
