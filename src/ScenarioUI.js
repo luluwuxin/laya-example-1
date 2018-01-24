@@ -1,6 +1,6 @@
 // Class for the Scenario webpage.
 //
-function ScenarioUI(pages)
+function ScenarioUI(pages, client)
 {
     ScenarioUI.super(this);
 
@@ -10,6 +10,12 @@ function ScenarioUI(pages)
 
     // Pages for switching
     this.pages = pages;
+
+    // Model and WebSocket backend
+    this.client = client
+      .on("case_list", this, function () {
+          this.refreshScenarioListUI();
+      });
 }
 Laya.class(ScenarioUI, "ScenarioUI", ScenarioPageUI);
 
@@ -37,29 +43,21 @@ ScenarioUI.prototype.initBannerUI = function () {
 
 // Init the scenario list UI.
 ScenarioUI.prototype.initScenarioListUI = function () {
+    this.m_uiScenarioList.array = [];
+
     // Hide the scrollb bar and use dragging.
     this.m_uiScenarioList.scrollBar.hide = true;
     this.m_uiScenarioList.scrollBar.elasticBackTime = 200;
     this.m_uiScenarioList.scrollBar.elasticDistance = 50;
 
     this.m_uiScenarioList.on(Laya.Event.CHANGE, this, function () {
-        console.log("select scenario " + this.m_uiScenarioList.selectedIndex);
+        // Clone the scenario being edited.
+        this.client.case.current = JSON.parse(JSON.stringify(
+            this.client.case.case_list.list[this.m_uiScenarioList.selectedIndex]));
+
+        // TODO:
+        //   Open Editor with the content in this.client.case.current.
     });
-
-    // Mock data
-    this.m_uiScenarioList.array = [
-        {
-            label: {
-                text: "scenario 1",
-            },
-        },
-        {
-            label: {
-                text: "scenario 2",
-            },
-        },
-    ];
-
 
     // Add scenario button.
     this.m_uiScenarioButton.on(Laya.Event.CLICK, this, function() {
@@ -75,6 +73,16 @@ ScenarioUI.prototype.initScenarioListUI = function () {
         {
             // do something when user want to save case data.
             // TODO: send text to server
+
+            // TODO:
+            //   Populate this.client.case.current.
+            var client = this.client;
+            this.client.case.case_list.list.forEach(function (v) {
+                if (v.name === client.case.current.name) {
+                    Object.assign(v, client.case.current);
+                }
+            });
+            this.client.storeCases();
         });
 
         editor.registerEvent(ObstacleEditorEvent.USER_CLOSE_EDITOR, this, function ()
@@ -83,4 +91,17 @@ ScenarioUI.prototype.initScenarioListUI = function () {
             // nothing to do
         });
     });
+};
+
+// Refresh the scenario list UI.
+ScenarioUI.prototype.refreshScenarioListUI = function () {
+    var data = [];
+    this.client.case.case_list.list.forEach(function (v, i) {
+        data.push({
+            label: {
+                text: v.name,
+            },
+        });
+    });
+    this.m_uiScenarioList.array = data;
 };

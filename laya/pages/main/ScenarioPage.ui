@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":1,
-    "selecteID":20,
+    "selectedBox":2,
+    "selecteID":21,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#ffffff","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -254,6 +254,19 @@
                                     "$HIDDEN":false
                                 }]
                         }]
+                },
+                {
+                    "x":30,
+                    "type":"Button",
+                    "props":{"var":"m_uiDriveButton","top":400,"skin":"comp/button.png","left":400,"label":"play"},
+                    "nodeParent":2,
+                    "label":"Button(m_uiDriveButton)",
+                    "isDirectory":false,
+                    "isAniNode":true,
+                    "hasChild":false,
+                    "compId":21,
+                    "child":[
+                        ]
                 }]
         }],
     "animations":[

@@ -7,7 +7,7 @@ var WebClient = (function (window, Laya, logger) {
         this.car       = JSON.parse(JSON.stringify(this.car_list[0]));
         this.scene     = {};
         this.ros       = this.getMockRosInfo();
-        this.scenario  = {};
+        this.case      = {};
         this.callbacks = {};
         this.init();
     }
@@ -108,8 +108,8 @@ var WebClient = (function (window, Laya, logger) {
             this.ros.ros_status = Object.assign(this.ros.ros_status || {}, json);
             break;
 
-        case "scenario_info":
-            this.scenario.scenario_info = Object.assign(this.scenario.scenario_info || {}, json);
+        case "case_list":
+            this.case.case_list = Object.assign(this.case.case_list || {}, json);
             break;
         }
 
@@ -170,6 +170,11 @@ var WebClient = (function (window, Laya, logger) {
         this.fire("car_config");
     };
 
+    // Save the case list.
+    WebClient.prototype.storeCases = function () {
+        this.socket.send(JSON.stringify(this.case.case_list));
+    };
+
     // Start Ros
     WebClient.prototype.startRos = function () {
         // Make a copy of the ros_status. ros_status will be pushed from the
@@ -201,6 +206,10 @@ var WebClient = (function (window, Laya, logger) {
         this.socket.send(JSON.stringify({
             method: "ready",
         }));
+    };
+
+    // Start the case
+    WebClient.prototype.sendCase = function () {
     };
 
     // Hard-code stuff
