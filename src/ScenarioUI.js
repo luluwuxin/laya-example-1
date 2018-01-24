@@ -57,6 +57,28 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
         // TODO:
         //   Open Editor with the content in this.client.case.current.
+        var editor = new ObstacleEditor();
+        editor.createMainUI(this);
+        editor.registerEvent(ObstacleEditorEvent.USER_SAVE_CASE, this, function (sender, text)
+        {
+            // do something when user want to save case data.
+            // TODO: send text to server
+
+            // TODO:
+            //   Populate this.client.case.current.
+            this.client.case.current.content = text;
+            var client = this.client;
+            this.client.case.case_list.list.forEach(function (v) {
+                if (v.name === client.case.current.name) {
+                    Object.assign(v, client.case.current);
+                }
+            });
+            this.client.storeCases();
+        });
+
+        editor.loadMapDataByMapName(this.client.case.current.scene);
+        editor.loadCaseData(this.client.case.current.content);
+                
     });
 
     // Add scenario button.
