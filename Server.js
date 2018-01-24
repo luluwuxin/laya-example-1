@@ -212,9 +212,10 @@ function LogicServer()
 				 UseMidRange:true
 			 }
 			},
-			{sid:3, type:0,x:188.0,y:0.0,z:110.0,roll:0,pitch:0,yaw:0,fov:45,
+			{sid:3, type:0,x:188.0,y:0.0,z:110.0,roll:0,pitch:0,yaw:0,
 			 params:
 			 {
+				 fov:45,
 				 ResolutionWidth:1024,
 				 ResolutionHeight:768
 			 }
