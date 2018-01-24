@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":1,
-    "selecteID":79,
+    "selectedBox":233,
+    "selecteID":170,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -416,7 +416,7 @@
                                                                 }]
                                                         }]
                                                 }],
-                                            "$HIDDEN":true
+                                            "$HIDDEN":false
                                         },
                                         {
                                             "x":75,
@@ -863,45 +863,88 @@
                                                                 }],
                                                             "$HIDDEN":false
                                                         }]
-                                                }]
-                                        }]
-                                },
-                                {
-                                    "x":60,
-                                    "type":"HBox",
-                                    "props":{"top":200,"right":0,"left":0,"height":432},
-                                    "nodeParent":48,
-                                    "label":"HBox",
-                                    "isOpen":null,
-                                    "isDirectory":true,
-                                    "isAniNode":true,
-                                    "hasChild":true,
-                                    "compId":79,
-                                    "child":[
+                                                }],
+                                            "$HIDDEN":true
+                                        },
                                         {
-                                            "type":"VBox",
-                                            "props":{"width":240,"top":0,"bottom":0},
-                                            "nodeParent":79,
-                                            "label":"VBox",
+                                            "x":75,
+                                            "type":"Box",
+                                            "props":{"top":140,"right":0,"left":0,"bottom":0},
+                                            "nodeParent":227,
+                                            "label":"Box",
+                                            "isOpen":true,
                                             "isDirectory":true,
                                             "isAniNode":true,
                                             "hasChild":true,
-                                            "compId":155,
+                                            "compId":232,
                                             "child":[
                                                 {
-                                                    "type":"HBox",
-                                                    "props":{"right":0,"left":0,"height":288},
-                                                    "nodeParent":155,
-                                                    "label":"HBox",
+                                                    "x":90,
+                                                    "type":"Box",
+                                                    "props":{"top":0,"right":400,"left":0,"bottom":150},
+                                                    "nodeParent":232,
+                                                    "label":"Box",
+                                                    "isOpen":true,
                                                     "isDirectory":true,
                                                     "isAniNode":true,
                                                     "hasChild":true,
-                                                    "compId":157,
+                                                    "compId":233,
                                                     "child":[
                                                         {
+                                                            "x":105,
+                                                            "type":"Image",
+                                                            "props":{"top":5,"skin":"custom/bg_inset.png","right":5,"left":5,"bottom":5},
+                                                            "nodeParent":233,
+                                                            "label":"Image",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":234,
+                                                            "child":[
+                                                                ]
+                                                        },
+                                                        {
+                                                            "x":105,
+                                                            "type":"Box",
+                                                            "props":{"top":5,"right":5,"left":5,"height":26},
+                                                            "nodeParent":233,
+                                                            "label":"Box",
+                                                            "isOpen":false,
+                                                            "isDirectory":true,
+                                                            "isAniNode":true,
+                                                            "hasChild":true,
+                                                            "compId":239,
+                                                            "child":[
+                                                                {
+                                                                    "type":"Label",
+                                                                    "props":{"width":90,"valign":"middle","text":"Sensor Control","left":20,"color":"#f0f0f0","centerY":0,"align":"left"},
+                                                                    "nodeParent":239,
+                                                                    "label":"Label",
+                                                                    "isDirectory":false,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":false,
+                                                                    "compId":240,
+                                                                    "child":[
+                                                                        ]
+                                                                },
+                                                                {
+                                                                    "type":"Image",
+                                                                    "props":{"skin":"custom/image_hseparator.png","right":30,"left":120,"centerY":2},
+                                                                    "nodeParent":239,
+                                                                    "label":"Image",
+                                                                    "isDirectory":false,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":false,
+                                                                    "compId":241,
+                                                                    "child":[
+                                                                        ]
+                                                                }]
+                                                        },
+                                                        {
+                                                            "x":105,
                                                             "type":"Button",
-                                                            "props":{"width":48,"var":"m_uiSensorButton","top":24,"skin":"comp/checkbox.png","left":24,"height":48},
-                                                            "nodeParent":157,
+                                                            "props":{"width":48,"var":"m_uiSensorButton","top":80,"skin":"custom/button_start.png","left":50,"height":48},
+                                                            "nodeParent":233,
                                                             "label":"Button(m_uiSensorButton)",
                                                             "isDirectory":false,
                                                             "isAniNode":true,
@@ -911,10 +954,12 @@
                                                                 ]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"List",
-                                                            "props":{"width":150,"var":"m_uiSensorList","vScrollBarSkin":"comp/vscroll.png","top":15,"right":10,"repeatX":1,"height":200},
-                                                            "nodeParent":157,
+                                                            "props":{"y":60,"x":65,"width":150,"var":"m_uiSensorList","vScrollBarSkin":"comp/vscroll.png","top":15,"right":10,"repeatX":1,"height":200},
+                                                            "nodeParent":233,
                                                             "label":"List(m_uiSensorList)",
+                                                            "isOpen":null,
                                                             "isDirectory":true,
                                                             "isAniNode":true,
                                                             "hasChild":true,
@@ -958,10 +1003,124 @@
                                                         }]
                                                 },
                                                 {
+                                                    "x":90,
+                                                    "type":"Box",
+                                                    "props":{"right":400,"left":0,"height":150,"bottom":0},
+                                                    "nodeParent":232,
+                                                    "label":"Box",
+                                                    "isOpen":false,
+                                                    "isDirectory":true,
+                                                    "isAniNode":true,
+                                                    "hasChild":true,
+                                                    "compId":235,
+                                                    "child":[
+                                                        {
+                                                            "type":"Image",
+                                                            "props":{"top":5,"skin":"custom/bg_inset.png","right":5,"left":5,"bottom":5},
+                                                            "nodeParent":235,
+                                                            "label":"Image",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":236,
+                                                            "child":[
+                                                                ]
+                                                        },
+                                                        {
+                                                            "type":"Box",
+                                                            "props":{"top":5,"right":5,"left":5,"height":26},
+                                                            "nodeParent":235,
+                                                            "label":"Box",
+                                                            "isOpen":false,
+                                                            "isDirectory":true,
+                                                            "isAniNode":true,
+                                                            "hasChild":true,
+                                                            "compId":242,
+                                                            "child":[
+                                                                {
+                                                                    "type":"Label",
+                                                                    "props":{"width":90,"valign":"middle","text":"Traffic Control","left":20,"color":"#f0f0f0","centerY":0,"align":"left"},
+                                                                    "nodeParent":242,
+                                                                    "label":"Label",
+                                                                    "isDirectory":false,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":false,
+                                                                    "compId":243,
+                                                                    "child":[
+                                                                        ]
+                                                                },
+                                                                {
+                                                                    "type":"Image",
+                                                                    "props":{"skin":"custom/image_hseparator.png","right":30,"left":120,"centerY":2},
+                                                                    "nodeParent":242,
+                                                                    "label":"Image",
+                                                                    "isDirectory":false,
+                                                                    "isAniNode":true,
+                                                                    "hasChild":false,
+                                                                    "compId":244,
+                                                                    "child":[
+                                                                        ]
+                                                                }]
+                                                        }]
+                                                },
+                                                {
+                                                    "x":90,
+                                                    "type":"Box",
+                                                    "props":{"y":0,"x":640,"width":400,"top":0,"right":0,"bottom":0},
+                                                    "nodeParent":232,
+                                                    "label":"Box",
+                                                    "isOpen":false,
+                                                    "isDirectory":true,
+                                                    "isAniNode":true,
+                                                    "hasChild":true,
+                                                    "compId":237,
+                                                    "child":[
+                                                        {
+                                                            "type":"Image",
+                                                            "props":{"top":5,"skin":"custom/bg_inset.png","right":5,"left":5,"bottom":5},
+                                                            "nodeParent":237,
+                                                            "label":"Image",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":238,
+                                                            "child":[
+                                                                ]
+                                                        }]
+                                                }]
+                                        }]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"HBox",
+                                    "props":{"visible":false,"top":200,"right":0,"left":0,"height":432},
+                                    "nodeParent":48,
+                                    "label":"HBox",
+                                    "isOpen":true,
+                                    "isDirectory":true,
+                                    "isAniNode":true,
+                                    "hasChild":true,
+                                    "compId":79,
+                                    "child":[
+                                        {
+                                            "x":75,
+                                            "type":"VBox",
+                                            "props":{"width":240,"top":0,"bottom":0},
+                                            "nodeParent":79,
+                                            "label":"VBox",
+                                            "isOpen":true,
+                                            "isDirectory":true,
+                                            "isAniNode":true,
+                                            "hasChild":true,
+                                            "compId":155,
+                                            "child":[
+                                                {
+                                                    "x":90,
                                                     "type":"HBox",
                                                     "props":{"right":0,"left":0,"height":144},
                                                     "nodeParent":155,
                                                     "label":"HBox",
+                                                    "isOpen":false,
                                                     "isDirectory":true,
                                                     "isAniNode":true,
                                                     "hasChild":true,
@@ -972,6 +1131,7 @@
                                                             "props":{},
                                                             "nodeParent":173,
                                                             "label":"VBox",
+                                                            "isOpen":null,
                                                             "isDirectory":true,
                                                             "isAniNode":true,
                                                             "hasChild":true,
@@ -995,6 +1155,7 @@
                                                             "props":{},
                                                             "nodeParent":173,
                                                             "label":"VBox",
+                                                            "isOpen":null,
                                                             "isDirectory":true,
                                                             "isAniNode":true,
                                                             "hasChild":true,
@@ -1121,16 +1282,19 @@
                                                 }]
                                         },
                                         {
+                                            "x":75,
                                             "type":"VBox",
                                             "props":{"width":500,"top":0,"bottom":0},
                                             "nodeParent":79,
                                             "label":"VBox",
+                                            "isOpen":true,
                                             "isDirectory":true,
                                             "isAniNode":true,
                                             "hasChild":true,
                                             "compId":191,
                                             "child":[
                                                 {
+                                                    "x":90,
                                                     "type":"Button",
                                                     "props":{"width":64,"var":"m_uiDriveButton","skin":"comp/checkbox.png","left":5,"label":"label","height":64,"bottom":5},
                                                     "nodeParent":191,
@@ -1143,10 +1307,12 @@
                                                         ]
                                                 },
                                                 {
+                                                    "x":90,
                                                     "type":"Box",
                                                     "props":{"top":0,"right":0},
                                                     "nodeParent":191,
                                                     "label":"Box",
+                                                    "isOpen":null,
                                                     "isDirectory":true,
                                                     "isAniNode":true,
                                                     "hasChild":true,
@@ -1304,7 +1470,8 @@
                                                                 }]
                                                         }]
                                                 }]
-                                        }]
+                                        }],
+                                    "$HIDDEN":true
                                 }]
                         }]
                 }]
