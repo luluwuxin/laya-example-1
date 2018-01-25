@@ -241,6 +241,10 @@ var WebClient = (function (window, Laya, logger) {
                     scene: "Shanghai",
                     image: "custom/image_scene_Shanghai.png",
                 },
+                {
+                    scene: "Parking",
+                    image: "custom/image_scene_Parking.png",
+                },
             ]
         })
     };
