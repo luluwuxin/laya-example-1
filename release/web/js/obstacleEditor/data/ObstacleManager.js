@@ -11,6 +11,33 @@ class ObstacleManager extends EventObject
         this._obstacles = [];
     }
 
+    
+    _createObstacleName()
+    {
+        var indexes = new Set();
+        for (var obstacle of this._obstacles)
+        {
+            var index = obstacle.name.indexOf("obstacle-");
+            if (index != 0)
+            {
+                continue;
+            }
+            var num = Number(obstacle.name.substring(9));
+            if (isNaN(num) == false)
+            {
+                indexes.add(num);
+            }
+        }
+        for (var i = 0; ; i++)
+        {
+            if (indexes.has(i))
+            {
+                continue;
+            }
+            return "obstacle-" + i;
+        }
+    }
+
     getObstacles()
     {
         return this._obstacles;
@@ -38,11 +65,11 @@ class ObstacleManager extends EventObject
         return -1;
     }
 
-    addDefaultObstacle()
+    addDefaultObstacle(obstacleType)
     {
         var defaultObject = new Obstacle();
-        defaultObject.type = ObstacleType.CAR;
-        defaultObject.name = "car";
+        defaultObject.type = obstacleType;
+        defaultObject.name = this._createObstacleName();
         defaultObject.route = new Route();
         this.addObstacle(defaultObject);
         return defaultObject;

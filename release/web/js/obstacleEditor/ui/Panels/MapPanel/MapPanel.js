@@ -257,8 +257,8 @@ function MapPanelScript(dependences)
         this.miniMapBox.width = targetWidth;
         this.miniMapBox.height = targetHeight;
 
-        this.miniMapImage.skin = this._mapData.mapImagePath;
-        this.miniMapImageLight.skin = this._mapData.mapImagePath;
+        this.miniMapImage.skin = this._mapData.getMapImagePath();
+        this.miniMapImageLight.skin = this._mapData.getMapImagePath();
         this._refreshMiniMapFrame();
     }
 
@@ -319,9 +319,9 @@ function MapPanelScript(dependences)
 
     this.setMapData = function (mapData)
     {
-        logInfo("Set map data. map image path = [{0}]".format(mapData.mapImagePath));
+        logInfo("Set map data. map image path = [{0}]".format(mapData.getMapImagePath()));
         this._mapData = mapData;
-        this.mapImage.skin = this._mapData.mapImagePath;
+        this.mapImage.skin = this._mapData.getMapImagePath();
         this.mapImage.height = this._mapData.mapInfo.height;
         this.mapImage.width = this._mapData.mapInfo.width;
         

@@ -30,7 +30,7 @@ class ObstacleEditor extends EventObject
 
     _userWantToSaveCaseData()
     {
-        this.sendEvent(ObstacleEditorEvent.USER_SAVE_CASE, this.getCaseData());
+        this.sendEvent(ObstacleEditorEvent.USER_SAVE_CASE, this.getCaseDataJsonString());
     }
 
     createMainUI(container)
@@ -47,18 +47,24 @@ class ObstacleEditor extends EventObject
         });
     }
 
-    loadMapData(mapDataDirectory)
+    loadMapDataByMapName(mapName)
     {
-        this._loadedDataManager.loadMapData(mapDataDirectory);
+        this._loadedDataManager.loadMapDataByMapName(mapName);
     }
 
-    loadCaseData(caseDataFilePath)
+    loadCaseData(caseDataString)
     {
-        this._loadedDataManager.loadCaseData(caseDataFilePath);
+        this._loadedDataManager.loadCase(caseDataString);
     }
 
-    getCaseData()
+    getMapDataJsonString()
     {
-        return this._loadedDataManager.getCaseData();
+        return this._loadedDataManager.getMapDataJsonString();
     }
+
+    getCaseDataJsonString()
+    {
+        return this._loadedDataManager.getCaseDataJsonString();
+    }
+
 }

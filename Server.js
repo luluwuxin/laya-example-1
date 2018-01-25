@@ -318,6 +318,10 @@ function LogicServer()
 			case 2: //ue4
 			this.cli_ue4 = client;
 			this.send2ue4(this.SceneInfo);
+			// this.cli_ue4.send(this.WeatherInfo);
+			// this.cli_ue4.send(this.TrafficInfo);
+			// this.cli_ue4.send(this.Carclient);
+			// this.push_ue4_config();
 			break;
 
 			case 3: //ue4d

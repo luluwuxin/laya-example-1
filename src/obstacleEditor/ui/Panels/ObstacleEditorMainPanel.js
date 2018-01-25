@@ -61,6 +61,7 @@ function ObstacleEditorMainPanelScript(dependences)
         if (this._saveCaseCallback != null)
         {
             this._saveCaseCallback.call(this._saveCaseCaller);
+            this._loadedDataManager.onDataSaved();
         }
     }
 

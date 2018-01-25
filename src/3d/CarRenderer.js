@@ -16,6 +16,21 @@ function CarRenderer(parent) {
     this.camera.transform.rotate(new Laya.Vector3(-45, 0, 0), true, false);
     this.camera.addComponent(CameraMoveScript);
 
+    // Lighting
+    this.spot = this.scene.addChild(new Laya.SpotLight());
+    this.spot.diffuseColor = new Laya.Vector3(20, 20, 20);
+    this.spot.transform.position = new Laya.Vector3(0, 10, 0);
+    this.spot.direction = new Laya.Vector3(0, -1, 0);
+    this.spot.range = 20;
+    this.spot.spot = 5;
+    this.light = this.scene.addChild(new Laya.DirectionLight());
+    this.light.diffuseColor = new Laya.Vector3(2, 2, 2);
+    this.light.direction = new Laya.Vector3(0, -1, -1);
+    this.fill = this.scene.addChild(new Laya.PointLight());
+    this.fill.diffuseColor = new Laya.Vector3(150, 150, 150);
+    this.fill.transform.position = new Laya.Vector3(0, -10, -15);
+    this.fill.range = 20;
+
     // Render into parent node rectangle.
     var p0 = parent.localToGlobal(new Laya.Point(0, 0));
     var p1 = parent.localToGlobal(new Laya.Point(640, 480));
@@ -77,7 +92,6 @@ CarRenderer.prototype.refreshCarConfig = function (car_config) {
 
         // Material
         var material = new Laya.StandardMaterial();
-        material.albedo = new Laya.Vector4(1, 0, 0, 0.3);
         material.renderMode = Laya.StandardMaterial.RENDERMODE_DEPTHREAD_TRANSPARENTDOUBLEFACE;
         material.disableLight();
         mesh.meshRender.material = material;
@@ -100,6 +114,29 @@ CarRenderer.prototype.refreshCarConfig = function (car_config) {
     this.sensors.forEach(function (v, i) {
         var s = car_config.config[i];
         var x = v.transform;
+        var m = v.meshRender.material;
+
+        // Color & size based on type.
+        var alpha = 0.3;
+        var size = new Laya.Vector3(3, 3, 3);
+        switch (s.type) {
+        case 0:
+            m.albedo = new Laya.Vector4(113/255, 219/255, 223/255, alpha);
+            break;
+        case 1:
+            m.albedo = new Laya.Vector4(228/255, 191/255, 227/255, alpha);
+            size.x *= 1.1;
+            size.y = size.z = size.z * 0.9;
+            break;
+        case 2:
+            m.albedo = new Laya.Vector4(207/255, 249/255, 162/255, alpha);
+            size.x *= 0.9;
+            size.y = size.z = size.z * 1.1;
+            break;
+        default:
+            m.albedo = new Laya.Vector4(1, 0, 0, alpha);
+            break;
+        }
 
         // Laya is Y-up, right-handed, in meter.
         var pos = new Laya.Vector3(
@@ -112,7 +149,7 @@ CarRenderer.prototype.refreshCarConfig = function (car_config) {
             -s.yaw,
             s.pitch
         );
-        var scl = new Laya.Vector3(3, 3, 3);
+        var scl = size;
 
         x.localRotationEuler = rot.clone();
         x.localScale = scl.clone();

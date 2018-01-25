@@ -37,7 +37,7 @@ function addHistory()
 
 function useCurrentHistory()
 {
-    this._loadedDataManager.loadCaseByJsonObject(this._historyList[this._currentIndex].jsonObj);
+    this._loadedDataManager.loadCaseByJsonObject(this._historyList[this._currentIndex].jsonObj, false);
 }
 
 function onObstacleAdded(sender, obstacle)

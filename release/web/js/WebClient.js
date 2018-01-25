@@ -7,6 +7,7 @@ var WebClient = (function (window, Laya, logger) {
         this.car       = JSON.parse(JSON.stringify(this.car_list[0]));
         this.scene     = {};
         this.ros       = this.getMockRosInfo();
+        this.case      = {};
         this.callbacks = {};
         this.init();
     }
@@ -16,7 +17,7 @@ var WebClient = (function (window, Laya, logger) {
         this.socket = new Laya.Socket();
         this.socket.endian = Laya.Byte.LITTLE_ENDIAN;
         this.socket.connectByUrl("ws://" + 
-                                (window.location.host || "10.2.10.215:8080"));
+                                (window.location.host || "localhost:8081"));
 
         // On connection established
         this.socket.on(Laya.Event.OPEN, this, function (e) {
@@ -106,6 +107,10 @@ var WebClient = (function (window, Laya, logger) {
         case "ros_status":
             this.ros.ros_status = Object.assign(this.ros.ros_status || {}, json);
             break;
+
+        case "case_list":
+            this.case.case_list = Object.assign(this.case.case_list || {}, json);
+            break;
         }
 
         // Fire callbacks to refresh the webpage
@@ -165,6 +170,11 @@ var WebClient = (function (window, Laya, logger) {
         this.fire("car_config");
     };
 
+    // Save the case list.
+    WebClient.prototype.storeCases = function () {
+        this.socket.send(JSON.stringify(this.case.case_list));
+    };
+
     // Start Ros
     WebClient.prototype.startRos = function () {
         // Make a copy of the ros_status. ros_status will be pushed from the
@@ -187,15 +197,23 @@ var WebClient = (function (window, Laya, logger) {
     };
 
     // Start Driving
-    WebClient.prototype.startDrive = function () {
+    WebClient.prototype.startDrive = function (caseId) {
         // Push the data to the node backend.
         this.socket.send(JSON.stringify(this.scene.scene_info));
         this.socket.send(JSON.stringify(this.scene.weather_info));
         this.socket.send(JSON.stringify(this.scene.traffic_info));
         this.socket.send(JSON.stringify(this.car.car_config));
         this.socket.send(JSON.stringify({
+            method: "current_case_id",
+            caseId: caseId || null,
+        }));
+        this.socket.send(JSON.stringify({
             method: "ready",
         }));
+    };
+
+    // Start the case
+    WebClient.prototype.sendCase = function () {
     };
 
     // Hard-code stuff
@@ -205,9 +223,11 @@ var WebClient = (function (window, Laya, logger) {
             data: [
                 {
                     scene: "IndustrialCity",
+                    image: "custom/image_scene_IndustrialCity.png",
                 },
                 {
                     scene: "ShengBangJie",
+                    image: "custom/image_scene_ShengBangJie.png",
                 },
             ]
         })
