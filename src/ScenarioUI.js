@@ -51,13 +51,26 @@ ScenarioUI.prototype.initBannerUI = function () {
 
 // Init the scenario list UI.
 ScenarioUI.prototype.initScenarioListUI = function () {
+    var selectedCaseId = null;
     this.m_uiScenarioList.array = [];
 
-    this.m_uiScenarioList.on(Laya.Event.CHANGE, this, function () {
-        // Clone the scenario being edited.
-        this.client.case.current = JSON.parse(JSON.stringify(
-            this.client.case.case_list.list[this.m_uiScenarioList.selectedIndex]));
+    this.m_uiScenarioList.renderHandler = new Handler(this, function(obj, index)
+    {
+        var caseList = this.client.case.case_list.list;
+        var label = obj.getChildByName("label");
+        var editButton = obj.getChildByName("editButton");
+        var selectedMark = obj.getChildByName("selectedMark");
 
+        var thisCaseId = caseList[index].name;
+        var selected = thisCaseId == selectedCaseId;
+        label.text = caseList[index].name;
+        editButton.visible = selected;
+        selectedMark.visible = selected;
+        editButton.on(Event.CLICK, this, onEditButtonClick, [thisCaseId]);
+    });
+
+    function onEditButtonClick (sender, caseId)
+    {
         // TODO:
         //   Open Editor with the content in this.client.case.current.
         var editor = new ObstacleEditor();
@@ -81,7 +94,19 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
         editor.loadMapDataByMapName(this.client.case.current.scene);
         editor.loadCaseData(this.client.case.current.content);
-                
+    }
+
+    function selectCase(caseJson)
+    {
+        selectedCaseId = caseJson.name;
+        // Clone the scenario being edited.
+        this.client.case.current = JSON.parse(JSON.stringify(caseJson));
+    }
+
+    this.m_uiScenarioList.on(Laya.Event.CHANGE, this, function () {
+        var caseList = this.client.case.case_list.list;
+        var caseJson = caseList[this.m_uiScenarioList.selectedIndex];
+        selectCase.call(this, caseJson);
     });
 
     // Add scenario button.
