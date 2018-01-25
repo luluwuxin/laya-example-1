@@ -4,62 +4,27 @@ class WebClientCase
     {
         this.json = null;
         this.selectedCaseId = -1;
+        this.sceneConfigJsons = {};
     }
 
     _getSceneConfig(sceneName)
     {
-        // TODO: read from file.
-        var cfg = {
-            IndustrialCity: {
-                "mapInfo":
+        if (!(sceneName in this.sceneConfigJsons))
+        {
+            var mapConfigFilePath = AssetsPath.getMapConfigFilePath(sceneName);
+            FileHelper.readFile(mapConfigFilePath, this, function(text)
+            {
+                if (text == "")
                 {
-                    "relativeImagePath": "assets/map/map.png",
-                    "height": 4384,
-                    "width": 4384,
-                    "minX": -11250,
-                    "maxX": 11250,
-                    "minY": -11250,
-                    "maxY": 11250,
-                    "objectZ": 150
-                },
-                "obstacleInfo":
-                {
-                    "car": {
-                        "relativeImagePath": "assets/obstacle/car.png",
-                        "bpPath": "todo"
-                    },
-                    "man": {
-                        "relativeImagePath": "assets/obstacle/man.png",
-                        "bpPath": "todo"
-                    },
-                    "plane": {
-                        "relativeImagePath": "assets/obstacle/man.png",
-                        "bpPath": "todo"
-                    }
+                    logError("Load map faile. Path: [{0}]".format(mapConfigFilePath));
                 }
-            },
-            ParkingLot: {
-                "mapInfo":
+                else
                 {
-                    "relativeImagePath": "assets/map/map.png",
-                    "height": 1705,
-                    "width": 5117,
-                    "minX": -6720,
-                    "maxX": 8280,
-                    "minY": -2850,
-                    "maxY": 2150,
-                    "objectZ": 0
-                },
-                "obstacleInfo":
-                {
-                    "car": {
-                        "relativeImagePath": "assets/obstacle/car.png",
-                        "bpPath": "/Game/Blueprints/BP_ParkCar.BP_ParkCar"
-                    }
+                    this.sceneConfigJsons[sceneName] = JSON.parse(text);
                 }
-            }
+            });
         }
-        return cfg[sceneName];
+        return this.sceneConfigJsons[sceneName];
     }
 
     _getCaseId(c)
