@@ -3,6 +3,7 @@ class WebClientCase
     constructor()
     {
         this.json = null;
+        this.selectedCaseId = -1;
     }
 
     _getCaseId(c)
@@ -53,6 +54,21 @@ class WebClientCase
             }
         }
         return -1;
+    }
+
+    selectCase(caseId)
+    {
+        this.selectedCaseId = caseId;
+    }
+
+    getSelectedCase()
+    {
+        return this.getCase(this.selectedCaseId);
+    }
+
+    getSelectedCaseId()
+    {
+        return this.selectedCaseId;
     }
 
     getCase(caseId)
