@@ -209,22 +209,22 @@ function LogicServer()
 			this.send2web(this.CarConfig);
 			this.send2web(this.RosInfo);
 			this.send2web(this.CaseListInfo);
-			this.send2web(this.CaseInfo);
+			// this.send2web(this.CaseInfo);
 			break;
 
 			case 1: //ros
 			if(this.cli_ue4!=null)
 			{
-				ip_pack = {method:"set_ue4_ip", ip:this.cli_ue4.remoteAddress};
-				this.send2ros(ip_pack);
+				ip = {method:"set_ue4_ip", ip:this.cli_ue4.remoteAddress};
+				this.send2ros(ip);
 				break;
 			}
 			
 			case 2: //ue4
 			{
 				this.send2ue4(this.SceneInfo);
-				var ip_pack = {method:"set_ue4_ip", ip:this.cli_ue4.remoteAddress};
-				this.send2ros(ip_pack);
+				var ip = {method:"set_ue4_ip", ip:socket.remoteAddress};
+				this.send2ros(ip);
 				break;
 			}
 			

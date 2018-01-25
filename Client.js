@@ -1,11 +1,11 @@
 'use strict';
 
-function Sensor(nid, type)
-{
-    this.nid = nid;
-    this.type = 0;// 0:camera 1:lidar 2:radar 3:GPS 4:IMU
+// function Sensor(nid, type)
+// {
+    // this.nid = nid;
+    // this.type = 0;// 0:camera 1:lidar 2:radar 3:GPS 4:IMU
     
-}
+// }
 
 function Client(cid,cli)
 {
