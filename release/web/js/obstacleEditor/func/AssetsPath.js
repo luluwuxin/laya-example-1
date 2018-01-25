@@ -1,14 +1,12 @@
-function getObstacleIconByType(type)
+class AssetsPath
 {
-    switch (type)
+    static getMapConfigFilePath(mapName)
     {
-    case ObstacleType.CAR:
-        return "custom/temp_car.png";
-    case ObstacleType.MAN:
-        return "custom/temp_man.png";
-    case ObstacleType.MAN:
-        return "comp/image.png";
-    default:
-        return "comp/image.png";
+        return AssetsPath.getMapDirectory(mapName) + "/" + "config.json";
+    }
+
+    static getMapDirectory(mapName)
+    {
+        return "Scenes" + "/" + mapName;
     }
 }

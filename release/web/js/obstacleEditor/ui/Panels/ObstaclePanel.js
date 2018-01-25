@@ -4,7 +4,7 @@ function ObstaclePanelScript(dependences)
     //#region event callback
     function onAddButtonClick(sender)
     {
-        var obstacle = this._obstacleManager.addDefaultObstacle();
+        var obstacle = this._obstacleManager.addDefaultObstacle(this._loadedDataManager.mapData.getDefaultObstacleType());
         this._user.selectObstacle(obstacle);
     }
 
@@ -56,7 +56,7 @@ function ObstaclePanelScript(dependences)
         if (obstacleImage != null)
         {
             obstacleImage.once(Event.LOADED, this, onObstacleImageLoaded, [obstacleImage]);
-            obstacleImage.skin = getObstacleIconByType(obstacle.type);
+            obstacleImage.skin = this._loadedDataManager.mapData.getObstacleImagePath(obstacle.type);
         }
         obj.on(Event.CLICK, this, onObstacleButtonClick, [obstacle]);
         obj.on(Event.RIGHT_CLICK, this, onObstacleRemoveButtonClick, [obstacle]);

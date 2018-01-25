@@ -3,12 +3,12 @@
 	"props":{
 		"name":"MI_Glass",
 		"cull":2,
-		"blend":0,
+		"blend":1,
 		"srcBlend":1,
-		"dstBlend":0,
+		"dstBlend":1,
 		"alphaTest":false,
-		"depthWrite":true,
-		"renderQueue":1,
+		"depthWrite":false,
+		"renderQueue":6,
 		"textures":[
 			{
 				"name":"diffuseTexture",

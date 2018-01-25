@@ -17,7 +17,6 @@ class LoadedDataManager extends EventObject
 
         this._dataDirtyFlag = false;
         this.mapData = null;
-        this.mapDataDirectory = "";
         this.caseFilePath = "";
 
         // event
@@ -42,37 +41,31 @@ class LoadedDataManager extends EventObject
         routePoint.registerEvent(ObjectEvent.VALUE_CHANGED, this, this._onDataChanged);
     }
 
-    _getMapImagePath (dir)
+    loadMapDataByMapName(mapName)
     {
-        return dir + "\\" + "map.png";
-    }
-
-    _getMapInfoFilePath (dir)
-    {
-        return dir + "\\" + "mapInfo.json";
-    }
-
-    loadMapData(mapDataDirectory)
-    {
-        var mapImagePath = this._getMapImagePath(mapDataDirectory);
-        var mapInfoFilePath = this._getMapInfoFilePath(mapDataDirectory);
-        FileHelper.readFile(mapInfoFilePath, this, function(text)
+        var mapConfigFilePath = AssetsPath.getMapConfigFilePath(mapName);
+        FileHelper.readFile(mapConfigFilePath, this, function(text)
         {
             if (text == "")
             {
-                logError("Load map faile. Path: [{0}]".format(mapDataDirectory));
+                logError("Load map faile. Path: [{0}]".format(mapConfigFilePath));
             }
             else
             {
-                this.mapDataDirectory = mapDataDirectory;
-                var mapInfo = JSON.parse(text);
-                this.mapData = new MapData(mapInfo, mapImagePath);
-                this.sendEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this.mapData);
+                this.loadMapData(mapName, text);
+                
             }
         });
     }
 
-    loadCaseData(caseFilePath)
+    loadMapData(mapName, mapDataString)
+    {
+        var mapDataJson = JSON.parse(mapDataString);
+        this.mapData = new MapData(mapDataJson, mapName);
+        this.sendEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this.mapData);
+    }
+
+    loadCaseDataByFilePath(caseFilePath)
     {
         FileHelper.readFile(caseFilePath, this, function(text)
         {
@@ -82,9 +75,14 @@ class LoadedDataManager extends EventObject
             }
             else
             {
-                this.loadCaseByJsonObject(JSON.parse(text));
+                this.loadCase(text);
             }
         });
+    }
+
+    loadCase(text)
+    {
+        this.loadCaseByJsonObject(JSON.parse(text));
     }
 
     loadCaseByJsonObject(jsonObj)
@@ -124,6 +122,9 @@ class LoadedDataManager extends EventObject
                 }
             }
         }
+        this._dataDirtyFlag = false;
+        this.sendEvent(LoadedDataManagerEvent.CASE_DATA_LOADED);
+
         if (firstObstacle != null)
         {
             this._user.selectObstacle(firstObstacle);
@@ -132,17 +133,19 @@ class LoadedDataManager extends EventObject
         {
             this._user.selectRoutePoint(firstRoutePoint);
         }
-
-        this._dataDirtyFlag = false;
-        this.sendEvent(LoadedDataManagerEvent.CASE_DATA_LOADED);
     }
 
     downloadCaseData()
     {
-        FileHelper.createAndDownloadFile("case.json", this.getCaseData());
+        FileHelper.createAndDownloadFile("case.json", this.getCaseDataJsonString());
     }
 
-    getCaseData()
+    getMapDataJsonString()
+    {
+        return JSON.stringify(this.mapData.mapDataJson);
+    }
+
+    getCaseDataJsonString()
     {
         var jsonObj = this._obstacleManager.toJson();
         var str = JSON.stringify(jsonObj);

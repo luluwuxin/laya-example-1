@@ -1,15 +1,29 @@
 // Class for the Scenario webpage.
 //
-function ScenarioUI(pages)
+function ScenarioUI(pages, client)
 {
     ScenarioUI.super(this);
 
     // Initialize UI elements
     this.initBannerUI();
     this.initScenarioListUI();
+    this.initSensorControlUI();
+    this.initDriveControlUI();
 
     // Pages for switching
     this.pages = pages;
+
+    // Model and WebSocket backend
+    this.client = client
+      .on("case_list", this, function () {
+          this.refreshScenarioListUI();
+      })
+      .on("ros_status", this, function () {
+          this.refreshSensorControlUI();
+      })
+      .on("car_state", this, function () {
+          this.refreshCarStateUI();
+      });
 }
 Laya.class(ScenarioUI, "ScenarioUI", ScenarioPageUI);
 
@@ -37,29 +51,38 @@ ScenarioUI.prototype.initBannerUI = function () {
 
 // Init the scenario list UI.
 ScenarioUI.prototype.initScenarioListUI = function () {
-    // Hide the scrollb bar and use dragging.
-    this.m_uiScenarioList.scrollBar.hide = true;
-    this.m_uiScenarioList.scrollBar.elasticBackTime = 200;
-    this.m_uiScenarioList.scrollBar.elasticDistance = 50;
+    this.m_uiScenarioList.array = [];
 
     this.m_uiScenarioList.on(Laya.Event.CHANGE, this, function () {
-        console.log("select scenario " + this.m_uiScenarioList.selectedIndex);
+        // Clone the scenario being edited.
+        this.client.case.current = JSON.parse(JSON.stringify(
+            this.client.case.case_list.list[this.m_uiScenarioList.selectedIndex]));
+
+        // TODO:
+        //   Open Editor with the content in this.client.case.current.
+        var editor = new ObstacleEditor();
+        editor.createMainUI(this);
+        editor.registerEvent(ObstacleEditorEvent.USER_SAVE_CASE, this, function (sender, text)
+        {
+            // do something when user want to save case data.
+            // TODO: send text to server
+
+            // TODO:
+            //   Populate this.client.case.current.
+            this.client.case.current.content = text;
+            var client = this.client;
+            this.client.case.case_list.list.forEach(function (v) {
+                if (v.name === client.case.current.name) {
+                    Object.assign(v, client.case.current);
+                }
+            });
+            this.client.storeCases();
+        });
+
+        editor.loadMapDataByMapName(this.client.case.current.scene);
+        editor.loadCaseData(this.client.case.current.content);
+                
     });
-
-    // Mock data
-    this.m_uiScenarioList.array = [
-        {
-            label: {
-                text: "scenario 1",
-            },
-        },
-        {
-            label: {
-                text: "scenario 2",
-            },
-        },
-    ];
-
 
     // Add scenario button.
     this.m_uiScenarioButton.on(Laya.Event.CLICK, this, function() {
@@ -75,6 +98,16 @@ ScenarioUI.prototype.initScenarioListUI = function () {
         {
             // do something when user want to save case data.
             // TODO: send text to server
+
+            // TODO:
+            //   Populate this.client.case.current.
+            var client = this.client;
+            this.client.case.case_list.list.forEach(function (v) {
+                if (v.name === client.case.current.name) {
+                    Object.assign(v, client.case.current);
+                }
+            });
+            this.client.storeCases();
         });
 
         editor.registerEvent(ObstacleEditorEvent.USER_CLOSE_EDITOR, this, function ()
@@ -83,4 +116,68 @@ ScenarioUI.prototype.initScenarioListUI = function () {
             // nothing to do
         });
     });
+};
+
+// Init the Sensor Control UI
+ScenarioUI.prototype.initSensorControlUI = function () {
+    this.m_uiSensorButton.on(Laya.Event.CLICK, this, function () {
+        this.client.startRos();
+    });
+
+    // No data
+    this.m_uiSensorList.array = [];
+};
+
+// Init the Drive Control UI
+ScenarioUI.prototype.initDriveControlUI = function () {
+    this.m_uiDriveButton.on(Laya.Event.CLICK, this, function () {
+        this.client.startDrive();
+    });
+};
+
+// Refresh the scenario list UI.
+ScenarioUI.prototype.refreshScenarioListUI = function () {
+    var data = [];
+    this.client.case.case_list.list.forEach(function (v, i) {
+        data.push({
+            label: {
+                text: v.name,
+            },
+        });
+    });
+    this.m_uiScenarioList.array = data;
+};
+
+// Refresh the sensor control UI.
+ScenarioUI.prototype.refreshSensorControlUI = function () {
+    // No data ?
+    if (!this.client.ros.ros_status) {
+        this.m_uiSensorList.array = [];
+    }
+
+    var data = [];
+    this.client.ros.ros_status.config.forEach(function (v) {
+        data.push({
+            checkbox: {
+                selected: v.running,
+            },
+            label: {
+                text: v.name,
+            },
+        });
+    });
+    this.m_uiSensorList.array = data;
+};
+
+// Refresh the car state UI.
+ScenarioUI.prototype.refreshCarStateUI = function () {
+    // No data ?
+    if (!this.client.car.car_state) {
+        return;
+    }
+
+    this.m_uiDrive_speed.text = this.client.car.car_state.speed.toFixed(3);
+    this.m_uiDrive_accer.text = this.client.car.car_state.accer.toFixed(3);
+    this.m_uiDrive_steerSlider.value = this.client.car.car_state.steer;
+    this.m_uiDrive_steerImage.rotation = this.client.car.car_state.steer * 540;
 };

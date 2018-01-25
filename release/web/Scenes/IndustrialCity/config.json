@@ -1,0 +1,24 @@
+{
+    "mapInfo":
+    {
+        "relativeImagePath": "assets/map/map.png",
+        "height": 4384,
+        "width": 4384,
+        "minX": -11250,
+        "maxX": 11250,
+        "minY": -11250,
+        "maxY": 11250,
+        "objectZ": 150
+    },
+    "obstacleInfo":
+    {
+        "car": {
+            "relativeImagePath": "assets/obstacle/car.png",
+            "bpPath": "/Game/Vehicles/Vehicle001BP.Vehicle001BP"
+        },
+        "man": {
+            "relativeImagePath": "assets/obstacle/man.png",
+            "bpPath": "/Game/AI/Walker/BP_Walker_01.BP_Walker_01"
+        }
+    }
+}
