@@ -279,6 +279,20 @@ SetupUI.prototype.refreshParameterListUI = function () {
                     });
                 });
             }
+            switch (sensor.type) {
+            case 0:
+                this.m_uiSensorImage.skin = "custom/image_sensor_camera.png";
+                break;
+            case 1:
+                this.m_uiSensorImage.skin = "custom/image_sensor_lidar.png";
+                break;
+            case 2:
+                this.m_uiSensorImage.skin = "custom/image_sensor_radar.png";
+                break;
+            default:
+                this.m_uiSensorImage.skin = "custom/image_sensor_type0.png";
+                break;
+            }
         }
     }
 
@@ -286,4 +300,10 @@ SetupUI.prototype.refreshParameterListUI = function () {
 
     // Show delete button if we have something to show (or delete..)
     this.m_uiParameterList_delete.visible = data.length > 0;
+
+    // No sensor
+    if (data.length === 0) {
+        // Reset sensor image
+        this.m_uiSensorImage.skin = "custom/image_sensor_type0.png";
+    }
 };
