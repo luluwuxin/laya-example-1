@@ -182,15 +182,11 @@ function LogicServer()
 		]
 	};
 
+    // TODO: read caseList info in database.
     this.CaseListInfo = {
         method: "case_list",
         list: [
-            {
-                scene: "IndustrialCity",
-                name: "case2",
-                content: '{"obstacles":[{"moveStates":[{"quat":{"x":0,"y":0,"z":0,"w":1},"tran":{"x":-9263.800182481751,"y":-9374.14461678832,"z":150},"is_reversing":false,"timestamp_interval":1,"speed":500,"lock_type":"speed"},{"quat":{"x":0,"y":0,"z":0,"w":1},"tran":{"x":-7195.483576642336,"y":-8996.920620437955,"z":150},"is_reversing":false,"timestamp_interval":4.212119063220818,"speed":500,"lock_type":"speed"},{"quat":{"x":0,"y":0,"z":0,"w":1},"tran":{"x":-6625.798357664234,"y":-8309.192518248175,"z":150},"is_reversing":false,"timestamp_interval":1.9290429366464497,"speed":500,"lock_type":"speed"},{"quat":{"x":0,"y":0,"z":0,"w":1},"tran":{"x":-7241.674270072993,"y":-7821.624087591241,"z":150},"is_reversing":false,"timestamp_interval":1.9327006204115664,"speed":500,"lock_type":"speed"},{"quat":{"x":0,"y":0,"z":0,"w":1},"tran":{"x":-5958.599452554745,"y":-7549.612226277372,"z":150},"is_reversing":false,"timestamp_interval":2.6368143157978308,"speed":500,"lock_type":"speed"}],"type":"car","name":"obstacle-0"},{"moveStates":[],"type":"car","name":"obstacle-1"}]}',
-                scene_config: '{"obstacles":[{"moveStates":[{"quat":{"x":0,"y":0,"z":0,"w":1},"tran":{"x":-9263.800182481751,"y":-9374.14461678832,"z":150},"is_reversing":false,"timestamp_interval":1,"speed":500,"lock_type":"speed"},{"quat":{"x":0,"y":0,"z":0,"w":1},"tran":{"x":-7195.483576642336,"y":-8996.920620437955,"z":150},"is_reversing":false,"timestamp_interval":4.212119063220818,"speed":500,"lock_type":"speed"},{"quat":{"x":0,"y":0,"z":0,"w":1},"tran":{"x":-6625.798357664234,"y":-8309.192518248175,"z":150},"is_reversing":false,"timestamp_interval":1.9290429366464497,"speed":500,"lock_type":"speed"},{"quat":{"x":0,"y":0,"z":0,"w":1},"tran":{"x":-7241.674270072993,"y":-7821.624087591241,"z":150},"is_reversing":false,"timestamp_interval":1.9327006204115664,"speed":500,"lock_type":"speed"},{"quat":{"x":0,"y":0,"z":0,"w":1},"tran":{"x":-5958.599452554745,"y":-7549.612226277372,"z":150},"is_reversing":false,"timestamp_interval":2.6368143157978308,"speed":500,"lock_type":"speed"}],"type":"car","name":"obstacle-0"},{"moveStates":[],"type":"car","name":"obstacle-1"}]}'
-            },
+
         ]
     };
 

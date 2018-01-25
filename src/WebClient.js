@@ -7,7 +7,7 @@ var WebClient = (function (window, Laya, logger) {
         this.car       = JSON.parse(JSON.stringify(this.car_list[0]));
         this.scene     = {};
         this.ros       = this.getMockRosInfo();
-        this.case      = {};
+        this.case      = new WebClientCase();
         this.callbacks = {};
         this.init();
     }
@@ -109,7 +109,7 @@ var WebClient = (function (window, Laya, logger) {
             break;
 
         case "case_list":
-            this.case.case_list = Object.assign(this.case.case_list || {}, json);
+            this.case.init(json);
             break;
         }
 
@@ -172,7 +172,7 @@ var WebClient = (function (window, Laya, logger) {
 
     // Save the case list.
     WebClient.prototype.storeCases = function () {
-        this.socket.send(JSON.stringify(this.case.case_list));
+        this.socket.send(JSON.stringify(this.case.toJson()));
     };
 
     // Start Ros
