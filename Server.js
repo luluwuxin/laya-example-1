@@ -306,7 +306,7 @@ function LogicServer()
 				this.send2ue4(this.TrafficInfo);
 				this.send2ue4(this.CarConfig);
 				this.send2ue4(this.CaseListInfo);
-				this.send2ue4(this.CaseInfo);
+				// this.send2ue4(this.CaseInfo);
 				break;
 			}
 
