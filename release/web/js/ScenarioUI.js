@@ -1,6 +1,6 @@
 // Class for the Scenario webpage.
 //
-function ScenarioUI(pages, client)
+function ScenarioUI(pageChooser, client)
 {
     ScenarioUI.super(this);
 
@@ -11,7 +11,7 @@ function ScenarioUI(pages, client)
     this.initDriveControlUI();
 
     // Pages for switching
-    this.pages = pages;
+    this.pageChooser = pageChooser;
 
     // Model and WebSocket backend
     this.client = client
@@ -29,35 +29,42 @@ Laya.class(ScenarioUI, "ScenarioUI", ScenarioPageUI);
 
 // Init the banner UI.
 ScenarioUI.prototype.initBannerUI = function () {
-    function choosePage(pages, name) {
-        Object.entries(pages).forEach(function (p) {
-            p[1].visible = (p[0] === name);
-        });
-    }
-
     this.m_uiBanner_home.on(Laya.Event.CLICK, this, function () {
-        choosePage(this.pages, "mainUI");
+        this.pageChooser.goTo("mainUI");
     });
     this.m_uiBanner_setup.on(Laya.Event.CLICK, this, function () {
-        choosePage(this.pages, "setupUI");
+        this.pageChooser.goTo("setupUI");
     });
     this.m_uiBanner_scene.on(Laya.Event.CLICK, this, function () {
-        choosePage(this.pages, "drivingUI");
+        this.pageChooser.goTo("drivingUI");
     });
     this.m_uiBanner_scenario.on(Laya.Event.CLICK, this, function () {
-        choosePage(this.pages, "scenarioUI");
+        this.pageChooser.goTo("scenarioUI");
     });
 };
 
 // Init the scenario list UI.
 ScenarioUI.prototype.initScenarioListUI = function () {
+    var selectedCaseId = null;
     this.m_uiScenarioList.array = [];
 
-    this.m_uiScenarioList.on(Laya.Event.CHANGE, this, function () {
-        // Clone the scenario being edited.
-        this.client.case.current = JSON.parse(JSON.stringify(
-            this.client.case.case_list.list[this.m_uiScenarioList.selectedIndex]));
+    this.m_uiScenarioList.renderHandler = new Handler(this, function(obj, index)
+    {
+        var caseList = this.client.case.case_list.list;
+        var label = obj.getChildByName("label");
+        var editButton = obj.getChildByName("editButton");
+        var selectedMark = obj.getChildByName("selectedMark");
 
+        var thisCaseId = caseList[index].name;
+        var selected = thisCaseId == selectedCaseId;
+        label.text = caseList[index].name;
+        editButton.visible = selected;
+        selectedMark.visible = selected;
+        editButton.on(Event.CLICK, this, onEditButtonClick, [thisCaseId]);
+    });
+
+    function onEditButtonClick (sender, caseId)
+    {
         // TODO:
         //   Open Editor with the content in this.client.case.current.
         var editor = new ObstacleEditor();
@@ -81,7 +88,19 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
         editor.loadMapDataByMapName(this.client.case.current.scene);
         editor.loadCaseData(this.client.case.current.content);
-                
+    }
+
+    function selectCase(caseJson)
+    {
+        selectedCaseId = caseJson.name;
+        // Clone the scenario being edited.
+        this.client.case.current = JSON.parse(JSON.stringify(caseJson));
+    }
+
+    this.m_uiScenarioList.on(Laya.Event.CHANGE, this, function () {
+        var caseList = this.client.case.case_list.list;
+        var caseJson = caseList[this.m_uiScenarioList.selectedIndex];
+        selectCase.call(this, caseJson);
     });
 
     // Add scenario button.
@@ -131,7 +150,7 @@ ScenarioUI.prototype.initSensorControlUI = function () {
 // Init the Drive Control UI
 ScenarioUI.prototype.initDriveControlUI = function () {
     this.m_uiDriveButton.on(Laya.Event.CLICK, this, function () {
-        this.client.startDrive();
+        this.client.startDrive(this.client.case.current.name);
     });
 };
 
