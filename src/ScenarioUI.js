@@ -45,7 +45,6 @@ ScenarioUI.prototype.initBannerUI = function () {
 
 // Init the scenario list UI.
 ScenarioUI.prototype.initScenarioListUI = function () {
-    var selectedCaseId = null;
     this.m_uiScenarioList.array = [];
 
     this.m_uiScenarioList.renderHandler = new Handler(this, function(obj, index)
@@ -56,7 +55,7 @@ ScenarioUI.prototype.initScenarioListUI = function () {
         var selectedMark = obj.getChildByName("selectedMark");
 
         var thisCaseId = caseList[index].name;
-        var selected = thisCaseId == selectedCaseId;
+        var selected = thisCaseId == this.client.case.getSelectedCaseId();
         label.text = caseList[index].name;
         editButton.visible = selected;
         selectedMark.visible = selected;
@@ -66,7 +65,7 @@ ScenarioUI.prototype.initScenarioListUI = function () {
     function onEditButtonClick (sender, caseId)
     {
         // Open Editor with the content in this.client.case.
-        var currentCase = Object.assign({}, this.client.case.getCase(selectedCaseId));
+        var currentCase = Object.assign({}, this.client.case.getSelectedCase());
         var editor = new ObstacleEditor();
         editor.createMainUI(this);
         editor.registerEvent(ObstacleEditorEvent.USER_SAVE_CASE, this, function (sender, text)
@@ -83,7 +82,7 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
     function selectCase(caseJson)
     {
-        selectedCaseId = caseJson.name;
+        this.client.case.selectCase(caseJson.name);
     }
 
     this.m_uiScenarioList.on(Laya.Event.CHANGE, this, function () {
@@ -114,7 +113,7 @@ ScenarioUI.prototype.initSensorControlUI = function () {
 // Init the Drive Control UI
 ScenarioUI.prototype.initDriveControlUI = function () {
     this.m_uiDriveButton.on(Laya.Event.CLICK, this, function () {
-        this.client.startDrive(this.client.case.current.name);
+        this.client.startDrive();
     });
 };
 

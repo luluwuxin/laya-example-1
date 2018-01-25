@@ -49,7 +49,7 @@ var Handler = laya.utils.Handler;
         var client = new WebClient();
 
         // Chart overlay on the Laya stage.
-        var sensorChart = new SensorChart();
+        var sensorChart = new SensorChart(client);
 
         // Webpages
         var pageChooser = {
@@ -57,8 +57,10 @@ var Handler = laya.utils.Handler;
                 Object.entries(pageChooser.pages).forEach(function (p) {
                     p[1].visible = (p[0] === name);
                 });
+                pageChooser.sensorChart.bind(pageChooser.pages[name]);
             },
             pages: {},
+            sensorChart: sensorChart,
         };
         Object.assign(pageChooser.pages, {
             mainUI:     new MainUI(pageChooser),

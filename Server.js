@@ -143,6 +143,12 @@ function LogicServer()
 			this.cli_ue4d.send(pack);
 	}
 
+	this.send2topic = function(pack)
+	{
+		if(this.cli_topic!=null)
+			this.cli_topic.send(pack);
+	}
+
 	////////////////////////////////////////////////////////////////////
 	this.procAuth = function(socket, pack)
 	{
