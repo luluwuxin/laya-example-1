@@ -415,6 +415,12 @@ function LogicServer()
                 break;
             }
 
+            case "current_case_id":
+            {
+                // TODO
+                break;
+            }
+
             default:
             {
                 console.log(pack.method);

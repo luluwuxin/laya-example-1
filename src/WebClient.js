@@ -197,12 +197,16 @@ var WebClient = (function (window, Laya, logger) {
     };
 
     // Start Driving
-    WebClient.prototype.startDrive = function () {
+    WebClient.prototype.startDrive = function (caseId) {
         // Push the data to the node backend.
         this.socket.send(JSON.stringify(this.scene.scene_info));
         this.socket.send(JSON.stringify(this.scene.weather_info));
         this.socket.send(JSON.stringify(this.scene.traffic_info));
         this.socket.send(JSON.stringify(this.car.car_config));
+        this.socket.send(JSON.stringify({
+            method: "current_case_id",
+            caseId: caseId || null,
+        }));
         this.socket.send(JSON.stringify({
             method: "ready",
         }));

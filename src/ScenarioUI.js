@@ -131,7 +131,7 @@ ScenarioUI.prototype.initSensorControlUI = function () {
 // Init the Drive Control UI
 ScenarioUI.prototype.initDriveControlUI = function () {
     this.m_uiDriveButton.on(Laya.Event.CLICK, this, function () {
-        this.client.startDrive();
+        this.client.startDrive(this.client.case.current.name);
     });
 };
 
