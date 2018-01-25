@@ -106,5 +106,5 @@ wss.on('connection', function connection(socket, req) {
 
 server.listen(8081, function listening() {
     console.log('Listening on %d', server.address().port);
-    //utils.openUrl("http://127.0.0.1:"+server.address().port);
+    utils.openUrl("http://127.0.0.1:"+server.address().port);
 });
