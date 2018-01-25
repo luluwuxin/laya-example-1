@@ -6,23 +6,29 @@ function SensorChart(client) {
     // Client
     this.client = client;
 
+/*
     // Init after Laya create the stage div element.
     this.later(1, function () {
         this.init();
     });
+*/
 }
 Laya.class(SensorChart, "SensorChart", Laya.EventDispatcher);
 
-SensorChart.prototype.show = function (value)
-{
-    if (value)
-    {
-        this.container.style.display = "block";
+SensorChart.prototype.show = function (value) {
+    // Not initialized ?
+    if (!this.container) {
+        return;
     }
-    else
-    {
-        this.container.style.display = "none";
+
+    if (value === undefined) {
+        value = true;
     }
+    this.container.style.display = value ? "block" : "none";
+}
+
+SensorChart.prototype.hide = function () {
+    this.show(false);
 }
 
 SensorChart.prototype.later = function (time, handler) {
@@ -182,6 +188,12 @@ SensorChart.prototype.init = function () {
 };
 
 SensorChart.prototype.bind = function (page) {
+    // Not initialized ?
+    if (!this.container) {
+        return;
+    }
+
+    // Save the page for rebind()..
     this.page = page;
 
     if (page && page.m_uiSensorChart) {
@@ -193,14 +205,14 @@ SensorChart.prototype.bind = function (page) {
         var sx = Laya.Browser.clientWidth / Laya.stage.width;
         var sy = Laya.Browser.clientHeight / Laya.stage.height;
 
-        this.show(true);
+        this.show();
         this.container.style.left    = (px0.x * sx) + "px";
         this.container.style.top     = (px0.y * sy) + "px";
         this.container.style.width   = ((px1.x - px0.x) * sx) + "px";
         this.container.style.height  = ((px1.y - px0.y) * sy) + "px";
     } else {
         // No such control, hide the chart.
-        this.show(false);
+        this.hide();
     }
 };
 
