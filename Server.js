@@ -409,6 +409,12 @@ function LogicServer()
 				break;
 			}
 
+            case "case_list":
+            {
+                this.CaseListInfo = pack;
+                break;
+            }
+
             default:
             {
                 console.log(pack.method);
