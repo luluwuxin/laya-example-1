@@ -217,6 +217,7 @@ ScenarioUI.prototype.refreshSensorControlUI = function () {
 
     var data = [];
     this.client.ros.ros_info.config.forEach(function (v) {
+        if (v.name === "raw_drive") return;
         data.push({
             checkbox: {
                 selected: v.running,

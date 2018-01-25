@@ -187,6 +187,13 @@ var WebClient = (function (window, Laya, logger) {
         // backend with start=true.
         var ros_info = JSON.parse(JSON.stringify(this.ros.ros_info));
 
+        // Always set raw_drive to be running.
+        ros_info.config.forEach(function (v) {
+            if (v.name === "raw_drive") {
+                v.running = true;
+            }
+        });
+
         Object.assign(ros_info, {
             start: true,
         });
