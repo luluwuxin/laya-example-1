@@ -49,7 +49,7 @@ function load(logic)
 
 	// 0:PointCloud 1:Image 2:IMU 3:GPS
 	logic.RosInfo = {
-		method:"ros_status",
+		method:"ros_info",
 		start:false,
 		config:[
 			{sid:1, type:0, name:"raw_point", running:false},
