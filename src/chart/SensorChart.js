@@ -21,6 +21,25 @@ SensorChart.prototype.later = function (time, handler) {
     }, time);
 };
 
+SensorChart.prototype.getColor = function (name) {
+    function hashCode(s) {
+        var h = 0, l = s.length, i = 0;
+        if (l > 0) {
+            while (i < l) {
+                h = (h << 5) - h + s.charCodeAt(i++) | 0;
+            }
+        }
+        return h;
+    }
+
+    var hash = hashCode(name);
+    var r = (hash & 0xFF0000) >> 16;
+    var g = (hash & 0x00FF00) >> 8;
+    var b = (hash & 0x0000FF);
+
+    return "rgb(" + r + ", " + g + ", " + b + ")";
+};
+
 SensorChart.prototype.init = function () {
     // A container div element for the chartjs canvas.
     var container = document.getElementById("sensor-chart-container");
@@ -39,7 +58,7 @@ SensorChart.prototype.init = function () {
         // Just in case. but we use absolute position..
         document.getElementById("layaContainer").appendChild(container);
 
-        // Handle resize
+        // Handle resize. Must wait for Laya to finish resizing..
         var resizeTimeout;
         var self = this;
         window.addEventListener("resize", function () {
@@ -58,6 +77,7 @@ SensorChart.prototype.init = function () {
         var canvas = document.createElement("canvas");
         container.appendChild(canvas);
 
+        // ChartJS creation here.
         this.chart = new Chart(canvas, {
             type: "line",
             data: {},
@@ -101,14 +121,14 @@ SensorChart.prototype.init = function () {
             datasets: [
                 {
                     label: "raw_point",
-                    backgroundColor:"rgb(255, 0, 0)",
-                    borderColor: "rgb(255, 0, 0)",
+                    backgroundColor: this.getColor("raw_point"),
+                    borderColor: this.getColor("raw_point"),
                     data: [],
                     fill: false,
                 }, {
                     label: "raw_image",
-                    backgroundColor:"rgb(0, 0, 255)",
-                    borderColor: "rgb(0, 0, 255)",
+                    backgroundColor: this.getColor("raw_image"),
+                    borderColor: this.getColor("raw_image"),
                     data: [],
                     fill: false,
                 }]
@@ -126,6 +146,10 @@ SensorChart.prototype.init = function () {
             x: new Date(),
             y: Math.random(),
         });
+        while (this.chart.data.datasets[0].data.length > 10)
+            this.chart.data.datasets[0].data.shift();
+        while (this.chart.data.datasets[1].data.length > 10)
+            this.chart.data.datasets[1].data.shift();
         this.chart.update();
 
         this.later(500, AddDummyData);
