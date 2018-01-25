@@ -26,7 +26,7 @@ class LoadedDataManager extends EventObject
 
     _onDataChanged()
     {
-        this._dataDirtyFlag = true;
+        this.setDataDirty(true);
     }
 
     _listenObstacleChange(obstacle)
@@ -65,27 +65,12 @@ class LoadedDataManager extends EventObject
         this.sendEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this.mapData);
     }
 
-    loadCaseDataByFilePath(caseFilePath)
+    loadCase(text, isInit = true)
     {
-        FileHelper.readFile(caseFilePath, this, function(text)
-        {
-            if (text == "")
-            {
-                logError("Load case faile. Path: [{0}]".format(caseFilePath));
-            }
-            else
-            {
-                this.loadCase(text);
-            }
-        });
+        this.loadCaseByJsonObject(JSON.parse(text), isInit);
     }
 
-    loadCase(text)
-    {
-        this.loadCaseByJsonObject(JSON.parse(text));
-    }
-
-    loadCaseByJsonObject(jsonObj)
+    loadCaseByJsonObject(jsonObj, isInit)
     {
         this.sendEvent(LoadedDataManagerEvent.CASE_DATA_START_LOAD);
         this._user.clear();
@@ -122,7 +107,12 @@ class LoadedDataManager extends EventObject
                 }
             }
         }
-        this._dataDirtyFlag = false;
+
+        if (isInit)
+        {
+            this.setDataDirty(false);
+        }
+
         this.sendEvent(LoadedDataManagerEvent.CASE_DATA_LOADED);
 
         if (firstObstacle != null)
@@ -150,6 +140,16 @@ class LoadedDataManager extends EventObject
         var jsonObj = this._obstacleManager.toJson();
         var str = JSON.stringify(jsonObj);
         return str;
+    }
+
+    setDataDirty(value)
+    {
+        this._dataDirtyFlag = value;
+    }
+
+    onDataSaved()
+    {
+        this.setDataDirty(false);
     }
 
     hasUnsavedData()
