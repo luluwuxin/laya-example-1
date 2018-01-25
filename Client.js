@@ -32,6 +32,7 @@ function Client(cid,socket)
 		}catch(err)
 		{
 			console.log("sent:"+this.socket.remoteAddress+" err:"+err);
+			// this.send(msg);
 		}
     }
 

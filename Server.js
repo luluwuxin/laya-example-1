@@ -49,7 +49,36 @@ function LogicServer()
             client = cli.create(type, cid, socket);
             this.clients[cid]= this.clients[socket]= client;
             this.cids[cid]=cid;
-        } 
+
+			switch(type)
+			{
+				case 0: //web
+				this.cli_web = client;
+				break;
+
+				case 1: //ros
+				this.cli_ros = client;				
+				break;
+				
+				case 2: //ue4
+				this.cli_ue4 = client;				
+				break;
+
+				case 3: //ue4d
+				this.cli_ue4d = client;
+				break;
+
+				case 4://topic
+				this.cli_topic = client;
+				break;
+				
+				default:
+				break;
+			}
+        } else
+		{
+			console.log("!!!!!!!!!!!!!!!-----------!!!!!!!!!!!!!");
+		}
         return client;
     }
 
@@ -157,7 +186,7 @@ function LogicServer()
         var client = this.addClient(type, socket);
 		// console.log('receivedAuth: %s:%s', client.getInfo(), JSON.stringify(pack));
 
-		console.log("============>auth client %d:%s", client.cid, client.getInfo());
+		console.log("============>auth %d | %s | %s", client.cid, client.remoteAddress, JSON.stringify(pack));
         pack.cid = client.cid;
         pack.msg = "welcome!";
         client.send(pack);
@@ -165,7 +194,6 @@ function LogicServer()
 		switch(type)
 		{
 			case 0: //web
-			this.cli_web = client;
 			this.send2web(this.SceneInfo);
 			this.send2web(this.WeatherInfo);
 			this.send2web(this.TrafficInfo);
@@ -176,7 +204,6 @@ function LogicServer()
 			break;
 
 			case 1: //ros
-			this.cli_ros = client;
 			if(this.cli_ue4!="")
 			{
 				ip_pack = {method:"set_ue4_ip", ip:this.cli_ue4.remoteAddress};
@@ -185,20 +212,16 @@ function LogicServer()
 			break;
 			
 			case 2: //ue4
-			this.cli_ue4 = client;
 			this.send2ue4(this.SceneInfo);
 
 			ip_pack = {method:"set_ue4_ip", ip:this.cli_ue4.remoteAddress};
 			this.send2ros(ip_pack);
-			
 			break;
 
 			case 3: //ue4d
-			this.cli_ue4d = client;
 			break;
 
 			case 4://topic
-			this.cli_topic = client;
 			break;
 			
 			default:
