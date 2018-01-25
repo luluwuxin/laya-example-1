@@ -189,7 +189,7 @@ var WebClient = (function (window, Laya, logger) {
 
         // Always set raw_drive to be running.
         ros_info.config.forEach(function (v) {
-            if (v.name === "raw_drive") {
+            if (v.name === "raw_drive" || v.name === "AirSimDriver") {
                 v.running = true;
             }
         });
@@ -220,6 +220,9 @@ var WebClient = (function (window, Laya, logger) {
         if (selectedCase != null)
         {
             var case_info = Object.assign({method: "case_info"}, selectedCase);
+            if (typeof case_info.scene_config === "object") {
+                case_info.scene_config = JSON.stringify(case_info.scene_config);
+            }
             this.socket.send(JSON.stringify(case_info));
         }
         this.socket.send(JSON.stringify({
