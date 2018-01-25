@@ -13,6 +13,18 @@ function SensorChart(client) {
 }
 Laya.class(SensorChart, "SensorChart", Laya.EventDispatcher);
 
+SensorChart.prototype.show = function (value)
+{
+    if (value)
+    {
+        this.container.style.display = "block";
+    }
+    else
+    {
+        this.container.style.display = "none";
+    }
+}
+
 SensorChart.prototype.later = function (time, handler) {
     // Call handler after time seconds. Mostly used to reschedule handler to event loop.
     var self = this;
@@ -168,14 +180,14 @@ SensorChart.prototype.bind = function (page) {
         var sx = Laya.Browser.clientWidth / Laya.stage.width;
         var sy = Laya.Browser.clientHeight / Laya.stage.height;
 
-        this.container.style.display = "block";
+        this.show(true);
         this.container.style.left    = (px0.x * sx) + "px";
         this.container.style.top     = (px0.y * sy) + "px";
         this.container.style.width   = ((px1.x - px0.x) * sx) + "px";
         this.container.style.height  = ((px1.y - px0.y) * sy) + "px";
     } else {
         // No such control, hide the chart.
-        this.container.style.display = "none";
+        this.show(false);
     }
 };
 
