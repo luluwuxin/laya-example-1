@@ -21,8 +21,20 @@ class LoadedDataManager extends EventObject
         this.caseFilePath = "";
 
         // event
-        this._obstacleManager.registerEvent(ObstacleManagerEvent.ADDED, this, this._onDataChanged);
+        this._obstacleManager.registerEvent(ObstacleManagerEvent.ADDED, this, this._onObstacleAdded);
         this._obstacleManager.registerEvent(ObstacleManagerEvent.REMOVED, this, this._onDataChanged);
+    }
+
+    _onRoutePointAdded(sender, routePoint)
+    {
+        this._listenRoutePointChange(routePoint);
+        this._onDataChanged();
+    }
+
+    _onObstacleAdded(sender, obstacle)
+    {
+        this._listenObstacleChange(obstacle);
+        this._onDataChanged();
     }
 
     _onDataChanged()
@@ -33,7 +45,7 @@ class LoadedDataManager extends EventObject
     _listenObstacleChange(obstacle)
     {
         obstacle.registerEvent(ObjectEvent.VALUE_CHANGED, this, this._onDataChanged);
-        obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, this._onDataChanged);
+        obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, this._onRoutePointAdded);
         obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, this._onDataChanged);
     }
 
