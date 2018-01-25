@@ -182,6 +182,7 @@ var WebClient = (function (window, Laya, logger) {
         var ros_status = JSON.parse(JSON.stringify(this.ros.ros_status));
 
         Object.assign(ros_status, {
+            method: "ros_info",
             start: true,
         });
 

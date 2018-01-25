@@ -204,6 +204,19 @@ DrivingUI.prototype.initSensorControlUI = function () {
         this.client.startRos();
     });
 
+    this.m_uiSensorList.on(Laya.Event.RENDER, this, function (e) {
+        var checkbox = e.getChildByName("checkbox");
+        var label    = e.getChildByName("label");
+        
+        checkbox.on(Laya.Event.CLICK, this, function (ee) {
+            this.client.ros.ros_status.config.forEach(function (v) {
+                if (v.name === label.text) {
+                    v.running = checkbox.selected;
+                }
+            });
+        });
+    });
+
     // No data
     this.m_uiSensorList.array = [];
 };
