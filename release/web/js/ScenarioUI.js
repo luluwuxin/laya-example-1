@@ -88,7 +88,8 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
     function onRemoveButtonClick (caseId, sender)
     {
-        new AskPopupWindowScript(
+        this.pageChooser.sensorChart.hide();
+        var dlg = new AskPopupWindowScript(
             "Do you want to delete\n[{0}]?".format(caseId)
             , this
             , function()
@@ -106,8 +107,11 @@ ScenarioUI.prototype.initScenarioListUI = function () {
             {
                 // do nothing
             }
-        ).popup();
-        
+        );
+        dlg.popup();
+        dlg.closeHandler = new Laya.Handler(this, function (e) {
+            this.pageChooser.sensorChart.show();
+        });
     }
 
     function onEditButtonClick (caseId, sender)
