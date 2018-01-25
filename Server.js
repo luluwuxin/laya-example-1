@@ -305,7 +305,7 @@ function LogicServer()
 				this.send2ue4(this.WeatherInfo);
 				this.send2ue4(this.TrafficInfo);
 				this.send2ue4(this.CarConfig);
-				this.sen2ue4(this.CaseListInfo);
+				this.send2ue4(this.CaseListInfo);
 				this.send2ue4(this.CaseInfo);
 				break;
 			}
