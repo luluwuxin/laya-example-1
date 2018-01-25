@@ -237,6 +237,26 @@ function LogicServer()
 	
 	this.CarState = {method:"car_state",
 					 speed:18.093740463256836,accer:-0.34551405906677246,steer:-1};
+
+	this.CaseListInfo = {
+		method:"case_list",
+		list:[
+			{
+				"scene": "IndustrialCity",
+				"name": "case2",
+				"content": "content of a json file",
+				"scene_config": "content of a json file"
+			},
+		]
+
+	};
+	this.CaseInfo=	{
+		method:"case_info",
+		scene: "IndustrialCity",
+		name: "case2",
+		content: "content of a json file",
+		scene_config: "content of a json file"
+	}
 	this.cli_web = null;
 	this.cli_ros = null;
 	this.cli_ue4 = null;
@@ -282,11 +302,13 @@ function LogicServer()
 		{
 			case 0: //web
 			this.cli_web = client;
-			this.cli_web.send(this.SceneInfo);
-			this.cli_web.send(this.WeatherInfo);
-			this.cli_web.send(this.TrafficInfo);
-			this.cli_web.send(this.CarConfig);
-			this.cli_web.send(this.RosInfo);
+			this.send2web(this.SceneInfo);
+			this.send2web(this.WeatherInfo);
+			this.send2web(this.TrafficInfo);
+			this.send2web(this.CarConfig);
+			this.send2web(this.RosInfo);
+			this.send2web(this.CaseListInfo);
+			this.send2web(this.CaseInfo);
 			break;
 
 			case 1: //ros
@@ -296,10 +318,6 @@ function LogicServer()
 			case 2: //ue4
 			this.cli_ue4 = client;
 			this.send2ue4(this.SceneInfo);
-			// this.cli_ue4.send(this.WeatherInfo);
-			// this.cli_ue4.send(this.TrafficInfo);
-			// this.cli_ue4.send(this.Carclient);
-			// this.push_ue4_config();
 			break;
 
 			case 3: //ue4d
@@ -363,6 +381,8 @@ function LogicServer()
 				this.send2ue4(this.WeatherInfo);
 				this.send2ue4(this.TrafficInfo);
 				this.send2ue4(this.CarConfig);
+				this.sen2ue4(this.CaseListInfo);
+				this.send2ue4(this.CaseInfo);
 				break;
 			}
 
@@ -376,6 +396,26 @@ function LogicServer()
 				break;
 			}
 
+			case "case_list":
+			{
+				this.CaseListInfo = pack;
+				
+				if(client == this.cli_web)
+					this.send2ue4(pack);
+				else if(client == this.cli_ue4)
+					this.send2web(pack);
+				break;
+			}
+			case "case_info":
+			{
+				this.CaseInfo = pack;
+				
+				if(client == this.cli_web)
+					this.send2ue4(pack);
+				else if(client == this.cli_ue4)
+					this.send2web(pack);
+				break;
+			}
 			case "sumo_ready":
 			{
 				if(client == this.cli_web)

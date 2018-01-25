@@ -75,12 +75,6 @@ wss.on('connection', function connection(socket, req) {
     });
 
     socket.on('message', function incoming(msg) {
-		// if(msg.indexOf("{")<0)
-        // {
-            // socket.send(msg);
-            // return;
-        // }
-		
         try{
 			var pack = JSON.parse(msg);
 			if(!logic.isAuth(socket))
