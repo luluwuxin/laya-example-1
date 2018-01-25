@@ -1,0 +1,20 @@
+{
+    "mapInfo":
+    {
+        "relativeImagePath": "assets/map/map.png",
+        "height": 1705,
+        "width": 5117,
+        "minX": -6720,
+        "maxX": 8280,
+        "minY": -2850,
+        "maxY": 2150,
+        "objectZ": 0
+    },
+    "obstacleInfo":
+    {
+        "car": {
+            "relativeImagePath": "assets/obstacle/car.png",
+            "bpPath": "/Game/Blueprints/BP_ParkCar.BP_ParkCar"
+        }
+    }
+}

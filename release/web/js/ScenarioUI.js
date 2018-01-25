@@ -6,6 +6,7 @@ function ScenarioUI(pageChooser, client)
 
     // Initialize UI elements
     this.initBannerUI();
+    this.initSelectSceneUI();
     this.initScenarioListUI();
     this.initSensorControlUI();
     this.initDriveControlUI();
@@ -42,6 +43,26 @@ ScenarioUI.prototype.initBannerUI = function () {
         this.pageChooser.goTo("scenarioUI");
     });
 };
+
+ScenarioUI.prototype.initSelectSceneUI = function () {
+    this.selectScenePanel.visible = false;
+    // TODO: read from server
+    this.selectSceneList.array = ["IndustrialCity", "ParkingLot"];
+    this.selectSceneList.mouseHandler = new Handler(this, function(event)
+    {
+        if (event.type != Event.CLICK)
+        {
+            return;
+        }
+        // add scenario.
+        var sceneName = event.target.dataSource;
+        this.client.case.insertDefault(sceneName);
+        this.client.storeCases();
+        this.refreshScenarioListUI();
+        this.selectScenePanel.visible = false;
+    });
+}
+
 
 // Init the scenario list UI.
 ScenarioUI.prototype.initScenarioListUI = function () {
@@ -99,10 +120,7 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
     // Add scenario button.
     this.m_uiScenarioButton.on(Laya.Event.CLICK, this, function() {
-        // add scenario.
-        this.client.case.insertDefault();
-        this.client.storeCases();
-        this.refreshScenarioListUI();
+        this.selectScenePanel.visible = true;
     });
 };
 
