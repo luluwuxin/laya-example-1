@@ -25,7 +25,6 @@ function LogicServer()
     this.isAuth = function(socket)
     {
 		return socket.auth!=undefined;
-        // return !!this.clients[socket];
     }
 
     this.cid2socket = function(cid)
@@ -38,7 +37,7 @@ function LogicServer()
 
     this.socket2cid = function(socket)
     {
-        var client = this.clients[socket];
+        var client = socket.client;//socket.client;
         if(client==null)
             return null;
         return client.cid;
@@ -46,21 +45,22 @@ function LogicServer()
 
     this.addClient = function(type, socket)
     {
-		
-        // if(!!this.clients[socket])
 		if(socket.auth)
 		{
 			console.log("xxxxxxxxxxxx !!!!!!!!!!!!!!!-----------!!!!!!!!!!!!!");
-			var client = this.clients[socket];
+			var client = socket.client;
 			return client;
 		}
 
 		socket.auth=true;
         var cid = this.genCid();
         var client = cli.create(type, cid, socket);
+		
 		console.log("$$$$$$$$$ cid:"+cid);
         this.clients[cid]= client;
-		this.clients[socket]= client;			
+		socket.client = client;
+		socket.cid = cid;
+		// socket.client= client;			
         this.cids[cid]=cid;
 
 		switch(type)
@@ -93,7 +93,7 @@ function LogicServer()
 
     this.removeSocket = function(socket)
     {
-        var client = this.clients[socket];
+        var client = socket.client;
         if(client!=null)
         {
 			if(this.cli_web == socket)
@@ -113,7 +113,7 @@ function LogicServer()
 			
             var cid = client.cid;
             delete this.clients[cid];
-            delete this.clients[socket];
+            // delete this.clients[socket];
             delete this.cids[cid];
         }
     }
@@ -125,7 +125,7 @@ function LogicServer()
         {
             var socket = client.socket;
             delete this.clients[cid];
-            delete this.clients[socket];
+            // delete this.clients[socket];
         }
     }
 
@@ -140,7 +140,7 @@ function LogicServer()
 
     this.send2Socket = function(socket, msg)
     {
-        var client = this.clients[socket];
+        var client = socket.client;
         if(client!=null)
         {
             client.send(msg);
@@ -241,7 +241,7 @@ function LogicServer()
 	
 	this.procMessage = function(socket, pack)
 	{
-		var client = this.clients[socket];
+		var client = socket.client;
 		console.log('receivedPack: %s:!!!%s!!!', client.remoteAddress, JSON.stringify(pack));
 		switch(pack.method)
         {

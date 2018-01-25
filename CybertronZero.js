@@ -58,7 +58,7 @@ wss.on('connection', function(socket, req) {
 		req.connection.socket.remoteAddress;
 
 	socket.remoteAddress = remoteAddress.split(":")[3];
-
+	// socket.guid = 
     // You might use location.query.access_token to authenticate or share sessions
     // or req.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
     socket.on('close', function(code, reason) {
