@@ -2,7 +2,8 @@ var LoadedDataManagerEvent =
 {
     MAP_DATA_LOADED: "map data loaded",
     CASE_DATA_START_LOAD: "case data start load",
-    CASE_DATA_LOADED: "case data loaded"
+    CASE_DATA_LOADED: "case data loaded",
+    DATA_DIRTY_CHANGED: "data dirty changed"
 };
 
 class LoadedDataManager extends EventObject 
@@ -144,7 +145,12 @@ class LoadedDataManager extends EventObject
 
     setDataDirty(value)
     {
+        if (this._dataDirtyFlag == value)
+        {
+            return;
+        }
         this._dataDirtyFlag = value;
+        this.sendEvent(LoadedDataManagerEvent.DATA_DIRTY_CHANGED, this._dataDirtyFlag);
     }
 
     onDataSaved()

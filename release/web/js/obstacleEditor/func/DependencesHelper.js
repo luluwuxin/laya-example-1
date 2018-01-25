@@ -10,13 +10,13 @@ class DependencesHelper
 
     static setDependences(obj, dependences)
     {
-        obj._dependences = ObjectHelper.clone(dependences);
+        obj._dependences = Object.assign({}, dependences);
         DependencesHelper._putDenpendencesToObject(obj);
     }
 
     static setDependencesByParent(obj, parent, parentName)
     {
-        obj._dependences = ObjectHelper.clone(parent._dependences);
+        obj._dependences = Object.assign({}, parent._dependences);
         obj._dependences[parentName] = parent;
         DependencesHelper._putDenpendencesToObject(obj);
     }

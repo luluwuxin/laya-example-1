@@ -4,7 +4,7 @@ class MapData
     {
         this.mapName = mapName;
         this.mapDataJson = mapDataJson;
-        ObjectHelper.clone(mapDataJson, this);
+        Object.assign(this, mapDataJson);
 
         // Init.
         this.obstacleTypes = [];
