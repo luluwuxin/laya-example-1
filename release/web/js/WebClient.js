@@ -104,8 +104,8 @@ var WebClient = (function (window, Laya, logger) {
             this.car.car_state = Object.assign(this.car.car_state || {}, json);
             break;
 
-        case "ros_status":
-            this.ros.ros_status = Object.assign(this.ros.ros_status || {}, json);
+        case "ros_info":
+            this.ros.ros_info = Object.assign(this.ros.ros_info || {}, json);
             break;
 
         case "case_list":
@@ -177,17 +177,17 @@ var WebClient = (function (window, Laya, logger) {
 
     // Start Ros
     WebClient.prototype.startRos = function () {
-        // Make a copy of the ros_status. ros_status will be pushed from the
+        // Make a copy of the ros_info. ros_info will be pushed from the
         // backend with start=true.
-        var ros_status = JSON.parse(JSON.stringify(this.ros.ros_status));
+        var ros_info = JSON.parse(JSON.stringify(this.ros.ros_info));
 
-        Object.assign(ros_status, {
+        Object.assign(ros_info, {
             method: "ros_info",
             start: true,
         });
 
         // Push the data to the node backend.
-        this.socket.send(JSON.stringify(ros_status));
+        this.socket.send(JSON.stringify(ros_info));
     };
 
     // Start Sim
@@ -264,8 +264,8 @@ var WebClient = (function (window, Laya, logger) {
 
     WebClient.prototype.getMockRosInfo = function () {
         return {
-            ros_status: {
-                method: "ros_status",
+            ros_info: {
+                method: "ros_info",
                 config: [
                     { sid: 1, type: 0, name: "raw_point", running: false },
                     { sid: 2, type: 1, name: "raw_image", running: false },

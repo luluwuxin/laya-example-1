@@ -32,7 +32,7 @@ function DrivingUI(pageChooser, client)
       .on("traffic_info", this, function () {
           this.refreshTrafficUI();
       })
-      .on("ros_status", this, function () {
+      .on("ros_info", this, function () {
           this.refreshSensorControlUI();
       })
       .on("car_state", this, function () {
@@ -209,7 +209,7 @@ DrivingUI.prototype.initSensorControlUI = function () {
         var label    = e.getChildByName("label");
         
         checkbox.on(Laya.Event.CLICK, this, function (ee) {
-            this.client.ros.ros_status.config.forEach(function (v) {
+            this.client.ros.ros_info.config.forEach(function (v) {
                 if (v.name === label.text) {
                     v.running = checkbox.selected;
                 }
@@ -292,12 +292,12 @@ DrivingUI.prototype.refreshTrafficUI = function () {
 // Refresh the sensor control UI.
 DrivingUI.prototype.refreshSensorControlUI = function () {
     // No data ?
-    if (!this.client.ros.ros_status) {
+    if (!this.client.ros.ros_info) {
         this.m_uiSensorList.array = [];
     }
 
     var data = [];
-    this.client.ros.ros_status.config.forEach(function (v) {
+    this.client.ros.ros_info.config.forEach(function (v) {
         data.push({
             checkbox: {
                 selected: v.running,

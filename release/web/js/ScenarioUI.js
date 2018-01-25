@@ -18,7 +18,7 @@ function ScenarioUI(pageChooser, client)
       .on("case_list", this, function () {
           this.refreshScenarioListUI();
       })
-      .on("ros_status", this, function () {
+      .on("ros_info", this, function () {
           this.refreshSensorControlUI();
       })
       .on("car_state", this, function () {
@@ -117,7 +117,7 @@ ScenarioUI.prototype.initSensorControlUI = function () {
         var label    = e.getChildByName("label");
         
         checkbox.on(Laya.Event.CLICK, this, function (ee) {
-            this.client.ros.ros_status.config.forEach(function (v) {
+            this.client.ros.ros_info.config.forEach(function (v) {
                 if (v.name === label.text) {
                     v.running = checkbox.selected;
                 }
@@ -152,12 +152,12 @@ ScenarioUI.prototype.refreshScenarioListUI = function () {
 // Refresh the sensor control UI.
 ScenarioUI.prototype.refreshSensorControlUI = function () {
     // No data ?
-    if (!this.client.ros.ros_status) {
+    if (!this.client.ros.ros_info) {
         this.m_uiSensorList.array = [];
     }
 
     var data = [];
-    this.client.ros.ros_status.config.forEach(function (v) {
+    this.client.ros.ros_info.config.forEach(function (v) {
         data.push({
             checkbox: {
                 selected: v.running,
