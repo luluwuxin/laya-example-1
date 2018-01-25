@@ -38,6 +38,21 @@ SensorChart.prototype.init = function () {
 
         // Just in case. but we use absolute position..
         document.getElementById("layaContainer").appendChild(container);
+<<<<<<< HEAD
+=======
+
+        // Handle resize
+        var resizeTimeout;
+        var self = this;
+        window.addEventListener("resize", function () {
+            if (!resizeTimeout) {
+                resizeTimeout = setTimeout(function() {
+                    resizeTimeout = null;
+                    self.rebind();
+                }, 66);
+            }
+        }, false);
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
     }
     this.container = container;
 
@@ -50,6 +65,7 @@ SensorChart.prototype.init = function () {
             type: "line",
             data: {},
             options: {
+<<<<<<< HEAD
                 hover: {
                     mode: "nearest",
                     intersect: true,
@@ -71,6 +87,35 @@ SensorChart.prototype.init = function () {
                             labelString: 'value'
                         }
                     }]
+=======
+                maintainAspectRatio: false,
+                tooltips: {
+                    enabled: false,
+                },
+                hover: {
+                    mode: null,
+                },
+                scales: {
+                    xAxes: [
+                        {
+                            type: "time",
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Date",
+                            },
+                        },
+                    ],
+                    yAxes: [
+                        {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: "value",
+                            },
+                        },
+                    ],
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
                 },
             },
         });
@@ -85,17 +130,25 @@ SensorChart.prototype.init = function () {
                     label: "raw_point",
                     backgroundColor:"rgb(255, 0, 0)",
                     borderColor: "rgb(255, 0, 0)",
+<<<<<<< HEAD
                     data: [
                         {x:new Date(), y:0}
                     ],
+=======
+                    data: [],
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
                     fill: false,
                 }, {
                     label: "raw_image",
                     backgroundColor:"rgb(0, 0, 255)",
                     borderColor: "rgb(0, 0, 255)",
+<<<<<<< HEAD
                     data: [
                         {x:new Date(), y:0}
                     ],
+=======
+                    data: [],
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
                     fill: false,
                 }]
         };
@@ -119,6 +172,11 @@ SensorChart.prototype.init = function () {
 };
 
 SensorChart.prototype.bind = function (page) {
+<<<<<<< HEAD
+=======
+    this.page = page;
+
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
     if (page && page.m_uiSensorChart) {
         // Fit the chart into the container rectangle.. overlay..
         var px0 = page.m_uiSensorChart.localToGlobal(
@@ -135,4 +193,11 @@ SensorChart.prototype.bind = function (page) {
         // No such control, hide the chart.
         this.container.style.display = "none";
     }
+<<<<<<< HEAD
+=======
+};
+
+SensorChart.prototype.rebind = function () {
+     // this.bind(this.page);
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
 };
