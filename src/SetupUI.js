@@ -1,6 +1,6 @@
 // Class for the Car and Sensor Setup webpage.
 //
-function SetupUI(pages, client)
+function SetupUI(pageChooser, client)
 {
     SetupUI.super(this);
 
@@ -12,7 +12,7 @@ function SetupUI(pages, client)
     this.initParameterListUI();
 
     // Pages for switching
-    this.pages = pages;
+    this.pageChooser = pageChooser;
 
     // Model and WebSocket backend
     this.client = client
@@ -30,23 +30,17 @@ Laya.class(SetupUI, "SetupUI", SetupPageUI);
 
 // Init the banner UI.
 SetupUI.prototype.initBannerUI = function () {
-    function choosePage(pages, name) {
-        Object.entries(pages).forEach(function (p) {
-            p[1].visible = (p[0] === name);
-        });
-    }
-
     this.m_uiBanner_home.on(Laya.Event.CLICK, this, function () {
-        choosePage(this.pages, "mainUI");
+        this.pageChooser.goTo("mainUI");
     });
     this.m_uiBanner_setup.on(Laya.Event.CLICK, this, function () {
-        choosePage(this.pages, "setupUI");
+        this.pageChooser.goTo("setupUI");
     });
     this.m_uiBanner_scene.on(Laya.Event.CLICK, this, function () {
-        choosePage(this.pages, "drivingUI");
+        this.pageChooser.goTo("drivingUI");
     });
     this.m_uiBanner_scenario.on(Laya.Event.CLICK, this, function () {
-        choosePage(this.pages, "scenarioUI");
+        this.pageChooser.goTo("scenarioUI");
     });
 };
 

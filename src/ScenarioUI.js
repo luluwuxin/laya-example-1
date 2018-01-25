@@ -1,6 +1,6 @@
 // Class for the Scenario webpage.
 //
-function ScenarioUI(pages, client)
+function ScenarioUI(pageChooser, client)
 {
     ScenarioUI.super(this);
 
@@ -11,7 +11,7 @@ function ScenarioUI(pages, client)
     this.initDriveControlUI();
 
     // Pages for switching
-    this.pages = pages;
+    this.pageChooser = pageChooser;
 
     // Model and WebSocket backend
     this.client = client
@@ -29,23 +29,17 @@ Laya.class(ScenarioUI, "ScenarioUI", ScenarioPageUI);
 
 // Init the banner UI.
 ScenarioUI.prototype.initBannerUI = function () {
-    function choosePage(pages, name) {
-        Object.entries(pages).forEach(function (p) {
-            p[1].visible = (p[0] === name);
-        });
-    }
-
     this.m_uiBanner_home.on(Laya.Event.CLICK, this, function () {
-        choosePage(this.pages, "mainUI");
+        this.pageChooser.goTo("mainUI");
     });
     this.m_uiBanner_setup.on(Laya.Event.CLICK, this, function () {
-        choosePage(this.pages, "setupUI");
+        this.pageChooser.goTo("setupUI");
     });
     this.m_uiBanner_scene.on(Laya.Event.CLICK, this, function () {
-        choosePage(this.pages, "drivingUI");
+        this.pageChooser.goTo("drivingUI");
     });
     this.m_uiBanner_scenario.on(Laya.Event.CLICK, this, function () {
-        choosePage(this.pages, "scenarioUI");
+        this.pageChooser.goTo("scenarioUI");
     });
 };
 

@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":44,
-    "selecteID":48,
+    "selectedBox":233,
+    "selecteID":251,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -333,13 +333,14 @@
                                     "props":{"top":15,"right":15,"left":15,"bottom":15},
                                     "nodeParent":48,
                                     "label":"Box",
-                                    "isOpen":false,
+                                    "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
                                     "compId":227,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"Image",
                                             "props":{"top":19,"skin":"custom/bg_tabitem.png","right":0,"left":0,"height":117},
                                             "nodeParent":227,
@@ -352,6 +353,7 @@
                                                 ]
                                         },
                                         {
+                                            "x":75,
                                             "type":"Tab",
                                             "props":{"var":"m_uiSettingTab","top":0,"skin":"custom/tab.png","selectedIndex":0,"right":0,"left":2,"labels":"Path,Weather,Traffic","labelColors":"#606060,#f0f0f0,#f0f0f0,#606060","height":21,"direction":"horizontal"},
                                             "nodeParent":227,
@@ -364,6 +366,7 @@
                                                 ]
                                         },
                                         {
+                                            "x":75,
                                             "type":"Box",
                                             "props":{"visible":true,"var":"m_uiPath","top":21,"right":0,"left":0,"height":110},
                                             "nodeParent":227,
@@ -423,6 +426,7 @@
                                             "$HIDDEN":false
                                         },
                                         {
+                                            "x":75,
                                             "type":"Box",
                                             "props":{"visible":false,"var":"m_uiWeather","top":21,"right":0,"left":0,"height":110},
                                             "nodeParent":227,
@@ -674,6 +678,7 @@
                                             "$HIDDEN":true
                                         },
                                         {
+                                            "x":75,
                                             "type":"Box",
                                             "props":{"visible":false,"var":"m_uiTraffic","top":21,"right":0,"left":0,"height":110},
                                             "nodeParent":227,
@@ -869,6 +874,7 @@
                                             "$HIDDEN":true
                                         },
                                         {
+                                            "x":75,
                                             "type":"Box",
                                             "props":{"top":140,"right":0,"left":0,"bottom":0},
                                             "nodeParent":227,
@@ -880,6 +886,7 @@
                                             "compId":232,
                                             "child":[
                                                 {
+                                                    "x":90,
                                                     "type":"Box",
                                                     "props":{"top":0,"right":400,"left":0,"bottom":150},
                                                     "nodeParent":232,
@@ -891,6 +898,7 @@
                                                     "compId":233,
                                                     "child":[
                                                         {
+                                                            "x":105,
                                                             "type":"Image",
                                                             "props":{"top":5,"skin":"custom/bg_inset.png","right":5,"left":5,"bottom":5},
                                                             "nodeParent":233,
@@ -903,6 +911,7 @@
                                                                 ]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"Box",
                                                             "props":{"top":5,"right":5,"left":5,"height":26},
                                                             "nodeParent":233,
@@ -939,6 +948,7 @@
                                                                 }]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"Button",
                                                             "props":{"var":"m_uiSensorButton","top":50,"skin":"custom/button_start.png","left":50},
                                                             "nodeParent":233,
@@ -951,11 +961,12 @@
                                                                 ]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"List",
                                                             "props":{"width":200,"var":"m_uiSensorList","top":50,"spaceY":5,"right":30,"repeatX":1,"bottom":30},
                                                             "nodeParent":233,
                                                             "label":"List(m_uiSensorList)",
-                                                            "isOpen":true,
+                                                            "isOpen":false,
                                                             "isDirectory":true,
                                                             "isAniNode":true,
                                                             "hasChild":true,
@@ -997,9 +1008,23 @@
                                                                                 ]
                                                                         }]
                                                                 }]
+                                                        },
+                                                        {
+                                                            "x":105,
+                                                            "type":"Box",
+                                                            "props":{"var":"m_uiSensorChart","top":120,"right":250,"left":50,"bottom":30},
+                                                            "nodeParent":233,
+                                                            "label":"Box(m_uiSensorChart)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":251,
+                                                            "child":[
+                                                                ]
                                                         }]
                                                 },
                                                 {
+                                                    "x":90,
                                                     "type":"Box",
                                                     "props":{"right":400,"left":0,"height":150,"bottom":0},
                                                     "nodeParent":232,
@@ -1011,6 +1036,7 @@
                                                     "compId":235,
                                                     "child":[
                                                         {
+                                                            "x":105,
                                                             "type":"Image",
                                                             "props":{"top":5,"skin":"custom/bg_inset.png","right":5,"left":5,"bottom":5},
                                                             "nodeParent":235,
@@ -1023,6 +1049,7 @@
                                                                 ]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"Box",
                                                             "props":{"top":5,"right":5,"left":5,"height":26},
                                                             "nodeParent":235,
@@ -1059,6 +1086,7 @@
                                                                 }]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"Button",
                                                             "props":{"var":"m_uiSimButton","top":50,"skin":"custom/button_start.png","left":50},
                                                             "nodeParent":235,
@@ -1072,6 +1100,7 @@
                                                         }]
                                                 },
                                                 {
+                                                    "x":90,
                                                     "type":"Box",
                                                     "props":{"y":0,"x":640,"width":400,"top":0,"right":0,"bottom":0},
                                                     "nodeParent":232,
@@ -1083,6 +1112,7 @@
                                                     "compId":237,
                                                     "child":[
                                                         {
+                                                            "x":105,
                                                             "type":"Image",
                                                             "props":{"top":5,"skin":"custom/bg_inset.png","right":5,"left":5,"bottom":5},
                                                             "nodeParent":237,
@@ -1095,6 +1125,7 @@
                                                                 ]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"Button",
                                                             "props":{"var":"m_uiDriveButton","skin":"custom/button_start.png","left":50,"bottom":50},
                                                             "nodeParent":237,
@@ -1107,6 +1138,7 @@
                                                                 ]
                                                         },
                                                         {
+                                                            "x":105,
                                                             "type":"HBox",
                                                             "props":{"top":40,"space":20,"right":40},
                                                             "nodeParent":237,
@@ -1118,6 +1150,7 @@
                                                             "compId":246,
                                                             "child":[
                                                                 {
+                                                                    "x":120,
                                                                     "type":"VBox",
                                                                     "props":{"space":5},
                                                                     "nodeParent":246,
@@ -1274,6 +1307,7 @@
                                                                         }]
                                                                 },
                                                                 {
+                                                                    "x":120,
                                                                     "type":"VBox",
                                                                     "props":{"space":5,"align":"center"},
                                                                     "nodeParent":246,
@@ -1285,6 +1319,7 @@
                                                                     "compId":205,
                                                                     "child":[
                                                                         {
+                                                                            "x":135,
                                                                             "type":"HSlider",
                                                                             "props":{"var":"m_uiDrive_steerSlider","skin":"custom/hslider2.png","min":-1,"max":1,"centerX":0},
                                                                             "nodeParent":205,
@@ -1297,6 +1332,7 @@
                                                                                 ]
                                                                         },
                                                                         {
+                                                                            "x":135,
                                                                             "type":"Image",
                                                                             "props":{"var":"m_uiDrive_steerImage","top":30,"skin":"custom/image_steer.png","rotation":0,"centerX":0,"anchorY":0.5,"anchorX":0.5},
                                                                             "nodeParent":205,

@@ -48,21 +48,31 @@ var Handler = laya.utils.Handler;
         // WebClient is shared across webpages.
         var client = new WebClient();
 
+        // Chart overlay on the Laya stage.
+        var sensorChart = new SensorChart();
+
         // Webpages
-        var pages = {};
-        Object.assign(pages, {
-            mainUI:     new MainUI(pages),
-            setupUI:    new SetupUI(pages, client),
-            drivingUI:  new DrivingUI(pages, client),
-            scenarioUI: new ScenarioUI(pages, client),
+        var pageChooser = {
+            goTo: function (name) {
+                Object.entries(pageChooser.pages).forEach(function (p) {
+                    p[1].visible = (p[0] === name);
+                });
+            },
+            pages: {},
+        };
+        Object.assign(pageChooser.pages, {
+            mainUI:     new MainUI(pageChooser),
+            setupUI:    new SetupUI(pageChooser, client),
+            drivingUI:  new DrivingUI(pageChooser, client),
+            scenarioUI: new ScenarioUI(pageChooser, client),
         });
 
         // Init stage
-        Object.values(pages).forEach(function (p) {
+        Object.values(pageChooser.pages).forEach(function (p) {
             p.visible = false;
             Laya.stage.addChild(p);
         });
-        pages.mainUI.visible = true;
+        pageChooser.pages.mainUI.visible = true;
     }
     
 })();
