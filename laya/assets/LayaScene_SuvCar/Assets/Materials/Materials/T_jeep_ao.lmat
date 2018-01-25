@@ -7,8 +7,8 @@
 		"srcBlend":770,
 		"dstBlend":771,
 		"alphaTest":false,
-		"depthWrite":true,
-		"renderQueue":2,
+		"depthWrite":false,
+		"renderQueue":6,
 		"textures":[
 			{
 				"name":"diffuseTexture",

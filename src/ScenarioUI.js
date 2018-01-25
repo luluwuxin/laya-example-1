@@ -7,6 +7,8 @@ function ScenarioUI(pages, client)
     // Initialize UI elements
     this.initBannerUI();
     this.initScenarioListUI();
+    this.initSensorControlUI();
+    this.initDriveControlUI();
 
     // Pages for switching
     this.pages = pages;
@@ -15,6 +17,12 @@ function ScenarioUI(pages, client)
     this.client = client
       .on("case_list", this, function () {
           this.refreshScenarioListUI();
+      })
+      .on("ros_status", this, function () {
+          this.refreshSensorControlUI();
+      })
+      .on("car_state", this, function () {
+          this.refreshCarStateUI();
       });
 }
 Laya.class(ScenarioUI, "ScenarioUI", ScenarioPageUI);
@@ -110,6 +118,23 @@ ScenarioUI.prototype.initScenarioListUI = function () {
     });
 };
 
+// Init the Sensor Control UI
+ScenarioUI.prototype.initSensorControlUI = function () {
+    this.m_uiSensorButton.on(Laya.Event.CLICK, this, function () {
+        this.client.startRos();
+    });
+
+    // No data
+    this.m_uiSensorList.array = [];
+};
+
+// Init the Drive Control UI
+ScenarioUI.prototype.initDriveControlUI = function () {
+    this.m_uiDriveButton.on(Laya.Event.CLICK, this, function () {
+        this.client.startDrive();
+    });
+};
+
 // Refresh the scenario list UI.
 ScenarioUI.prototype.refreshScenarioListUI = function () {
     var data = [];
@@ -121,4 +146,38 @@ ScenarioUI.prototype.refreshScenarioListUI = function () {
         });
     });
     this.m_uiScenarioList.array = data;
+};
+
+// Refresh the sensor control UI.
+ScenarioUI.prototype.refreshSensorControlUI = function () {
+    // No data ?
+    if (!this.client.ros.ros_status) {
+        this.m_uiSensorList.array = [];
+    }
+
+    var data = [];
+    this.client.ros.ros_status.config.forEach(function (v) {
+        data.push({
+            checkbox: {
+                selected: v.running,
+            },
+            label: {
+                text: v.name,
+            },
+        });
+    });
+    this.m_uiSensorList.array = data;
+};
+
+// Refresh the car state UI.
+ScenarioUI.prototype.refreshCarStateUI = function () {
+    // No data ?
+    if (!this.client.car.car_state) {
+        return;
+    }
+
+    this.m_uiDrive_speed.text = this.client.car.car_state.speed.toFixed(3);
+    this.m_uiDrive_accer.text = this.client.car.car_state.accer.toFixed(3);
+    this.m_uiDrive_steerSlider.value = this.client.car.car_state.steer;
+    this.m_uiDrive_steerImage.rotation = this.client.car.car_state.steer * 540;
 };
