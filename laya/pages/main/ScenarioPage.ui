@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":135,
-    "selecteID":136,
+    "selectedBox":19,
+    "selecteID":129,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -270,13 +270,14 @@
                                     "props":{"var":"m_uiScenarioList","vScrollBarSkin":"custom/vscroll.png","top":20,"spaceY":8,"selectEnable":true,"right":5,"repeatX":1,"left":5,"bottom":84},
                                     "nodeParent":16,
                                     "label":"List(m_uiScenarioList)",
-                                    "isOpen":false,
+                                    "isOpen":true,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
                                     "compId":20,
                                     "child":[
                                         {
+                                            "x":75,
                                             "type":"Box",
                                             "props":{"y":2,"width":180,"name":"render","height":30,"centerX":0},
                                             "nodeParent":20,
@@ -288,6 +289,7 @@
                                             "compId":19,
                                             "child":[
                                                 {
+                                                    "x":90,
                                                     "type":"Label",
                                                     "props":{"valign":"middle","text":"Case #1","name":"label","left":3,"fontSize":16,"color":"#f0f0f0","centerY":0,"align":"left"},
                                                     "nodeParent":19,
@@ -301,8 +303,9 @@
                                                         ]
                                                 },
                                                 {
+                                                    "x":90,
                                                     "type":"Button",
-                                                    "props":{"width":50,"top":5,"skin":"custom/pixel_black.png","right":5,"name":"editButton","labelColors":"#aaaaaa,#cccccc,#ffffff,#888888","label":"Edit","bottom":5},
+                                                    "props":{"width":45,"top":5,"skin":"custom/pixel_black.png","right":30,"name":"editButton","labelColors":"#aaaaaa,#cccccc,#ffffff,#888888","label":"Edit","bottom":5},
                                                     "nodeParent":19,
                                                     "label":"Button(editButton)",
                                                     "isDirectory":false,
@@ -313,6 +316,7 @@
                                                         ]
                                                 },
                                                 {
+                                                    "x":90,
                                                     "type":"Image",
                                                     "props":{"top":-1,"skin":"custom/frame_orange.png","sizeGrid":"3,3,3,3","right":-1,"name":"selectedMark","left":-1,"bottom":-1},
                                                     "nodeParent":19,
@@ -321,6 +325,19 @@
                                                     "isAniNode":false,
                                                     "hasChild":false,
                                                     "compId":130,
+                                                    "child":[
+                                                        ]
+                                                },
+                                                {
+                                                    "x":90,
+                                                    "type":"Button",
+                                                    "props":{"y":10,"width":20,"top":5,"skin":"custom/pixel_black.png","right":5,"name":"removeButton","labelColors":"#ff0000","label":"X","bottom":5},
+                                                    "nodeParent":19,
+                                                    "label":"Button(removeButton)",
+                                                    "isDirectory":false,
+                                                    "isAniNode":false,
+                                                    "hasChild":false,
+                                                    "compId":137,
                                                     "child":[
                                                         ]
                                                 }]
@@ -345,14 +362,13 @@
                                     "props":{"var":"selectScenePanel","right":5,"left":5,"height":200,"bottom":84},
                                     "nodeParent":16,
                                     "label":"Box(selectScenePanel)",
-                                    "isOpen":true,
+                                    "isOpen":false,
                                     "isDirectory":true,
                                     "isAniNode":true,
                                     "hasChild":true,
                                     "compId":133,
                                     "child":[
                                         {
-                                            "x":75,
                                             "type":"Image",
                                             "props":{"top":0,"skin":"custom/pixel_black.png","right":0,"left":0,"bottom":0},
                                             "nodeParent":133,
@@ -365,7 +381,6 @@
                                                 ]
                                         },
                                         {
-                                            "x":75,
                                             "type":"List",
                                             "props":{"var":"selectSceneList","top":0,"right":0,"left":0,"bottom":0},
                                             "nodeParent":133,
@@ -377,7 +392,6 @@
                                             "compId":135,
                                             "child":[
                                                 {
-                                                    "x":90,
                                                     "type":"Button",
                                                     "props":{"skin":"custom/pixel_black.png","right":5,"name":"render","left":5,"labelSize":12,"labelColors":"#ffffff","label":"1","height":30},
                                                     "nodeParent":135,

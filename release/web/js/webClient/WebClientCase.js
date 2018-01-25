@@ -132,6 +132,21 @@ class WebClientCase
         this.insert(ret);
     }
 
+    removeCase(caseId)
+    {
+        var index = this.getIndex(caseId);
+        if (index == -1)
+        {
+            return false;
+        }
+        if (caseId == this.selectedCaseId)
+        {
+            this.selectedCaseId = -1;
+        }
+        this.getList().splice(index, 1);
+        return true;
+    }
+
     init(json)
     {
         this.case_list = Object.assign(this.case_list || {}, json);

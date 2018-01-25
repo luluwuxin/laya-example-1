@@ -73,6 +73,7 @@ ScenarioUI.prototype.initScenarioListUI = function () {
         var caseList = this.client.case.getList();
         var label = obj.getChildByName("label");
         var editButton = obj.getChildByName("editButton");
+        var removeButton = obj.getChildByName("removeButton");
         var selectedMark = obj.getChildByName("selectedMark");
 
         var thisCaseId = caseList[index].name;
@@ -80,10 +81,36 @@ ScenarioUI.prototype.initScenarioListUI = function () {
         label.text = caseList[index].name;
         editButton.visible = selected;
         selectedMark.visible = selected;
+        removeButton.visible = selected;
         editButton.on(Event.CLICK, this, onEditButtonClick, [thisCaseId]);
+        removeButton.on(Event.CLICK, this, onRemoveButtonClick, [thisCaseId]);
     });
 
-    function onEditButtonClick (sender, caseId)
+    function onRemoveButtonClick (caseId, sender)
+    {
+        new AskPopupWindowScript(
+            "Do you want to delete\n[{0}]?".format(caseId)
+            , this
+            , function()
+            {
+                this.client.case.removeCase(caseId);
+                this.client.storeCases();
+                this.refreshScenarioListUI();
+
+                // reselect item, or the list will select next item but we don't know
+                var oriIndex = this.m_uiScenarioList.selectedIndex;
+                this.m_uiScenarioList.selectedIndex = -1;
+                this.m_uiScenarioList.selectedIndex = oriIndex;
+            }
+            , function ()
+            {
+                // do nothing
+            }
+        ).popup();
+        
+    }
+
+    function onEditButtonClick (caseId, sender)
     {
         this.pageChooser.sensorChart.show(false);
         // Open Editor with the content in this.client.case.
@@ -109,13 +136,27 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
     function selectCase(caseJson)
     {
-        this.client.case.selectCase(caseJson.name);
+        if (caseJson == null)
+        {
+            this.client.case.selectCase(null);
+        }
+        else
+        {
+            this.client.case.selectCase(caseJson.name);
+        }
     }
 
     this.m_uiScenarioList.on(Laya.Event.CHANGE, this, function () {
         var caseList = this.client.case.getList();
-        var caseJson = caseList[this.m_uiScenarioList.selectedIndex];
-        selectCase.call(this, caseJson);
+        if (this.m_uiScenarioList.selectedIndex == -1)
+        {
+            selectCase.call(this, null);
+        }
+        else
+        {
+            var caseJson = caseList[this.m_uiScenarioList.selectedIndex];
+            selectCase.call(this, caseJson);
+        }
     });
 
     // Add scenario button.
