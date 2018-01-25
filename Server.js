@@ -5,7 +5,6 @@ function LogicServer()
     this.clients = new Object();
     this.cids = new Object();
     this.cid_seed = 0;
-	this.ue4ip = ""
 
 	this.cli_web = null; //0
 	this.cli_ros = null; //1
@@ -178,9 +177,9 @@ function LogicServer()
 
 			case 1: //ros
 			this.cli_ros = client;
-			if(this.ue4ip!="")
+			if(this.cli_ue4!="")
 			{
-				ip_pack = {method:"set_ue4_ip", ip:this.ue4ip};
+				ip_pack = {method:"set_ue4_ip", ip:this.cli_ue4.remoteAddress};
 				this.send2ros(ip_pack);
 			}
 			break;
@@ -189,8 +188,7 @@ function LogicServer()
 			this.cli_ue4 = client;
 			this.send2ue4(this.SceneInfo);
 
-			this.ue4ip = this.cli_ue4.remoteAddress;
-			ip_pack = {method:"set_ue4_ip", ip:this.ue4ip};
+			ip_pack = {method:"set_ue4_ip", ip:this.cli_ue4.remoteAddress};
 			this.send2ros(ip_pack);
 			
 			break;
@@ -243,7 +241,21 @@ function LogicServer()
 			case "ros_info":
 			{
 				this.RosInfo = pack;
-				if(this.cli_web!=null)
+				if(client == this.cli_web)
+				{
+					this.send2ros(pack);
+
+					if(this.cli_ue4!=null)
+					{
+						pack.ip = this.cli_ue4.remoteAddress;
+					}
+					else if(pack.start)
+					{
+						pack.ip = "";
+						pack.start = false;
+					}					
+				}
+				else if(client == this.cli_ros)
 					this.send2web(pack);
 				break;
 			}
