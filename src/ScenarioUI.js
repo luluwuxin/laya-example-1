@@ -64,6 +64,7 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
     function onEditButtonClick (sender, caseId)
     {
+        this.pageChooser.sensorChart.show(false);
         // Open Editor with the content in this.client.case.
         var currentCase = Object.assign({}, this.client.case.getSelectedCase());
         var editor = new ObstacleEditor();
@@ -74,6 +75,11 @@ ScenarioUI.prototype.initScenarioListUI = function () {
             currentCase.content = text;
             this.client.case.insert(currentCase);
             this.client.storeCases();
+        });
+
+        editor.registerEvent(ObstacleEditorEvent.USER_CLOSE_EDITOR, this, function (sender, text)
+        {
+            this.pageChooser.sensorChart.show(true);
         });
 
         editor.loadMapDataByMapName(currentCase.scene);

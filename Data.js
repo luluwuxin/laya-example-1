@@ -118,12 +118,6 @@ function load(logic)
 	logic.CaseListInfo = {
 		method:"case_list",
 		list:[
-			{
-				"scene": "IndustrialCity",
-				"name": "case2",
-				"content": "content of a json file",
-				"scene_config": "content of a json file"
-			},
 		]
 
 	};
