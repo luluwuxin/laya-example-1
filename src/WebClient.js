@@ -63,6 +63,12 @@ var WebClient = (function (window, Laya, logger) {
         // On connection close
         this.socket.on(Laya.Event.CLOSE, this, function (e) {
             logger.info("WebSocket close: " + e.target.url);
+
+            // Retry after 1 second. Long live connection..
+            var self = this;
+            setTimeout(function() {
+                self.init();
+            }, 1000);
         });
 
         // On connection error
