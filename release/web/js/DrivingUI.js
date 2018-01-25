@@ -202,6 +202,7 @@ DrivingUI.prototype.initTrafficUI = function () {
 DrivingUI.prototype.initSensorControlUI = function () {
     this.m_uiSensorButton.on(Laya.Event.CLICK, this, function () {
         this.client.startRos();
+        this.pageChooser.sensorChart.feedRandomData();
     });
 
     this.m_uiSensorList.on(Laya.Event.RENDER, this, function (e) {

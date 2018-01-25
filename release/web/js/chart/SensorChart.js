@@ -6,12 +6,10 @@ function SensorChart(client) {
     // Client
     this.client = client;
 
-/*
     // Init after Laya create the stage div element.
     this.later(1, function () {
         this.init();
     });
-*/
 }
 Laya.class(SensorChart, "SensorChart", Laya.EventDispatcher);
 
@@ -191,6 +189,47 @@ SensorChart.prototype.init = function () {
         this.chart.update();
     });
 
+};
+
+SensorChart.prototype.bind = function (page) {
+    // Not initialized ?
+    if (!this.container) {
+        return;
+    }
+
+    // Save the page for rebind()..
+    this.page = page;
+
+    if (page && page.m_uiSensorChart) {
+        // Fit the chart into the container rectangle.. overlay..
+        var px0 = page.m_uiSensorChart.localToGlobal(
+            new Laya.Point(0, 0));
+        var px1 = page.m_uiSensorChart.localToGlobal(
+            new Laya.Point(page.m_uiSensorChart.width, page.m_uiSensorChart.height));
+        var sx = Laya.Browser.clientWidth / Laya.stage.width;
+        var sy = Laya.Browser.clientHeight / Laya.stage.height;
+
+        this.show();
+        this.container.style.left    = (px0.x * sx) + "px";
+        this.container.style.top     = (px0.y * sy) + "px";
+        this.container.style.width   = ((px1.x - px0.x) * sx) + "px";
+        this.container.style.height  = ((px1.y - px0.y) * sy) + "px";
+    } else {
+        // No such control, hide the chart.
+        this.hide();
+    }
+};
+
+SensorChart.prototype.rebind = function () {
+     this.bind(this.page);
+};
+
+SensorChart.prototype.feedRandomData = function () {
+    if (this.__feeding_random_data) {
+        return;
+    }
+
+    this.__feeding_random_data = true;
     this.later(1000, function AddDummyData() {
         this.chart.data.datasets[0].data.push( {
             x: new Date(),
@@ -226,37 +265,4 @@ SensorChart.prototype.init = function () {
 
         this.later(500, AddDummyData);
     });
-};
-
-SensorChart.prototype.bind = function (page) {
-    // Not initialized ?
-    if (!this.container) {
-        return;
-    }
-
-    // Save the page for rebind()..
-    this.page = page;
-
-    if (page && page.m_uiSensorChart) {
-        // Fit the chart into the container rectangle.. overlay..
-        var px0 = page.m_uiSensorChart.localToGlobal(
-            new Laya.Point(0, 0));
-        var px1 = page.m_uiSensorChart.localToGlobal(
-            new Laya.Point(page.m_uiSensorChart.width, page.m_uiSensorChart.height));
-        var sx = Laya.Browser.clientWidth / Laya.stage.width;
-        var sy = Laya.Browser.clientHeight / Laya.stage.height;
-
-        this.show();
-        this.container.style.left    = (px0.x * sx) + "px";
-        this.container.style.top     = (px0.y * sy) + "px";
-        this.container.style.width   = ((px1.x - px0.x) * sx) + "px";
-        this.container.style.height  = ((px1.y - px0.y) * sy) + "px";
-    } else {
-        // No such control, hide the chart.
-        this.hide();
-    }
-};
-
-SensorChart.prototype.rebind = function () {
-     this.bind(this.page);
 };
