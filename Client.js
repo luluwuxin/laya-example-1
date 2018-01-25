@@ -12,6 +12,7 @@ function Client(cid,socket)
 {
     this.cid = cid;
     this.socket = socket;
+	this.remoteAddress = this.socket.remoteAddress;
     this.send = function(msg)
     {
         //if(msg instanceof String)

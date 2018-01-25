@@ -5,24 +5,8 @@ function LogicServer()
     this.clients = new Object();
     this.cids = new Object();
     this.cid_seed = 0;
+	this.ue4ip = ""
 
-	//method:scene_info
-	//method:weather_info
-	//method:car_info
-	// var CaseInfo = {
-	// scene:"IndistrialCity",	path: "default",
-	
-	// weather: {
-	// temperature:25,
-	// time_of_day:"9:00",
-	// rain_type:"HeavyRain",
-	// snow_type:"ModerateSnow",
-	// fog_type:"HeaveFog",
-	// },
-	
-	// traffic:{car_density:50, pdestrain_density:19, car_irregularity:29}
-	// };
-	
     this.genCid = function()
     {
         return ++this.cid_seed;
@@ -49,17 +33,6 @@ function LogicServer()
         return client.cid;
     }
 
-    /*
-      this.nid2socket = function(nid)
-      {
-      return 1;
-      }
-
-      this.nid2cid = function(nid)
-      {
-      return 1;
-      }*/
-
     this.addClient = function(type, socket)
     {
         var client = this.clients[socket];
@@ -78,6 +51,21 @@ function LogicServer()
         var client = this.clients[socket];
         if(client!=null)
         {
+			if(this.cli_web == socket)
+				this.cli_web = null;
+
+			if(this.cli_ros == socket)
+				this.cli_ros = null;
+			
+			if(this.cli_ue4 == socket)
+				this.cli_ue4 = null;
+
+			if(this.cli_ue4d == socket)
+				this.cli_ue4d = null;
+
+			if(this.cli_topic == socket)
+				this.cli_topic = null;
+			
             var cid = client.cid;
             delete this.clients[cid];
             delete this.clients[socket];
@@ -95,20 +83,9 @@ function LogicServer()
             delete this.clients[socket];
         }
     }
-    /*
-      this.addNode = function(nid, obj)
-      {
-      }
-      this.removeNode = function(nid)
-      {
-      }*/
 
     this.send2Client = function(cid, msg)
     {
-        //if(msg instanceof String)
-        //{
-        //    msg = JSON.parse(msg);
-        //}
         var client = this.clients[cid];
         if(client!=null)
         {
@@ -125,15 +102,6 @@ function LogicServer()
         }
     }
 
-    /*
-      this.send2Node = function(nid, msg)
-      {
-      if(msg instanceof String)
-      {
-      msg = JSON.parse(msg);
-      }
-      }*/
-
     this.broadcast = function(msg, except)
     {
         for(var cid in this.cids)
@@ -145,123 +113,12 @@ function LogicServer()
     }
 
 	///////////////////////////////////
-	this.SceneInfo={
-		method:"scene_info",
-		scene:"IndustrialCity",
-		path: "default"
-	};
-
-	this.WeatherInfo = {
-		method:"weather_info",
-		temperature:25,
-		time_of_day:950,
-		// rain_type:"HeavyRain",
-		// snow_type:"ModerateSnow",
-		rain_type:false,
-		snow_type:true,
-		fog_type:"HeaveFog",
-
-	};
+	this.cli_web = null; //0
+	this.cli_ros = null; //1
+	this.cli_ue4 = null; //2
+	this.cli_ue4d = null;//3
+	this.cli_topic=null; //4
 	
-	this.TrafficInfo={
-		method:"traffic_info",
-		car_density:50,
-		pedestrain_density:19,
-		car_irregularity:29
-	};
-
-	// 0:PointCloud 1:Image 2:IMU 3:GPS
-	this.RosInfo = {
-		method:"ros_status",
-		start:false,
-		config:[
-			{sid:1, type:0, name:"raw_point", running:false},
-			{sid:2, type:1, name:"raw_image", running:false},
-			{sid:3, type:2, name:"raw_gps", running:false},
-			{sid:4, type:3, name:"raw_imu", running:false}
-		]
-	};
-
-	// 0:摄像头 1:激光雷达 2:毫米波雷达
-	//roll:单位degree,范围 0~360
-	//pitch:单位degree,范围 -90~90
-	//yaw:单位degree,范围 0~360
-	
-	this.CarConfig = {
-		method:"car_config",
-		config:[
-			{sid:1, type:1,x:0,y:20,z:200.0,roll:0,pitch:0,yaw:0},
-			{sid:2, type:2,x:0,y:55.0,z:200.0,roll:0,pitch:0,yaw:0,
-			 params:
-			 {
-				 LongRangeAzimuthFieldOfView:20.0,
-				 MidRangeAzimuthFieldOfView:90.0,
-				 VerticalFieldOfView:5.0,
-				 MinRange:100.0,
-				 LongRangeMaxRange:10000.0,
-				 MidRangeMaxRange:5000.0,
-				 MinRangeRate:-10000.0,
-				 MaxRangeRate:10000.0,
-				 LongRangeAzimuthResolution:4.0,
-				 MidRangeAzimuthResolution:12.0,
-				 VerticalResolution:10.0,
-				 LongRangeRangeResolution:250.0,
-				 MidRangeRangeResolution:125.0,
-				 RangeRateResolution:50.0,
-				 MaxNumDetections:64,
-				 UseMidRange:true
-			 }
-			},
-			{sid:3, type:0,x:188.0,y:0.0,z:110.0,roll:0,pitch:0,yaw:0,
-			 params:
-			 {
-				 fov:45,
-				 ResolutionWidth:1024,
-				 ResolutionHeight:768
-			 }
-			},
-			{sid:4, type:0,x:193.0,y:-55.0,z:103.0,roll:0,pitch:0,yaw:0, 
-			 params:
-			 {
-				 fov:60,ResolutionWidth:1920,ResolutionHeight:1024
-			 }
-			},
-			{sid:5, type:0,x:188.0,y:55.0,z:103.0,roll:0,pitch:0,yaw:0,
-			 params:
-			 {
-				 fov:90,ResolutionWidth:2560,ResolutionHeight:1440
-			 }
-			}
-		]
-	};
-	
-	this.CarState = {method:"car_state",
-					 speed:18.093740463256836,accer:-0.34551405906677246,steer:-1};
-
-	this.CaseListInfo = {
-		method:"case_list",
-		list:[
-			{
-				"scene": "IndustrialCity",
-				"name": "case2",
-				"content": "content of a json file",
-				"scene_config": "content of a json file"
-			},
-		]
-
-	};
-	this.CaseInfo=	{
-		method:"case_info",
-		scene: "IndustrialCity",
-		name: "case2",
-		content: "content of a json file",
-		scene_config: "content of a json file"
-	}
-	this.cli_web = null;
-	this.cli_ros = null;
-	this.cli_ue4 = null;
-	this.cli_ue4_daemon = null;
-
 	this.send2web = function(pack)
 	{
 		if(this.cli_web!=null)
@@ -282,8 +139,8 @@ function LogicServer()
 
 	this.send2ue4d = function(pack)
 	{
-		if(this.cli_ue4_daemon!=null)
-			this.cli_ue4_daemon.send(pack);
+		if(this.cli_ue4d!=null)
+			this.cli_ue4d.send(pack);
 	}
 
 	////////////////////////////////////////////////////////////////////
@@ -313,19 +170,29 @@ function LogicServer()
 
 			case 1: //ros
 			this.cli_ros = client;
+			if(this.ue4ip!="")
+			{
+				ip_pack = {method:"set_ue4_ip", ip:this.ue4ip};
+				this.send2ros(ip_pack);
+			}
 			break;
 			
 			case 2: //ue4
 			this.cli_ue4 = client;
 			this.send2ue4(this.SceneInfo);
-			// this.cli_ue4.send(this.WeatherInfo);
-			// this.cli_ue4.send(this.TrafficInfo);
-			// this.cli_ue4.send(this.Carclient);
-			// this.push_ue4_config();
+
+			this.ue4ip = this.cli_ue4.remoteAddress;
+			ip_pack = {method:"set_ue4_ip", ip:this.ue4ip};
+			this.send2ros(ip_pack);
+			
 			break;
 
 			case 3: //ue4d
-			this.cli_ue4_daemon = client;
+			this.cli_ue4d = client;
+			break;
+
+			case 4://topic
+			this.cli_topic = client;
 			break;
 			
 			default:
