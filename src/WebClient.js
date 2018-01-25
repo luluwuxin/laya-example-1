@@ -220,6 +220,9 @@ var WebClient = (function (window, Laya, logger) {
         if (selectedCase != null)
         {
             var case_info = Object.assign({method: "case_info"}, selectedCase);
+            if (typeof case_info.scene_config === "object") {
+                case_info.scene_config = JSON.stringify(case_info.scene_config);
+            }
             this.socket.send(JSON.stringify(case_info));
         }
         this.socket.send(JSON.stringify({
