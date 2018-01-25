@@ -204,16 +204,11 @@ var WebClient = (function (window, Laya, logger) {
         this.socket.send(JSON.stringify(this.scene.traffic_info));
         this.socket.send(JSON.stringify(this.car.car_config));
         var selectedCase = this.case.getSelectedCase();
-        var case_info = null;
-        if (selectedCase == null)
+        if (selectedCase != null)
         {
-            case_info = {method: "case_info"};
+            var case_info = Object.assign({method: "case_info"}, selectedCase);
+            this.socket.send(JSON.stringify(case_info));
         }
-        else
-        {
-            case_info = Object.assign({method: "case_info"}, selectedCase);
-        }
-        this.socket.send(JSON.stringify(case_info));
         this.socket.send(JSON.stringify({
             method: "ready",
         }));
