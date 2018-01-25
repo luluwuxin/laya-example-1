@@ -93,13 +93,13 @@ SetupUI.prototype.initInventoryListUI = function () {
             function HandleDrop() {
                 // Car Box ?
                 if (e.indicator) {
+                    e.indicator = undefined;
                     indicator.stopDrag();
                     if (this.m_uiCarBox.hitTestPoint(indicator.x, indicator.y)) {
                         this.client.addSensor(JSON.parse(templateJson));
                     }
                     indicator.destroy();
                 }
-                e.indicator = undefined;
             }
 
             // Drop the indicator onto some object.
