@@ -28,7 +28,7 @@
         {
             "x":15,
             "type":"TextArea",
-            "props":{"width":360,"var":"content","top":20,"text":"a","right":20,"overflow":"hidden","left":20,"height":120,"fontSize":32,"editable":false,"color":"#ffffff","bottom":50,"align":"left"},
+            "props":{"width":360,"var":"content","top":20,"text":"a","right":20,"overflow":"hidden","left":20,"height":120,"fontSize":24,"editable":false,"color":"#ffffff","bottom":50,"align":"left"},
             "nodeParent":1,
             "label":"TextArea(content)",
             "isDirectory":false,

@@ -26,12 +26,13 @@ var Handler = laya.utils.Handler;
     //Laya.stage.scaleMode = Stage.SCALE_SHOWALL;
     Laya.stage.scaleMode = Stage.SCALE_FIXED_AUTO;
     //Laya.stage.bgColor = "#f0faf0"; //232628
-    Laya.stage.bgColor = "#ffffff";
+    Laya.stage.bgColor = "#000000";
 
     Laya.loader.load([
         "res/atlas/comp.atlas",
         "res/atlas/custom.atlas",
         "res/atlas/Scenes/IndustrialCity/assets/obstacle.atlas",
+        "res/atlas/Scenes/ParkingLot/assets/obstacle.atlas",
     ], Handler.create(this, onAssetLoaded), null, Laya.Loader.ATLAS);
 
     function onAssetLoaded()

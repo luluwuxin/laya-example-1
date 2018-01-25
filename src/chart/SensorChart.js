@@ -13,20 +13,24 @@ function SensorChart(client) {
 }
 Laya.class(SensorChart, "SensorChart", Laya.EventDispatcher);
 
-SensorChart.prototype.show = function (value)
-{
-    if (value)
-    {
-        this.container.style.display = "block";
+SensorChart.prototype.show = function (value) {
+    // Not initialized ?
+    if (!this.container) {
+        return;
     }
-    else
-    {
-        this.container.style.display = "none";
+
+    if (value === undefined) {
+        value = true;
     }
+    this.container.style.display = value ? "block" : "none";
+}
+
+SensorChart.prototype.hide = function () {
+    this.show(false);
 }
 
 SensorChart.prototype.later = function (time, handler) {
-    // Call handler after time seconds. Mostly used to reschedule handler to event loop.
+    // Call handler after time milliseconds. Mostly used to reschedule handler to event loop.
     var self = this;
     setTimeout(function() {
         handler.apply(self);
@@ -110,6 +114,19 @@ SensorChart.prototype.init = function () {
                                 display: true,
                                 labelString: "Date",
                             },
+                            time: {
+                                displayFormats: {
+                                    millisecond: "mm:ss",
+                                    second: "mm:ss",
+                                    minute: "mm:ss",
+                                    hour: "mm:ss",
+                                    day: "mm:ss",
+                                    week: "mm:ss",
+                                    month: "mm:ss",
+                                    quarter: "mm:ss",
+                                    year: "mm:ss",
+                                },
+                            },
                         },
                     ],
                     yAxes: [
@@ -132,43 +149,55 @@ SensorChart.prototype.init = function () {
             labels: [],
             datasets: [
                 {
-                    label: "raw_point",
-                    backgroundColor: this.getColor("raw_point"),
-                    borderColor: this.getColor("raw_point"),
+                    label: "points_raw",
+                    backgroundColor: this.getColor("points_raw"),
+                    borderColor: this.getColor("points_raw"),
                     data: [],
                     fill: false,
-                }, {
-                    label: "raw_image",
-                    backgroundColor: this.getColor("raw_image"),
-                    borderColor: this.getColor("raw_image"),
+                },
+                {
+                    label: "image_raw",
+                    backgroundColor: this.getColor("image_raw"),
+                    borderColor: this.getColor("image_raw"),
                     data: [],
                     fill: false,
-                }]
+                },
+                {
+                    label: "imu_raw",
+                    backgroundColor: this.getColor("imu_raw"),
+                    borderColor: this.getColor("imu_raw"),
+                    data: [],
+                    fill: false,
+                },
+                {
+                    label: "nmea_sentence gps",
+                    backgroundColor: this.getColor("nmea_sentence gps"),
+                    borderColor: this.getColor("nmea_sentence gps"),
+                    data: [],
+                    fill: false,
+                },
+                {
+                    label: "RadarDetections",
+                    backgroundColor: this.getColor("RadarDetections"),
+                    borderColor: this.getColor("RadarDetections"),
+                    data: [],
+                    fill: false,
+                },
+                ]
         };
         this.chart.data = data;
         this.chart.update();
     });
 
-    this.later(1000, function AddDummyData() {
-        this.chart.data.datasets[0].data.push( {
-            x: new Date(),
-            y: Math.random(),
-        });
-        this.chart.data.datasets[1].data.push( {
-            x: new Date(),
-            y: Math.random(),
-        });
-        while (this.chart.data.datasets[0].data.length > 10)
-            this.chart.data.datasets[0].data.shift();
-        while (this.chart.data.datasets[1].data.length > 10)
-            this.chart.data.datasets[1].data.shift();
-        this.chart.update();
-
-        this.later(500, AddDummyData);
-    });
 };
 
 SensorChart.prototype.bind = function (page) {
+    // Not initialized ?
+    if (!this.container) {
+        return;
+    }
+
+    // Save the page for rebind()..
     this.page = page;
 
     if (page && page.m_uiSensorChart) {
@@ -180,17 +209,60 @@ SensorChart.prototype.bind = function (page) {
         var sx = Laya.Browser.clientWidth / Laya.stage.width;
         var sy = Laya.Browser.clientHeight / Laya.stage.height;
 
-        this.show(true);
+        this.show();
         this.container.style.left    = (px0.x * sx) + "px";
         this.container.style.top     = (px0.y * sy) + "px";
         this.container.style.width   = ((px1.x - px0.x) * sx) + "px";
         this.container.style.height  = ((px1.y - px0.y) * sy) + "px";
     } else {
         // No such control, hide the chart.
-        this.show(false);
+        this.hide();
     }
 };
 
 SensorChart.prototype.rebind = function () {
      this.bind(this.page);
+};
+
+SensorChart.prototype.feedRandomData = function () {
+    if (this.__feeding_random_data) {
+        return;
+    }
+
+    this.__feeding_random_data = true;
+    this.later(1000, function AddDummyData() {
+        this.chart.data.datasets[0].data.push( {
+            x: new Date(),
+            y: Math.random() * 50 + 10,
+        });
+        this.chart.data.datasets[1].data.push( {
+            x: new Date(),
+            y: Math.random() * 50 + 10,
+        });
+        this.chart.data.datasets[2].data.push( {
+            x: new Date(),
+            y: Math.random() * 50 + 10,
+        });
+        this.chart.data.datasets[3].data.push( {
+            x: new Date(),
+            y: Math.random() * 50 + 10,
+        });
+        this.chart.data.datasets[4].data.push( {
+            x: new Date(),
+            y: Math.random() * 50 + 10,
+        });
+        while (this.chart.data.datasets[0].data.length > 30)
+            this.chart.data.datasets[0].data.shift();
+        while (this.chart.data.datasets[1].data.length > 30)
+            this.chart.data.datasets[1].data.shift();
+        while (this.chart.data.datasets[2].data.length > 30)
+            this.chart.data.datasets[2].data.shift();
+        while (this.chart.data.datasets[3].data.length > 30)
+            this.chart.data.datasets[3].data.shift();
+        while (this.chart.data.datasets[4].data.length > 30)
+            this.chart.data.datasets[4].data.shift();
+        this.chart.update();
+
+        this.later(500, AddDummyData);
+    });
 };

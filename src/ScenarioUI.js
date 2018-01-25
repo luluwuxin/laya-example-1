@@ -6,6 +6,7 @@ function ScenarioUI(pageChooser, client)
 
     // Initialize UI elements
     this.initBannerUI();
+    this.initSelectSceneUI();
     this.initScenarioListUI();
     this.initSensorControlUI();
     this.initDriveControlUI();
@@ -18,7 +19,7 @@ function ScenarioUI(pageChooser, client)
       .on("case_list", this, function () {
           this.refreshScenarioListUI();
       })
-      .on("ros_status", this, function () {
+      .on("ros_info", this, function () {
           this.refreshSensorControlUI();
       })
       .on("car_state", this, function () {
@@ -43,6 +44,26 @@ ScenarioUI.prototype.initBannerUI = function () {
     });
 };
 
+ScenarioUI.prototype.initSelectSceneUI = function () {
+    this.selectScenePanel.visible = false;
+    // TODO: read from server
+    this.selectSceneList.array = ["IndustrialCity", "ParkingLot"];
+    this.selectSceneList.mouseHandler = new Handler(this, function(event)
+    {
+        if (event.type != Event.CLICK)
+        {
+            return;
+        }
+        // add scenario.
+        var sceneName = event.target.dataSource;
+        this.client.case.insertDefault(sceneName);
+        this.client.storeCases();
+        this.refreshScenarioListUI();
+        this.selectScenePanel.visible = false;
+    });
+}
+
+
 // Init the scenario list UI.
 ScenarioUI.prototype.initScenarioListUI = function () {
     this.m_uiScenarioList.array = [];
@@ -52,6 +73,7 @@ ScenarioUI.prototype.initScenarioListUI = function () {
         var caseList = this.client.case.getList();
         var label = obj.getChildByName("label");
         var editButton = obj.getChildByName("editButton");
+        var removeButton = obj.getChildByName("removeButton");
         var selectedMark = obj.getChildByName("selectedMark");
 
         var thisCaseId = caseList[index].name;
@@ -59,10 +81,36 @@ ScenarioUI.prototype.initScenarioListUI = function () {
         label.text = caseList[index].name;
         editButton.visible = selected;
         selectedMark.visible = selected;
+        removeButton.visible = selected;
         editButton.on(Event.CLICK, this, onEditButtonClick, [thisCaseId]);
+        removeButton.on(Event.CLICK, this, onRemoveButtonClick, [thisCaseId]);
     });
 
-    function onEditButtonClick (sender, caseId)
+    function onRemoveButtonClick (caseId, sender)
+    {
+        new AskPopupWindowScript(
+            "Do you want to delete\n[{0}]?".format(caseId)
+            , this
+            , function()
+            {
+                this.client.case.removeCase(caseId);
+                this.client.storeCases();
+                this.refreshScenarioListUI();
+
+                // reselect item, or the list will select next item but we don't know
+                var oriIndex = this.m_uiScenarioList.selectedIndex;
+                this.m_uiScenarioList.selectedIndex = -1;
+                this.m_uiScenarioList.selectedIndex = oriIndex;
+            }
+            , function ()
+            {
+                // do nothing
+            }
+        ).popup();
+        
+    }
+
+    function onEditButtonClick (caseId, sender)
     {
         this.pageChooser.sensorChart.show(false);
         // Open Editor with the content in this.client.case.
@@ -88,21 +136,32 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
     function selectCase(caseJson)
     {
-        this.client.case.selectCase(caseJson.name);
+        if (caseJson == null)
+        {
+            this.client.case.selectCase(null);
+        }
+        else
+        {
+            this.client.case.selectCase(caseJson.name);
+        }
     }
 
     this.m_uiScenarioList.on(Laya.Event.CHANGE, this, function () {
         var caseList = this.client.case.getList();
-        var caseJson = caseList[this.m_uiScenarioList.selectedIndex];
-        selectCase.call(this, caseJson);
+        if (this.m_uiScenarioList.selectedIndex == -1)
+        {
+            selectCase.call(this, null);
+        }
+        else
+        {
+            var caseJson = caseList[this.m_uiScenarioList.selectedIndex];
+            selectCase.call(this, caseJson);
+        }
     });
 
     // Add scenario button.
     this.m_uiScenarioButton.on(Laya.Event.CLICK, this, function() {
-        // add scenario.
-        this.client.case.insertDefault();
-        this.client.storeCases();
-        this.refreshScenarioListUI();
+        this.selectScenePanel.visible = true;
     });
 };
 
@@ -110,6 +169,20 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 ScenarioUI.prototype.initSensorControlUI = function () {
     this.m_uiSensorButton.on(Laya.Event.CLICK, this, function () {
         this.client.startRos();
+        this.pageChooser.sensorChart.feedRandomData();
+    });
+
+    this.m_uiSensorList.on(Laya.Event.RENDER, this, function (e) {
+        var checkbox = e.getChildByName("checkbox");
+        var label    = e.getChildByName("label");
+        
+        checkbox.on(Laya.Event.CLICK, this, function (ee) {
+            this.client.ros.ros_info.config.forEach(function (v) {
+                if (v.name === label.text) {
+                    v.running = checkbox.selected;
+                }
+            });
+        });
     });
 
     // No data
@@ -139,12 +212,13 @@ ScenarioUI.prototype.refreshScenarioListUI = function () {
 // Refresh the sensor control UI.
 ScenarioUI.prototype.refreshSensorControlUI = function () {
     // No data ?
-    if (!this.client.ros.ros_status) {
+    if (!this.client.ros.ros_info) {
         this.m_uiSensorList.array = [];
     }
 
     var data = [];
-    this.client.ros.ros_status.config.forEach(function (v) {
+    this.client.ros.ros_info.config.forEach(function (v) {
+        if (v.name === "raw_drive") return;
         data.push({
             checkbox: {
                 selected: v.running,
