@@ -276,7 +276,6 @@ function LogicServer()
 				this.RosInfo = pack;
 				if(client == this.cli_web)
 				{
-					this.send2ros(pack);
 
 					if(this.cli_ue4!=null)
 					{
@@ -286,7 +285,9 @@ function LogicServer()
 					{
 						pack.ip = "";
 						pack.start = false;
-					}					
+					}
+					
+					this.send2ros(pack);
 				}
 				else if(client == this.cli_ros)
 					this.send2web(pack);
