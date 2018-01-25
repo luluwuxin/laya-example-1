@@ -6,6 +6,18 @@ function ObstacleEditorMainPanelScript(dependences)
         this.debugPanel.visible = !this.debugPanel.visible;
     }
 
+    function onCaseDataDirtyChanged (sender, dirtyFlag)
+    {
+        if (dirtyFlag)
+        {
+            this.saveButton.label = "Save*";
+        }
+        else
+        {
+            this.saveButton.label = "Save";
+        }
+    }
+
     function onUndoButtonClick()
     {
         this._historyManager.undo();
@@ -100,6 +112,7 @@ function ObstacleEditorMainPanelScript(dependences)
     this.addChild(this.debugPanel);
 
     this._keyboardEventsManager.registerKeyEvent(Keyboard.D, this, onDebugPanelOpenKeyDown, Keyboard.SHIFT);
+    this._loadedDataManager.registerEvent(LoadedDataManagerEvent.DATA_DIRTY_CHANGED, this, onCaseDataDirtyChanged);
     this.saveButton.on(Event.CLICK, this, onSaveButtonClick);
     this.closeButton.on(Event.CLICK, this, onCloseButtonClick);
     this.undoButton.on(Event.CLICK, this, onUndoButtonClick);
