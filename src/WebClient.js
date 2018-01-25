@@ -189,7 +189,7 @@ var WebClient = (function (window, Laya, logger) {
 
         // Always set raw_drive to be running.
         ros_info.config.forEach(function (v) {
-            if (v.name === "raw_drive") {
+            if (v.name === "raw_drive" || v.name === "AirSimDriver") {
                 v.running = true;
             }
         });
