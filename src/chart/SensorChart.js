@@ -151,18 +151,41 @@ SensorChart.prototype.init = function () {
             labels: [],
             datasets: [
                 {
-                    label: "raw_point",
-                    backgroundColor: this.getColor("raw_point"),
-                    borderColor: this.getColor("raw_point"),
+                    label: "points_raw",
+                    backgroundColor: this.getColor("points_raw"),
+                    borderColor: this.getColor("points_raw"),
                     data: [],
                     fill: false,
-                }, {
-                    label: "raw_image",
-                    backgroundColor: this.getColor("raw_image"),
-                    borderColor: this.getColor("raw_image"),
+                },
+                {
+                    label: "image_raw",
+                    backgroundColor: this.getColor("image_raw"),
+                    borderColor: this.getColor("image_raw"),
                     data: [],
                     fill: false,
-                }]
+                },
+                {
+                    label: "imu_raw",
+                    backgroundColor: this.getColor("imu_raw"),
+                    borderColor: this.getColor("imu_raw"),
+                    data: [],
+                    fill: false,
+                },
+                {
+                    label: "nmea_sentence gps",
+                    backgroundColor: this.getColor("nmea_sentence gps"),
+                    borderColor: this.getColor("nmea_sentence gps"),
+                    data: [],
+                    fill: false,
+                },
+                {
+                    label: "RadarDetections",
+                    backgroundColor: this.getColor("RadarDetections"),
+                    borderColor: this.getColor("RadarDetections"),
+                    data: [],
+                    fill: false,
+                },
+                ]
         };
         this.chart.data = data;
         this.chart.update();
@@ -171,16 +194,34 @@ SensorChart.prototype.init = function () {
     this.later(1000, function AddDummyData() {
         this.chart.data.datasets[0].data.push( {
             x: new Date(),
-            y: Math.random(),
+            y: Math.random() * 50 + 10,
         });
         this.chart.data.datasets[1].data.push( {
             x: new Date(),
-            y: Math.random(),
+            y: Math.random() * 50 + 10,
         });
-        while (this.chart.data.datasets[0].data.length > 10)
+        this.chart.data.datasets[2].data.push( {
+            x: new Date(),
+            y: Math.random() * 50 + 10,
+        });
+        this.chart.data.datasets[3].data.push( {
+            x: new Date(),
+            y: Math.random() * 50 + 10,
+        });
+        this.chart.data.datasets[4].data.push( {
+            x: new Date(),
+            y: Math.random() * 50 + 10,
+        });
+        while (this.chart.data.datasets[0].data.length > 30)
             this.chart.data.datasets[0].data.shift();
-        while (this.chart.data.datasets[1].data.length > 10)
+        while (this.chart.data.datasets[1].data.length > 30)
             this.chart.data.datasets[1].data.shift();
+        while (this.chart.data.datasets[2].data.length > 30)
+            this.chart.data.datasets[2].data.shift();
+        while (this.chart.data.datasets[3].data.length > 30)
+            this.chart.data.datasets[3].data.shift();
+        while (this.chart.data.datasets[4].data.length > 30)
+            this.chart.data.datasets[4].data.shift();
         this.chart.update();
 
         this.later(500, AddDummyData);
