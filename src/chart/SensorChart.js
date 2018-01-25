@@ -39,7 +39,10 @@ SensorChart.prototype.init = function () {
         // Just in case. but we use absolute position..
         document.getElementById("layaContainer").appendChild(container);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
 
         // Handle resize
         var resizeTimeout;
@@ -52,6 +55,9 @@ SensorChart.prototype.init = function () {
                 }, 66);
             }
         }, false);
+<<<<<<< HEAD
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
+=======
 >>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
     }
     this.container = container;
@@ -65,6 +71,7 @@ SensorChart.prototype.init = function () {
             type: "line",
             data: {},
             options: {
+<<<<<<< HEAD
 <<<<<<< HEAD
                 hover: {
                     mode: "nearest",
@@ -88,6 +95,8 @@ SensorChart.prototype.init = function () {
                         }
                     }]
 =======
+=======
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
                 maintainAspectRatio: false,
                 tooltips: {
                     enabled: false,
@@ -115,6 +124,9 @@ SensorChart.prototype.init = function () {
                             },
                         },
                     ],
+<<<<<<< HEAD
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
+=======
 >>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
                 },
             },
@@ -131,9 +143,13 @@ SensorChart.prototype.init = function () {
                     backgroundColor:"rgb(255, 0, 0)",
                     borderColor: "rgb(255, 0, 0)",
 <<<<<<< HEAD
+<<<<<<< HEAD
                     data: [
                         {x:new Date(), y:0}
                     ],
+=======
+                    data: [],
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
 =======
                     data: [],
 >>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
@@ -143,9 +159,13 @@ SensorChart.prototype.init = function () {
                     backgroundColor:"rgb(0, 0, 255)",
                     borderColor: "rgb(0, 0, 255)",
 <<<<<<< HEAD
+<<<<<<< HEAD
                     data: [
                         {x:new Date(), y:0}
                     ],
+=======
+                    data: [],
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
 =======
                     data: [],
 >>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
@@ -173,6 +193,11 @@ SensorChart.prototype.init = function () {
 
 SensorChart.prototype.bind = function (page) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    this.page = page;
+
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
 =======
     this.page = page;
 
@@ -194,10 +219,16 @@ SensorChart.prototype.bind = function (page) {
         this.container.style.display = "none";
     }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
 };
 
 SensorChart.prototype.rebind = function () {
      // this.bind(this.page);
+<<<<<<< HEAD
+>>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
+=======
 >>>>>>> d2a35c038415471afa3d5ab7e6ebe05c8c091d95
 };
