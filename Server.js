@@ -1,5 +1,5 @@
 const cli = require("./Client.js");
-
+const data = require("./Data.js");
 function LogicServer()
 {
     this.clients = new Object();
@@ -7,6 +7,14 @@ function LogicServer()
     this.cid_seed = 0;
 	this.ue4ip = ""
 
+	this.cli_web = null; //0
+	this.cli_ros = null; //1
+	this.cli_ue4 = null; //2
+	this.cli_ue4d = null;//3
+	this.cli_topic=null; //4
+	
+	data.load(this);
+	
     this.genCid = function()
     {
         return ++this.cid_seed;
@@ -112,13 +120,7 @@ function LogicServer()
         }
     }
 
-	///////////////////////////////////
-	this.cli_web = null; //0
-	this.cli_ros = null; //1
-	this.cli_ue4 = null; //2
-	this.cli_ue4d = null;//3
-	this.cli_topic=null; //4
-	
+	///////////////////////////////////	
 	this.send2web = function(pack)
 	{
 		if(this.cli_web!=null)

@@ -30,7 +30,6 @@
 
 const LogicServer = require("./Server.js").LogicServer;
 const utils = require("./Utils.js");
-const data = require("./Data.js");
 const express = require('express');
 const http = require('http');
 const url = require('url');
@@ -47,7 +46,6 @@ const wss = new WebSocket.Server({ server });
 
 ////////////////////////////////////////////////////////////////////////
 var logic = new LogicServer();
-data.load(logic);
 ////////////////////////////////////////////////////////////////////////
 wss.on('connection', function connection(socket, req) {
     const location = url.parse(req.url, true);
