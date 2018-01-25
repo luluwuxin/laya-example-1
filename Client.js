@@ -1,5 +1,4 @@
-
-
+'use strict';
 
 function Sensor(nid, type)
 {
@@ -8,11 +7,11 @@ function Sensor(nid, type)
     
 }
 
-function Client(cid,socket)
+function Client(cid,cli)
 {
     this.cid = cid;
-    this.socket = socket;
-	this.remoteAddress = this.socket.remoteAddress;
+    this.socket = cli;
+	this.remoteAddress = cli.remoteAddress;
     this.send = function(msg)
     {
         //if(msg instanceof String)

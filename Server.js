@@ -1,9 +1,11 @@
+'use strict';
+
 const cli = require("./Client.js");
 const data = require("./Data.js");
 function LogicServer()
 {
-    this.clients = new Object();
-    this.cids = new Object();
+    this.clients = {};
+    this.cids = {};
     this.cid_seed = 0;
 
 	this.cli_web = null; //0
@@ -16,12 +18,14 @@ function LogicServer()
 	
     this.genCid = function()
     {
-        return ++this.cid_seed;
+		this.cid_seed = this.cid_seed+1;
+        return this.cid_seed;
     }
 
-    this.isAuth = function(cid_or_socket)
+    this.isAuth = function(socket)
     {
-        return this.clients[cid_or_socket]!=null;
+		return socket.auth!=undefined;
+        // return !!this.clients[socket];
     }
 
     this.cid2socket = function(cid)
@@ -42,44 +46,49 @@ function LogicServer()
 
     this.addClient = function(type, socket)
     {
-        var client = this.clients[socket];
-        if(client==null)
-        {
-            var cid = this.genCid();
-            client = cli.create(type, cid, socket);
-            this.clients[cid]= this.clients[socket]= client;
-            this.cids[cid]=cid;
-
-			switch(type)
-			{
-				case 0: //web
-				this.cli_web = client;
-				break;
-
-				case 1: //ros
-				this.cli_ros = client;				
-				break;
-				
-				case 2: //ue4
-				this.cli_ue4 = client;				
-				break;
-
-				case 3: //ue4d
-				this.cli_ue4d = client;
-				break;
-
-				case 4://topic
-				this.cli_topic = client;
-				break;
-				
-				default:
-				break;
-			}
-        } else
+		
+        // if(!!this.clients[socket])
+		if(socket.auth)
 		{
-			console.log("!!!!!!!!!!!!!!!-----------!!!!!!!!!!!!!");
+			console.log("xxxxxxxxxxxx !!!!!!!!!!!!!!!-----------!!!!!!!!!!!!!");
+			var client = this.clients[socket];
+			return client;
 		}
-        return client;
+
+		socket.auth=true;
+        var cid = this.genCid();
+        var client = cli.create(type, cid, socket);
+		console.log("$$$$$$$$$ cid:"+cid);
+        this.clients[cid]= client;
+		this.clients[socket]= client;			
+        this.cids[cid]=cid;
+
+		switch(type)
+		{
+			case 0: //web
+			this.cli_web = client;
+			break;
+
+			case 1: //ros
+			this.cli_ros = client;				
+			break;
+			
+			case 2: //ue4
+			this.cli_ue4 = client;				
+			break;
+
+			case 3: //ue4d
+			this.cli_ue4d = client;
+			break;
+
+			case 4://topic
+			this.cli_topic = client;
+			break;
+			
+			default:
+			break;
+		}
+		return client;
     }
 
     this.removeSocket = function(socket)
@@ -204,20 +213,21 @@ function LogicServer()
 			break;
 
 			case 1: //ros
-			if(this.cli_ue4!="")
+			if(this.cli_ue4!=null)
 			{
 				ip_pack = {method:"set_ue4_ip", ip:this.cli_ue4.remoteAddress};
 				this.send2ros(ip_pack);
+				break;
 			}
-			break;
 			
 			case 2: //ue4
-			this.send2ue4(this.SceneInfo);
-
-			ip_pack = {method:"set_ue4_ip", ip:this.cli_ue4.remoteAddress};
-			this.send2ros(ip_pack);
-			break;
-
+			{
+				this.send2ue4(this.SceneInfo);
+				var ip_pack = {method:"set_ue4_ip", ip:this.cli_ue4.remoteAddress};
+				this.send2ros(ip_pack);
+				break;
+			}
+			
 			case 3: //ue4d
 			break;
 
@@ -232,7 +242,7 @@ function LogicServer()
 	this.procMessage = function(socket, pack)
 	{
 		var client = this.clients[socket];
-		console.log('receivedPack: %s:!!!%s!!!', client.getInfo(), JSON.stringify(pack));
+		console.log('receivedPack: %s:!!!%s!!!', client.remoteAddress, JSON.stringify(pack));
 		switch(pack.method)
         {
             case "chat":
@@ -350,10 +360,15 @@ function LogicServer()
 				break;
 			}
 
+			case "ping":
+			{
+				break;
+			}
+
             default:
             {
-                console.log(pack.method);
-                client.send(pack); 
+                console.log("|||||||||||||||unknow pack:%s", pack.method);
+                // client.send(pack); 
                 break;
             }
         }

@@ -56,7 +56,7 @@ function load(logic)
 			{sid:2, type:1, name:"raw_image", running:false},
 			{sid:3, type:2, name:"raw_gps", running:false},
 			{sid:4, type:3, name:"raw_imu", running:false},
-			{sid:4, type:3, name:"raw_drive", running:false}
+			{sid:4, type:4, name:"raw_drive", running:false}
 		]
 	};
 

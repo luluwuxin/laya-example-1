@@ -1,3 +1,4 @@
+'use strict';
 // server.js --- This is where you apply your OCD.
 //
 // Copyright (C) 2018 Damon Kwok
@@ -44,56 +45,56 @@ app.use(express.static("release/web"))
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
+var ccc = null;
 ////////////////////////////////////////////////////////////////////////
 var logic = new LogicServer();
 ////////////////////////////////////////////////////////////////////////
-wss.on('connection', function connection(socket, req) {
+
+wss.on('connection', function(socket, req) {
     const location = url.parse(req.url, true);
-	
-    const remoteAddress = req.headers['x-forwarded-for'] ||
-			req.connection.remoteAddress ||
-			req.socket.remoteAddress ||
-		   req.connection.socket.remoteAddress;
+	var remoteAddress = req.headers['x-forwarded-for'] ||
+		req.connection.remoteAddress ||
+		req.socket.remoteAddress ||
+		req.connection.socket.remoteAddress;
 
 	socket.remoteAddress = remoteAddress.split(":")[3];
-		// console.log("111:"+ req.headers['x-forwarded-for'] +
-        // " 222:"+req.connection.remoteAddress +
-        // " 333:" +req.socket.remoteAddress +
-        // " 444:" +req.connection.socket.remoteAddress;
+
     // You might use location.query.access_token to authenticate or share sessions
     // or req.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
-    socket.on('close', function incoming(code, reason) {
+    socket.on('close', function(code, reason) {
         var prename = logic.isAuth(socket) ? "auth" : "unauth";
-		console.log("!losed! " + prename + ' client %s disconnect: code=%d, reason="%s"', socket.remoteAddress, code, reason);
+		console.log("!losed! " + prename + ' client %s disconnect: code=%d, reason="%s"',
+					socket.remoteAddress, code, reason);
         logic.removeSocket(socket);
     });
 
-    socket.on('error', function incoming(err) {
+    socket.on('error', function(err) { //incoming
 		console.log("error:"+err);
     });
 
-    socket.on('message', function incoming(msg) {
-        try{
-			var pack = JSON.parse(msg);
-			if(!logic.isAuth(socket))
-			{
-				if(pack.method=="auth")
-				{
-					logic.procAuth(socket, pack);
-				}
-				else
-				{
-					console.log("%s !!unauth!! message:%s", socket.remoteAddress, msg);
-					socket.send(msg);
-				}
-			}else{
-				logic.procMessage(socket, pack);	
-			}	
-		}catch(err)
+    socket.on('message', function(msg) {
+        // try{
+		var pack = JSON.parse(msg);
+		if(logic.isAuth(socket)==false)
 		{
-			console.log("%s error:%s", socket.remoteAddress, err);
-			// socket.send(msg);
+			if(pack.method=="auth")
+			{
+				logic.procAuth(socket, pack);
+			}
+			else
+			{
+				console.log("%s !!unauth!! message:%s", socket.remoteAddress, msg);
+				socket.send(msg);
+			}
 		}
+		else{
+			logic.procMessage(socket, pack);	
+		}
+		
+		// }catch(err)
+		// {
+		// console.log("%s error:%s", socket.remoteAddress, err);
+		// }
         
     });
     
