@@ -161,5 +161,5 @@ ScenarioUI.prototype.refreshCarStateUI = function () {
     this.m_uiDrive_speed.text = this.client.car.car_state.speed.toFixed(3);
     this.m_uiDrive_accer.text = this.client.car.car_state.accer.toFixed(3);
     this.m_uiDrive_steerSlider.value = this.client.car.car_state.steer;
-    this.m_uiDrive_steerImage.rotation = this.client.car.car_state.steer * 540;
+    this.m_uiDrive_steerImage.rotation = this.client.car.car_state.steer * 90;
 };
