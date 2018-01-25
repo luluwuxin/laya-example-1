@@ -290,7 +290,10 @@ function LogicServer()
 					this.send2ros(pack);
 				}
 				else if(client == this.cli_ros)
+				{
+					
 					this.send2web(pack);
+				}
 				break;
 			}
 
