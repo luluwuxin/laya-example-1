@@ -21,11 +21,11 @@ class ObstacleUIOnMap
         this.obstacleContainer = createFullBox();
         this._container.addChild(this.obstacleContainer);
 
-        this.routePointContainer = createFullBox();
-        this.obstacleContainer.addChild(this.routePointContainer);
-
         this.routePointLinkLineContainer = createFullBox();
         this.obstacleContainer.addChild(this.routePointLinkLineContainer);
+
+        this.routePointContainer = createFullBox();
+        this.obstacleContainer.addChild(this.routePointContainer);
 
         this.routePointViews = [];
         this.routePointLinkLineViews = [];
