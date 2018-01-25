@@ -26,7 +26,7 @@ SensorChart.prototype.show = function (value)
 }
 
 SensorChart.prototype.later = function (time, handler) {
-    // Call handler after time seconds. Mostly used to reschedule handler to event loop.
+    // Call handler after time milliseconds. Mostly used to reschedule handler to event loop.
     var self = this;
     setTimeout(function() {
         handler.apply(self);
@@ -109,6 +109,19 @@ SensorChart.prototype.init = function () {
                             scaleLabel: {
                                 display: true,
                                 labelString: "Date",
+                            },
+                            time: {
+                                displayFormats: {
+                                    millisecond: "mm:ss",
+                                    second: "mm:ss",
+                                    minute: "mm:ss",
+                                    hour: "mm:ss",
+                                    day: "mm:ss",
+                                    week: "mm:ss",
+                                    month: "mm:ss",
+                                    quarter: "mm:ss",
+                                    year: "mm:ss",
+                                },
                             },
                         },
                     ],

@@ -63,6 +63,12 @@ var WebClient = (function (window, Laya, logger) {
         // On connection close
         this.socket.on(Laya.Event.CLOSE, this, function (e) {
             logger.info("WebSocket close: " + e.target.url);
+
+            // Retry after 1 second. Long live connection..
+            var self = this;
+            setTimeout(function() {
+                self.init();
+            }, 1000);
         });
 
         // On connection error
@@ -182,7 +188,6 @@ var WebClient = (function (window, Laya, logger) {
         var ros_info = JSON.parse(JSON.stringify(this.ros.ros_info));
 
         Object.assign(ros_info, {
-            method: "ros_info",
             start: true,
         });
 
