@@ -40,8 +40,9 @@ function ObstaclePanelScript(dependences)
     {
         var obstacle = obj.dataSource.obstacle;
         var isSelected = obstacle === this._user.getSelectedObstacle();
-        var obstacleImage = obj.getChildByName("obstacleImage");
-        var selectedMark = obj.getChildByName("selectedMark");
+        var imageBox = obj.getChildByName("obstacleImageBox");
+        var selectedMark = imageBox.getChildByName("selectedMark");
+        var obstacleImage = imageBox.getChildByName("obstacleImage");
         var nameLabel = obj.getChildByName("nameLabel");
         var removeButton = obj.getChildByName("removeButton");
 

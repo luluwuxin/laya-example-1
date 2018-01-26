@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":1,
-    "selecteID":10,
+    "selectedBox":10,
+    "selecteID":17,
     "props":{"width":150,"top":0,"sceneWidth":600,"sceneHeight":400,"sceneColor":"#000000","right":0,"left":0,"height":770,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -38,21 +38,35 @@
                     "child":[
                         {
                             "x":45,
-                            "type":"Image",
-                            "props":{"top":-1,"skin":"custom/frame_orange.png","sizeGrid":"2,2,2,2","right":-1,"name":"selectedMark","left":-1,"bottom":20},
+                            "type":"Box",
+                            "props":{"top":0,"right":0,"name":"obstacleImageBox","left":0,"bottom":20},
                             "nodeParent":10,
-                            "label":"Image(selectedMark)",
+                            "label":"Box(obstacleImageBox)",
                             "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":false,
                             "hasChild":true,
-                            "compId":13,
+                            "compId":17,
                             "child":[
                                 {
                                     "x":60,
                                     "type":"Image",
-                                    "props":{"x":11,"width":100,"name":"obstacleImage","height":60,"centerY":0,"centerX":0},
-                                    "nodeParent":13,
+                                    "props":{"x":-1,"top":-1,"skin":"custom/frame_orange.png","sizeGrid":"2,2,2,2","right":-1,"name":"selectedMark","left":-1,"bottom":-1},
+                                    "nodeParent":17,
+                                    "label":"Image(selectedMark)",
+                                    "isOpen":true,
+                                    "isDirectory":false,
+                                    "isAniNode":false,
+                                    "hasChild":false,
+                                    "compId":13,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"Image",
+                                    "props":{"y":18,"x":10,"width":100,"name":"obstacleImage","height":60,"centerY":0,"centerX":0},
+                                    "nodeParent":17,
                                     "label":"Image(obstacleImage)",
                                     "isDirectory":false,
                                     "isAniNode":false,
