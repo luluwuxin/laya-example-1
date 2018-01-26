@@ -72,6 +72,7 @@ class Obstacle extends EventObject
         {
             this.route.points[index - 1]._refreshLinkLine();
         }
+        routePoint._refreshTimeOrSpeed();
     }
 
     removeRoutePoint (routePoint)
@@ -94,6 +95,10 @@ class Obstacle extends EventObject
         if (index > 0)
         {
             this.route.points[index - 1]._refreshLinkLine();
+        }
+        if (index < this.route.points.length)
+        {
+            this.route.points[index]._refreshTimeOrSpeed();
         }
     }
 

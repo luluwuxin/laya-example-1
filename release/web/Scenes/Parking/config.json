@@ -14,7 +14,7 @@
     {
         "car": {
             "relativeImagePath": "assets/obstacle/car.png",
-            "bpPath": "/Game/Blueprints/BP_ParkCar.BP_ParkCar"
+            "bpPath": "/Game/Vehicles/Vehicle003BP.Vehicle003BP"
         }
     }
 }
