@@ -24,6 +24,9 @@ function ScenarioUI(pageChooser, client)
       })
       .on("car_state", this, function () {
           this.refreshCarStateUI();
+      })
+      .on("scene_list", this, function () {
+          this.refreshSelectSceneUI();
       });
 }
 Laya.class(ScenarioUI, "ScenarioUI", ScenarioPageUI);
@@ -44,12 +47,34 @@ ScenarioUI.prototype.initBannerUI = function () {
     });
 };
 
-ScenarioUI.prototype.initSelectSceneUI = function () {
-    this.selectScenePanel.visible = false;
+ScenarioUI.prototype.refreshSelectSceneUI = function () {
+    var arr = [];
     var validScenesSet = new Set([
         "IndustrialCity",
         "Parking"
     ]);
+    var sceneList = this.client.scene.scene_list.data;
+    for (var scene of sceneList)
+    {
+        var sceneName = scene.scene;
+        var valid = validScenesSet.has(sceneName);
+        arr.push({
+            sceneName: sceneName,
+            label: {
+                text: sceneName + (valid ? "" : " (DISABLED)")
+            },
+            image: {
+                skin: scene.image,
+                gray: !valid
+            },
+            sceneValid: valid
+        });
+    }
+    this.selectSceneList.array = arr;
+}
+ScenarioUI.prototype.initSelectSceneUI = function () {
+    this.selectScenePanel.visible = false;
+    
     var cancelButton = this.selectScenePanel.getChildByName("cancelButton");
     cancelButton.on(Event.CLICK, this, function()
     {
@@ -62,32 +87,19 @@ ScenarioUI.prototype.initSelectSceneUI = function () {
             return;
         }
         // add scenario.
-        var sceneName = event.target.dataSource.scene;
-        if (!validScenesSet.has(sceneName))
+        var valid = event.target.dataSource.sceneValid;
+        if (!valid)
         {
             return;
         }
+        var sceneName = event.target.dataSource.sceneName;
         this.client.case.insertDefault(sceneName);
         this.client.storeCases();
         this.refreshScenarioListUI();
         this.selectScenePanel.visible = false;
-    });
 
-    this.selectSceneList.renderHandler = new Handler(this, function(obj, index)
-    {
-        var sceneName = obj.dataSource.scene;
-        if (validScenesSet.has(sceneName))
-        {
-            obj.label = obj.dataSource.scene;
-            obj.labelColors = "#ffffff";
-            obj.mouseEnabled = true;
-        }
-        else
-        {
-            obj.label = obj.dataSource.scene + " (DISABLED)";
-            obj.labelColors = "#888888";
-            obj.mouseEnabled = false;
-        }
+        // select the created case
+        this.m_uiScenarioList.selectedIndex = this.m_uiScenarioList.array.length - 1;
     });
 }
 
@@ -192,7 +204,6 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
     // Add scenario button.
     this.m_uiScenarioButton.on(Laya.Event.CLICK, this, function() {
-        this.selectSceneList.array = this.client.scene.scene_list.data;
         this.selectScenePanel.visible = true;
     });
 };

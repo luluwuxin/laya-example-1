@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":133,
-    "selecteID":134,
+    "selectedBox":135,
+    "selecteID":139,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -359,7 +359,7 @@
                                 {
                                     "x":60,
                                     "type":"Box",
-                                    "props":{"var":"selectScenePanel","right":5,"left":5,"height":200,"bottom":84},
+                                    "props":{"var":"selectScenePanel","top":0,"right":5,"left":5,"bottom":84},
                                     "nodeParent":16,
                                     "label":"Box(selectScenePanel)",
                                     "isOpen":true,
@@ -408,16 +408,42 @@
                                             "child":[
                                                 {
                                                     "x":90,
-                                                    "type":"Button",
-                                                    "props":{"skin":"custom/pixel_black.png","right":5,"name":"render","left":5,"labelSize":12,"labelColors":"#ffffff","label":"1","height":30},
+                                                    "type":"Box",
+                                                    "props":{"y":10,"x":10,"width":180,"name":"render","height":120,"centerX":0},
                                                     "nodeParent":135,
-                                                    "label":"Button(render)",
-                                                    "isDirectory":false,
+                                                    "label":"Box(render)",
+                                                    "isOpen":true,
+                                                    "isDirectory":true,
                                                     "isAniNode":false,
-                                                    "hasChild":false,
-                                                    "compId":136,
+                                                    "hasChild":true,
+                                                    "compId":139,
                                                     "child":[
-                                                        ]
+                                                        {
+                                                            "x":105,
+                                                            "type":"Image",
+                                                            "props":{"top":5,"skin":"custom/image_scene_IndustrialCity.png","right":5,"name":"image","left":5,"bottom":5},
+                                                            "nodeParent":139,
+                                                            "label":"Image(image)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":false,
+                                                            "hasChild":false,
+                                                            "compId":140,
+                                                            "child":[
+                                                                ]
+                                                        },
+                                                        {
+                                                            "x":105,
+                                                            "type":"Label",
+                                                            "props":{"valign":"middle","text":"Scene Name","right":5,"overflow":"hidden","name":"label","left":5,"height":20,"color":"#f0f0f0","bottom":5,"bgColor":"#000000","alpha":0.7,"align":"center"},
+                                                            "nodeParent":139,
+                                                            "label":"Label(label)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":false,
+                                                            "hasChild":false,
+                                                            "compId":141,
+                                                            "child":[
+                                                                ]
+                                                        }]
                                                 }]
                                         }]
                                 }]

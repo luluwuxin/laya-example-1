@@ -41,7 +41,7 @@
         {
             "x":15,
             "type":"Button",
-            "props":{"y":195,"x":395,"width":80,"var":"noButton","skin":"comp/button.png","right":5,"label":"No","height":30,"bottom":5,"anchorY":1,"anchorX":1},
+            "props":{"y":195,"x":395,"width":80,"var":"noButton","skin":"custom/pixel_black.png","right":5,"labelColors":"#ffffff","label":"No","height":30,"bottom":5,"anchorY":1,"anchorX":1},
             "nodeParent":1,
             "label":"Button(noButton)",
             "isDirectory":false,
@@ -54,7 +54,7 @@
         {
             "x":15,
             "type":"Button",
-            "props":{"width":80,"var":"yesButton","skin":"comp/button.png","right":100,"label":"Yes","height":30,"bottom":5,"anchorY":1,"anchorX":1},
+            "props":{"width":80,"var":"yesButton","skin":"custom/pixel_black.png","right":100,"labelColors":"#ffffff","label":"Yes","height":30,"bottom":5,"anchorY":1,"anchorX":1},
             "nodeParent":1,
             "label":"Button(yesButton)",
             "isDirectory":false,
