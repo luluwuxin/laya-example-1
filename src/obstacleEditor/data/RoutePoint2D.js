@@ -116,6 +116,12 @@ class RoutePoint2D extends EventObject
             return false;
         }
         var poseChanged = checkKey(["isReversing", "x", "y", "rotation"]);
+        var intervalInfoChanged = checkKey(["timestampInterval", "speed"]);
+        assert(!(poseChanged && intervalInfoChanged));
+        if (intervalInfoChanged)
+        {
+            this._refreshTimeOrSpeed(keys);
+        }
         if (poseChanged)
         {
             if (this.hasPrevRoutePoint())
@@ -123,12 +129,7 @@ class RoutePoint2D extends EventObject
                 this.prevRoutePoint()._refreshLinkLine();
             }
             this._refreshLinkLine();
-        }
-
-        var intervalInfoChanged = checkKey(["timestampInterval", "speed"]);
-        if (intervalInfoChanged)
-        {
-            this._refreshTimeOrSpeed(keys);
+            this._refreshTimeOrSpeed();
         }
     }
 
@@ -171,7 +172,6 @@ class RoutePoint2D extends EventObject
         {
             // refresh link line
             this.linkLineLength = _getBezierCurve.call(this).getLength();
-            this.nextRoutePoint()._refreshTimeOrSpeed();
         }
 
         this.sendEvent(RoutePointEvent.LINK_LINE_CHANGED);
@@ -202,14 +202,14 @@ class RoutePoint2D extends EventObject
         if (setSpeed)
         {
             this._setValueInternal("speed", prevLinkLineLength * 2 / this.timestampInterval - prevSpeed);
-            if (this.hasNextRoutePoint())
-            {
-                this.nextRoutePoint()._refreshTimeOrSpeed();
-            }
         }
         else
         {
             this._setValueInternal("timestampInterval", prevLinkLineLength * 2 / (prevSpeed + this.speed));
+        }
+        if (this.hasNextRoutePoint())
+        {
+            this.nextRoutePoint()._refreshTimeOrSpeed();
         }
     }
 
