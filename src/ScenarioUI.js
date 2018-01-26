@@ -134,7 +134,7 @@ ScenarioUI.prototype.initScenarioListUI = function () {
             this.pageChooser.sensorChart.show(true);
         });
 
-        editor.loadMapDataByMapName(currentCase.scene);
+        editor.loadMapData(currentCase.scene, currentCase.scene_config);
         editor.loadCaseData(currentCase.content);
     }
 

@@ -47,9 +47,9 @@ class ObstacleEditor extends EventObject
         });
     }
 
-    loadMapDataByMapName(mapName)
+    loadMapData(mapName, mapDataString)
     {
-        this._loadedDataManager.loadMapDataByMapName(mapName);
+        this._loadedDataManager.loadMapData(mapName, mapDataString);
     }
 
     loadCaseData(caseDataString)
