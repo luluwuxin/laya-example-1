@@ -7,7 +7,7 @@ class WebClientCase
         this.sceneConfigJsons = {};
     }
 
-    _getSceneConfig(sceneName)
+    _getSceneConfigString(sceneName)
     {
         if (!(sceneName in this.sceneConfigJsons))
         {
@@ -20,7 +20,7 @@ class WebClientCase
                 }
                 else
                 {
-                    this.sceneConfigJsons[sceneName] = JSON.parse(text);
+                    this.sceneConfigJsons[sceneName] = text;
                 }
             });
         }
@@ -122,13 +122,13 @@ class WebClientCase
         }
     }
 
-    insertDefault(sceneName = "ParkingLot")
+    insertDefault(sceneName)
     {
         var ret = {};
         ret.scene = sceneName;
         ret.name = this._createCaseName(sceneName);
         ret.content = '{"obstacles":[]}';
-        ret.scene_config = this._getSceneConfig(sceneName);
+        ret.scene_config = this._getSceneConfigString(sceneName);
         this.insert(ret);
     }
 

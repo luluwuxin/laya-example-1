@@ -46,8 +46,15 @@ ScenarioUI.prototype.initBannerUI = function () {
 
 ScenarioUI.prototype.initSelectSceneUI = function () {
     this.selectScenePanel.visible = false;
-    // TODO: read from server
-    this.selectSceneList.array = ["IndustrialCity", "ParkingLot"];
+    var validScenesSet = new Set([
+        "IndustrialCity",
+        "Parking"
+    ]);
+    var cancelButton = this.selectScenePanel.getChildByName("cancelButton");
+    cancelButton.on(Event.CLICK, this, function()
+    {
+        this.selectScenePanel.visible = false;
+    });
     this.selectSceneList.mouseHandler = new Handler(this, function(event)
     {
         if (event.type != Event.CLICK)
@@ -55,14 +62,34 @@ ScenarioUI.prototype.initSelectSceneUI = function () {
             return;
         }
         // add scenario.
-        var sceneName = event.target.dataSource;
+        var sceneName = event.target.dataSource.scene;
+        if (!validScenesSet.has(sceneName))
+        {
+            return;
+        }
         this.client.case.insertDefault(sceneName);
         this.client.storeCases();
         this.refreshScenarioListUI();
         this.selectScenePanel.visible = false;
     });
-}
 
+    this.selectSceneList.renderHandler = new Handler(this, function(obj, index)
+    {
+        var sceneName = obj.dataSource.scene;
+        if (validScenesSet.has(sceneName))
+        {
+            obj.label = obj.dataSource.scene;
+            obj.labelColors = "#ffffff";
+            obj.mouseEnabled = true;
+        }
+        else
+        {
+            obj.label = obj.dataSource.scene + " (DISABLED)";
+            obj.labelColors = "#888888";
+            obj.mouseEnabled = false;
+        }
+    });
+}
 
 // Init the scenario list UI.
 ScenarioUI.prototype.initScenarioListUI = function () {
@@ -165,6 +192,7 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
     // Add scenario button.
     this.m_uiScenarioButton.on(Laya.Event.CLICK, this, function() {
+        this.selectSceneList.array = this.client.scene.scene_list.data;
         this.selectScenePanel.visible = true;
     });
 };

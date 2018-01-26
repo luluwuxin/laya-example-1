@@ -25,7 +25,7 @@ function DebugPanelScript(dependences)
         {
             this.loadCaseInput.text = "E:/workspace/TestData/SceneMapData/IndustrialCity/cases/case.json";
         }
-        this._loadedDataManager.loadCaseData(this.loadCaseInput.text);
+        this._loadedDataManager.loadCaseByJsonObject(JSON.parse(this.loadCaseInput.text));
     }
 
     DebugPanelScript.super(this);

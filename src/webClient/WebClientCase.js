@@ -122,7 +122,7 @@ class WebClientCase
         }
     }
 
-    insertDefault(sceneName = "ParkingLot")
+    insertDefault(sceneName)
     {
         var ret = {};
         ret.scene = sceneName;
