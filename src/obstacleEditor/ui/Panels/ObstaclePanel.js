@@ -18,7 +18,7 @@ function ObstaclePanelScript(dependences)
         // Make it h/w ratio correctly.
         var height = image.source.sourceHeight;
         var width = image.source.sourceWidth;
-        var imageHeight = 80;
+        var imageHeight = 120;
         var imageWidth = 100;
         var targetHeight = 0;
         var targetWidth = 0;
@@ -58,6 +58,8 @@ function ObstaclePanelScript(dependences)
         {
             obstacleImage.once(Event.LOADED, this, onObstacleImageLoaded, [obstacleImage]);
             obstacleImage.skin = this._loadedDataManager.mapData.getObstacleImagePath(obstacle.type);
+            // xxx: Image (Only man005.png, it's very strange) won't send LOADED event, so invoke onObstacleImageLoaded manually.
+            onObstacleImageLoaded.call(this, obstacleImage);
         }
         obj.on(Event.CLICK, this, onObstacleButtonClick, [obstacle]);
         obj.on(Event.RIGHT_CLICK, this, onObstacleRemoveButtonClick, [obstacle]);

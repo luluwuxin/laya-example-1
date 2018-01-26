@@ -57,6 +57,6 @@ class MapData
 
     getObstacleImagePath(obstacleType)
     {
-        return this._getPath(this.getObstacleInfo(obstacleType).relativeImagePath);
+        return this.getObstacleInfo(obstacleType).imagePath;
     }
 }

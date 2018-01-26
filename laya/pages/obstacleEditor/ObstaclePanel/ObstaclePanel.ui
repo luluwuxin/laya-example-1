@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":10,
-    "selecteID":17,
+    "selecteID":12,
     "props":{"width":150,"top":0,"sceneWidth":600,"sceneHeight":400,"sceneColor":"#000000","right":0,"left":0,"height":770,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -27,7 +27,7 @@
                 {
                     "x":30,
                     "type":"Button",
-                    "props":{"y":8,"width":120,"var":"obstacleButton","strokeColors":"#ff0000,#ff0000,#ff0000,#ff0000","skin":"custom/bg_main.png","sizeGrid":"2,2,2,2","pivotY":0,"pivotX":0,"name":"render","height":96,"centerX":-2},
+                    "props":{"y":8,"width":120,"var":"obstacleButton","strokeColors":"#ff0000,#ff0000,#ff0000,#ff0000","skin":"custom/bg_main.png","sizeGrid":"2,2,2,2","pivotY":0,"pivotX":0,"name":"render","height":160,"centerX":-2},
                     "nodeParent":3,
                     "label":"Button(obstacleButton)",
                     "isOpen":true,
@@ -39,7 +39,7 @@
                         {
                             "x":45,
                             "type":"Box",
-                            "props":{"top":0,"right":0,"name":"obstacleImageBox","left":0,"bottom":20},
+                            "props":{"top":0,"right":0,"name":"obstacleImageBox","left":0,"bottom":30},
                             "nodeParent":10,
                             "label":"Box(obstacleImageBox)",
                             "isOpen":true,
@@ -65,7 +65,7 @@
                                 {
                                     "x":60,
                                     "type":"Image",
-                                    "props":{"y":18,"x":10,"width":100,"name":"obstacleImage","height":60,"centerY":0,"centerX":0},
+                                    "props":{"x":10,"width":100,"skin":"Scenes/ObstacleImages/man005.png","name":"obstacleImage","height":120,"centerY":0,"centerX":0},
                                     "nodeParent":17,
                                     "label":"Image(obstacleImage)",
                                     "isDirectory":false,
@@ -74,12 +74,13 @@
                                     "compId":16,
                                     "child":[
                                         ]
-                                }]
+                                }],
+                            "$HIDDEN":true
                         },
                         {
                             "x":45,
                             "type":"Label",
-                            "props":{"text":"label","right":0,"name":"nameLabel","left":0,"height":18,"color":"#ffffff","bottom":0,"align":"center"},
+                            "props":{"text":"label","right":0,"name":"nameLabel","left":0,"height":18,"color":"#ffffff","bottom":6,"align":"center"},
                             "nodeParent":10,
                             "label":"Label(nameLabel)",
                             "isDirectory":false,
@@ -88,7 +89,8 @@
                             "compId":12,
                             "child":[
                                 ]
-                        }]
+                        }],
+                    "$HIDDEN":true
                 }]
         },
         {

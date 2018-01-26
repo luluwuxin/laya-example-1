@@ -31,8 +31,7 @@ var Handler = laya.utils.Handler;
     Laya.loader.load([
         "res/atlas/comp.atlas",
         "res/atlas/custom.atlas",
-        "res/atlas/Scenes/IndustrialCity/assets/obstacle.atlas",
-        "res/atlas/Scenes/Parking/assets/obstacle.atlas",
+        "res/atlas/Scenes/ObstacleImages.atlas",
     ], Handler.create(this, onAssetLoaded), null, Laya.Loader.ATLAS);
 
     function onAssetLoaded()

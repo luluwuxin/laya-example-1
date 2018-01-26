@@ -1,7 +1,7 @@
 {
     "mapInfo":
     {
-        "relativeImagePath": "assets/map/map.png",
+        "relativeImagePath": "map.png",
         "height": 1705,
         "width": 5117,
         "minX": -6720,
@@ -12,9 +12,58 @@
     },
     "obstacleInfo":
     {
-        "car": {
-            "relativeImagePath": "assets/obstacle/car.png",
+        "jeep": {
+            "imagePath": "Scenes/ObstacleImages/car002.png",
+            "bpPath": "/Game/Vehicles/Vehicle002BP.Vehicle002BP"
+        },
+        "car0": {
+            "imagePath": "Scenes/ObstacleImages/car009.png",
+            "bpPath": "/Game/Vehicles/Vehicle009BP.Vehicle009BP"
+        },
+        "car1": {
+            "imagePath": "Scenes/ObstacleImages/car003.png",
             "bpPath": "/Game/Vehicles/Vehicle003BP.Vehicle003BP"
+        },
+        "van0": {
+            "imagePath": "Scenes/ObstacleImages/car004.png",
+            "bpPath": "/Game/Vehicles/Vehicle004BP.Vehicle004BP"
+        },
+        "van1": {
+            "imagePath": "Scenes/ObstacleImages/car005.png",
+            "bpPath": "/Game/Vehicles/Vehicle005BP.Vehicle005BP"
+        },
+        "van2": {
+            "imagePath": "Scenes/ObstacleImages/car006.png",
+            "bpPath": "/Game/Vehicles/Vehicle006BP.Vehicle006BP"
+        },
+        "truck": {
+            "imagePath": "Scenes/ObstacleImages/car007.png",
+            "bpPath": "/Game/Vehicles/Vehicle007BP.Vehicle007BP"
+        },
+        "beatles": {
+            "imagePath": "Scenes/ObstacleImages/car008.png",
+            "bpPath": "/Game/Vehicles/Vehicle008BP.Vehicle008BP"
+        },
+        
+        "woman0": {
+            "imagePath": "Scenes/ObstacleImages/man001.png",
+            "bpPath": "/Game/AI/Walker/BP_Walker_01.BP_Walker_01"
+        },
+        "woman1": {
+            "imagePath": "Scenes/ObstacleImages/man002.png",
+            "bpPath": "/Game/AI/Walker/BP_Walker_02.BP_Walker_02"
+        },
+        "woman2": {
+            "imagePath": "Scenes/ObstacleImages/man003.png",
+            "bpPath": "/Game/AI/Walker/BP_Walker_03.BP_Walker_03"
+        },
+        "man0": {
+            "imagePath": "Scenes/ObstacleImages/man004.png",
+            "bpPath": "/Game/AI/Walker/BP_Walker_04.BP_Walker_04"
+        },
+        "man1": {
+            "imagePath": "Scenes/ObstacleImages/man005.png",
+            "bpPath": "/Game/AI/Walker/BP_Walker_05.BP_Walker_05"
         }
     }
 }
