@@ -226,19 +226,21 @@ var WebClient = (function (window, Laya, logger) {
         this.socket.send(JSON.stringify(this.scene.weather_info));
         this.socket.send(JSON.stringify(this.scene.traffic_info));
         this.socket.send(JSON.stringify(this.car.car_config));
-        var selectedCase = this.case.getSelectedCase();
-        if (selectedCase != null)
-        {
-            var case_info = Object.assign({method: "case_info"}, selectedCase);
-            this.socket.send(JSON.stringify(case_info));
-        }
         this.socket.send(JSON.stringify({
             method: "ready",
         }));
     };
 
     // Start the case
-    WebClient.prototype.sendCase = function () {
+    WebClient.prototype.sendCase = function (info) {
+        var data = Object.assign({
+            method: "case_info",
+        }, info);
+
+        logger.info("WebSocket send: ");
+        logger.info(data);
+
+        this.socket.send(JSON.stringify(data));
     };
 
     // Hard-code stuff

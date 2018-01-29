@@ -14,6 +14,9 @@ function ScenarioUI(pageChooser, client)
     // Pages for switching
     this.pageChooser = pageChooser;
 
+    // Modal
+    this.modalBlocker = new ModalBlocker(this);
+
     // Model and WebSocket backend
     this.client = client
       .on("case_list", this, function () {
@@ -27,6 +30,9 @@ function ScenarioUI(pageChooser, client)
       })
       .on("scene_list", this, function () {
           this.refreshSelectSceneUI();
+      })
+      .on("loading", this, function () {
+          this.modalBlocker.resume();
       });
 }
 Laya.class(ScenarioUI, "ScenarioUI", ScenarioPageUI);
@@ -235,6 +241,21 @@ ScenarioUI.prototype.initSensorControlUI = function () {
 // Init the Drive Control UI
 ScenarioUI.prototype.initDriveControlUI = function () {
     this.m_uiDriveButton.on(Laya.Event.CLICK, this, function () {
+        // Get the current selected case in the scenario list.
+        var selectedCase = this.client.case.getSelectedCase();
+        if (!selectedCase) {
+            return;
+        }
+
+        // Change the current scene to match the case.
+        if (this.client.data.scene_info.scene !== selectedCase.scene) {
+            this.client.data.scene_info.scene = selectedCase.scene;
+        }
+        this.client.send("scene_info");
+        this.modalBlocker.block();
+
+        // Send the case info.
+        this.client.sendCase(selectedCase);
         this.client.startDrive();
     });
 };

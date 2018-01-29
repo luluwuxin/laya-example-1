@@ -18,6 +18,9 @@ function DrivingUI(pageChooser, client)
     // Pages for switching
     this.pageChooser = pageChooser;
 
+    // Modal
+    this.modalBlocker = new ModalBlocker(this);
+
     // Model and WebSocket backend
     this.client = client
       .on("scene_list", this, function () {
@@ -38,6 +41,9 @@ function DrivingUI(pageChooser, client)
       })
       .on("car_state", this, function () {
           this.refreshCarStateUI();
+      })
+      .on("loading", this, function () {
+          this.modalBlocker.resume();
       });
 }
 Laya.class(DrivingUI, "DrivingUI", DrivingPageUI);
@@ -72,6 +78,7 @@ DrivingUI.prototype.initSceneListUI = function () {
             }
             this.client.data.scene_info.scene = label.text;
             this.client.send("scene_info");
+            this.modalBlocker.block();
         });
     });
 };
