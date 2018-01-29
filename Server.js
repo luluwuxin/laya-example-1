@@ -47,7 +47,7 @@ function LogicServer()
     {
 		if(socket.auth)
 		{
-			console.log("xxxxxxxxxxxx !!!!!!!!!!!!!!!-----------!!!!!!!!!!!!!");
+			// console.log("xxxxxxxxxxxx !!!!!!!!!!!!!!!-----------!!!!!!!!!!!!!");
 			var client = socket.client;
 			return client;
 		}
@@ -306,6 +306,8 @@ function LogicServer()
 
 			case "loading":
 			{
+				this.send2web(pack);//
+				
 				this.send2ue4(this.WeatherInfo);
 				this.send2ue4(this.TrafficInfo);
 				this.send2ue4(this.CarConfig);
