@@ -87,10 +87,6 @@ var WebClient = (function (window, Laya, logger) {
         // Update the model
         switch (json.method) {
 
-        case "weather_info":
-            this.scene.weather_info = Object.assign(this.scene.weather_info || {}, json);
-            break;
-
         case "traffic_info":
             this.scene.traffic_info = Object.assign(this.scene.traffic_info || {}, json);
             break;
@@ -223,7 +219,6 @@ var WebClient = (function (window, Laya, logger) {
     // Start Driving
     WebClient.prototype.startDrive = function () {
         // Push the data to the node backend.
-        this.socket.send(JSON.stringify(this.scene.weather_info));
         this.socket.send(JSON.stringify(this.scene.traffic_info));
         this.socket.send(JSON.stringify(this.car.car_config));
         this.socket.send(JSON.stringify({

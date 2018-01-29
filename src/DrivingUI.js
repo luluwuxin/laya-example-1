@@ -120,39 +120,42 @@ DrivingUI.prototype.initWeatherUI = function () {
         // Input: UI -> Model
         var data = parseFloat(e.text);
         if (isFinite(data)) {
-            this.client.scene.weather_info.temperature = data;
+            this.client.data.weather_info.temperature = data;
         }
     });
     this.m_uiWeather_temperature.on(Laya.Event.BLUR, this, function (e) {
         // Blur: Model -> UI
-        this.client.fire("weather_info");
+        this.client.send("weather_info");
     });
 
     this.m_uiWeather_timeOfDay.on(Laya.Event.INPUT, this, function (e) {
         // Input: UI -> Model
         var data = parseFloat(e.text);
         if (isFinite(data)) {
-            this.client.scene.weather_info.time_of_day = data;
+            this.client.data.weather_info.time_of_day = data;
         }
     });
     this.m_uiWeather_timeOfDay.on(Laya.Event.BLUR, this, function (e) {
         // Blur: Model -> UI
-        this.client.fire("weather_info");
+        this.client.send("weather_info");
     });
 
     this.m_uiWeather_rainType.on(Laya.Event.CHANGE, this, function (e) {
         // Change: UI -> Model
-        this.client.scene.weather_info.rain_type = e.target.selectedIndex > 0;
+        this.client.data.weather_info.rain_type = e.target.selectedIndex > 0;
+        this.client.send("weather_info");
     });
 
     this.m_uiWeather_snowType.on(Laya.Event.CHANGE, this, function (e) {
         // Change: UI -> Model
-        this.client.scene.weather_info.snow_type = e.target.selectedIndex > 0;
+        this.client.data.weather_info.snow_type = e.target.selectedIndex > 0;
+        this.client.send("weather_info");
     });
 
     this.m_uiWeather_fogType.on(Laya.Event.CHANGE, this, function (e) {
         // Change: UI -> Model
-        this.client.scene.weather_info.fog_type = e.target.selectedIndex > 0;
+        this.client.data.weather_info.fog_type = e.target.selectedIndex > 0;
+        this.client.send("weather_info");
     });
 };
 
@@ -292,11 +295,11 @@ DrivingUI.prototype.refreshPathUI = function () {
 
 // Refresh the weather UI.
 DrivingUI.prototype.refreshWeatherUI = function () {
-    this.m_uiWeather_temperature.text = "" + this.client.scene.weather_info.temperature;
-    this.m_uiWeather_timeOfDay.text = "" + this.client.scene.weather_info.time_of_day;
-    this.m_uiWeather_rainType.selectedIndex = this.client.scene.weather_info.rain_type ? 1 : 0;
-    this.m_uiWeather_snowType.selectedIndex = this.client.scene.weather_info.snow_type ? 1 : 0;
-    this.m_uiWeather_fogType.selectedIndex = this.client.scene.weather_info.fog_type ? 1 : 0;
+    this.m_uiWeather_temperature.text = "" + this.client.data.weather_info.temperature;
+    this.m_uiWeather_timeOfDay.text = "" + this.client.data.weather_info.time_of_day;
+    this.m_uiWeather_rainType.selectedIndex = this.client.data.weather_info.rain_type ? 1 : 0;
+    this.m_uiWeather_snowType.selectedIndex = this.client.data.weather_info.snow_type ? 1 : 0;
+    this.m_uiWeather_fogType.selectedIndex = this.client.data.weather_info.fog_type ? 1 : 0;
 };
 
 // Refresh the traffic UI.
