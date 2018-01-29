@@ -249,7 +249,7 @@ DrivingUI.prototype.refreshSceneListUI = function () {
     var data = [];
     var current = this.client.data.scene_info ? this.client.data.scene_info.scene : "";
 
-    this.client.scene.scene_list.data.forEach(function (v) {
+    this.client.data.scene_list.data.forEach(function (v) {
         data.push({
             label: {
                 text: v.scene,

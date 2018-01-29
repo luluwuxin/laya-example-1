@@ -87,10 +87,6 @@ var WebClient = (function (window, Laya, logger) {
         // Update the model
         switch (json.method) {
 
-        case "scene_list":
-            this.scene.scene_list = Object.assign(this.scene.scene_list || {}, json);
-            break;
-
         case "weather_info":
             this.scene.weather_info = Object.assign(this.scene.weather_info || {}, json);
             break;

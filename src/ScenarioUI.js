@@ -53,7 +53,7 @@ ScenarioUI.prototype.refreshSelectSceneUI = function () {
         "IndustrialCity",
         "Parking"
     ]);
-    var sceneList = this.client.scene.scene_list.data;
+    var sceneList = this.client.data.scene_list.data;
     for (var scene of sceneList)
     {
         var sceneName = scene.scene;
