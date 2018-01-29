@@ -163,56 +163,53 @@ DrivingUI.prototype.initWeatherUI = function () {
 DrivingUI.prototype.initTrafficUI = function () {
     this.m_uiTraffic_carDensity_slider.on(Laya.Event.CHANGED, this, function () {
         // Changed: UI -> Model
-        this.client.scene.traffic_info.car_density = this.m_uiTraffic_carDensity_slider.value;
-        // Changed: Model -> UI
-        this.client.fire("traffic_info");
+        this.client.data.traffic_info.car_density = this.m_uiTraffic_carDensity_slider.value;
+        this.client.send("traffic_info");
     });
     this.m_uiTraffic_carDensity_input.on(Laya.Event.INPUT, this, function (e) {
         // Input: UI -> Model
         var data = parseFloat(e.text);
         if (isFinite(data)) {
-            this.client.scene.traffic_info.car_density = data;
+            this.client.data.traffic_info.car_density = data;
         }
     });
     this.m_uiTraffic_carDensity_input.on(Laya.Event.BLUR, this, function (e) {
         // Blur: Model -> UI
-        this.client.fire("traffic_info");
+        this.client.send("traffic_info");
     });
 
     this.m_uiTraffic_carIrregularity_slider.on(Laya.Event.CHANGED, this, function () {
         // Changed: UI -> Model
-        this.client.scene.traffic_info.car_irregularity = this.m_uiTraffic_carIrregularity_slider.value;
-        // Changed: Model -> UI
-        this.client.fire("traffic_info");
+        this.client.data.traffic_info.car_irregularity = this.m_uiTraffic_carIrregularity_slider.value;
+        this.client.send("traffic_info");
     });
     this.m_uiTraffic_carIrregularity_input.on(Laya.Event.INPUT, this, function (e) {
         // Input: UI -> Model
         var data = parseFloat(e.text);
         if (isFinite(data)) {
-            this.client.scene.traffic_info.car_irregularity = data;
+            this.client.data.traffic_info.car_irregularity = data;
         }
     });
     this.m_uiTraffic_carIrregularity_input.on(Laya.Event.BLUR, this, function (e) {
         // Blur: Model -> UI
-        this.client.fire("traffic_info");
+        this.client.send("traffic_info");
     });
 
     this.m_uiTraffic_pedestrainDensity_slider.on(Laya.Event.CHANGED, this, function () {
         // Changed: UI -> Model
-        this.client.scene.traffic_info.pedestrain_density = this.m_uiTraffic_pedestrainDensity_slider.value;
-        // Changed: Model -> UI
-        this.client.fire("traffic_info");
+        this.client.data.traffic_info.pedestrain_density = this.m_uiTraffic_pedestrainDensity_slider.value;
+        this.client.send("traffic_info");
     });
     this.m_uiTraffic_pedestrainDensity_input.on(Laya.Event.INPUT, this, function (e) {
         // Input: UI -> Model
         var data = parseFloat(e.text);
         if (isFinite(data)) {
-            this.client.scene.traffic_info.pedestrain_density = data;
+            this.client.data.traffic_info.pedestrain_density = data;
         }
     });
     this.m_uiTraffic_pedestrainDensity_input.on(Laya.Event.BLUR, this, function (e) {
         // Blur: Model -> UI
-        this.client.fire("traffic_info");
+        this.client.send("traffic_info");
     });
 };
 
@@ -304,12 +301,12 @@ DrivingUI.prototype.refreshWeatherUI = function () {
 
 // Refresh the traffic UI.
 DrivingUI.prototype.refreshTrafficUI = function () {
-    this.m_uiTraffic_carDensity_slider.value = this.client.scene.traffic_info.car_density;
-    this.m_uiTraffic_carDensity_input.text = "" + this.client.scene.traffic_info.car_density;
-    this.m_uiTraffic_carIrregularity_slider.value = this.client.scene.traffic_info.car_irregularity;
-    this.m_uiTraffic_carIrregularity_input.text = "" + this.client.scene.traffic_info.car_irregularity;
-    this.m_uiTraffic_pedestrainDensity_slider.value = this.client.scene.traffic_info.pedestrain_density
-    this.m_uiTraffic_pedestrainDensity_input.text = "" + this.client.scene.traffic_info.pedestrain_density;
+    this.m_uiTraffic_carDensity_slider.value = this.client.data.traffic_info.car_density;
+    this.m_uiTraffic_carDensity_input.text = "" + this.client.data.traffic_info.car_density;
+    this.m_uiTraffic_carIrregularity_slider.value = this.client.data.traffic_info.car_irregularity;
+    this.m_uiTraffic_carIrregularity_input.text = "" + this.client.data.traffic_info.car_irregularity;
+    this.m_uiTraffic_pedestrainDensity_slider.value = this.client.data.traffic_info.pedestrain_density
+    this.m_uiTraffic_pedestrainDensity_input.text = "" + this.client.data.traffic_info.pedestrain_density;
 };
 
 // Refresh the sensor control UI.

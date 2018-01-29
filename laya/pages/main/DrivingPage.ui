@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":123,
-    "selecteID":253,
+    "selectedBox":227,
+    "selecteID":77,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -371,7 +371,7 @@
                                         {
                                             "x":75,
                                             "type":"Tab",
-                                            "props":{"var":"m_uiSettingTab","top":0,"skin":"custom/tab.png","selectedIndex":0,"right":0,"left":2,"labels":"Path,Weather,Traffic","labelColors":"#606060,#f0f0f0,#f0f0f0,#606060","height":21,"direction":"horizontal"},
+                                            "props":{"var":"m_uiSettingTab","top":0,"skin":"custom/tab.png","selectedIndex":0,"right":0,"left":2,"labels":"Path,Weather","labelColors":"#606060,#f0f0f0,#f0f0f0,#606060","height":21,"direction":"horizontal"},
                                             "nodeParent":227,
                                             "label":"Tab(m_uiSettingTab)",
                                             "isDirectory":false,

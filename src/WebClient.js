@@ -6,7 +6,6 @@ var WebClient = (function (window, Laya, logger) {
         this.data      = {};
         this.car_list  = this.getMockCarList();
         this.car       = JSON.parse(JSON.stringify(this.car_list[0]));
-        this.scene     = {};
         this.ros       = this.getMockRosInfo();
         this.case      = new WebClientCase();
         this.callbacks = {};
@@ -86,10 +85,6 @@ var WebClient = (function (window, Laya, logger) {
 
         // Update the model
         switch (json.method) {
-
-        case "traffic_info":
-            this.scene.traffic_info = Object.assign(this.scene.traffic_info || {}, json);
-            break;
 
         case "car_config":
             this.car.car_config = Object.assign(this.car.car_config || {}, json);
@@ -219,7 +214,6 @@ var WebClient = (function (window, Laya, logger) {
     // Start Driving
     WebClient.prototype.startDrive = function () {
         // Push the data to the node backend.
-        this.socket.send(JSON.stringify(this.scene.traffic_info));
         this.socket.send(JSON.stringify(this.car.car_config));
         this.socket.send(JSON.stringify({
             method: "ready",
