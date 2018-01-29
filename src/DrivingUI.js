@@ -24,6 +24,7 @@ function DrivingUI(pageChooser, client)
           this.refreshSceneListUI();
       })
       .on("scene_info", this, function () {
+          this.refreshSceneListUI();
           this.refreshPathUI();
       })
       .on("weather_info", this, function () {
@@ -59,12 +60,19 @@ DrivingUI.prototype.initBannerUI = function () {
 
 // Init the scene list UI.
 DrivingUI.prototype.initSceneListUI = function () {
-    // Mouse events.
-    this.m_uiSceneList.mouseHandler = new Handler(this, function (e, i) {
-        if (e.type === Laya.Event.CLICK) {
-            // Choose the selected i-th scene.
-            this.client.scene.scene_info.scene = this.client.scene.scene_list.data[i].scene;
-        }
+    // For each list item, ..
+    this.m_uiSceneList.on(Laya.Event.RENDER, this, function (e) {
+        var image = e.getChildByName("image");
+        var label = e.getChildByName("label");
+
+        // Choose this specific scene from the scene list.
+        image.on(Laya.Event.DOUBLE_CLICK, this, function (ee) {
+            if (this.client.data.scene_info.scene === label.text) {
+                return;
+            }
+            this.client.data.scene_info.scene = label.text;
+            this.client.send("scene_info");
+        });
     });
 };
 
@@ -239,6 +247,7 @@ DrivingUI.prototype.initDriveControlUI = function () {
 // Refresh the scene list UI.
 DrivingUI.prototype.refreshSceneListUI = function () {
     var data = [];
+    var current = this.client.data.scene_info ? this.client.data.scene_info.scene : "";
 
     this.client.scene.scene_list.data.forEach(function (v) {
         data.push({
@@ -247,6 +256,9 @@ DrivingUI.prototype.refreshSceneListUI = function () {
             },
             image: {
                 skin: v.image,
+            },
+            highlight: {
+                visible: v.scene === current,
             },
         });
     });

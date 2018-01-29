@@ -9,4 +9,5 @@
    <item name="custom/bg_tabitem.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=20,20,20,20" picType="1" scale="0"/>
    <item name="custom/combobox.png" type="ComboBox" compress="0" pack="0" quality="80" props="@@!@@" picType="0" scale="0"/>
    <item name="custom/hslider2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,10,0,10" picType="0" scale="0"/>
+   <item name="custom/frame_orange.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=3,3,3,3" picType="0" scale="0"/>
 </res>

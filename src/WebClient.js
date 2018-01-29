@@ -3,6 +3,7 @@
 var WebClient = (function (window, Laya, logger) {
 
     function WebClient() {
+        this.data      = {};
         this.car_list  = this.getMockCarList();
         this.car       = JSON.parse(JSON.stringify(this.car_list[0]));
         this.scene     = {};
@@ -90,10 +91,6 @@ var WebClient = (function (window, Laya, logger) {
             this.scene.scene_list = Object.assign(this.scene.scene_list || {}, json);
             break;
 
-        case "scene_info":
-            this.scene.scene_info = Object.assign(this.scene.scene_info || {}, json);
-            break;
-
         case "weather_info":
             this.scene.weather_info = Object.assign(this.scene.weather_info || {}, json);
             break;
@@ -117,10 +114,28 @@ var WebClient = (function (window, Laya, logger) {
         case "case_list":
             this.case.init(json);
             break;
+
+        default:
+            this.data[json.method] = JSON.parse(JSON.stringify(json));
+            break;
         }
 
         // Fire callbacks to refresh the webpage
         this.fire(json.method);
+    };
+
+    // Send the JSON message to backend.
+    WebClient.prototype.send = function (method) {
+        // Send to backend
+        logger.info("WebSocket send: ");
+        logger.info(this.data[method]);
+        this.socket.send(JSON.stringify(this.data[method]));
+
+        // Refresh in case that backend doesn't push it back.
+        var self = this;
+        setTimeout(function() {
+            self.fire(method);
+        }, 1);
     };
 
     // Add a callback to the client based on method.
@@ -212,7 +227,6 @@ var WebClient = (function (window, Laya, logger) {
     // Start Driving
     WebClient.prototype.startDrive = function () {
         // Push the data to the node backend.
-        this.socket.send(JSON.stringify(this.scene.scene_info));
         this.socket.send(JSON.stringify(this.scene.weather_info));
         this.socket.send(JSON.stringify(this.scene.traffic_info));
         this.socket.send(JSON.stringify(this.car.car_config));
