@@ -67,9 +67,7 @@ function LogicServer()
     }
 
     this.addClient = function(type, socket)
-    {
-		socket.client.type = type;
-		
+    {		
 		if(socket.auth)
 		{
 			// console.log("xxxxxxxxxxxx !!!!!!!!!!!!!!!-----------!!!!!!!!!!!!!");
@@ -80,6 +78,7 @@ function LogicServer()
 		socket.auth=true;
         var cid = this.genCid();
         var client = cli.create(type, cid, socket);
+		client.type = type;
 		
 		console.log("$$$$$$$$$ cid:"+cid);
         this.clients[cid]= client;
@@ -218,8 +217,7 @@ function LogicServer()
 	////////////////////////////////////////////////////////////////////
 	this.procAuth = function(socket, pack)
 	{
-		var type = pack.type;
-        var client = this.addClient(type, socket);
+		var client = this.addClient(pack.type, socket);
 		// console.log('receivedAuth: %s:%s', client.getInfo(), JSON.stringify(pack));
 
 		console.log("============>auth %d | %s | %s", client.cid, client.remoteAddress, JSON.stringify(pack));
@@ -304,7 +302,7 @@ function LogicServer()
 			case "ros_info":
 			{
 				this.RosInfo = pack;
-				if(client.type==0)
+				if(client.type == 0)
 				{
 
 					if(this.cli_ue4!=null)
@@ -349,7 +347,7 @@ function LogicServer()
 			case "car_state":
 			{
 				this.CarState = pack;
-				if(client.type==0)
+				if(client.type == 0)
 					this.send2ue4(this.CarState);
 				else if(client == this.cli_ue4)
 					this.send2web(this.CarState);
@@ -361,7 +359,7 @@ function LogicServer()
 				this.CaseList = pack;
 				FileHelper.saveJSONToFile("config/CaseList", pack);
 				
-				if(client.type==0)
+				if(client.type == 0)
 					this.send2ue4(pack);
 				else if(client == this.cli_ue4)
 					this.send2web(pack);
@@ -371,7 +369,7 @@ function LogicServer()
 			{
 				this.CaseInfo = pack;
 				
-				if(client.type==0)
+				if(client.type == 0)
 					this.send2ue4(pack);
 				else if(client == this.cli_ue4)
 					this.send2web(pack);
@@ -381,7 +379,7 @@ function LogicServer()
 			
 			case "sumo_info"://"sumo_ready":
 			{
-				if(client.type==0)
+				if(client.type == 0)
 					this.send2ue4(pack);
 				else if(client == this.cli_ue4)
 					this.send2web(pack);
@@ -392,7 +390,7 @@ function LogicServer()
 			{
 				if(client == this.cli_ros)
 					this.send2web(pack);
-				else if(client.type==0)
+				else if(client.type == 0)
 					this.send2ros(pack);
 				break;
 			}
