@@ -131,7 +131,7 @@ function load(logic)
 	// 0:PointCloud 1:Image 2:IMU 3:GPS
 	logic.RosInfo = {
 		method:"ros_info",
-		start:false,
+		status:0, //0:stop 1:stop 2:pause
 		config:[
 			{sid:1, type:0, name:"raw_point", running:true},
 			{sid:2, type:1, name:"raw_image", running:true},

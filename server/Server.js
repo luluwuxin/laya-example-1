@@ -312,14 +312,12 @@ function LogicServer()
 					else if(pack.start)
 					{
 						pack.ip = "";
-						pack.status = 1;
 					}
 					
 					this.send2ros(pack);
 				}
 				else if(client == this.cli_ros)
 				{
-					this.RosInfo.status=1;
 					this.send2web(pack);
 				}
 				break;
