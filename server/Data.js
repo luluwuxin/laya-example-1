@@ -142,11 +142,11 @@ function load(logic)
 	};
 
 	//load
-	logic.SceneInfo=FileHelper.loadStringFromFile("config/SceneInfo");
-	logic.WeatherInfo = FileHelper.loadStringFromFile("config/WeatherInfo");
-	logic.TrafficInfo= FileHelper.loadStringFromFile("config/TrafficInfo");
-	logic.CarConfig = FileHelper.loadStringFromFile("config/CarConfig");
-	logic.CaseList = FileHelper.loadStringFromFile("config/CaseList");
+	logic.SceneInfo=FileHelper.loadJSONFromFile("config/SceneInfo");
+	logic.WeatherInfo = FileHelper.loadJSONFromFile("config/WeatherInfo");
+	logic.TrafficInfo= FileHelper.loadJSONFromFile("config/TrafficInfo");
+	logic.CarConfig = FileHelper.loadJSONFromFile("config/CarConfig");
+	logic.CaseList = FileHelper.loadJSONFromFile("config/CaseList");
 
 }
 
