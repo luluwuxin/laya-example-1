@@ -374,7 +374,7 @@ function LogicServer()
 			}
 
 			
-			case "ue4_start_sumo"://"sumo_ready":
+			case "sumo_info"://"sumo_ready":
 			{
 				if(client == this.cli_web)
 					this.send2ue4(pack);

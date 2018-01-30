@@ -140,6 +140,11 @@ function load(logic)
 			{sid:4, type:4, name:"raw_drive", running:true}
 		]
 	};
+	
+	logic.SumoInfo = {
+		method: "sudomo_info",
+		status:0 //0:stop 1:stop 2:pause
+	}
 
 	//load
 	logic.SceneInfo=FileHelper.loadJSONFromFile("config/SceneInfo");
