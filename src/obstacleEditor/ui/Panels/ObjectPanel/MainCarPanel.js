@@ -34,4 +34,4 @@ function MainCarPanelScript(dependences)
     //#endregion constructor
 }
 
-Laya.class(MainCarPanelScript, "MainCarPanelUI", MainCarPanelUI);
+Laya.class(MainCarPanelScript, "MainCarPanelScript", MainCarPanelUI);

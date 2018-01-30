@@ -122,4 +122,4 @@ function ObstacleEditorMainPanelScript(dependences)
     this.redoButton.on(Event.CLICK, this, onRedoButtonClick);
 }
 
-Laya.class(ObstacleEditorMainPanelScript, "ObstacleEditorMainPanelUI", ObstacleEditorMainPanelUI);
+Laya.class(ObstacleEditorMainPanelScript, "ObstacleEditorMainPanelScript", ObstacleEditorMainPanelUI);

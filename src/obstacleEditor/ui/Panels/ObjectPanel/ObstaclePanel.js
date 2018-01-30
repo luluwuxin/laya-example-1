@@ -159,4 +159,4 @@ function ObstaclePanelScript(dependences)
     //#endregion constructor
 }
 
-Laya.class(ObstaclePanelScript, "ObstaclePanelUI", ObstaclePanelUI);
+Laya.class(ObstaclePanelScript, "ObstaclePanelScript", ObstaclePanelUI);

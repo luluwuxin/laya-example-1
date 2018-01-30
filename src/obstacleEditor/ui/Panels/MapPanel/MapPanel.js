@@ -356,4 +356,4 @@ function MapPanelScript(dependences)
     ObjectHelper.swallowScrollMouseDown(this.mainContainer.vScrollBar);
     // do nothing, because map data hasn't been loaded.
 }
-Laya.class(MapPanelScript, "MapPanelUI", MapPanelUI);
+Laya.class(MapPanelScript, "MapPanelScript", MapPanelUI);

@@ -251,4 +251,4 @@ function ObstacleInfoPanelScript(dependences)
     this.changeObstacle(this._user.getSelectedObstacle(), null);
     //#endregion constructor
 }
-Laya.class(ObstacleInfoPanelScript, "ObstacleInfoPanelUI", ObstacleInfoPanelUI);
+Laya.class(ObstacleInfoPanelScript, "ObstacleInfoPanelScript", ObstacleInfoPanelUI);
