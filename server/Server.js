@@ -346,7 +346,9 @@ function LogicServer()
 					this.send2web(pack);
 				break;
 			}
-			case "sumo_ready":
+
+			
+			case "ue4_start_sumo"://"sumo_ready":
 			{
 				if(client == this.cli_web)
 					this.send2ue4(pack);
@@ -355,17 +357,34 @@ function LogicServer()
 				break;
 			}
 			
-			case "ready":
+			case "ros_start"://"ready":
 			{
-				this.send2ros(pack);
+				if(client == this.cli_ros)
+					this.send2web(pack);
+				else if(client == this.cli_web)
+					this.send2ros(pack);
 				break;
 			}
 
-			case "run":
+			case "ros_stop":
+			{
+				if(client == this.cli_ros)
+					this.send2web(pack);
+				else if(client == this.cli_web)
+					this.send2ros(pack);
+				break;
+			}
+
+			case "get":
 			{
 				break;
 			}
 
+			case "set":
+			{
+				break;
+			}
+			
 			case "ping":
 			{
 				break;
@@ -374,7 +393,6 @@ function LogicServer()
             default:
             {
                 console.log("|||||||||||||||unknow pack:%s", pack.method);
-                // client.send(pack); 
                 break;
             }
         }

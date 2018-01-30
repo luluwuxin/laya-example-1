@@ -21,24 +21,25 @@
 //Code:
 var fs = require('fs');
 
-function FileHelper
+// function FileHelper
+// {
+function loadStringFromFile(filename)
 {
-	function loadFileToString(filename)
-	{
-		if(fs.statSync(filename).isFile())
-			return fs.readFileSync(filename).toString();
-		return "";
-	}
-
-	function saveStringToFile(str, filename)
-	{
-		fs.open(filename,"w",0644,function(e,fd){
-			if(e) throw e;
-			fs.write(fd,str,function(e){
-				if(e) throw e;
-				fs.closeSync(fd);
-			})
-		});
-	}
+	// if(fs.statSync(filename).isFile())
+	return fs.readFileSync(filename, 'utf-8');
+	// return "";
 }
-exports.FileHelper = FileHelper;
+
+function saveStringToFile(str, filename)
+{
+	fs.open(filename,"w",0644,function(e,fd){
+		if(e) throw e;
+		fs.write(fd,str,function(e){
+			if(e) throw e;
+			fs.closeSync(fd);
+		})
+	});
+}
+// }
+exports.loadStringFromFile = loadStringFromFile;
+exports.saveStringToFile = saveStringToFile;

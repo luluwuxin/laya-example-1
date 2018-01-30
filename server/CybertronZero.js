@@ -28,13 +28,15 @@
 // var app = express();
 
 // app.use(express.static("release/layaweb/v1.0.0")).listen(8080);
-
-const LogicServer = require("./Server.js").LogicServer;
-const utils = require("./Utils.js");
-const express = require('express');
-const http = require('http');
 const url = require('url');
+const http = require('http');
 const WebSocket = require('ws');
+const express = require('express');
+
+const utils = require("./Utils.js");
+const FileHelper = require("./Helper.js");
+const LogicServer = require("./Server.js").LogicServer;
+
 
 const app = express();
 // app.use(function (req, res) {
@@ -58,7 +60,7 @@ wss.on('connection', function(socket, req) {
 		req.connection.socket.remoteAddress;
 
 	socket.remoteAddress = remoteAddress.split(":")[3];
-	// socket.guid = 
+
     // You might use location.query.access_token to authenticate or share sessions
     // or req.headers.cookie (see http://stackoverflow.com/a/16395220/151312)
     socket.on('close', function(code, reason) {
@@ -73,28 +75,28 @@ wss.on('connection', function(socket, req) {
     });
 
     socket.on('message', function(msg) {
-        // try{
-		var pack = JSON.parse(msg);
-		if(logic.isAuth(socket)==false)
+        try{
+			var pack = JSON.parse(msg);
+			if(logic.isAuth(socket)==false)
+			{
+				if(pack.method=="auth")
+				{
+					logic.procAuth(socket, pack);
+				}
+				else
+				{
+					console.log("%s !!unauth!! message:%s", socket.remoteAddress, msg);
+					socket.send(msg);
+				}
+			}
+			else{
+				logic.procMessage(socket, pack);	
+			}
+			
+		}catch(err)
 		{
-			if(pack.method=="auth")
-			{
-				logic.procAuth(socket, pack);
-			}
-			else
-			{
-				console.log("%s !!unauth!! message:%s", socket.remoteAddress, msg);
-				socket.send(msg);
-			}
+			console.log("%s error:%s", socket.remoteAddress, err);
 		}
-		else{
-			logic.procMessage(socket, pack);	
-		}
-		
-		// }catch(err)
-		// {
-		// console.log("%s error:%s", socket.remoteAddress, err);
-		// }
         
     });
     
@@ -102,6 +104,10 @@ wss.on('connection', function(socket, req) {
     // var welcome = JSON.stringify({method:"hello", msg:"unauth!"});
     // socket.send(welcome);
 });
+
+FileHelper.saveStringToFile("123", "db/heihei");
+var sss = FileHelper.loadStringFromFile("db/heihei");
+console.log(sss);
 
 server.listen(8081, function listening() {
     console.log('Listening on %d', server.address().port);
