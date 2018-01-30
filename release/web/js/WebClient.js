@@ -188,18 +188,19 @@ var WebClient = (function (window, Laya, logger) {
         this.sendJson(ros_info);
     };
 
-    // Start Sim
-    WebClient.prototype.startSim = function () {
+    // Stop, Start or Pause Sumo
+    WebClient.prototype.sendSumoInfo = function (status) {
         this.sendJson({
-            method: "sumo_ready",
+            method: "sumo_info",
+            status: status,
         });
     };
 
-    // Start Driving
-    WebClient.prototype.startDrive = function () {
-        // Push the data to the node backend.
+    // Stop, Start or Pause Driving
+    WebClient.prototype.sendDriveInfo = function (status) {
         this.sendJson({
-            method: "ready",
+            method: "drive_info",
+            status: status,
         });
     };
 

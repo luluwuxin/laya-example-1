@@ -39,4 +39,4 @@ function DebugPanelScript(dependences)
     // onLoadMapButtonClick.call(this);
     // onLoadCaseButtonClick.call(this);
 }
-Laya.class(DebugPanelScript, "DebugPanelUI", DebugPanelUI);
+Laya.class(DebugPanelScript, "DebugPanelScript", DebugPanelUI);

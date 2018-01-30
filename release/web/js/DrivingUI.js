@@ -12,14 +12,30 @@ function DrivingUI(pageChooser, client)
     this.initWeatherUI();
     this.initTrafficUI();
     this.initSensorControlUI();
-    this.initSimControlUI();
-    this.initDriveControlUI();
 
     // Pages for switching
     this.pageChooser = pageChooser;
 
     // Modal
     this.modalBlocker = new ModalBlocker(this);
+
+    // Sumo Control
+    this.sumoControl = new SumoControl(client, {
+        m_uiSumoButton1: this.m_uiSumoButton1,
+        m_uiSumoButton2: this.m_uiSumoButton2,
+        m_uiSumoButton3: this.m_uiSumoButton3,
+    });
+
+    // Driving Control
+    this.drivingControl = new DrivingControl(client, {
+        m_uiDriveButton1: this.m_uiDriveButton1,
+        m_uiDriveButton2: this.m_uiDriveButton2,
+        m_uiDriveButton3: this.m_uiDriveButton3,
+        m_uiDrive_speed: this.m_uiDrive_speed,
+        m_uiDrive_accer: this.m_uiDrive_accer,
+        m_uiDrive_steerSlider: this.m_uiDrive_steerSlider,
+        m_uiDrive_steerImage: this.m_uiDrive_steerImage,
+    });
 
     // Model and WebSocket backend
     this.client = client
@@ -38,9 +54,6 @@ function DrivingUI(pageChooser, client)
       })
       .on("ros_info", this, function () {
           this.refreshSensorControlUI();
-      })
-      .on("car_state", this, function () {
-          this.refreshCarStateUI();
       })
       .on("loading", this, function () {
           this.modalBlocker.resume();
@@ -145,20 +158,29 @@ DrivingUI.prototype.initWeatherUI = function () {
 
     // Rain
     this.m_uiWeather_rainType.on(Laya.Event.CHANGE, this, function (e) {
-        this.client.data.weather_info.rain_type = e.target.selectedIndex > 0;
-        this.client.send("weather_info");
+        var data = e.target.selectedIndex > 0;
+        if (this.client.data.weather_info.rain_type !== data) {
+            this.client.data.weather_info.rain_type = data;
+            this.client.send("weather_info");
+        }
     });
 
     // Snow
     this.m_uiWeather_snowType.on(Laya.Event.CHANGE, this, function (e) {
-        this.client.data.weather_info.snow_type = e.target.selectedIndex > 0;
-        this.client.send("weather_info");
+        var data = e.target.selectedIndex > 0;
+        if (this.client.data.weather_info.snow_type !== data) {
+            this.client.data.weather_info.snow_type = data;
+            this.client.send("weather_info");
+        }
     });
 
     // Fog
     this.m_uiWeather_fogType.on(Laya.Event.CHANGE, this, function (e) {
-        this.client.data.weather_info.fog_type = e.target.selectedIndex > 0;
-        this.client.send("weather_info");
+        var data = e.target.selectedIndex > 0;
+        if (this.client.data.weather_info.fog_type !== data) {
+            this.client.data.weather_info.fog_type = data;
+            this.client.send("weather_info");
+        }
     });
 };
 
@@ -241,20 +263,6 @@ DrivingUI.prototype.initSensorControlUI = function () {
     this.m_uiSensorList.array = [];
 };
 
-// Init the Sim Control UI
-DrivingUI.prototype.initSimControlUI = function () {
-    this.m_uiSimButton.on(Laya.Event.CLICK, this, function () {
-        this.client.startSim();
-    });
-};
-
-// Init the Drive Control UI
-DrivingUI.prototype.initDriveControlUI = function () {
-    this.m_uiDriveButton.on(Laya.Event.CLICK, this, function () {
-        this.client.startDrive();
-    });
-};
-
 // Refresh the scene list UI.
 DrivingUI.prototype.refreshSceneListUI = function () {
     var data = [];
@@ -333,17 +341,4 @@ DrivingUI.prototype.refreshSensorControlUI = function () {
         });
     });
     this.m_uiSensorList.array = data;
-};
-
-// Refresh the car state UI.
-DrivingUI.prototype.refreshCarStateUI = function () {
-    // No data ?
-    if (!this.client.data.car_state) {
-        return;
-    }
-
-    this.m_uiDrive_speed.text = this.client.data.car_state.speed.toFixed(3);
-    this.m_uiDrive_accer.text = this.client.data.car_state.accer.toFixed(3);
-    this.m_uiDrive_steerSlider.value = this.client.data.car_state.steer;
-    this.m_uiDrive_steerImage.rotation = this.client.data.car_state.steer * 90;
 };

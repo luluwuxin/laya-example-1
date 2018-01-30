@@ -15,13 +15,17 @@ function ModalBlocker(parent) {
 Laya.class(ModalBlocker, "ModalBlocker", Laya.EventDispatcher);
 
 ModalBlocker.prototype.block = function () {
+    /* Redesign ?
     if (++this.modalCounter > 0) {
         this.m_uiModal.visible = true;
     }
+    */
 };
 
 ModalBlocker.prototype.resume = function () {
+    /* Redesign ?
     if (this.modalCounter === 0 || --this.modalCounter === 0) {
         this.m_uiModal.visible = false;
     }
+    */
 };

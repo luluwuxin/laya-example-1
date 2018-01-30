@@ -8,10 +8,10 @@ class ObstacleManager extends EventObject
     constructor() {
         super();
 
+        this._mainCar = new MainCar();
         this._obstacles = [];
     }
 
-    
     _createObstacleName()
     {
         var indexes = new Set();
@@ -36,6 +36,11 @@ class ObstacleManager extends EventObject
             }
             return "obstacle-" + i;
         }
+    }
+
+    getMainCar()
+    {
+        return this._mainCar;
     }
 
     getObstacles()
@@ -104,6 +109,9 @@ class ObstacleManager extends EventObject
         {
             obstaclesJsonObj.push(obstacle.toJson());
         }
-        return {"obstacles": obstaclesJsonObj};
+        return {
+            "obstacles": obstaclesJsonObj
+            // TODO, "mainCar": this._mainCar.toJson()
+        };
     }
 }
