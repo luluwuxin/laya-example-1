@@ -255,7 +255,7 @@ function LogicServer()
 			case "scene_info":
 			{
 				this.SceneInfo = pack;
-				FileHelper.saveJSONToFile("SceneInfo", pack);
+				FileHelper.saveJSONToFile("config/SceneInfo", pack);
 				this.send2ue4(pack);
 				break;
 			}
@@ -263,7 +263,7 @@ function LogicServer()
 			case "weather_info":
 			{
 				this.WeatherInfo = pack;
-								FileHelper.saveJSONToFile("WeatherInfo", pack);
+								FileHelper.saveJSONToFile("config/WeatherInfo", pack);
 				this.send2ue4(pack);
 				break;
 			}
@@ -271,7 +271,7 @@ function LogicServer()
 			case "traffic_info":
 			{
 				this.TrafficInfo = pack;
-				FileHelper.saveJSONToFile("TrafficInfo", pack);
+				FileHelper.saveJSONToFile("config/TrafficInfo", pack);
 				this.send2ue4(pack);
 				break;
 			}
@@ -305,7 +305,7 @@ function LogicServer()
 			case "car_config":
 			{
 				this.CarConfig = pack;
-				FileHelper.saveJSONToFile("CarConfig", pack);
+				FileHelper.saveJSONToFile("config/CarConfig", pack);
 				this.send2ue4(pack);
 				break;
 			}
