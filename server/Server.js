@@ -231,7 +231,7 @@ function LogicServer()
 			this.send2web(this.TrafficInfo);
 			this.send2web(this.CarConfig);
 			this.send2web(this.RosInfo);
-			this.send2web(this.CaseListInfo);
+			this.send2web(this.CaseList);
 			// this.send2web(this.CaseInfo);
 			break;
 
@@ -338,7 +338,7 @@ function LogicServer()
 				this.send2ue4(this.WeatherInfo);
 				this.send2ue4(this.TrafficInfo);
 				this.send2ue4(this.CarConfig);
-				this.send2ue4(this.CaseListInfo);
+				this.send2ue4(this.CaseList);
 				// this.send2ue4(this.CaseInfo);
 				break;
 			}
@@ -355,7 +355,7 @@ function LogicServer()
 
 			case "case_list":
 			{
-				this.CaseListInfo = pack;
+				this.CaseList = pack;
 				
 				if(client == this.cli_web)
 					this.send2ue4(pack);

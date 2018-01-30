@@ -116,7 +116,7 @@ function load(logic)
 		]
 		};
 
-		logic.CaseListInfo = {
+		logic.CaseList = {
 		method:"case_list",
 		list:[
 		]
@@ -126,7 +126,7 @@ function load(logic)
 		FileHelper.saveJSONToFile("config/WeatherInfo", logic.WeatherInfo);
 		FileHelper.saveJSONToFile("config/TrafficInfo", logic.TrafficInfo);
 		FileHelper.saveJSONToFile("config/CarConfig", logic.CarConfig);
-		FileHelper.saveJSONToFile("config/CaseList", logic.CaseListInfo);
+		FileHelper.saveJSONToFile("config/CaseList", logic.CaseList);
 	*/
 
 
@@ -146,7 +146,7 @@ function load(logic)
 	logic.WeatherInfo = FileHelper.loadStringFromFile("config/WeatherInfo");
 	logic.TrafficInfo= FileHelper.loadStringFromFile("config/TrafficInfo");
 	logic.CarConfig = FileHelper.loadStringFromFile("config/CarConfig");
-	logic.CaseListInfo = FileHelper.loadStringFromFile("config/CaseList");
+	logic.CaseList = FileHelper.loadStringFromFile("config/CaseList");
 
 }
 
