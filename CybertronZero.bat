@@ -1,1 +1,2 @@
-node ./server/CybertronZero.js
+cd server
+node ./CybertronZero.js
