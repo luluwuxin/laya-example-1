@@ -55,10 +55,15 @@ function load(logic)
 			{sid:1, type:0, name:"raw_point", running:true},
 			{sid:2, type:1, name:"raw_image", running:true},
 			{sid:3, type:2, name:"raw_gps", running:true},
-			{sid:4, type:3, name:"raw_imu", running:true},
-			{sid:4, type:4, name:"raw_drive", running:true}
+			{sid:4, type:3, name:"raw_imu", running:true}
+			// {sid:4, type:4, name:"raw_drive", running:true}
 		]
 	};
+
+	logic.DriveInfo = {
+		method:"drive_info",
+		status:0// 0:stop,1:run,2:pause
+	}
 
 	// 0:摄像头 1:激光雷达 2:毫米波雷达
 	//roll:单位degree,范围 0~360

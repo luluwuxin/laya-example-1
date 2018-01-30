@@ -359,25 +359,7 @@ function LogicServer()
 				break;
 			}
 			
-			case "ros_start"://"ready":
-			{
-				if(client == this.cli_ros)
-					this.send2web(pack);
-				else if(client == this.cli_web)
-					this.send2ros(pack);
-				break;
-			}
-
-			case "ros_stop":
-			{
-				if(client == this.cli_ros)
-					this.send2web(pack);
-				else if(client == this.cli_web)
-					this.send2ros(pack);
-				break;
-			}
-
-			case "ros_pause":
+			case "drive_info"://"ready":
 			{
 				if(client == this.cli_ros)
 					this.send2web(pack);
