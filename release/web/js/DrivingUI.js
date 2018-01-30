@@ -5,19 +5,34 @@ function DrivingUI(pageChooser, client)
     DrivingUI.super(this);
 
     // Initialize UI elements
-    this.initBannerUI();
     this.initSceneListUI();
     this.initSettingTabUI();
     this.initPathUI();
     this.initWeatherUI();
     this.initTrafficUI();
-    this.initSensorControlUI();
 
     // Pages for switching
     this.pageChooser = pageChooser;
 
     // Modal
     this.modalBlocker = new ModalBlocker(this);
+
+    // Banner Control
+    this.bannerControl = new BannerControl(pageChooser, {
+        m_uiBanner_logo: this.m_uiBanner_logo,
+        m_uiBanner_home: this.m_uiBanner_home,
+        m_uiBanner_setup: this.m_uiBanner_setup,
+        m_uiBanner_scene: this.m_uiBanner_scene,
+        m_uiBanner_scenario: this.m_uiBanner_scenario,
+    });
+
+    // Sensor Control
+    this.sensorControl = new SensorControl(pageChooser, client, {
+        m_uiSensorButton1: this.m_uiSensorButton1,
+        m_uiSensorButton2: this.m_uiSensorButton2,
+        m_uiSensorButton3: this.m_uiSensorButton3,
+        m_uiSensorList: this.m_uiSensorList,
+    });
 
     // Sumo Control
     this.sumoControl = new SumoControl(client, {
@@ -52,30 +67,11 @@ function DrivingUI(pageChooser, client)
       .on("traffic_info", this, function () {
           this.refreshTrafficUI();
       })
-      .on("ros_info", this, function () {
-          this.refreshSensorControlUI();
-      })
       .on("loading", this, function () {
           this.modalBlocker.resume();
       });
 }
 Laya.class(DrivingUI, "DrivingUI", DrivingPageUI);
-
-// Init the banner UI.
-DrivingUI.prototype.initBannerUI = function () {
-    this.m_uiBanner_home.on(Laya.Event.CLICK, this, function () {
-        this.pageChooser.goTo("mainUI");
-    });
-    this.m_uiBanner_setup.on(Laya.Event.CLICK, this, function () {
-        this.pageChooser.goTo("setupUI");
-    });
-    this.m_uiBanner_scene.on(Laya.Event.CLICK, this, function () {
-        this.pageChooser.goTo("drivingUI");
-    });
-    this.m_uiBanner_scenario.on(Laya.Event.CLICK, this, function () {
-        this.pageChooser.goTo("scenarioUI");
-    });
-};
 
 // Init the scene list UI.
 DrivingUI.prototype.initSceneListUI = function () {
@@ -238,31 +234,6 @@ DrivingUI.prototype.initTrafficUI = function () {
     });
 };
 
-// Init the Sensor Control UI
-DrivingUI.prototype.initSensorControlUI = function () {
-    this.m_uiSensorButton.on(Laya.Event.CLICK, this, function () {
-        this.client.startRos();
-        this.pageChooser.sensorChart.feedRandomData();
-    });
-
-    this.m_uiSensorList.on(Laya.Event.RENDER, this, function (e) {
-        var checkbox = e.getChildByName("checkbox");
-        var label    = e.getChildByName("label");
-        
-        checkbox.offAll(Laya.Event.CLICK);
-        checkbox.on(Laya.Event.CLICK, this, function (ee) {
-            this.client.data.ros_info.config.forEach(function (v) {
-                if (v.name === label.text) {
-                    v.running = checkbox.selected;
-                }
-            });
-        });
-    });
-
-    // No data
-    this.m_uiSensorList.array = [];
-};
-
 // Refresh the scene list UI.
 DrivingUI.prototype.refreshSceneListUI = function () {
     var data = [];
@@ -319,26 +290,4 @@ DrivingUI.prototype.refreshTrafficUI = function () {
     this.m_uiTraffic_carIrregularity_input.text = "" + this.client.data.traffic_info.car_irregularity;
     this.m_uiTraffic_pedestrainDensity_slider.value = this.client.data.traffic_info.pedestrain_density
     this.m_uiTraffic_pedestrainDensity_input.text = "" + this.client.data.traffic_info.pedestrain_density;
-};
-
-// Refresh the sensor control UI.
-DrivingUI.prototype.refreshSensorControlUI = function () {
-    // No data ?
-    if (!this.client.data.ros_info) {
-        this.m_uiSensorList.array = [];
-    }
-
-    var data = [];
-    this.client.data.ros_info.config.forEach(function (v) {
-        if (v.name === "raw_drive" || v.name === "AirSimDriver") return;
-        data.push({
-            checkbox: {
-                selected: v.running,
-            },
-            label: {
-                text: v.name,
-            },
-        });
-    });
-    this.m_uiSensorList.array = data;
 };

@@ -5,16 +5,31 @@ function ScenarioUI(pageChooser, client)
     ScenarioUI.super(this);
 
     // Initialize UI elements
-    this.initBannerUI();
     this.initSelectSceneUI();
     this.initScenarioListUI();
-    this.initSensorControlUI();
 
     // Pages for switching
     this.pageChooser = pageChooser;
 
     // Modal
     this.modalBlocker = new ModalBlocker(this);
+
+    // Banner Control
+    this.bannerControl = new BannerControl(pageChooser, {
+        m_uiBanner_logo: this.m_uiBanner_logo,
+        m_uiBanner_home: this.m_uiBanner_home,
+        m_uiBanner_setup: this.m_uiBanner_setup,
+        m_uiBanner_scene: this.m_uiBanner_scene,
+        m_uiBanner_scenario: this.m_uiBanner_scenario,
+    });
+
+    // Sensor Control
+    this.sensorControl = new SensorControl(pageChooser, client, {
+        m_uiSensorButton1: this.m_uiSensorButton1,
+        m_uiSensorButton2: this.m_uiSensorButton2,
+        m_uiSensorButton3: this.m_uiSensorButton3,
+        m_uiSensorList: this.m_uiSensorList,
+    });
 
     // Driving Control
     this.drivingControl = new DrivingControl(client, {
@@ -33,9 +48,6 @@ function ScenarioUI(pageChooser, client)
       .on("case_list", this, function () {
           this.refreshScenarioListUI();
       })
-      .on("ros_info", this, function () {
-          this.refreshSensorControlUI();
-      })
       .on("scene_list", this, function () {
           this.refreshSelectSceneUI();
       })
@@ -44,22 +56,6 @@ function ScenarioUI(pageChooser, client)
       });
 }
 Laya.class(ScenarioUI, "ScenarioUI", ScenarioPageUI);
-
-// Init the banner UI.
-ScenarioUI.prototype.initBannerUI = function () {
-    this.m_uiBanner_home.on(Laya.Event.CLICK, this, function () {
-        this.pageChooser.goTo("mainUI");
-    });
-    this.m_uiBanner_setup.on(Laya.Event.CLICK, this, function () {
-        this.pageChooser.goTo("setupUI");
-    });
-    this.m_uiBanner_scene.on(Laya.Event.CLICK, this, function () {
-        this.pageChooser.goTo("drivingUI");
-    });
-    this.m_uiBanner_scenario.on(Laya.Event.CLICK, this, function () {
-        this.pageChooser.goTo("scenarioUI");
-    });
-};
 
 ScenarioUI.prototype.refreshSelectSceneUI = function () {
     var arr = [];
@@ -222,31 +218,6 @@ ScenarioUI.prototype.initScenarioListUI = function () {
     });
 };
 
-// Init the Sensor Control UI
-ScenarioUI.prototype.initSensorControlUI = function () {
-    this.m_uiSensorButton.on(Laya.Event.CLICK, this, function () {
-        this.client.startRos();
-        this.pageChooser.sensorChart.feedRandomData();
-    });
-
-    this.m_uiSensorList.on(Laya.Event.RENDER, this, function (e) {
-        var checkbox = e.getChildByName("checkbox");
-        var label    = e.getChildByName("label");
-        
-        checkbox.offAll(Laya.Event.CLICK);
-        checkbox.on(Laya.Event.CLICK, this, function (ee) {
-            this.client.data.ros_info.config.forEach(function (v) {
-                if (v.name === label.text) {
-                    v.running = checkbox.selected;
-                }
-            });
-        });
-    });
-
-    // No data
-    this.m_uiSensorList.array = [];
-};
-
 // Init the Drive Control UI
 ScenarioUI.prototype.initDrivingControlUI = function () {
     this.drivingControl.on(DrivingControl.BEFORE_START, this, function () {
@@ -279,26 +250,4 @@ ScenarioUI.prototype.refreshScenarioListUI = function () {
         });
     });
     this.m_uiScenarioList.array = data;
-};
-
-// Refresh the sensor control UI.
-ScenarioUI.prototype.refreshSensorControlUI = function () {
-    // No data ?
-    if (!this.client.data.ros_info) {
-        this.m_uiSensorList.array = [];
-    }
-
-    var data = [];
-    this.client.data.ros_info.config.forEach(function (v) {
-        if (v.name === "raw_drive" || v.name === "AirSimDriver") return;
-        data.push({
-            checkbox: {
-                selected: v.running,
-            },
-            label: {
-                text: v.name,
-            },
-        });
-    });
-    this.m_uiSensorList.array = data;
 };

@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":25,
-    "selecteID":26,
+    "selectedBox":87,
+    "selecteID":145,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -557,15 +557,43 @@
                                                         {
                                                             "x":105,
                                                             "type":"Button",
-                                                            "props":{"var":"m_uiSensorButton","top":50,"skin":"custom/button_start.png","left":50},
+                                                            "props":{"visible":true,"var":"m_uiSensorButton2","top":50,"skin":"custom/button_start.png","left":50},
                                                             "nodeParent":87,
-                                                            "label":"Button(m_uiSensorButton)",
+                                                            "label":"Button(m_uiSensorButton2)",
                                                             "isDirectory":false,
                                                             "isAniNode":true,
                                                             "hasChild":false,
                                                             "compId":92,
                                                             "child":[
                                                                 ]
+                                                        },
+                                                        {
+                                                            "x":105,
+                                                            "type":"Button",
+                                                            "props":{"visible":false,"var":"m_uiSensorButton3","top":50,"skin":"custom/button_pause.png","left":50},
+                                                            "nodeParent":87,
+                                                            "label":"Button(m_uiSensorButton3)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":145,
+                                                            "child":[
+                                                                ],
+                                                            "$HIDDEN":true
+                                                        },
+                                                        {
+                                                            "x":105,
+                                                            "type":"Button",
+                                                            "props":{"visible":false,"var":"m_uiSensorButton1","top":50,"skin":"custom/button_stop.png","left":100},
+                                                            "nodeParent":87,
+                                                            "label":"Button(m_uiSensorButton1)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":144,
+                                                            "child":[
+                                                                ],
+                                                            "$HIDDEN":true
                                                         },
                                                         {
                                                             "x":105,
