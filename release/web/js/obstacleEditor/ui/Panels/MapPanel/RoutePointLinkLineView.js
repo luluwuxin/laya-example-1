@@ -9,7 +9,7 @@ class RoutePointLinkLineView
 
         routePoint.registerEvent(RoutePointEvent.LINK_LINE_CHANGED, this, this.onLinkLineChanged);
 
-        this.refreshLine();
+        this.refreshLine(routePoint.bezierCurve);
     }
 
     destroy()
@@ -18,44 +18,29 @@ class RoutePointLinkLineView
         this._sprite = null;
     }
 
-    refreshLine ()
+    refreshLine (bezierCurve)
     {
         this._sprite.graphics.clear();
 
-        var point = this._routePoint;
-        if (point.index == point.obstacle.getRoutePointCount() - 1)
+        if (bezierCurve == null)
         {
             return;
         }
-        var nextPoint = point.obstacle.getRoutePoint(point.index + 1);
-        var p0 = {x: point.x, y: point.y};
-        var p3 = {x: nextPoint.x, y: nextPoint.y};
         
-        var p12 = RoutePoint2D.getBezierControlPoint(point, nextPoint);
-        var p1 = p12[0];
-        var p2 = p12[1];
-        // Laya can only draw second-order curve, but the data is for third-order.
-        // So use two 2nd-order curves to express a 3rd-order curve.
-        // WARNING: The curve drawed by this method is a bit different from the really curve!! 
-        var pMid = {x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2};
+        var mapData = this._loadedDataManager.mapData;
 
-        var curve = (function(mapData, ...ps)
+        var drawCount = 20;
+        var points = [];
+        for (var i = 0; i <= drawCount; i++)
         {
-            var ret = [];
-            for (var p of ps)
-            {
-                var uiP = mapData.mapToUIPosition(p);
-                ret.push(uiP.x);
-                ret.push(uiP.y);
-            }
-            return ret;
-        })(this._loadedDataManager.mapData, p0, p1, pMid, p2, p3);
-
-        this._sprite.graphics.drawCurves(0, 0, curve, "#000000", 3);
+            var p = mapData.mapToUIPosition(bezierCurve.getPointInfo(i / drawCount));
+            points.push(p.x, p.y);
+        }
+        this._sprite.graphics.drawLines(0, 0, points, "#000000", 2);
     }
 
-    onLinkLineChanged()
+    onLinkLineChanged(sender, bezierCurve)
     {
-        this.refreshLine();
+        this.refreshLine(bezierCurve);
     }
 }

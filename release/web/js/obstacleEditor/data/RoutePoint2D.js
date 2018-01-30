@@ -149,7 +149,7 @@ class RoutePoint2D extends EventObject
             {
                 dir = {x: -dir.x, y: -dir.y};
             }
-            return new Vec3(point.x + dir.x * dirDis, point.y + dir.y * dirDis);
+            return new Vec2(point.x + dir.x * dirDis, point.y + dir.y * dirDis);
         }
         var dis = Math.sqrt((pointS.x - pointE.x) ** 2 + (pointS.y - pointE.y) ** 2);
         var dirDis = Math.min(500, dis / 2.5);
@@ -163,18 +163,24 @@ class RoutePoint2D extends EventObject
         function _getBezierCurve()
         {
             var nextPoint = this.nextRoutePoint();
-            var p0 = new Vec3(this.x, this.y);
-            var p3 = new Vec3(nextPoint.x, nextPoint.y);
+            var p0 = new Vec2(this.x, this.y);
+            var p3 = new Vec2(nextPoint.x, nextPoint.y);
             var p12 = RoutePoint2D.getBezierControlPoint(this, nextPoint);
             return new CubicBezierCurve(p0, p12[0], p12[1], p3);
         }
         if (this.hasNextRoutePoint())
         {
             // refresh link line
-            this.linkLineLength = _getBezierCurve.call(this).getLength();
+            this.bezierCurve = _getBezierCurve.call(this);
+            this.linkLineLength = this.bezierCurve.getLength();
         }
+        else
+        {
+            this.bezierCurve = null;
+            this.linkLineLength = 0;
+        }
+        this.sendEvent(RoutePointEvent.LINK_LINE_CHANGED, this.bezierCurve);
 
-        this.sendEvent(RoutePointEvent.LINK_LINE_CHANGED);
     }
 
     _refreshTimeOrSpeed (keys = null)
