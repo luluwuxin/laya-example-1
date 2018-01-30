@@ -1,21 +1,18 @@
-"use strict";
-
-function ObjectHelper()
+class ObjectHelper
 {
-}
-
-ObjectHelper.swallowMouseDown = function (obj)
-{
-    obj.on(Event.MOUSE_DOWN, null, function(event)
+    static swallowMouseDown(obj)
     {
-        event.stopPropagation();
-    });
-};
+        obj.on(Event.MOUSE_DOWN, null, function(event)
+        {
+            event.stopPropagation();
+        });
+    }
 
-ObjectHelper.swallowScrollMouseDown = function (obj)
-{
-    ObjectHelper.swallowMouseDown(obj.upButton);
-    ObjectHelper.swallowMouseDown(obj.downButton);
-    ObjectHelper.swallowMouseDown(obj.slider);
-    ObjectHelper.swallowMouseDown(obj.slider.bar);
-};
+    static swallowScrollMouseDown(obj)
+    {
+        ObjectHelper.swallowMouseDown(obj.upButton);
+        ObjectHelper.swallowMouseDown(obj.downButton);
+        ObjectHelper.swallowMouseDown(obj.slider);
+        ObjectHelper.swallowMouseDown(obj.slider.bar);
+    }
+}

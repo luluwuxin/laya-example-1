@@ -1,33 +1,29 @@
-"use strict";
-
-function FileHelper()
+class FileHelper
 {
-}
-
-FileHelper.readFile = function (filePath, caller, method)
-{
-    var rawFile = new XMLHttpRequest();
-    rawFile.open("GET", filePath, false);
-    rawFile.onreadystatechange = function ()
+    static readFile(filePath, caller, method)
     {
-        if(rawFile.readyState === 4)
+        var rawFile = new XMLHttpRequest();
+        rawFile.open("GET", filePath, false);
+        rawFile.onreadystatechange = function ()
         {
-            if(rawFile.status === 200 || rawFile.status == 0)
+            if(rawFile.readyState === 4)
             {
-                var allText = rawFile.responseText;
-                method.call(caller, allText);
+                if(rawFile.status === 200 || rawFile.status == 0)
+                {
+                    var allText = rawFile.responseText;
+                    method.call(caller, allText);
+                }
             }
         }
+        rawFile.send(null);
     }
-    rawFile.send(null);
-};
 
-FileHelper.createAndDownloadFile = function (fileName, content)
-{
-    var aTag = document.createElement('a');
-    var blob = new Blob([content]);
-    aTag.download = fileName;
-    aTag.href = URL.createObjectURL(blob);
-    aTag.click();
-    URL.revokeObjectURL(blob);
-};
+    static createAndDownloadFile(fileName, content) {
+        var aTag = document.createElement('a');
+        var blob = new Blob([content]);
+        aTag.download = fileName;
+        aTag.href = URL.createObjectURL(blob);
+        aTag.click();
+        URL.revokeObjectURL(blob);
+    }
+}

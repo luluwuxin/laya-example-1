@@ -1,15 +1,12 @@
-"use strict";
-
-function AssetsPath()
+class AssetsPath
 {
+    static getMapConfigFilePath(mapName)
+    {
+        return AssetsPath.getMapDirectory(mapName) + "/" + "config.json";
+    }
+
+    static getMapDirectory(mapName)
+    {
+        return "Scenes" + "/" + mapName;
+    }
 }
-
-AssetsPath.getMapConfigFilePath = function (mapName)
-{
-    return AssetsPath.getMapDirectory(mapName) + "/" + "config.json";
-};
-
-AssetsPath.getMapDirectory = function (mapName)
-{
-    return "Scenes" + "/" + mapName;
-};

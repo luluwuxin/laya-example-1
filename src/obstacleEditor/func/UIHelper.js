@@ -1,19 +1,16 @@
-"use strict";
-
-function UIHelper()
+class UIHelper
 {
-}
-
-UIHelper.setComboLabels = function (comboBox, enumList)
-{
-    var typeListString = "";
-    for (var key in enumList)
+    static setComboLabels(comboBox, enumList)
     {
-        if (typeListString != "")
+        var typeListString = "";
+        for (var key in enumList)
         {
-            typeListString += ",";
+            if (typeListString != "")
+            {
+                typeListString += ",";
+            }
+            typeListString += enumList[key];
         }
-        typeListString += enumList[key];
+        comboBox.labels = typeListString;
     }
-    comboBox.labels = typeListString;
-};
+}
