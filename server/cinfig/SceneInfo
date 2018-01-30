@@ -1,0 +1,5 @@
+{
+		method:"scene_info",
+		scene:"IndustrialCity",
+		path: "default"
+}

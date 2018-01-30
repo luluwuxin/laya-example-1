@@ -25,22 +25,31 @@ var fs = require('fs');
 // {
 function loadStringFromFile(filename)
 {
-	// if(fs.statSync(filename).isFile())
 	return fs.readFileSync(filename, 'utf8');
-	// return "";
 }
 
 function saveStringToFile(filename, str)
 {
-	// fs.open(filename,"w",0644,function(e,fd){
-		// if(e) throw e;
-		// fs.write(fd,str,function(e){
-			// if(e) throw e;
-			// fs.closeSync(fd);
-		// })
-	// });
+	if(msg instanceof Object)
+    {
+        str = JSON.stringify(str);
+    }
 	fs.writeFileSync(filename, str);
 }
+function loadJSONFromFile(filename)
+{
+	// if(fs.statSync(filename).isFile())
+	var str = fs.readFileSync(filename, 'utf8');
+	return JSON.parse(str);
+}
+
+function saveJSONToFile(filename, obj)
+{
+	fs.writeFileSync(filename, JSON.stringify(obj));
+}
 // }
+
 exports.loadStringFromFile = loadStringFromFile;
 exports.saveStringToFile = saveStringToFile;
+exports.loadJSONFromFile = loadJSONFromFile;
+exports.saveJSONToFile = saveJSONToFile;
