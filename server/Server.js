@@ -31,7 +31,7 @@ function LogicServer()
     this.cids = {};
     this.cid_seed = 0;
 
-	this.cli_web = null; //0
+	this.cli_web_map = {}; //0
 	this.cli_ros = null; //1
 	this.cli_ue4 = null; //2
 	this.cli_ue4d = null;//3
@@ -91,7 +91,7 @@ function LogicServer()
 		switch(type)
 		{
 			case 0: //web
-			this.cli_web = client;
+			this.cli_web_map[cid] = client;
 			break;
 
 			case 1: //ros
@@ -121,8 +121,8 @@ function LogicServer()
         var client = socket.client;
         if(client!=null)
         {
-			if(this.cli_web == socket)
-				this.cli_web = null;
+			if(client.type = 0)
+				delete this.cli_web_map[socket.cid];
 
 			if(this.cli_ros == socket)
 				this.cli_ros = null;
@@ -185,8 +185,10 @@ function LogicServer()
 	///////////////////////////////////	
 	this.send2web = function(pack)
 	{
-		if(this.cli_web!=null)
-			this.cli_web.send(pack);
+		for(cli_web in this.cli_web_map)
+		{
+			cli_web.send(pack);
+		}
 	}
 
 	this.send2ros = function(pack)
@@ -286,7 +288,7 @@ function LogicServer()
 			case "weather_info":
 			{
 				this.WeatherInfo = pack;
-								FileHelper.saveJSONToFile("config/WeatherInfo", pack);
+				FileHelper.saveJSONToFile("config/WeatherInfo", pack);
 				this.send2ue4(pack);
 				break;
 			}
@@ -302,7 +304,7 @@ function LogicServer()
 			case "ros_info":
 			{
 				this.RosInfo = pack;
-				if(client == this.cli_web)
+				if(client.type==0)
 				{
 
 					if(this.cli_ue4!=null)
@@ -347,7 +349,7 @@ function LogicServer()
 			case "car_state":
 			{
 				this.CarState = pack;
-				if(client == this.cli_web)
+				if(client.type==0)
 					this.send2ue4(this.CarState);
 				else if(client == this.cli_ue4)
 					this.send2web(this.CarState);
@@ -359,7 +361,7 @@ function LogicServer()
 				this.CaseList = pack;
 				FileHelper.saveJSONToFile("config/CaseList", pack);
 				
-				if(client == this.cli_web)
+				if(client.type==0)
 					this.send2ue4(pack);
 				else if(client == this.cli_ue4)
 					this.send2web(pack);
@@ -369,7 +371,7 @@ function LogicServer()
 			{
 				this.CaseInfo = pack;
 				
-				if(client == this.cli_web)
+				if(client.type==0)
 					this.send2ue4(pack);
 				else if(client == this.cli_ue4)
 					this.send2web(pack);
@@ -379,7 +381,7 @@ function LogicServer()
 			
 			case "sumo_info"://"sumo_ready":
 			{
-				if(client == this.cli_web)
+				if(client.type==0)
 					this.send2ue4(pack);
 				else if(client == this.cli_ue4)
 					this.send2web(pack);
@@ -390,7 +392,7 @@ function LogicServer()
 			{
 				if(client == this.cli_ros)
 					this.send2web(pack);
-				else if(client == this.cli_web)
+				else if(client.type==0)
 					this.send2ros(pack);
 				break;
 			}
@@ -424,10 +426,10 @@ function LogicServer()
 
 	// this.push_ue4_config = function()
 	// {
-		// this.send2ue4(this.SceneInfo);
-		// this.send2ue4(this.WeatherInfo);
-		// this.send2ue4(this.TrafficInfo);
-		// this.send2ue4(this.CarConfig);
+	// this.send2ue4(this.SceneInfo);
+	// this.send2ue4(this.WeatherInfo);
+	// this.send2ue4(this.TrafficInfo);
+	// this.send2ue4(this.CarConfig);
 	// }
 	
 }
