@@ -72,6 +72,7 @@ DrivingUI.prototype.initSceneListUI = function () {
         var label = e.getChildByName("label");
 
         // Choose this specific scene from the scene list.
+        image.offAll(Laya.Event.DOUBLE_CLICK);
         image.on(Laya.Event.DOUBLE_CLICK, this, function (ee) {
             if (this.client.data.scene_info.scene === label.text) {
                 return;
@@ -226,6 +227,7 @@ DrivingUI.prototype.initSensorControlUI = function () {
         var checkbox = e.getChildByName("checkbox");
         var label    = e.getChildByName("label");
         
+        checkbox.offAll(Laya.Event.CLICK);
         checkbox.on(Laya.Event.CLICK, this, function (ee) {
             this.client.data.ros_info.config.forEach(function (v) {
                 if (v.name === label.text) {

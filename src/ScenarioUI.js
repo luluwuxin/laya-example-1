@@ -225,6 +225,7 @@ ScenarioUI.prototype.initSensorControlUI = function () {
         var checkbox = e.getChildByName("checkbox");
         var label    = e.getChildByName("label");
         
+        checkbox.offAll(Laya.Event.CLICK);
         checkbox.on(Laya.Event.CLICK, this, function (ee) {
             this.client.data.ros_info.config.forEach(function (v) {
                 if (v.name === label.text) {

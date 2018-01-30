@@ -1,7 +1,6 @@
 // Class for the Car and Sensor Setup webpage.
 //
-function SetupUI(pageChooser, client)
-{
+function SetupUI(pageChooser, client) {
     SetupUI.super(this);
 
     // Initialize UI elements
@@ -16,11 +15,6 @@ function SetupUI(pageChooser, client)
 
     // Model and WebSocket backend
     this.client = client
-      .on("__init_car_list", this, function () {
-          this.refreshCarListUI();
-          this.refreshCarBoxUI();
-          this.refreshParameterListUI();
-      })
       .on("car_config", this, function () {
           this.refreshCarBoxUI();
           this.refreshParameterListUI();
@@ -46,7 +40,13 @@ SetupUI.prototype.initBannerUI = function () {
 
 // Init the car list UI.
 SetupUI.prototype.initCarListUI = function () {
-    this.m_uiCarList.array = [];
+    this.m_uiCarList.array = [
+        {
+            label: {
+                text: "SUV",
+            },
+        },
+    ];
 
     // Mouse events.
     this.m_uiCarList.mouseHandler = new Handler(this, function (e, i) {
@@ -77,6 +77,7 @@ SetupUI.prototype.initInventoryListUI = function () {
         var templateJson = e.getChildByName("templateJson").text;
         var icon = e.getChildByName("icon");
         var label = e.getChildByName("label");
+        e.offAll(Laya.Event.MOUSE_DOWN);
         e.on(Laya.Event.MOUSE_DOWN, this, function (e) {
             // Already dragging ?
             if (e.indicator) return;
@@ -181,8 +182,9 @@ SetupUI.prototype.initParameterListUI = function () {
     this.m_uiParameterList.on(Laya.Event.RENDER, this, function (e) {
         var label = e.getChildByName("label");
         var input = e.getChildByName("input");
+
+        input.offAll(Laya.Event.INPUT);
         input.on(Laya.Event.INPUT, this, function (e) {
-            // Input: UI -> Model
             // Generalize: selectObj should be a shadow object and its setter
             //             to set the property of the raw object without knowing
             //             the parameter is sensor.x or sensor.params.x
@@ -198,12 +200,17 @@ SetupUI.prototype.initParameterListUI = function () {
             } else if (typeof paramsObj[label.text] === "string") {
                 paramsObj[label.text] = e.text;
             }
-            // Refresh the preview
             this.refreshCarBoxUI();
         });
+
+        input.offAll(Laya.Event.ENTER);
+        input.on(Laya.Event.ENTER, this, function (e) {
+            this.client.send("car_config");
+        });
+
+        input.offAll(Laya.Event.BLUR);
         input.on(Laya.Event.BLUR, this, function (e) {
-            // Blur: Model -> UI
-            this.client.fire("car_config");
+            this.client.send("car_config");
         });
     });
 
@@ -234,7 +241,7 @@ SetupUI.prototype.refreshCarListUI = function () {
 
 // Refresh the car and sensor box UI.
 SetupUI.prototype.refreshCarBoxUI = function () {
-    this.carRenderer.refreshCarConfig(this.client.car.car_config);
+    this.carRenderer.refreshCarConfig(this.client.data.car_config);
 };
 
 // Refresh the parameters list UI.
@@ -251,7 +258,7 @@ SetupUI.prototype.refreshParameterListUI = function () {
         // Find the sensor whose .sid matches the current selection.
         var blacklist = ["sid", "type", "params"];
         var selectInfo = this.selectInfo;
-        var sensor = this.client.car.car_config.config.find(function (v) {
+        var sensor = this.client.data.car_config.config.find(function (v) {
             return v.sid === selectInfo.sid;
         });
         if (sensor) {
