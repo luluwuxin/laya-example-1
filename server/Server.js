@@ -234,7 +234,6 @@ function LogicServer()
 			client.send(this.CarConfig);
 			client.send(this.RosInfo);
 			client.send(this.CaseList);
-			// client.send(this.CaseInfo);
 			break;
 
 			case 1: //ros
@@ -304,16 +303,10 @@ function LogicServer()
 				this.RosInfo = pack;
 				if(client.type == 0)
 				{
-
 					if(this.cli_ue4!=null)
 					{
 						pack.ip = this.cli_ue4.remoteAddress;
-					}
-					else if(pack.start)
-					{
-						pack.ip = "";
-					}
-					
+					}					
 					this.send2ros(pack);
 				}
 				else if(client == this.cli_ros)
@@ -365,16 +358,12 @@ function LogicServer()
 			}
 			case "case_info":
 			{
-				this.CaseInfo = pack;
-				
 				if(client.type == 0)
 					this.send2ue4(pack);
 				else if(client == this.cli_ue4)
 					this.send2web(pack);
 				break;
-			}
-
-			
+			}			
 			case "sumo_info"://"sumo_ready":
 			{
 				if(client.type == 0)
