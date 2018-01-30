@@ -104,13 +104,6 @@ wss.on('connection', function(socket, req) {
     // socket.send(welcome);
 });
 
-
-
-// var fileName = "db/heihei";
-// FileHelper.saveStringToFile(fileName,"12345");
-// var sss = FileHelper.loadStringFromFile(fileName);
-// console.log(sss);
-
 server.listen(8081, function listening() {
     console.log('Listening on %d', server.address().port);
     // utils.openUrl("http://127.0.0.1:"+server.address().port);
