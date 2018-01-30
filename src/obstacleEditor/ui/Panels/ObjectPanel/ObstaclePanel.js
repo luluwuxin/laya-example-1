@@ -1,4 +1,3 @@
-
 function ObstaclePanelScript(dependences)
 {
     //#region event callback

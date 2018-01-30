@@ -1,8 +1,8 @@
-class RoutePoint extends EventObject
+class RoutePoint extends ObjectPoint
 {
     constructor(pose = new Pose(), timestampInterval = 0)
     {
-        super();
+        super(ObjectPointType.OBSTACLE_ROUTE_POINT);
         this.pose = pose;
         this.timestampInterval = timestampInterval;
 

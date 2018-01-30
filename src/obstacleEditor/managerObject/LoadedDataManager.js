@@ -85,6 +85,7 @@ class LoadedDataManager extends EventObject
 
     loadCaseByJsonObject(jsonObj, isInit)
     {
+        // TODO: load main car info
         this.sendEvent(LoadedDataManagerEvent.CASE_DATA_START_LOAD);
         this._user.clear();
         this._obstacleManager.clear();

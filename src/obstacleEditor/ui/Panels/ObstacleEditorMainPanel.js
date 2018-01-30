@@ -98,6 +98,9 @@ function ObstacleEditorMainPanelScript(dependences)
     this.mapPanel = new MapPanelScript(dependences);
     this.mapPanelContainer.addChild(this.mapPanel);
 
+    this.mainCarPanel = new MainCarPanelScript(dependences);
+    this.mainCarPanelContainer.addChild(this.mainCarPanel);
+
     this.obstaclePanel = new ObstaclePanelScript(dependences);
     this.obstaclePanelContainer.addChild(this.obstaclePanel);
 
