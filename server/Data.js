@@ -50,19 +50,6 @@ function load(logic)
 		car_irregularity:29
 		};
 
-		// 0:PointCloud 1:Image 2:IMU 3:GPS
-		logic.RosInfo = {
-		method:"ros_info",
-		start:false,
-		config:[
-		{sid:1, type:0, name:"raw_point", running:true},
-		{sid:2, type:1, name:"raw_image", running:true},
-		{sid:3, type:2, name:"raw_gps", running:true},
-		{sid:4, type:3, name:"raw_imu", running:true},
-		{sid:4, type:4, name:"raw_drive", running:true}
-		]
-		};
-
 		// 0:摄像头 1:激光雷达 2:毫米波雷达
 		//roll:单位degree,范围 0~360
 		//pitch:单位degree,范围 -90~90
@@ -139,6 +126,19 @@ function load(logic)
 		name: "case2",
 		content: "content of a json file",
 		scene_config: "content of a json file"
+	};
+
+	// 0:PointCloud 1:Image 2:IMU 3:GPS
+	logic.RosInfo = {
+		method:"ros_info",
+		start:false,
+		config:[
+			{sid:1, type:0, name:"raw_point", running:true},
+			{sid:2, type:1, name:"raw_image", running:true},
+			{sid:3, type:2, name:"raw_gps", running:true},
+			{sid:4, type:3, name:"raw_imu", running:true},
+			{sid:4, type:4, name:"raw_drive", running:true}
+		]
 	};
 
 	//load
