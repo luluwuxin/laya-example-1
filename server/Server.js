@@ -68,6 +68,8 @@ function LogicServer()
 
     this.addClient = function(type, socket)
     {
+		client.type = type;
+		
 		if(socket.auth)
 		{
 			// console.log("xxxxxxxxxxxx !!!!!!!!!!!!!!!-----------!!!!!!!!!!!!!");
@@ -355,6 +357,7 @@ function LogicServer()
 			case "case_list":
 			{
 				this.CaseList = pack;
+				FileHelper.saveJSONToFile("config/CaseList", pack);
 				
 				if(client == this.cli_web)
 					this.send2ue4(pack);
