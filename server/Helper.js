@@ -21,8 +21,6 @@
 //Code:
 var fs = require('fs');
 
-// function FileHelper
-// {
 function loadStringFromFile(filename)
 {
 	return fs.readFileSync(filename, 'utf8');
@@ -38,7 +36,6 @@ function saveStringToFile(filename, str)
 }
 function loadJSONFromFile(filename)
 {
-	// if(fs.statSync(filename).isFile())
 	var str = fs.readFileSync(filename, 'utf8');
 	return JSON.parse(str);
 }
@@ -47,7 +44,6 @@ function saveJSONToFile(filename, obj)
 {
 	fs.writeFileSync(filename, JSON.stringify(obj));
 }
-// }
 
 exports.loadStringFromFile = loadStringFromFile;
 exports.saveStringToFile = saveStringToFile;

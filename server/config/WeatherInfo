@@ -1,10 +1,1 @@
-{
-		method:"weather_info",
-		temperature:25,
-		time_of_day:950,
-		// rain_type:"HeavyRain",
-		// snow_type:"ModerateSnow",
-		rain_type:false,
-		snow_type:true,
-		fog_type:"HeaveFog"
-}
+{"method":"weather_info","temperature":25,"time_of_day":950,"rain_type":false,"snow_type":true,"fog_type":"HeaveFog"}
