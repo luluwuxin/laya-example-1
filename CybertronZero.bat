@@ -1,1 +1,1 @@
-node CybertronZero.js
+node ./server/CybertronZero.js
