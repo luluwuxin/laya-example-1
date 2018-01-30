@@ -2,6 +2,8 @@
 
 const cli = require("./Client.js");
 const data = require("./Data.js");
+const FileHelper = require("./Helper.js");
+
 function LogicServer()
 {
     this.clients = {};
@@ -377,11 +379,14 @@ function LogicServer()
 
 			case "get":
 			{
+				pack.value = FileHelper.loadStringFromFile(pack.key);
+				client.send(pack);
 				break;
 			}
 
 			case "set":
 			{
+				FileHelper.saveStringToFile('db/'+pack.key, pack.value);
 				break;
 			}
 			

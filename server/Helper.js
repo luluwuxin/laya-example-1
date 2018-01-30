@@ -26,19 +26,20 @@ var fs = require('fs');
 function loadStringFromFile(filename)
 {
 	// if(fs.statSync(filename).isFile())
-	return fs.readFileSync(filename, 'utf-8');
+	return fs.readFileSync(filename, 'utf8');
 	// return "";
 }
 
-function saveStringToFile(str, filename)
+function saveStringToFile(filename, str)
 {
-	fs.open(filename,"w",0644,function(e,fd){
-		if(e) throw e;
-		fs.write(fd,str,function(e){
-			if(e) throw e;
-			fs.closeSync(fd);
-		})
-	});
+	// fs.open(filename,"w",0644,function(e,fd){
+		// if(e) throw e;
+		// fs.write(fd,str,function(e){
+			// if(e) throw e;
+			// fs.closeSync(fd);
+		// })
+	// });
+	fs.writeFileSync(filename, str);
 }
 // }
 exports.loadStringFromFile = loadStringFromFile;
