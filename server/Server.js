@@ -184,7 +184,7 @@ function LogicServer()
 	///////////////////////////////////	
 	this.send2web = function(pack)
 	{
-		for(cli_web in this.cli_web_map)
+		for(var cli_web in this.cli_web_map)
 		{
 			cli_web.send(pack);
 		}
@@ -312,14 +312,14 @@ function LogicServer()
 					else if(pack.start)
 					{
 						pack.ip = "";
-						pack.start = false;
+						pack.status = 1;
 					}
 					
 					this.send2ros(pack);
 				}
 				else if(client == this.cli_ros)
 				{
-					
+					this.RosInfo.status=1;
 					this.send2web(pack);
 				}
 				break;
