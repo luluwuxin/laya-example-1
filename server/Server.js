@@ -225,16 +225,16 @@ function LogicServer()
         pack.msg = "welcome!";
         client.send(pack);
 		
-		switch(type)
+		switch(pack.type)
 		{
 			case 0: //web
-			this.send2web(this.SceneInfo);
-			this.send2web(this.WeatherInfo);
-			this.send2web(this.TrafficInfo);
-			this.send2web(this.CarConfig);
-			this.send2web(this.RosInfo);
-			this.send2web(this.CaseList);
-			// this.send2web(this.CaseInfo);
+			client.send(this.SceneInfo);
+			client.send(this.WeatherInfo);
+			client.send(this.TrafficInfo);
+			client.send(this.CarConfig);
+			client.send(this.RosInfo);
+			client.send(this.CaseList);
+			// client.send(this.CaseInfo);
 			break;
 
 			case 1: //ros
