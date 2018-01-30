@@ -14,6 +14,9 @@ function ScenarioUI(pageChooser, client)
     // Pages for switching
     this.pageChooser = pageChooser;
 
+    // Modal
+    this.modalBlocker = new ModalBlocker(this);
+
     // Model and WebSocket backend
     this.client = client
       .on("case_list", this, function () {
@@ -27,6 +30,9 @@ function ScenarioUI(pageChooser, client)
       })
       .on("scene_list", this, function () {
           this.refreshSelectSceneUI();
+      })
+      .on("loading", this, function () {
+          this.modalBlocker.resume();
       });
 }
 Laya.class(ScenarioUI, "ScenarioUI", ScenarioPageUI);
@@ -53,7 +59,7 @@ ScenarioUI.prototype.refreshSelectSceneUI = function () {
         "IndustrialCity",
         "Parking"
     ]);
-    var sceneList = this.client.scene.scene_list.data;
+    var sceneList = this.client.data.scene_list.data;
     for (var scene of sceneList)
     {
         var sceneName = scene.scene;
@@ -219,8 +225,9 @@ ScenarioUI.prototype.initSensorControlUI = function () {
         var checkbox = e.getChildByName("checkbox");
         var label    = e.getChildByName("label");
         
+        checkbox.offAll(Laya.Event.CLICK);
         checkbox.on(Laya.Event.CLICK, this, function (ee) {
-            this.client.ros.ros_info.config.forEach(function (v) {
+            this.client.data.ros_info.config.forEach(function (v) {
                 if (v.name === label.text) {
                     v.running = checkbox.selected;
                 }
@@ -235,6 +242,21 @@ ScenarioUI.prototype.initSensorControlUI = function () {
 // Init the Drive Control UI
 ScenarioUI.prototype.initDriveControlUI = function () {
     this.m_uiDriveButton.on(Laya.Event.CLICK, this, function () {
+        // Get the current selected case in the scenario list.
+        var selectedCase = this.client.case.getSelectedCase();
+        if (!selectedCase) {
+            return;
+        }
+
+        // Change the current scene to match the case.
+        if (this.client.data.scene_info.scene !== selectedCase.scene) {
+            this.client.data.scene_info.scene = selectedCase.scene;
+        }
+        this.client.send("scene_info");
+        this.modalBlocker.block();
+
+        // Send the case info.
+        this.client.sendCase(selectedCase);
         this.client.startDrive();
     });
 };
@@ -255,12 +277,12 @@ ScenarioUI.prototype.refreshScenarioListUI = function () {
 // Refresh the sensor control UI.
 ScenarioUI.prototype.refreshSensorControlUI = function () {
     // No data ?
-    if (!this.client.ros.ros_info) {
+    if (!this.client.data.ros_info) {
         this.m_uiSensorList.array = [];
     }
 
     var data = [];
-    this.client.ros.ros_info.config.forEach(function (v) {
+    this.client.data.ros_info.config.forEach(function (v) {
         if (v.name === "raw_drive" || v.name === "AirSimDriver") return;
         data.push({
             checkbox: {
@@ -277,12 +299,12 @@ ScenarioUI.prototype.refreshSensorControlUI = function () {
 // Refresh the car state UI.
 ScenarioUI.prototype.refreshCarStateUI = function () {
     // No data ?
-    if (!this.client.car.car_state) {
+    if (!this.client.data.car_state) {
         return;
     }
 
-    this.m_uiDrive_speed.text = this.client.car.car_state.speed.toFixed(3);
-    this.m_uiDrive_accer.text = this.client.car.car_state.accer.toFixed(3);
-    this.m_uiDrive_steerSlider.value = this.client.car.car_state.steer;
-    this.m_uiDrive_steerImage.rotation = this.client.car.car_state.steer * 90;
+    this.m_uiDrive_speed.text = this.client.data.car_state.speed.toFixed(3);
+    this.m_uiDrive_accer.text = this.client.data.car_state.accer.toFixed(3);
+    this.m_uiDrive_steerSlider.value = this.client.data.car_state.steer;
+    this.m_uiDrive_steerImage.rotation = this.client.data.car_state.steer * 90;
 };

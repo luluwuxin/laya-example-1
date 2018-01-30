@@ -14,4 +14,4 @@ function AskPopupWindowScript(content, caller, yesMethod, noMethod)
         noMethod.call(caller);
     });
 }
-Laya.class(AskPopupWindowScript, "AskPopupWindowUI", AskPopupWindowUI);
+Laya.class(AskPopupWindowScript, "AskPopupWindowScript", AskPopupWindowUI);

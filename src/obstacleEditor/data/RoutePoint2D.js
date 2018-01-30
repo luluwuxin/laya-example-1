@@ -7,7 +7,7 @@ var RoutePointEvent =
 //   x, y   |  cm
 //   speed  |  cm/s
 // timstamp |  s
-class RoutePoint2D extends EventObject
+class RoutePoint2D extends ObjectPoint
 {
     constructor(
         mapData = null,
@@ -18,7 +18,7 @@ class RoutePoint2D extends EventObject
         lockType = RoutePointLockType.SPEED
         )
     {
-        super();
+        super(ObjectPointType.OBSTACLE_ROUTE_POINT);
         this.x = pose.vec3.x;
         this.y = pose.vec3.y;
         if (mapData != null)

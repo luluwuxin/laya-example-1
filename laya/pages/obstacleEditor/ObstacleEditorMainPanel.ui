@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":3,
-    "selecteID":15,
+    "selectedBox":25,
+    "selecteID":2,
     "props":{"width":1200,"top":0,"sceneColor":"#000000","right":0,"left":0,"height":800,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -28,9 +28,9 @@
         {
             "x":15,
             "type":"Box",
-            "props":{"top":30,"right":0,"left":0,"bottom":0},
+            "props":{"top":30,"right":0,"name":"content","left":0,"bottom":0},
             "nodeParent":1,
-            "label":"Box",
+            "label":"Box(content)",
             "isOpen":true,
             "isDirectory":true,
             "isAniNode":true,
@@ -39,32 +39,57 @@
             "child":[
                 {
                     "x":30,
-                    "type":"Panel",
-                    "props":{"y":-30,"x":0,"width":200,"var":"obstaclePanelContainer","top":0,"left":0,"bottom":0},
+                    "type":"Box",
+                    "props":{"width":200,"top":0,"name":"objectPanel","left":0,"bottom":0},
                     "nodeParent":16,
-                    "label":"Panel(obstaclePanelContainer)",
+                    "label":"Box(objectPanel)",
                     "isOpen":true,
-                    "isDirectory":false,
+                    "isDirectory":true,
                     "isAniNode":true,
-                    "hasChild":false,
-                    "compId":2,
+                    "hasChild":true,
+                    "compId":25,
                     "child":[
-                        ]
+                        {
+                            "x":45,
+                            "type":"Panel",
+                            "props":{"var":"obstaclePanelContainer","top":160,"right":0,"left":0,"bottom":0},
+                            "nodeParent":25,
+                            "label":"Panel(obstaclePanelContainer)",
+                            "isOpen":true,
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":2,
+                            "child":[
+                                ]
+                        },
+                        {
+                            "x":45,
+                            "type":"Box",
+                            "props":{"var":"mainCarPanelContainer","top":0,"right":0,"left":0,"height":160},
+                            "nodeParent":25,
+                            "label":"Box(mainCarPanelContainer)",
+                            "isDirectory":false,
+                            "isAniNode":true,
+                            "hasChild":false,
+                            "compId":26,
+                            "child":[
+                                ]
+                        }]
                 },
                 {
                     "x":30,
                     "type":"Panel",
-                    "props":{"y":-30,"width":200,"top":0,"left":200,"bottom":0},
+                    "props":{"y":-30,"width":200,"top":0,"name":"infoPanel","left":200,"bottom":0},
                     "nodeParent":16,
-                    "label":"Panel",
-                    "isOpen":true,
+                    "label":"Panel(infoPanel)",
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":3,
                     "child":[
                         {
-                            "x":45,
                             "type":"Panel",
                             "props":{"var":"obstacleInfoPanelContainer","top":10,"right":10,"left":10,"height":485},
                             "nodeParent":3,
@@ -77,7 +102,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Panel",
                             "props":{"var":"routePointInfoPanelContainer","top":505,"right":10,"left":10,"bottom":10},
                             "nodeParent":3,

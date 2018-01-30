@@ -20,6 +20,11 @@ function ObstacleInfoPanelScript(dependences)
         this.changeObstacle(obstacle, oriObstacle);
     }
 
+    function onMainCarSelected(sender, val)
+    {
+        this.refreshPanel();
+    }
+
     function onRoutePointAdded(sender, routePoint)
     {
         this.addRoutePoint(routePoint);
@@ -135,19 +140,39 @@ function ObstacleInfoPanelScript(dependences)
         this.routePointList.changeItem(routePoint.index, {routePoint: routePoint});
     }
 
-    this.setObstacleInfo = function(obstacle)
+    this.refreshPanel = function()
     {
-        if (obstacle == null)
+        var isObstacleSelected = this._user.isObstacleSelected();
+        var isMainCarSelected = this._user.isMainCarSelected();
+        if (!isObstacleSelected && !isMainCarSelected)
         {
             this.contentPanel.visible = false;
         }
         else
         {
             this.contentPanel.visible = true;
+            this.obstacleBaseInfoPanel.visible = isObstacleSelected;
+            this.mainCarBaseInfoPanel.visible = isMainCarSelected;
+        }
+
+    }
+
+    this.setObstacleInfo = function(obstacle)
+    {
+        if (obstacle != null)
+        {
             this.typeComboBox.selectedLabel = obstacle.type;
             this.nameInput.text = obstacle.name;
             this.setRoutePoints(obstacle.route);
         }
+    }
+
+    this.setMainCarInfo = function()
+    {
+        var mainCar = this._obstacleManager.getMainCar();
+        this.timeLimitInput.text = mainCar.timeLimit;
+        var selectedPoint = this._user.getSelectedRoutePoint();
+        // TODO
     }
 
     this.changeObstacle = function(obstacle, oriObstacle)
@@ -168,6 +193,7 @@ function ObstacleInfoPanelScript(dependences)
         }
 
         this.setObstacleInfo(obstacle);
+        this.refreshPanel();
     }
     this.refreshRoutePointList = function()
     {
@@ -219,9 +245,10 @@ function ObstacleInfoPanelScript(dependences)
     this.nameInput.on(Event.ENTER, this, onNameInput);
     this.nameInput.on(Event.BLUR, this, onNameInput);
     this._user.registerEvent(UserEvent.OBSTACLE_SELECTED, this, onObstacleSelected);
+    this._user.registerEvent(UserEvent.MAIN_CAR_SELECTED, this, onMainCarSelected);
     this._user.registerEvent(UserEvent.ROUTE_POINT_SELECTED, this, onRoutePointSelected);
 
     this.changeObstacle(this._user.getSelectedObstacle(), null);
     //#endregion constructor
 }
-Laya.class(ObstacleInfoPanelScript, "ObstacleInfoPanelUI", ObstacleInfoPanelUI);
+Laya.class(ObstacleInfoPanelScript, "ObstacleInfoPanelScript", ObstacleInfoPanelUI);

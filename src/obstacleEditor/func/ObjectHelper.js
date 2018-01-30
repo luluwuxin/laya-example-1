@@ -15,4 +15,5 @@ class ObjectHelper
         ObjectHelper.swallowMouseDown(obj.slider);
         ObjectHelper.swallowMouseDown(obj.slider.bar);
     }
+
 }

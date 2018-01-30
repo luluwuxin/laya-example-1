@@ -126,4 +126,4 @@ function RoutePointInfoPanelScript(dependences)
     this.setRoutePointInfo(this._user.getSelectedRoutePoint());
     //#endregion constructor
 }
-Laya.class(RoutePointInfoPanelScript, "RoutePointInfoPanelUI", RoutePointInfoPanelUI);
+Laya.class(RoutePointInfoPanelScript, "RoutePointInfoPanelScript", RoutePointInfoPanelUI);

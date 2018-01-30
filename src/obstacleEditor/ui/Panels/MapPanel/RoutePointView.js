@@ -199,4 +199,4 @@ function RoutePointViewScript(obstacleUI, routePoint)
     this.dragButton.on(Event.MOUSE_DOWN, this, onMouseDownDragMode);
     this.rotationButton.on(Event.MOUSE_DOWN, this, onMouseDownRotationMode);
 }
-Laya.class(RoutePointViewScript, "RoutePointViewUI", RoutePointViewUI);
+Laya.class(RoutePointViewScript, "RoutePointViewScript", RoutePointViewUI);
