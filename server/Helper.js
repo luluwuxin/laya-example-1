@@ -34,6 +34,7 @@ function saveStringToFile(filename, str)
     }
 	fs.writeFileSync(filename, str);
 }
+
 function loadJSONFromFile(filename)
 {
 	var str = fs.readFileSync(filename, 'utf8');
