@@ -74,7 +74,7 @@ wss.on('connection', function(socket, req) {
     });
 
     socket.on('message', function(msg) {
-        try{
+        // try{
 			var pack = JSON.parse(msg);
 			if(logic.isAuth(socket)==false)
 			{
@@ -92,10 +92,10 @@ wss.on('connection', function(socket, req) {
 				logic.procMessage(socket, pack);	
 			}
 			
-		}catch(err)
-		{
-			console.log("%s error:%s", socket.remoteAddress, err);
-		}
+		// }catch(err)
+		// {
+			// console.log("%s error:%s", socket.remoteAddress, err);
+		// }
         
     });
     

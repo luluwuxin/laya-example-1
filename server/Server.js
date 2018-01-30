@@ -68,7 +68,7 @@ function LogicServer()
 
     this.addClient = function(type, socket)
     {
-		client.type = type;
+		socket.client.type = type;
 		
 		if(socket.auth)
 		{
