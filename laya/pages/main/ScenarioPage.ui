@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":103,
-    "selecteID":142,
+    "selectedBox":25,
+    "selecteID":26,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -44,13 +44,14 @@
                     "props":{"right":0,"left":0,"height":36},
                     "nodeParent":2,
                     "label":"Box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":23,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "props":{"top":0,"skin":"custom/bg_banner.png","right":0,"left":0,"bottom":0},
                             "nodeParent":23,
@@ -63,21 +64,23 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"HBox",
                             "props":{"left":0,"centerY":0},
                             "nodeParent":23,
                             "label":"HBox",
-                            "isOpen":null,
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":25,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
-                                    "props":{"skin":"custom/logo.png"},
+                                    "props":{"var":"m_uiBanner_logo","skin":"custom/logo.png"},
                                     "nodeParent":25,
-                                    "label":"Image",
+                                    "label":"Image(m_uiBanner_logo)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
@@ -87,6 +90,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"HBox",
                             "props":{"right":10,"centerY":0},
                             "nodeParent":23,
@@ -216,6 +220,7 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"HBox",
                             "props":{"centerY":0,"centerX":0},
                             "nodeParent":23,
@@ -227,6 +232,7 @@
                             "compId":38,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Label",
                                     "props":{"valign":"middle","text":"Scenario Testing","fontSize":16,"color":"#f0f0f0","align":"center"},
                                     "nodeParent":38,
