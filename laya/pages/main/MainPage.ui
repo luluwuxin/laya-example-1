@@ -78,9 +78,9 @@
                                 {
                                     "x":60,
                                     "type":"Image",
-                                    "props":{"skin":"custom/logo.png"},
+                                    "props":{"var":"m_uiBanner_logo","skin":"custom/logo.png"},
                                     "nodeParent":33,
-                                    "label":"Image",
+                                    "label":"Image(m_uiBanner_logo)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,

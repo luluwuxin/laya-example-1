@@ -5,7 +5,6 @@ function DrivingUI(pageChooser, client)
     DrivingUI.super(this);
 
     // Initialize UI elements
-    this.initBannerUI();
     this.initSceneListUI();
     this.initSettingTabUI();
     this.initPathUI();
@@ -18,6 +17,15 @@ function DrivingUI(pageChooser, client)
 
     // Modal
     this.modalBlocker = new ModalBlocker(this);
+
+    // Banner Control
+    this.bannerControl = new BannerControl(pageChooser, {
+        m_uiBanner_logo: this.m_uiBanner_logo,
+        m_uiBanner_home: this.m_uiBanner_home,
+        m_uiBanner_setup: this.m_uiBanner_setup,
+        m_uiBanner_scene: this.m_uiBanner_scene,
+        m_uiBanner_scenario: this.m_uiBanner_scenario,
+    });
 
     // Sumo Control
     this.sumoControl = new SumoControl(client, {
@@ -60,22 +68,6 @@ function DrivingUI(pageChooser, client)
       });
 }
 Laya.class(DrivingUI, "DrivingUI", DrivingPageUI);
-
-// Init the banner UI.
-DrivingUI.prototype.initBannerUI = function () {
-    this.m_uiBanner_home.on(Laya.Event.CLICK, this, function () {
-        this.pageChooser.goTo("mainUI");
-    });
-    this.m_uiBanner_setup.on(Laya.Event.CLICK, this, function () {
-        this.pageChooser.goTo("setupUI");
-    });
-    this.m_uiBanner_scene.on(Laya.Event.CLICK, this, function () {
-        this.pageChooser.goTo("drivingUI");
-    });
-    this.m_uiBanner_scenario.on(Laya.Event.CLICK, this, function () {
-        this.pageChooser.goTo("scenarioUI");
-    });
-};
 
 // Init the scene list UI.
 DrivingUI.prototype.initSceneListUI = function () {

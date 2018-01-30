@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":67,
-    "selecteID":66,
+    "selectedBox":44,
+    "selecteID":45,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -44,13 +44,14 @@
                     "props":{"right":0,"left":0,"height":36},
                     "nodeParent":2,
                     "label":"Box",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":42,
                     "child":[
                         {
+                            "x":45,
                             "type":"Image",
                             "props":{"top":0,"skin":"custom/bg_banner.png","right":0,"left":0,"bottom":0},
                             "nodeParent":42,
@@ -63,20 +64,23 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"HBox",
                             "props":{"left":0,"centerY":0},
                             "nodeParent":42,
                             "label":"HBox",
+                            "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
                             "compId":44,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Image",
-                                    "props":{"skin":"custom/logo.png"},
+                                    "props":{"var":"m_uiBanner_logo","skin":"custom/logo.png"},
                                     "nodeParent":44,
-                                    "label":"Image",
+                                    "label":"Image(m_uiBanner_logo)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
@@ -86,10 +90,12 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"HBox",
                             "props":{"right":10,"centerY":0},
                             "nodeParent":42,
                             "label":"HBox",
+                            "isOpen":null,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
@@ -214,10 +220,12 @@
                                 }]
                         },
                         {
+                            "x":45,
                             "type":"HBox",
                             "props":{"centerY":0,"centerX":0},
                             "nodeParent":42,
                             "label":"HBox",
+                            "isOpen":null,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
