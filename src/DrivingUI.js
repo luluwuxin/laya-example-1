@@ -12,13 +12,19 @@ function DrivingUI(pageChooser, client)
     this.initWeatherUI();
     this.initTrafficUI();
     this.initSensorControlUI();
-    this.initSimControlUI();
 
     // Pages for switching
     this.pageChooser = pageChooser;
 
     // Modal
     this.modalBlocker = new ModalBlocker(this);
+
+    // Sumo Control
+    this.sumoControl = new SumoControl(client, {
+        m_uiSumoButton1: this.m_uiSumoButton1,
+        m_uiSumoButton2: this.m_uiSumoButton2,
+        m_uiSumoButton3: this.m_uiSumoButton3,
+    });
 
     // Driving Control
     this.drivingControl = new DrivingControl(client, {
@@ -255,13 +261,6 @@ DrivingUI.prototype.initSensorControlUI = function () {
 
     // No data
     this.m_uiSensorList.array = [];
-};
-
-// Init the Sim Control UI
-DrivingUI.prototype.initSimControlUI = function () {
-    this.m_uiSimButton.on(Laya.Event.CLICK, this, function () {
-        this.client.startSim();
-    });
 };
 
 // Refresh the scene list UI.

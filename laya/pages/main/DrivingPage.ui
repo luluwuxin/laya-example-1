@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":237,
-    "selecteID":254,
+    "selectedBox":235,
+    "selecteID":256,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -1104,15 +1104,43 @@
                                                         {
                                                             "x":105,
                                                             "type":"Button",
-                                                            "props":{"var":"m_uiSimButton","top":50,"skin":"custom/button_start.png","left":50},
+                                                            "props":{"visible":true,"var":"m_uiSumoButton2","top":50,"skin":"custom/button_start.png","left":50},
                                                             "nodeParent":235,
-                                                            "label":"Button(m_uiSimButton)",
+                                                            "label":"Button(m_uiSumoButton2)",
                                                             "isDirectory":false,
                                                             "isAniNode":true,
                                                             "hasChild":false,
                                                             "compId":179,
                                                             "child":[
                                                                 ]
+                                                        },
+                                                        {
+                                                            "x":105,
+                                                            "type":"Button",
+                                                            "props":{"visible":false,"var":"m_uiSumoButton3","top":50,"skin":"custom/button_pause.png","left":50},
+                                                            "nodeParent":235,
+                                                            "label":"Button(m_uiSumoButton3)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":256,
+                                                            "child":[
+                                                                ],
+                                                            "$HIDDEN":true
+                                                        },
+                                                        {
+                                                            "x":105,
+                                                            "type":"Button",
+                                                            "props":{"visible":false,"var":"m_uiSumoButton1","top":50,"skin":"custom/button_stop.png","left":100},
+                                                            "nodeParent":235,
+                                                            "label":"Button(m_uiSumoButton1)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":257,
+                                                            "child":[
+                                                                ],
+                                                            "$HIDDEN":true
                                                         }]
                                                 },
                                                 {

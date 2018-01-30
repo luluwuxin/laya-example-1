@@ -188,10 +188,11 @@ var WebClient = (function (window, Laya, logger) {
         this.sendJson(ros_info);
     };
 
-    // Start Sim
-    WebClient.prototype.startSim = function () {
+    // Stop, Start or Pause Sumo
+    WebClient.prototype.sendSumoInfo = function (status) {
         this.sendJson({
-            method: "sumo_ready",
+            method: "sumo_info",
+            status: status,
         });
     };
 
