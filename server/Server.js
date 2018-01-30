@@ -377,6 +377,15 @@ function LogicServer()
 				break;
 			}
 
+			case "ros_pause":
+			{
+				if(client == this.cli_ros)
+					this.send2web(pack);
+				else if(client == this.cli_web)
+					this.send2ros(pack);
+				break;
+			}
+
 			case "get":
 			{
 				pack.value = FileHelper.loadStringFromFile(pack.key);
@@ -404,13 +413,13 @@ function LogicServer()
 
 	}
 
-	this.push_ue4_config = function()
-	{
-		this.send2ue4(this.SceneInfo);
-		this.send2ue4(this.WeatherInfo);
-		this.send2ue4(this.TrafficInfo);
-		this.send2ue4(this.CarConfig);
-	}
+	// this.push_ue4_config = function()
+	// {
+		// this.send2ue4(this.SceneInfo);
+		// this.send2ue4(this.WeatherInfo);
+		// this.send2ue4(this.TrafficInfo);
+		// this.send2ue4(this.CarConfig);
+	// }
 	
 }
 exports.LogicServer = LogicServer;
