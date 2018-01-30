@@ -1,5 +1,1 @@
-{
-		method:"scene_info",
-		scene:"IndustrialCity",
-		path: "default"
-}
+{"method":"scene_info","scene":"IndustrialCity","path":"default"}
