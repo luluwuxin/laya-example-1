@@ -145,20 +145,29 @@ DrivingUI.prototype.initWeatherUI = function () {
 
     // Rain
     this.m_uiWeather_rainType.on(Laya.Event.CHANGE, this, function (e) {
-        this.client.data.weather_info.rain_type = e.target.selectedIndex > 0;
-        this.client.send("weather_info");
+        var data = e.target.selectedIndex > 0;
+        if (this.client.data.weather_info.rain_type !== data) {
+            this.client.data.weather_info.rain_type = data;
+            this.client.send("weather_info");
+        }
     });
 
     // Snow
     this.m_uiWeather_snowType.on(Laya.Event.CHANGE, this, function (e) {
-        this.client.data.weather_info.snow_type = e.target.selectedIndex > 0;
-        this.client.send("weather_info");
+        var data = e.target.selectedIndex > 0;
+        if (this.client.data.weather_info.snow_type !== data) {
+            this.client.data.weather_info.snow_type = data;
+            this.client.send("weather_info");
+        }
     });
 
     // Fog
     this.m_uiWeather_fogType.on(Laya.Event.CHANGE, this, function (e) {
-        this.client.data.weather_info.fog_type = e.target.selectedIndex > 0;
-        this.client.send("weather_info");
+        var data = e.target.selectedIndex > 0;
+        if (this.client.data.weather_info.fog_type !== data) {
+            this.client.data.weather_info.fog_type = data;
+            this.client.send("weather_info");
+        }
     });
 };
 
