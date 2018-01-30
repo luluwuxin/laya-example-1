@@ -195,11 +195,11 @@ var WebClient = (function (window, Laya, logger) {
         });
     };
 
-    // Start Driving
-    WebClient.prototype.startDrive = function () {
-        // Push the data to the node backend.
+    // Stop, Start or Pause Driving
+    WebClient.prototype.sendDriveInfo = function (status) {
         this.sendJson({
-            method: "ready",
+            method: "drive_info",
+            status: status,
         });
     };
 

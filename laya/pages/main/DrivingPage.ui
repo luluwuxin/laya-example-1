@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":197,
-    "selecteID":200,
+    "selectedBox":237,
+    "selecteID":254,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -1143,9 +1143,9 @@
                                                         {
                                                             "x":105,
                                                             "type":"Button",
-                                                            "props":{"var":"m_uiDriveButton","skin":"custom/button_start.png","left":50,"bottom":50},
+                                                            "props":{"visible":true,"var":"m_uiDriveButton2","skin":"custom/button_start.png","left":50,"bottom":50},
                                                             "nodeParent":237,
-                                                            "label":"Button(m_uiDriveButton)",
+                                                            "label":"Button(m_uiDriveButton2)",
                                                             "isDirectory":false,
                                                             "isAniNode":true,
                                                             "hasChild":false,
@@ -1155,30 +1155,56 @@
                                                         },
                                                         {
                                                             "x":105,
+                                                            "type":"Button",
+                                                            "props":{"visible":false,"var":"m_uiDriveButton3","skin":"custom/button_pause.png","left":50,"bottom":50},
+                                                            "nodeParent":237,
+                                                            "label":"Button(m_uiDriveButton3)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":255,
+                                                            "child":[
+                                                                ],
+                                                            "$HIDDEN":true
+                                                        },
+                                                        {
+                                                            "x":105,
+                                                            "type":"Button",
+                                                            "props":{"visible":false,"var":"m_uiDriveButton1","skin":"custom/button_stop.png","left":100,"bottom":50},
+                                                            "nodeParent":237,
+                                                            "label":"Button(m_uiDriveButton1)",
+                                                            "isDirectory":false,
+                                                            "isAniNode":true,
+                                                            "hasChild":false,
+                                                            "compId":254,
+                                                            "child":[
+                                                                ],
+                                                            "$HIDDEN":true
+                                                        },
+                                                        {
+                                                            "x":105,
                                                             "type":"HBox",
                                                             "props":{"top":40,"space":20,"right":40},
                                                             "nodeParent":237,
                                                             "label":"HBox",
-                                                            "isOpen":true,
+                                                            "isOpen":false,
                                                             "isDirectory":true,
                                                             "isAniNode":true,
                                                             "hasChild":true,
                                                             "compId":246,
                                                             "child":[
                                                                 {
-                                                                    "x":120,
                                                                     "type":"VBox",
                                                                     "props":{"space":5},
                                                                     "nodeParent":246,
                                                                     "label":"VBox",
-                                                                    "isOpen":true,
+                                                                    "isOpen":false,
                                                                     "isDirectory":true,
                                                                     "isAniNode":true,
                                                                     "hasChild":true,
                                                                     "compId":196,
                                                                     "child":[
                                                                         {
-                                                                            "x":135,
                                                                             "type":"HBox",
                                                                             "props":{"align":"middle"},
                                                                             "nodeParent":196,
@@ -1190,7 +1216,6 @@
                                                                             "compId":197,
                                                                             "child":[
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Label",
                                                                                     "props":{"width":50,"valign":"middle","text":"Speed:","color":"#f0f0f0","align":"right"},
                                                                                     "nodeParent":197,
@@ -1203,7 +1228,6 @@
                                                                                         ]
                                                                                 },
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Box",
                                                                                     "props":{"width":20,"height":1},
                                                                                     "nodeParent":197,
@@ -1216,7 +1240,6 @@
                                                                                         ]
                                                                                 },
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Label",
                                                                                     "props":{"var":"m_uiDrive_speed","valign":"middle","text":"N/A","color":"#f0f0f0","align":"center"},
                                                                                     "nodeParent":197,
@@ -1229,7 +1252,6 @@
                                                                                         ]
                                                                                 },
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Box",
                                                                                     "props":{"width":20,"height":1},
                                                                                     "nodeParent":197,
@@ -1242,7 +1264,6 @@
                                                                                         ]
                                                                                 },
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Label",
                                                                                     "props":{"valign":"middle","text":"m/s","color":"#f0f0f0"},
                                                                                     "nodeParent":197,
@@ -1256,7 +1277,6 @@
                                                                                 }]
                                                                         },
                                                                         {
-                                                                            "x":135,
                                                                             "type":"HBox",
                                                                             "props":{},
                                                                             "nodeParent":196,
@@ -1268,7 +1288,6 @@
                                                                             "compId":201,
                                                                             "child":[
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Label",
                                                                                     "props":{"width":50,"valign":"middle","text":"Accel:","color":"#f0f0f0","align":"right"},
                                                                                     "nodeParent":201,
@@ -1281,7 +1300,6 @@
                                                                                         ]
                                                                                 },
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Box",
                                                                                     "props":{"width":20,"height":1},
                                                                                     "nodeParent":201,
@@ -1294,7 +1312,6 @@
                                                                                         ]
                                                                                 },
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Label",
                                                                                     "props":{"var":"m_uiDrive_accer","valign":"middle","text":"N/A","color":"#f0f0f0","align":"center"},
                                                                                     "nodeParent":201,
@@ -1307,7 +1324,6 @@
                                                                                         ]
                                                                                 },
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Box",
                                                                                     "props":{"width":20,"height":1},
                                                                                     "nodeParent":201,
@@ -1320,7 +1336,6 @@
                                                                                         ]
                                                                                 },
                                                                                 {
-                                                                                    "x":150,
                                                                                     "type":"Label",
                                                                                     "props":{"valign":"middle","text":"m/s^2","color":"#f0f0f0"},
                                                                                     "nodeParent":201,
@@ -1335,7 +1350,6 @@
                                                                         }]
                                                                 },
                                                                 {
-                                                                    "x":120,
                                                                     "type":"VBox",
                                                                     "props":{"space":5,"align":"center"},
                                                                     "nodeParent":246,
@@ -1347,7 +1361,6 @@
                                                                     "compId":205,
                                                                     "child":[
                                                                         {
-                                                                            "x":135,
                                                                             "type":"HSlider",
                                                                             "props":{"var":"m_uiDrive_steerSlider","skin":"custom/hslider2.png","min":-1,"max":1,"centerX":0},
                                                                             "nodeParent":205,
@@ -1360,7 +1373,6 @@
                                                                                 ]
                                                                         },
                                                                         {
-                                                                            "x":135,
                                                                             "type":"Image",
                                                                             "props":{"var":"m_uiDrive_steerImage","top":30,"skin":"custom/image_steer.png","rotation":0,"centerX":0,"anchorY":0.5,"anchorX":0.5},
                                                                             "nodeParent":205,
