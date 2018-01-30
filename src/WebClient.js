@@ -6,7 +6,6 @@ var WebClient = (function (window, Laya, logger) {
         this.data      = {};
         this.car_list  = this.getMockCarList();
         this.car       = JSON.parse(JSON.stringify(this.car_list[0]));
-        this.ros       = this.getMockRosInfo();
         this.case      = new WebClientCase();
         this.callbacks = {};
         this.init();
@@ -33,10 +32,10 @@ var WebClient = (function (window, Laya, logger) {
             this.initHardcodeData();
 
             // Claim that this is a Web Client
-            this.socket.send(JSON.stringify({
+            this.sendJson({
                 method: "auth",
                 type: 0, // Web Client
-            }));
+            });
         });
 
         // On message from remote
@@ -80,7 +79,7 @@ var WebClient = (function (window, Laya, logger) {
 
     // Handle the JSON message
     WebClient.prototype.handleJsonMessage = function (json) {
-        logger.info("WebSocket receive: ");
+        logger.info("WebSocket receive: " + json.method);
         logger.info(json);
 
         // Update the model
@@ -88,14 +87,6 @@ var WebClient = (function (window, Laya, logger) {
 
         case "car_config":
             this.car.car_config = Object.assign(this.car.car_config || {}, json);
-            break;
-
-        case "car_state":
-            this.car.car_state = Object.assign(this.car.car_state || {}, json);
-            break;
-
-        case "ros_info":
-            this.ros.ros_info = Object.assign(this.ros.ros_info || {}, json);
             break;
 
         case "case_list":
@@ -114,15 +105,20 @@ var WebClient = (function (window, Laya, logger) {
     // Send the JSON message to backend.
     WebClient.prototype.send = function (method) {
         // Send to backend
-        logger.info("WebSocket send: ");
-        logger.info(this.data[method]);
-        this.socket.send(JSON.stringify(this.data[method]));
+        this.sendJson(this.data[method]);
 
         // Refresh in case that backend doesn't push it back.
         var self = this;
         setTimeout(function() {
             self.fire(method);
         }, 1);
+    };
+
+    // Wrapper for sending an object as string with logging
+    WebClient.prototype.sendJson = function (json) {
+        logger.info("WebSocket send: " + (json.method || ""));
+        logger.info(json);
+        this.socket.send(JSON.stringify(json));
     };
 
     // Add a callback to the client based on method.
@@ -180,14 +176,14 @@ var WebClient = (function (window, Laya, logger) {
 
     // Save the case list.
     WebClient.prototype.storeCases = function () {
-        this.socket.send(JSON.stringify(this.case.toJson()));
+        this.sendJson(this.case.toJson());
     };
 
     // Start Ros
     WebClient.prototype.startRos = function () {
         // Make a copy of the ros_info. ros_info will be pushed from the
         // backend with start=true.
-        var ros_info = JSON.parse(JSON.stringify(this.ros.ros_info));
+        var ros_info = JSON.parse(JSON.stringify(this.data.ros_info));
 
         // Always set raw_drive to be running.
         ros_info.config.forEach(function (v) {
@@ -201,35 +197,30 @@ var WebClient = (function (window, Laya, logger) {
         });
 
         // Push the data to the node backend.
-        this.socket.send(JSON.stringify(ros_info));
+        this.sendJson(ros_info);
     };
 
     // Start Sim
     WebClient.prototype.startSim = function () {
-        this.socket.send(JSON.stringify({
+        this.sendJson({
             method: "sumo_ready",
-        }));
+        });
     };
 
     // Start Driving
     WebClient.prototype.startDrive = function () {
         // Push the data to the node backend.
         this.socket.send(JSON.stringify(this.car.car_config));
-        this.socket.send(JSON.stringify({
+        this.sendJson({
             method: "ready",
-        }));
+        });
     };
 
     // Start the case
     WebClient.prototype.sendCase = function (info) {
-        var data = Object.assign({
+        this.sendJson(Object.assign({
             method: "case_info",
-        }, info);
-
-        logger.info("WebSocket send: ");
-        logger.info(data);
-
-        this.socket.send(JSON.stringify(data));
+        }, info));
     };
 
     // Hard-code stuff
@@ -277,20 +268,6 @@ var WebClient = (function (window, Laya, logger) {
                 },
             },
         ];
-    };
-
-    WebClient.prototype.getMockRosInfo = function () {
-        return {
-            ros_info: {
-                method: "ros_info",
-                config: [
-                    { sid: 1, type: 0, name: "raw_point", running: false },
-                    { sid: 2, type: 1, name: "raw_image", running: false },
-                    { sid: 3, type: 2, name: "raw_gps", running: false },
-                    { sid: 4, type: 3, name: "raw_imu", running: false },
-                ],
-            },
-        };
     };
 
     return WebClient;

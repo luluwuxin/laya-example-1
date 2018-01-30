@@ -116,44 +116,46 @@ DrivingUI.prototype.initPathUI = function () {
 
 // Init the weather UI.
 DrivingUI.prototype.initWeatherUI = function () {
-    this.m_uiWeather_temperature.on(Laya.Event.INPUT, this, function (e) {
-        // Input: UI -> Model
-        var data = parseFloat(e.text);
-        if (isFinite(data)) {
+    // Temperature
+    function CommitTemperature (input) {
+        var data = parseFloat(input.text);
+        if (isFinite(data) && this.client.data.weather_info.temperature !== data) {
             this.client.data.weather_info.temperature = data;
+            this.client.send("weather_info");
+        } else {
+            this.client.fire("weather_info");
         }
-    });
-    this.m_uiWeather_temperature.on(Laya.Event.BLUR, this, function (e) {
-        // Blur: Model -> UI
-        this.client.send("weather_info");
-    });
+    }
+    this.m_uiWeather_temperature.on(Laya.Event.ENTER, this, CommitTemperature);
+    this.m_uiWeather_temperature.on(Laya.Event.BLUR, this, CommitTemperature);
 
-    this.m_uiWeather_timeOfDay.on(Laya.Event.INPUT, this, function (e) {
-        // Input: UI -> Model
-        var data = parseFloat(e.text);
-        if (isFinite(data)) {
+    // Time of Day
+    function CommitTimeOfDay (input) {
+        var data = parseFloat(input.text);
+        if (isFinite(data) && this.client.data.weather_info.time_of_day !== data) {
             this.client.data.weather_info.time_of_day = data;
+            this.client.send("weather_info");
+        } else {
+            this.client.fire("weather_info");
         }
-    });
-    this.m_uiWeather_timeOfDay.on(Laya.Event.BLUR, this, function (e) {
-        // Blur: Model -> UI
-        this.client.send("weather_info");
-    });
+    }
+    this.m_uiWeather_timeOfDay.on(Laya.Event.ENTER, this, CommitTimeOfDay);
+    this.m_uiWeather_timeOfDay.on(Laya.Event.BLUR, this, CommitTimeOfDay);
 
+    // Rain
     this.m_uiWeather_rainType.on(Laya.Event.CHANGE, this, function (e) {
-        // Change: UI -> Model
         this.client.data.weather_info.rain_type = e.target.selectedIndex > 0;
         this.client.send("weather_info");
     });
 
+    // Snow
     this.m_uiWeather_snowType.on(Laya.Event.CHANGE, this, function (e) {
-        // Change: UI -> Model
         this.client.data.weather_info.snow_type = e.target.selectedIndex > 0;
         this.client.send("weather_info");
     });
 
+    // Fog
     this.m_uiWeather_fogType.on(Laya.Event.CHANGE, this, function (e) {
-        // Change: UI -> Model
         this.client.data.weather_info.fog_type = e.target.selectedIndex > 0;
         this.client.send("weather_info");
     });
@@ -161,54 +163,54 @@ DrivingUI.prototype.initWeatherUI = function () {
 
 // Init the traffic UI.
 DrivingUI.prototype.initTrafficUI = function () {
+    // Car Density
+    function CommitCarDensity (input) {
+        var data = parseFloat(input.text);
+        if (isFinite(data) && this.client.data.traffic_info.car_density !== data) {
+            this.client.data.traffic_info.car_density = data;
+            this.client.send("traffic_info");
+        } else {
+            this.client.fire("traffic_info");
+        }
+    }
+    this.m_uiTraffic_carDensity_input.on(Laya.Event.ENTER, this, CommitCarDensity);
+    this.m_uiTraffic_carDensity_input.on(Laya.Event.BLUR, this, CommitCarDensity);
     this.m_uiTraffic_carDensity_slider.on(Laya.Event.CHANGED, this, function () {
-        // Changed: UI -> Model
         this.client.data.traffic_info.car_density = this.m_uiTraffic_carDensity_slider.value;
         this.client.send("traffic_info");
     });
-    this.m_uiTraffic_carDensity_input.on(Laya.Event.INPUT, this, function (e) {
-        // Input: UI -> Model
-        var data = parseFloat(e.text);
-        if (isFinite(data)) {
-            this.client.data.traffic_info.car_density = data;
-        }
-    });
-    this.m_uiTraffic_carDensity_input.on(Laya.Event.BLUR, this, function (e) {
-        // Blur: Model -> UI
-        this.client.send("traffic_info");
-    });
 
+    // Car Irregularity
+    function CommitCarIrregularity (input) {
+        var data = parseFloat(input.text);
+        if (isFinite(data) && this.client.data.traffic_info.car_irregularity !== data) {
+            this.client.data.traffic_info.car_irregularity = data;
+            this.client.send("traffic_info");
+        } else {
+            this.client.fire("traffic_info");
+        }
+    }
+    this.m_uiTraffic_carIrregularity_input.on(Laya.Event.ENTER, this, CommitCarIrregularity);
+    this.m_uiTraffic_carIrregularity_input.on(Laya.Event.BLUR, this, CommitCarIrregularity);
     this.m_uiTraffic_carIrregularity_slider.on(Laya.Event.CHANGED, this, function () {
-        // Changed: UI -> Model
         this.client.data.traffic_info.car_irregularity = this.m_uiTraffic_carIrregularity_slider.value;
         this.client.send("traffic_info");
     });
-    this.m_uiTraffic_carIrregularity_input.on(Laya.Event.INPUT, this, function (e) {
-        // Input: UI -> Model
-        var data = parseFloat(e.text);
-        if (isFinite(data)) {
-            this.client.data.traffic_info.car_irregularity = data;
-        }
-    });
-    this.m_uiTraffic_carIrregularity_input.on(Laya.Event.BLUR, this, function (e) {
-        // Blur: Model -> UI
-        this.client.send("traffic_info");
-    });
 
-    this.m_uiTraffic_pedestrainDensity_slider.on(Laya.Event.CHANGED, this, function () {
-        // Changed: UI -> Model
-        this.client.data.traffic_info.pedestrain_density = this.m_uiTraffic_pedestrainDensity_slider.value;
-        this.client.send("traffic_info");
-    });
-    this.m_uiTraffic_pedestrainDensity_input.on(Laya.Event.INPUT, this, function (e) {
-        // Input: UI -> Model
-        var data = parseFloat(e.text);
-        if (isFinite(data)) {
+    // Pedestrain Density
+    function CommitPedestrainDensity (input) {
+        var data = parseFloat(input.text);
+        if (isFinite(data) && this.client.data.traffic_info.pedestrain_density !== data) {
             this.client.data.traffic_info.pedestrain_density = data;
+            this.client.send("traffic_info");
+        } else {
+            this.client.fire("traffic_info");
         }
-    });
-    this.m_uiTraffic_pedestrainDensity_input.on(Laya.Event.BLUR, this, function (e) {
-        // Blur: Model -> UI
+    }
+    this.m_uiTraffic_pedestrainDensity_input.on(Laya.Event.INPUT, this, CommitPedestrainDensity);
+    this.m_uiTraffic_pedestrainDensity_input.on(Laya.Event.BLUR, this, CommitPedestrainDensity);
+    this.m_uiTraffic_pedestrainDensity_slider.on(Laya.Event.CHANGED, this, function () {
+        this.client.data.traffic_info.pedestrain_density = this.m_uiTraffic_pedestrainDensity_slider.value;
         this.client.send("traffic_info");
     });
 };
@@ -225,7 +227,7 @@ DrivingUI.prototype.initSensorControlUI = function () {
         var label    = e.getChildByName("label");
         
         checkbox.on(Laya.Event.CLICK, this, function (ee) {
-            this.client.ros.ros_info.config.forEach(function (v) {
+            this.client.data.ros_info.config.forEach(function (v) {
                 if (v.name === label.text) {
                     v.running = checkbox.selected;
                 }
@@ -312,12 +314,12 @@ DrivingUI.prototype.refreshTrafficUI = function () {
 // Refresh the sensor control UI.
 DrivingUI.prototype.refreshSensorControlUI = function () {
     // No data ?
-    if (!this.client.ros.ros_info) {
+    if (!this.client.data.ros_info) {
         this.m_uiSensorList.array = [];
     }
 
     var data = [];
-    this.client.ros.ros_info.config.forEach(function (v) {
+    this.client.data.ros_info.config.forEach(function (v) {
         if (v.name === "raw_drive" || v.name === "AirSimDriver") return;
         data.push({
             checkbox: {
@@ -334,12 +336,12 @@ DrivingUI.prototype.refreshSensorControlUI = function () {
 // Refresh the car state UI.
 DrivingUI.prototype.refreshCarStateUI = function () {
     // No data ?
-    if (!this.client.car.car_state) {
+    if (!this.client.data.car_state) {
         return;
     }
 
-    this.m_uiDrive_speed.text = this.client.car.car_state.speed.toFixed(3);
-    this.m_uiDrive_accer.text = this.client.car.car_state.accer.toFixed(3);
-    this.m_uiDrive_steerSlider.value = this.client.car.car_state.steer;
-    this.m_uiDrive_steerImage.rotation = this.client.car.car_state.steer * 90;
+    this.m_uiDrive_speed.text = this.client.data.car_state.speed.toFixed(3);
+    this.m_uiDrive_accer.text = this.client.data.car_state.accer.toFixed(3);
+    this.m_uiDrive_steerSlider.value = this.client.data.car_state.steer;
+    this.m_uiDrive_steerImage.rotation = this.client.data.car_state.steer * 90;
 };

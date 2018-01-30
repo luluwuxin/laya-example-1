@@ -226,7 +226,7 @@ ScenarioUI.prototype.initSensorControlUI = function () {
         var label    = e.getChildByName("label");
         
         checkbox.on(Laya.Event.CLICK, this, function (ee) {
-            this.client.ros.ros_info.config.forEach(function (v) {
+            this.client.data.ros_info.config.forEach(function (v) {
                 if (v.name === label.text) {
                     v.running = checkbox.selected;
                 }
@@ -276,12 +276,12 @@ ScenarioUI.prototype.refreshScenarioListUI = function () {
 // Refresh the sensor control UI.
 ScenarioUI.prototype.refreshSensorControlUI = function () {
     // No data ?
-    if (!this.client.ros.ros_info) {
+    if (!this.client.data.ros_info) {
         this.m_uiSensorList.array = [];
     }
 
     var data = [];
-    this.client.ros.ros_info.config.forEach(function (v) {
+    this.client.data.ros_info.config.forEach(function (v) {
         if (v.name === "raw_drive" || v.name === "AirSimDriver") return;
         data.push({
             checkbox: {
@@ -298,12 +298,12 @@ ScenarioUI.prototype.refreshSensorControlUI = function () {
 // Refresh the car state UI.
 ScenarioUI.prototype.refreshCarStateUI = function () {
     // No data ?
-    if (!this.client.car.car_state) {
+    if (!this.client.data.car_state) {
         return;
     }
 
-    this.m_uiDrive_speed.text = this.client.car.car_state.speed.toFixed(3);
-    this.m_uiDrive_accer.text = this.client.car.car_state.accer.toFixed(3);
-    this.m_uiDrive_steerSlider.value = this.client.car.car_state.steer;
-    this.m_uiDrive_steerImage.rotation = this.client.car.car_state.steer * 90;
+    this.m_uiDrive_speed.text = this.client.data.car_state.speed.toFixed(3);
+    this.m_uiDrive_accer.text = this.client.data.car_state.accer.toFixed(3);
+    this.m_uiDrive_steerSlider.value = this.client.data.car_state.steer;
+    this.m_uiDrive_steerImage.rotation = this.client.data.car_state.steer * 90;
 };
