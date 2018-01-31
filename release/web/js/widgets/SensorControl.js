@@ -21,6 +21,7 @@ function SensorControl(pageChooser, client, ui) {
     // Model and WebSocket backend.
     this.client = client
       .on("ros_info", this, function () {
+          this.refreshSensorButtonUI();
           this.refreshSensorListUI();
       });
 }
@@ -30,18 +31,20 @@ Laya.class(SensorControl, "SensorControl", Laya.EventDispatcher);
 SensorControl.prototype.initSensorButtonUI = function () {
     // Stop
     this.m_uiSensorButton1.on(Laya.Event.CLICK, this, function () {
-        // No protocal
+        this.client.sendRosInfo(0);
+        this.pageChooser.sensorChart.stopRandomData();
     });
 
     // Start
     this.m_uiSensorButton2.on(Laya.Event.CLICK, this, function () {
-        this.client.startRos();
+        this.client.sendRosInfo(1);
         this.pageChooser.sensorChart.feedRandomData();
     });
 
     // Pause
     this.m_uiSensorButton3.on(Laya.Event.CLICK, this, function () {
-        // No protocal
+        this.client.sendRosInfo(2);
+        this.pageChooser.sensorChart.stopRandomData();
     });
 };
 
@@ -58,12 +61,38 @@ SensorControl.prototype.initSensorListUI = function () {
                     v.running = !checkbox.selected;
                 }
             });
-            this.client.fire("ros_info");
+            this.client.send("ros_info");
         });
     });
 
     // No data
     this.m_uiSensorList.array = [];
+};
+
+// Refresh the Stop, Start and Pause button UI.
+SensorControl.prototype.refreshSensorButtonUI = function () {
+    // No data ?
+    if (!this.client.data.ros_info) {
+        return;
+    }
+
+    switch (this.client.data.ros_info.status) {
+    case 0: // stop
+        this.m_uiSensorButton1.visible = false;
+        this.m_uiSensorButton2.visible = true;
+        this.m_uiSensorButton3.visible = false;
+        break;
+    case 1: // run
+        this.m_uiSensorButton1.visible = true;
+        this.m_uiSensorButton2.visible = false;
+        this.m_uiSensorButton3.visible = true;
+        break;
+    case 2: // pause
+        this.m_uiSensorButton1.visible = true;
+        this.m_uiSensorButton2.visible = true;
+        this.m_uiSensorButton3.visible = false;
+        break;
+    }
 };
 
 // Refresh the sensor list UI.

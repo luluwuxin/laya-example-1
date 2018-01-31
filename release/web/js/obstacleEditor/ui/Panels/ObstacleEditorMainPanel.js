@@ -105,7 +105,10 @@ function ObstacleEditorMainPanelScript(dependences)
     this.obstaclePanelContainer.addChild(this.obstaclePanel);
 
     this.obstacleInfoPanel = new ObstacleInfoPanelScript(dependences);
-    this.obstacleInfoPanelContainer.addChild(this.obstacleInfoPanel);
+    this.objectInfoPanelContainer.addChild(this.obstacleInfoPanel);
+
+    this.mainCarInfoPanel = new MainCarInfoPanelScript(dependences);
+    this.objectInfoPanelContainer.addChild(this.mainCarInfoPanel);
 
     this.routePointInfoPanel = new RoutePointInfoPanelScript(dependences);
     this.routePointInfoPanelContainer.addChild(this.routePointInfoPanel);

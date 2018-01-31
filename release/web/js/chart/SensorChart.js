@@ -224,6 +224,10 @@ SensorChart.prototype.rebind = function () {
      this.bind(this.page);
 };
 
+SensorChart.prototype.stopRandomData = function () {
+    this.__feeding_random_data = false;
+};
+
 SensorChart.prototype.feedRandomData = function () {
     if (this.__feeding_random_data) {
         return;
@@ -263,6 +267,8 @@ SensorChart.prototype.feedRandomData = function () {
             this.chart.data.datasets[4].data.shift();
         this.chart.update();
 
-        this.later(500, AddDummyData);
+        if (this.__feeding_random_data) {
+            this.later(500, AddDummyData);
+        }
     });
 };
