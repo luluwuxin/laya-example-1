@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":25,
-    "selecteID":2,
+    "selectedBox":3,
+    "selecteID":14,
     "props":{"width":1200,"top":0,"sceneColor":"#000000","right":0,"left":0,"height":800,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -43,14 +43,13 @@
                     "props":{"width":200,"top":0,"name":"objectPanel","left":0,"bottom":0},
                     "nodeParent":16,
                     "label":"Box(objectPanel)",
-                    "isOpen":true,
+                    "isOpen":false,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":25,
                     "child":[
                         {
-                            "x":45,
                             "type":"Panel",
                             "props":{"var":"obstaclePanelContainer","top":160,"right":0,"left":0,"bottom":0},
                             "nodeParent":25,
@@ -64,7 +63,6 @@
                                 ]
                         },
                         {
-                            "x":45,
                             "type":"Box",
                             "props":{"var":"mainCarPanelContainer","top":0,"right":0,"left":0,"height":160},
                             "nodeParent":25,
@@ -83,17 +81,18 @@
                     "props":{"y":-30,"width":200,"top":0,"name":"infoPanel","left":200,"bottom":0},
                     "nodeParent":16,
                     "label":"Panel(infoPanel)",
-                    "isOpen":false,
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
                     "compId":3,
                     "child":[
                         {
+                            "x":45,
                             "type":"Panel",
-                            "props":{"var":"obstacleInfoPanelContainer","top":10,"right":10,"left":10,"height":485},
+                            "props":{"var":"objectInfoPanelContainer","top":10,"right":10,"left":10,"height":485},
                             "nodeParent":3,
-                            "label":"Panel(obstacleInfoPanelContainer)",
+                            "label":"Panel(objectInfoPanelContainer)",
                             "isDirectory":false,
                             "isAniNode":true,
                             "hasChild":false,
@@ -102,6 +101,7 @@
                                 ]
                         },
                         {
+                            "x":45,
                             "type":"Panel",
                             "props":{"var":"routePointInfoPanelContainer","top":505,"right":10,"left":10,"bottom":10},
                             "nodeParent":3,

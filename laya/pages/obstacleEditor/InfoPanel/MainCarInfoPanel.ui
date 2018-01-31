@@ -1,8 +1,8 @@
 {
     "x":0,
     "type":"View",
-    "selectedBox":11,
-    "selecteID":30,
+    "selectedBox":36,
+    "selecteID":38,
     "props":{"width":200,"top":0,"sceneWidth":600,"sceneHeight":400,"sceneColor":"#000000","right":0,"left":0,"height":500,"bottom":0},
     "nodeParent":-1,
     "label":"View",
@@ -40,105 +40,149 @@
                 {
                     "x":30,
                     "type":"Box",
-                    "props":{"x":0,"top":0,"right":0,"name":"obstacleBaseInfoPanel","left":0,"height":40},
+                    "props":{"top":0,"right":0,"name":"mainCarBaseInfoPanel","left":0,"height":70},
                     "nodeParent":11,
-                    "label":"Box(obstacleBaseInfoPanel)",
-                    "isOpen":false,
+                    "label":"Box(mainCarBaseInfoPanel)",
+                    "isOpen":true,
                     "isDirectory":true,
                     "isAniNode":true,
                     "hasChild":true,
-                    "compId":30,
+                    "compId":31,
                     "child":[
                         {
+                            "x":45,
                             "type":"Box",
                             "props":{"y":0,"x":0,"top":0,"right":0,"name":"title","left":0,"height":40},
-                            "nodeParent":30,
+                            "nodeParent":31,
                             "label":"Box(title)",
                             "isOpen":true,
                             "isDirectory":true,
                             "isAniNode":true,
                             "hasChild":true,
-                            "compId":27,
+                            "compId":39,
                             "child":[
                                 {
+                                    "x":60,
                                     "type":"Label",
-                                    "props":{"var":"obstacleTitleLabel","top":7,"text":"Selected obstacle","right":0,"left":10,"height":20,"fontSize":12,"font":"Arial","color":"#ffffff","align":"left"},
-                                    "nodeParent":27,
-                                    "label":"Label(obstacleTitleLabel)",
+                                    "props":{"var":"mainCarTitleLabel","top":7,"text":"Main car","right":0,"left":10,"height":20,"fontSize":12,"font":"Arial","color":"#ffffff","align":"left"},
+                                    "nodeParent":39,
+                                    "label":"Label(mainCarTitleLabel)",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":3,
+                                    "compId":40,
                                     "child":[
                                         ]
                                 },
                                 {
+                                    "x":60,
                                     "type":"Image",
-                                    "props":{"top":14,"skin":"custom/line_subtitle.png","right":10,"left":120,"height":1},
-                                    "nodeParent":27,
+                                    "props":{"top":14,"skin":"custom/line_subtitle.png","right":10,"left":70,"height":1},
+                                    "nodeParent":39,
                                     "label":"Image",
                                     "isDirectory":false,
                                     "isAniNode":true,
                                     "hasChild":false,
-                                    "compId":28,
+                                    "compId":41,
                                     "child":[
                                         ]
                                 }]
                         },
                         {
-                            "type":"Label",
-                            "props":{"x":5,"width":40,"top":30,"text":"type:","name":"typeLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff","align":"left"},
-                            "nodeParent":30,
-                            "label":"Label(typeLabel)",
-                            "isDirectory":false,
+                            "x":45,
+                            "type":"Button",
+                            "props":{"var":"mainCarStartPoint","top":32,"skin":"custom/pixel_gray30.png","sizeGrid":"1,1,1,1","right":6,"left":6,"labelSize":12,"labelFont":"Arial","labelColors":"#ffffff","label":"Start point","height":20},
+                            "nodeParent":31,
+                            "label":"Button(mainCarStartPoint)",
+                            "isOpen":false,
+                            "isDirectory":true,
                             "isAniNode":true,
-                            "hasChild":false,
-                            "compId":8,
+                            "hasChild":true,
+                            "compId":32,
                             "child":[
-                                ]
+                                {
+                                    "type":"Image",
+                                    "props":{"top":-1,"skin":"custom/frame_orange.png","sizeGrid":"2,2,2,2","right":-1,"name":"selectedMark","left":-1,"bottom":-1},
+                                    "nodeParent":32,
+                                    "label":"Image(selectedMark)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":33,
+                                    "child":[
+                                        ]
+                                }]
                         },
                         {
-                            "type":"ComboBox",
-                            "props":{"x":45,"var":"typeComboBox","top":29,"skin":"comp/combobox.png","sizeGrid":"2,19,2,2","scrollBarSkin":"comp/vscroll.png","right":5,"left":45,"labels":"label1,label2","height":15},
-                            "nodeParent":30,
-                            "label":"ComboBox(typeComboBox)",
-                            "isDirectory":false,
+                            "x":45,
+                            "type":"Button",
+                            "props":{"x":10,"var":"mainCarEndPoint","top":58,"skin":"custom/pixel_gray30.png","sizeGrid":"1,1,1,1","right":6,"left":6,"labelSize":12,"labelFont":"Arial","labelColors":"#ffffff","label":"End point","height":20},
+                            "nodeParent":31,
+                            "label":"Button(mainCarEndPoint)",
+                            "isOpen":false,
+                            "isDirectory":true,
                             "isAniNode":true,
-                            "hasChild":false,
-                            "compId":26,
+                            "hasChild":true,
+                            "compId":34,
                             "child":[
-                                ]
+                                {
+                                    "type":"Image",
+                                    "props":{"top":-1,"skin":"custom/frame_orange.png","sizeGrid":"2,2,2,2","right":-1,"name":"selectedMark","left":-1,"bottom":-1},
+                                    "nodeParent":34,
+                                    "label":"Image(selectedMark)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":35,
+                                    "child":[
+                                        ]
+                                }]
                         },
                         {
-                            "type":"Label",
-                            "props":{"x":5,"width":40,"top":50,"text":"name:","name":"nameLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                            "nodeParent":30,
-                            "label":"Label(nameLabel)",
-                            "isDirectory":false,
+                            "x":45,
+                            "type":"Box",
+                            "props":{"x":0,"top":80,"right":0,"name":"timeLimitBox","left":0,"height":18},
+                            "nodeParent":31,
+                            "label":"Box(timeLimitBox)",
+                            "isOpen":true,
+                            "isDirectory":true,
                             "isAniNode":true,
-                            "hasChild":false,
-                            "compId":6,
+                            "hasChild":true,
+                            "compId":36,
                             "child":[
-                                ]
-                        },
-                        {
-                            "type":"TextInput",
-                            "props":{"x":45,"var":"nameInput","top":49,"right":5,"promptColor":"#808080","prompt":"input","left":45,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
-                            "nodeParent":30,
-                            "label":"TextInput(nameInput)",
-                            "isDirectory":false,
-                            "isAniNode":true,
-                            "hasChild":false,
-                            "compId":13,
-                            "child":[
-                                ]
+                                {
+                                    "x":60,
+                                    "type":"Label",
+                                    "props":{"x":5,"width":50,"top":2,"text":"time limit:","name":"timeLimitLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                                    "nodeParent":36,
+                                    "label":"Label(timeLimitLabel)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":37,
+                                    "child":[
+                                        ]
+                                },
+                                {
+                                    "x":60,
+                                    "type":"TextInput",
+                                    "props":{"x":70,"var":"timeLimitInput","type":"number","top":0,"right":0,"promptColor":"#808080","prompt":"input","left":70,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                                    "nodeParent":36,
+                                    "label":"TextInput(timeLimitInput)",
+                                    "isDirectory":false,
+                                    "isAniNode":true,
+                                    "hasChild":false,
+                                    "compId":38,
+                                    "child":[
+                                        ]
+                                }]
                         }],
                     "$HIDDEN":false
                 },
                 {
                     "x":30,
                     "type":"Label",
-                    "props":{"width":40,"top":70,"text":"route:","name":"routeLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
+                    "props":{"width":40,"top":100,"text":"route:","name":"routeLabel","left":5,"height":15,"fontSize":12,"font":"Arial","color":"#ffffff"},
                     "nodeParent":11,
                     "label":"Label(routeLabel)",
                     "isDirectory":false,
@@ -152,7 +196,7 @@
                 {
                     "x":30,
                     "type":"List",
-                    "props":{"var":"routePointList","vScrollBarSkin":"custom/vscroll.png","top":85,"spaceY":10,"right":0,"left":0,"bottom":45},
+                    "props":{"var":"routePointList","vScrollBarSkin":"custom/vscroll.png","top":115,"spaceY":10,"right":0,"left":0,"bottom":45},
                     "nodeParent":11,
                     "label":"List(routePointList)",
                     "isOpen":false,

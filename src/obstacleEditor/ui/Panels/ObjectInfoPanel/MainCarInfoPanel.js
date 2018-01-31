@@ -1,28 +1,19 @@
-function ObstacleInfoPanelScript(dependences)
+function MainCarInfoPanelScript(dependences)
 {
     //#region event callback
-    function onNameInput(sender)
-    {
-        var obstacle = this._user.getSelectedObstacle();
-        obstacle.setName(sender.text);
-    }
-
-    function onTypeChanged(sender)
-    {
-        var comboBox = sender.currentTarget;
-        var obstacle = this._user.getSelectedObstacle();
-
-        obstacle.setType(comboBox.selectedLabel);
-    }
-
-    function onObstacleSelected(sender, obstacle, oriObstacle)
-    {
-        this.changeObstacle(obstacle, oriObstacle);
-    }
-
     function onMainCarSelected(sender, val)
     {
         this.refreshPanel();
+    }
+
+    function onMainCarRoutePointSelected(sender, point)
+    {
+        
+    }
+
+    function onMainCarSEPointSelected(sender, point)
+    {
+        
     }
 
     function onRoutePointAdded(sender, routePoint)
@@ -35,22 +26,21 @@ function ObstacleInfoPanelScript(dependences)
         this.removeRoutePoint(routePoint);
     }
 
-    function onObstacleBaseInfoChanged(sender, obstacle)
+    function onMainCarBaseInfoChanged(sender)
     {
-        if (obstacle === this._user.getSelectedObstacle())
-        {
-            this.setObstacleInfo(obstacle);
-        }
+
     }
 
     function onRoutePointSelected(sender, routePoint, oriRoutePoint)
     {
+        // TODO
         this.updateRoutePointItem(oriRoutePoint);
         this.updateRoutePointItem(routePoint);
     }
 
     function onRoutePointButtonClick(routePoint, sender)
     {
+        // TODO
         if (this._user.getSelectedRoutePoint() == routePoint)
         {
             this._mainPanel.mapPanel.putRoutePointToMapCenter(routePoint);
@@ -63,11 +53,13 @@ function ObstacleInfoPanelScript(dependences)
 
     function onRoutePointRemoveButtonClick(routePoint, sender)
     {
+        // TODO
         routePoint.obstacle.removeRoutePoint(routePoint);
     }
 
     function onRoutePointListRender(obj, index)
     {
+        // TODO
         obj.label = "point" + index;
 
         var routePoint = obj.dataSource.routePoint;
@@ -83,8 +75,9 @@ function ObstacleInfoPanelScript(dependences)
 
     function onAddRoutePointButtonClick(sender)
     {
+        // TODO
         var obstacle = this._user.getSelectedObstacle();
-
+        // TODO: main car selected
         var addedRoutePoint = null;
         if (obstacle.getRoutePointCount() == 0)
         {
@@ -123,16 +116,11 @@ function ObstacleInfoPanelScript(dependences)
         this._user.selectRoutePoint(addedRoutePoint);
     }
 
-    function onMapDataLoaded()
-    {
-        // init typeComboBox
-        UIHelper.setComboLabels(this.typeComboBox, this._loadedDataManager.mapData.getObstacleTypes());
-    }
-
     //#endregion event callback
 
     this.updateRoutePointItem = function(routePoint)
     {
+        // TODO
         if (routePoint == null || routePoint.index == -1)
         {
             return;
@@ -142,29 +130,8 @@ function ObstacleInfoPanelScript(dependences)
 
     this.refreshPanel = function()
     {
-        var isObstacleSelected = this._user.isObstacleSelected();
         var isMainCarSelected = this._user.isMainCarSelected();
-        if (!isObstacleSelected && !isMainCarSelected)
-        {
-            this.contentPanel.visible = false;
-        }
-        else
-        {
-            this.contentPanel.visible = true;
-            this.obstacleBaseInfoPanel.visible = isObstacleSelected;
-            this.mainCarBaseInfoPanel.visible = isMainCarSelected;
-        }
-
-    }
-
-    this.setObstacleInfo = function(obstacle)
-    {
-        if (obstacle != null)
-        {
-            this.typeComboBox.selectedLabel = obstacle.type;
-            this.nameInput.text = obstacle.name;
-            this.setRoutePoints(obstacle.route);
-        }
+        this.visible = isMainCarSelected;
     }
 
     this.setMainCarInfo = function()
@@ -175,36 +142,14 @@ function ObstacleInfoPanelScript(dependences)
         // TODO
     }
 
-    this.changeObstacle = function(obstacle, oriObstacle)
-    {
-        if (oriObstacle != null)
-        {
-            // Unregister original obstacle's point added/removed event.
-            oriObstacle.unregisterEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, onRoutePointAdded);
-            oriObstacle.unregisterEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, onRoutePointRemoved);
-            oriObstacle.unregisterEvent(ObjectEvent.VALUE_CHANGED, this, onObstacleBaseInfoChanged);
-        }
-        if (obstacle != null)
-        {
-            // Register new obstacle's point added/removed event.
-            obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, onRoutePointAdded);
-            obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, onRoutePointRemoved);
-            obstacle.registerEvent(ObjectEvent.VALUE_CHANGED, this, onObstacleBaseInfoChanged);
-        }
-
-        this.setObstacleInfo(obstacle);
-        this.refreshPanel();
-    }
     this.refreshRoutePointList = function()
     {
         this.routePointList.refresh();
     }
-    this.clearRoutePoint = function()
-    {
-        this.routePointList.array = [];
-    }
+
     this.setRoutePoints = function(route)
     {
+        // TODO
         this.routePointList.array = [];
         for (var i = 0; i < route.points.length; i++)
         {
@@ -214,6 +159,7 @@ function ObstacleInfoPanelScript(dependences)
     }
     this.addRoutePoint = function(routePoint, refresh = true)
     {
+        // TODO
         var index = routePoint.index;
         if (refresh)
         {
@@ -226,11 +172,12 @@ function ObstacleInfoPanelScript(dependences)
     }
     this.removeRoutePoint = function(routePoint)
     {
+        // TODO
         this.routePointList.deleteItem(routePoint.index);
     }
     
     //#region constructor
-    ObstacleInfoPanelScript.super(this);
+    MainCarInfoPanelScript.super(this);
 
     // member variable
     DependencesHelper.setDependences(this, dependences);
@@ -238,17 +185,14 @@ function ObstacleInfoPanelScript(dependences)
     // init ui
 
     // event
-    this._loadedDataManager.registerEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this, onMapDataLoaded);
     this.routePointList.renderHandler = new Handler(this, onRoutePointListRender);
     this.addRoutePointButton.on(Event.CLICK, this, onAddRoutePointButtonClick);
-    this.typeComboBox.on(Event.CHANGE, this, onTypeChanged);
-    this.nameInput.on(Event.ENTER, this, onNameInput);
-    this.nameInput.on(Event.BLUR, this, onNameInput);
-    this._user.registerEvent(UserEvent.OBSTACLE_SELECTED, this, onObstacleSelected);
     this._user.registerEvent(UserEvent.MAIN_CAR_SELECTED, this, onMainCarSelected);
-    this._user.registerEvent(UserEvent.ROUTE_POINT_SELECTED, this, onRoutePointSelected);
+    this._user.registerEvent(UserEvent.MAIN_CAR_ROUTE_POINT_SELECTED, this, onMainCarRoutePointSelected);
+    this._user.registerEvent(UserEvent.MAIN_CAR_SE_POINT_SELECTED, this, onMainCarSEPointSelected);
 
-    this.changeObstacle(this._user.getSelectedObstacle(), null);
+    this.setMainCarInfo();
+    this.refreshPanel();
     //#endregion constructor
 }
-Laya.class(ObstacleInfoPanelScript, "ObstacleInfoPanelScript", ObstacleInfoPanelUI);
+Laya.class(MainCarInfoPanelScript, "MainCarInfoPanelScript", MainCarInfoPanelUI);
