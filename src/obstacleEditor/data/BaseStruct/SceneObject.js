@@ -1,27 +1,22 @@
-var ObstacleEvent = 
+var SceneObjectEvent = 
 {
     ROUTE_POINT_ADDED: "route point added",
     ROUTE_POINT_REMOVED: "route point removed"
 };
 
-class Obstacle extends EventObject
+var SceneObjectType = 
 {
-    constructor(type, name)
+    OBSTACLE: "obstacle",
+    MAIN_CAR: "main car"
+}
+
+class SceneObject extends EventObject
+{
+    constructor(sceneObjectType)
     {
         super();
-        this.type = type;
-        this.name = name;
+        this.sceneObjectType = sceneObjectType;
         this.route = new Route();
-    }
-
-    setName(name)
-    {
-        this.setValue("name", name);
-    }
-
-    setType(type)
-    {
-        this.setValue("type", type);
     }
 
     getRoutePoint(index)
@@ -52,7 +47,7 @@ class Obstacle extends EventObject
             this.route.points.splice(index, 0, routePoint);
         }
 
-        routePoint.obstacle = this;
+        routePoint.setOwner(this);
         routePoint.index = index;
 
         for (var i = index + 1; i < this.route.points.length; i++)
@@ -61,18 +56,13 @@ class Obstacle extends EventObject
         }
 
         // Send events after all operation finished, or in callback it will get incorrect value.
-        this.sendEvent(ObstacleEvent.ROUTE_POINT_ADDED, routePoint);
+        this.sendEvent(SceneObjectEvent.ROUTE_POINT_ADDED, routePoint);
         for (var i = index + 1; i < this.route.points.length; i++)
         {
             this.route.points[i].sendEvent(ObjectEvent.VALUE_CHANGED, new Set(["index"]));
         }
-        routePoint._refreshLinkLine();
-        // link line of prev point shall change
-        if (index > 0)
-        {
-            this.route.points[index - 1]._refreshLinkLine();
-        }
-        routePoint._refreshTimeOrSpeed();
+
+        routePoint.afterAdded();
     }
 
     removeRoutePoint (routePoint)
@@ -86,33 +76,11 @@ class Obstacle extends EventObject
 
         routePoint.clearEvent();
         // Send events after all operation finished, or in callback it will get incorrect value.
-        this.sendEvent(ObstacleEvent.ROUTE_POINT_REMOVED, routePoint);
+        this.sendEvent(SceneObjectEvent.ROUTE_POINT_REMOVED, routePoint);
         for (var i = index; i < this.route.points.length; i++)
         {
             this.route.points[i].sendEvent(ObjectEvent.VALUE_CHANGED, new Set(["index"]));
         }
-        // link line of prev point shall change
-        if (index > 0)
-        {
-            this.route.points[index - 1]._refreshLinkLine();
-        }
-        if (index < this.route.points.length)
-        {
-            this.route.points[index]._refreshTimeOrSpeed();
-        }
-    }
-
-    toJson()
-    {
-        var routePointsJsonObj = [];
-        for (var routePoint of this.route.points)
-        {
-            routePointsJsonObj.push(routePoint.toJson());
-        }
-        return {
-            "moveStates": routePointsJsonObj,
-            "type": this.type,
-            "name": this.name
-        }
+        routePoint.afterRemoved();
     }
 }

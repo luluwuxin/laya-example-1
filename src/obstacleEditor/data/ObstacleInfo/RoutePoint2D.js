@@ -10,34 +10,23 @@ var RoutePointEvent =
 class RoutePoint2D extends ObjectPoint
 {
     constructor(
-        mapData = null,
-        pose = new Pose(), 
-        isReversing = false,
-        timestampInterval = 1,
-        speed = 500,
-        lockType = RoutePointLockType.SPEED
+        pose, 
+        isReversing,
+        timestampInterval,
+        speed,
+        lockType
         )
     {
         super(ObjectPointType.OBSTACLE_ROUTE_POINT);
-        this.x = pose.vec3.x;
-        this.y = pose.vec3.y;
-        if (mapData != null)
+        if (pose != null)
         {
-            this.z = mapData.mapInfo.objectZ;
+            this.setLocation(pose.vec3);
+            this.rotation = Math.atan2(pose.quat.z, pose.quat.w) * 2 / Math.PI * 180;
         }
-        else
-        {
-            this.z = 0;
-        }
-        this.rotation = Math.atan2(pose.quat.z, pose.quat.w) * 2 / Math.PI * 180;
         this.timestampInterval = timestampInterval;
         this.speed = speed;
         this.isReversing = isReversing;
         this.lockType = lockType;
-
-        // Variables below shall be set after it added to obstacle.
-        this.obstacle = null;
-        this.index = -1;
     }
 
     getTimestampSec()
@@ -57,6 +46,11 @@ class RoutePoint2D extends ObjectPoint
         }
     }
 
+    setLocation(vec3)
+    {
+        Object.assign(this, vec3);
+    }
+
     clone ()
     {
         var ret = new RoutePoint2D();
@@ -64,8 +58,10 @@ class RoutePoint2D extends ObjectPoint
         ret.y = this.y;
         ret.z = this.z;
         ret.rotation = this.rotation;
-        ret.timestampInterval = this.timestampInterval;
         ret.isReversing = this.isReversing;
+        ret.timestampInterval = this.timestampInterval;
+        ret.speed = this.speed;
+        ret.lockType = this.lockType;
         return ret;
     }
 
@@ -180,76 +176,67 @@ class RoutePoint2D extends ObjectPoint
             this.linkLineLength = 0;
         }
         this.sendEvent(RoutePointEvent.LINK_LINE_CHANGED, this.bezierCurve);
-
     }
 
     _refreshTimeOrSpeed (keys = null)
     {
-        if (this.hasPrevRoutePoint() == false)
+        if (this.hasPrevRoutePoint())
         {
-            return;
+            var prevPoint = this.prevRoutePoint();
+            var prevLinkLineLength = prevPoint.linkLineLength;
+            var prevSpeed = prevPoint.speed;
+            var setSpeed = false;
+            if (keys != null && keys.has("speed"))
+            {
+                setSpeed = false;
+            }
+            else if (keys != null && keys.has("timestampInterval"))
+            {
+                setSpeed = true;
+            }
+            else
+            {
+                setSpeed = (this.lockType == RoutePointLockType.TIMESTAMP_FROM_PREV_POINT);
+            }
+            if (setSpeed)
+            {
+                this._setValueInternal("speed", prevLinkLineLength * 2 / this.timestampInterval - prevSpeed);
+            }
+            else
+            {
+                this._setValueInternal("timestampInterval", prevLinkLineLength * 2 / (prevSpeed + this.speed));
+            }
         }
-        var prevPoint = this.prevRoutePoint();
-        var prevLinkLineLength = prevPoint.linkLineLength;
-        var prevSpeed = prevPoint.speed;
-        var setSpeed = false;
-        if (keys != null && keys.has("speed"))
-        {
-            setSpeed = false;
-        }
-        else if (keys != null && keys.has("timestampInterval"))
-        {
-            setSpeed = true;
-        }
-        else
-        {
-            setSpeed = (this.lockType == RoutePointLockType.TIMESTAMP_FROM_PREV_POINT);
-        }
-        if (setSpeed)
-        {
-            this._setValueInternal("speed", prevLinkLineLength * 2 / this.timestampInterval - prevSpeed);
-        }
-        else
-        {
-            this._setValueInternal("timestampInterval", prevLinkLineLength * 2 / (prevSpeed + this.speed));
-        }
+        
         if (this.hasNextRoutePoint())
         {
             this.nextRoutePoint()._refreshTimeOrSpeed();
         }
     }
 
-    hasNextRoutePoint()
+    afterAdded()
     {
-        return this.obstacle != null && this.index + 1 < this.obstacle.getRoutePointCount();
-    }
-
-    hasPrevRoutePoint()
-    {
-        return this.index > 0;
-    }
-
-    nextRoutePoint()
-    {
-        if (this.hasNextRoutePoint())
-        {
-            return this.obstacle.getRoutePoint(this.index + 1);
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    prevRoutePoint()
-    {
+        this._refreshLinkLine();
+        // link line of prev point shall change
         if (this.hasPrevRoutePoint())
         {
-            return this.obstacle.getRoutePoint(this.index - 1);
+            this.prevRoutePoint()._refreshLinkLine();
         }
-        else
+        this._refreshTimeOrSpeed();
+    }
+
+    afterRemoved()
+    {
+        // link line of prev point shall change
+        var prevRoutePoint = this.prevRoutePoint();
+        if (prevRoutePoint != null)
         {
-            return null;
+            prevRoutePoint._refreshLinkLine();
+        }
+        var owner = this.getOwner();
+        if (this.index < owner.getRoutePointCount())
+        {
+            owner.getRoutePoint(this.index)._refreshTimeOrSpeed();
         }
     }
 }

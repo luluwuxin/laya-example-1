@@ -39,23 +39,24 @@
 	<!--自定义的js(bin/js文件夹下)文件自动添加到下面jsfile模块标签里面里，js的顺序可以手动修改，修改后保留修改的顺序，新增加的js会默认依次追加到标签里-->
 	<!--删除标签，ide不会自动添加js文件，请谨慎操作-->
 	<!--jsfile--startTag-->
-	<script src="../src/obstacleEditor/ui/Panels/ObjectInfoPanel/MainCarInfoPanel.js"></script>
-	<script src="../src/obstacleEditor/ui/Panels/ObjectInfoPanel/ObstacleInfoPanel.js"></script>
+	
+	
 	<!-- ======== obstacle editor start tag ======== -->
 	<!-- base class -->
-	<script src="../src/obstacleEditor/data/BaseObject.js"></script>
-	<script src="../src/obstacleEditor/data/EventObject.js"></script>
+	<script src="../src/obstacleEditor/data/BaseStruct/BaseObject.js"></script>
+	<script src="../src/obstacleEditor/data/BaseStruct/EventObject.js"></script>
 	<!-- struct -->
-	<script src="../src/obstacleEditor/data/ObjectPoint.js"></script>
-	<script src="../src/obstacleEditor/data/Obstacle.js"></script>
+	<script src="../src/obstacleEditor/data/BaseStruct/SceneObject.js"></script>
+	<script src="../src/obstacleEditor/data/BaseStruct/ObjectPoint.js"></script>
+	<script src="../src/obstacleEditor/data/ObstacleInfo/Obstacle.js"></script>
 	<script src="../src/obstacleEditor/data/MapData.js"></script>
+	<script src="../src/obstacleEditor/data/ObstacleInfo/RoutePoint2D.js"></script>
+	<script src="../src/obstacleEditor/data/MainCarInfo/MainCarStartPoint2D.js"></script>
 	<script src="../src/obstacleEditor/data/MainCarInfo/MainCarRoutePoint2D.js"></script>
-	<script src="../src/obstacleEditor/data/MainCarInfo/MainCarSEPoint2D.js"></script>
     <script src="../src/obstacleEditor/data/MainCarInfo/MainCar.js"></script>
 	<script src="../src/obstacleEditor/data/ObstacleManager.js"></script>
 	<script src="../src/obstacleEditor/data/Route.js"></script>
 	<script src="../src/obstacleEditor/data/RoutePoint.js"></script>
-	<script src="../src/obstacleEditor/data/RoutePoint2D.js"></script>
 	<script src="../src/obstacleEditor/data/User.js"></script>
 	<!-- math -->
 	<script src="../src/obstacleEditor/math/BezierCurve.js"></script>
@@ -80,6 +81,8 @@
 	<script src="../src/obstacleEditor/managerObject/LogManager.js"></script>
 	<!-- ui -->
 	<script src="../src/obstacleEditor/ui/Common/PopupWindow/AskPopupWindow.js"></script>
+	<script src="../src/obstacleEditor/ui/Panels/ObjectInfoPanel/MainCarInfoPanel.js"></script>
+	<script src="../src/obstacleEditor/ui/Panels/ObjectInfoPanel/ObstacleInfoPanel.js"></script>
 	<script src="../src/obstacleEditor/ui/Panels/DebugPanel.js"></script>
 	<script src="../src/obstacleEditor/ui/Panels/MapPanel/MapPanel.js"></script>
 	<script src="../src/obstacleEditor/ui/Panels/MapPanel/RoutePointLinkLineView.js"></script>
@@ -88,6 +91,7 @@
 	<script src="../src/obstacleEditor/ui/Panels/ObjectPanel/ObstaclePanel.js"></script>
 	<script src="../src/obstacleEditor/ui/Panels/RoutePointInfoPanel.js"></script>
 	<script src="../src/obstacleEditor/ui/Panels/ObstacleEditorMainPanel.js"></script>
+	<script src="../src/obstacleEditor/ui/Panels/MapPanel/MainCarRoutePointLinkLineView.js"></script>
 	<!-- main -->
 	<script src="../src/obstacleEditor/ObstacleEditor.js"></script>
 	<!-- ======== obstacle editor end tag ======== -->

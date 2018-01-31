@@ -21,7 +21,7 @@ function RoutePointViewScript(obstacleUI, routePoint)
     //#region drag mode
     function onMouseDownDragMode(event)
     {
-        this._user.selectObstacle(this._routePoint.obstacle);
+        this._user.selectSceneObject(this._routePoint.getOwner());
         this._user.selectRoutePoint(this._routePoint);
         event.stopPropagation();
         this.inDraggingMode = false;
@@ -183,20 +183,31 @@ function RoutePointViewScript(obstacleUI, routePoint)
 
     RoutePointViewScript.super(this);
 
-    // member variables.
-
     DependencesHelper.setDependencesByParent(this, obstacleUI, "obstacleUI");
 
+    // member variables.
     this._user = this._dependences.user;
     this._routePoint = routePoint;
     this.anchorX = 0.5;
     this.anchorY = 0.5;
+    var pointType = this._routePoint.pointType;
+    var canRotate = pointType == ObjectPointType.MAIN_CAR_START_POINT
+    || pointType == ObjectPointType.OBSTACLE_ROUTE_POINT;
 
-    this._onSelected(false);
-    
+    // event
     this._routePoint.registerEvent(ObjectEvent.VALUE_CHANGED, this, onRoutePointValueChanged);
     this._user.registerEvent(UserEvent.ROUTE_POINT_SELECTED, this, onRoutePointSelected);
     this.dragButton.on(Event.MOUSE_DOWN, this, onMouseDownDragMode);
-    this.rotationButton.on(Event.MOUSE_DOWN, this, onMouseDownRotationMode);
+    if (canRotate)
+    {
+        this.rotationButton.on(Event.MOUSE_DOWN, this, onMouseDownRotationMode);
+    }
+
+    // init UI
+    this.arrowImage.visible = canRotate;
+
+
+    this._onSelected(false);
+
 }
 Laya.class(RoutePointViewScript, "RoutePointViewScript", RoutePointViewUI);

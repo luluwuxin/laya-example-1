@@ -15,9 +15,12 @@ function ObstacleInfoPanelScript(dependences)
         obstacle.setType(comboBox.selectedLabel);
     }
 
-    function onObstacleSelected(sender, obstacle, oriObstacle)
+    function onSceneObjectSelected(sender, sceneObject, oriSceneObject)
     {
-        this.changeObstacle(obstacle, oriObstacle);
+        this.changeObstacle(
+            ObjectHelper.objectCheck(sceneObject, "sceneObjectType", SceneObjectType.OBSTACLE),
+            ObjectHelper.objectCheck(oriSceneObject, "sceneObjectType", SceneObjectType.OBSTACLE)
+        );
     }
 
     function onRoutePointAdded(sender, routePoint)
@@ -34,16 +37,20 @@ function ObstacleInfoPanelScript(dependences)
     {
         if (obstacle === this._user.getSelectedObstacle())
         {
-            this.setObstacleInfo(obstacle);
+            this.setObstacleBaseInfo(obstacle);
         }
     }
 
     function onRoutePointSelected(sender, routePoint, oriRoutePoint)
     {
-        this.updateRoutePointItem(oriRoutePoint);
-        this.updateRoutePointItem(routePoint);
+        this.changeRoutePoint(
+            ObjectHelper.objectCheck(routePoint, "pointType", ObjectPointType.OBSTACLE_ROUTE_POINT),
+            ObjectHelper.objectCheck(oriRoutePoint, "pointType", ObjectPointType.OBSTACLE_ROUTE_POINT)
+        );
     }
 
+    //#region same with MainCarInfoPanel
+    // TODO this part is the same as MainCarInfoPanel
     function onRoutePointButtonClick(routePoint, sender)
     {
         if (this._user.getSelectedRoutePoint() == routePoint)
@@ -58,7 +65,7 @@ function ObstacleInfoPanelScript(dependences)
 
     function onRoutePointRemoveButtonClick(routePoint, sender)
     {
-        routePoint.obstacle.removeRoutePoint(routePoint);
+        routePoint.getOwner().removeRoutePoint(routePoint);
     }
 
     function onRoutePointListRender(obj, index)
@@ -78,25 +85,21 @@ function ObstacleInfoPanelScript(dependences)
 
     function onAddRoutePointButtonClick(sender)
     {
-        var obstacle = this._user.getSelectedObstacle();
-
+        // Only this line is different from MainCarInfoPanel.js
+        var sceneObject = this._user.getSelectedObstacle();
         var addedRoutePoint = null;
-        if (obstacle.getRoutePointCount() == 0)
+        if (sceneObject.getRoutePointCount() == 0)
         {
             // Put map view center.
             var pose = new Pose();
             // get center pos of map view
-            var uiX = this._mainPanel.mapPanel.mainContainer.hScrollBar.value;
-            var uiY = this._mainPanel.mapPanel.mainContainer.vScrollBar.value;
-            uiX += this._mainPanel.mapPanel.mainContainer.width / 2;
-            uiY += this._mainPanel.mapPanel.mainContainer.height / 2;
-            var pos = this._loadedDataManager.mapData.uiToMapPosition({x: uiX, y: uiY});
+            var pos = this._loadedDataManager.mapData.uiToMapPosition(this._mainPanel.mapPanel.getViewCenter());
 
             pose.vec3.x = pos.x;
             pose.vec3.y = pos.y;
 
-            addedRoutePoint = new RoutePoint2D(this._loadedDataManager.mapData, pose)
-            obstacle.addRoutePoint(addedRoutePoint);
+            addedRoutePoint = sceneObject.createRoutePoint(this._loadedDataManager.mapData, pose)
+            sceneObject.addRoutePoint(addedRoutePoint);
         }
         else
         {
@@ -104,20 +107,21 @@ function ObstacleInfoPanelScript(dependences)
             if (selectedRoutePoint == null)
             {
                 // Same as last
-                var prevRoutePoint = obstacle.getRoutePoint(obstacle.getRoutePointCount() - 1);
+                var prevRoutePoint = sceneObject.getRoutePoint(sceneObject.getRoutePointCount() - 1);
                 addedRoutePoint = prevRoutePoint.clone();
-                obstacle.addRoutePoint(addedRoutePoint);
+                sceneObject.addRoutePoint(addedRoutePoint);
             }
             else
             {
                 var index = selectedRoutePoint.index;
                 addedRoutePoint = selectedRoutePoint.clone();
-                obstacle.addRoutePoint(addedRoutePoint, index + 1);
+                sceneObject.addRoutePoint(addedRoutePoint, index + 1);
             }
         }
         this._user.selectRoutePoint(addedRoutePoint);
     }
-
+    //#endregion same with MainCarInfoPanel
+    
     function onMapDataLoaded()
     {
         // init typeComboBox
@@ -126,9 +130,15 @@ function ObstacleInfoPanelScript(dependences)
 
     //#endregion event callback
 
+    this.changeRoutePoint = function (routePoint, oriRoutePoint)
+    {
+        this.updateRoutePointItem(oriRoutePoint);
+        this.updateRoutePointItem(routePoint);
+    }
+
     this.updateRoutePointItem = function(routePoint)
     {
-        if (routePoint == null || routePoint.index == -1)
+        if (routePoint == null)
         {
             return;
         }
@@ -145,10 +155,15 @@ function ObstacleInfoPanelScript(dependences)
     {
         if (obstacle != null)
         {
-            this.typeComboBox.selectedLabel = obstacle.type;
-            this.nameInput.text = obstacle.name;
+            this.setObstacleBaseInfo(obstacle);
             this.setRoutePoints(obstacle.route);
         }
+    }
+
+    this.setObstacleBaseInfo = function(obstacle)
+    {
+        this.typeComboBox.selectedLabel = obstacle.type;
+        this.nameInput.text = obstacle.name;
     }
 
     this.changeObstacle = function(obstacle, oriObstacle)
@@ -217,7 +232,7 @@ function ObstacleInfoPanelScript(dependences)
     this.typeComboBox.on(Event.CHANGE, this, onTypeChanged);
     this.nameInput.on(Event.ENTER, this, onNameInput);
     this.nameInput.on(Event.BLUR, this, onNameInput);
-    this._user.registerEvent(UserEvent.OBSTACLE_SELECTED, this, onObstacleSelected);
+    this._user.registerEvent(UserEvent.SCENE_OBJECT_SELECTED, this, onSceneObjectSelected);
     this._user.registerEvent(UserEvent.ROUTE_POINT_SELECTED, this, onRoutePointSelected);
 
     this.changeObstacle(this._user.getSelectedObstacle(), null);

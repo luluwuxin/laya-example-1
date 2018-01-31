@@ -1,4 +1,4 @@
-class MainCarSEPoint2D extends ObjectPoint
+class MainCarStartPoint2D extends ObjectPoint
 {
     constructor(mapData = null, pose = new Pose(), pointType)
     {
@@ -32,5 +32,15 @@ class MainCarSEPoint2D extends ObjectPoint
                 "z": this.z
             }
         };
+    }
+
+    fromJson(jsonObj)
+    {
+        this.setValue(
+            "x", jsonObj.tran.x,
+            "y", jsonObj.tran.y,
+            "z", jsonObj.tran.z,
+            "rotation", Math.atan2(jsonObj.quat.z, jsonObj.quat.w) * 2 / Math.PI * 180
+        );
     }
 }
