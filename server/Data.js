@@ -109,11 +109,25 @@ function load(logic)
 		]
 		};
 
+		// 0:PointCloud 1:Image 2:IMU 3:GPS
+		logic.RosInfo = {
+		method:"ros_info",
+		status:0, //0:stop 1:start 2:pause
+		config:[
+		{sid:1, type:0, name:"raw_point", running:true},
+		{sid:2, type:1, name:"raw_image", running:true},
+		{sid:3, type:2, name:"raw_gps", running:true},
+		{sid:4, type:3, name:"raw_imu", running:true},
+		{sid:4, type:4, name:"raw_drive", running:true}
+		]
+		};
+		
 		FileHelper.saveJSONToFile("config/Sceneinfo", logic.SceneInfo);
 		FileHelper.saveJSONToFile("config/WeatherInfo", logic.WeatherInfo);
 		FileHelper.saveJSONToFile("config/TrafficInfo", logic.TrafficInfo);
 		FileHelper.saveJSONToFile("config/CarConfig", logic.CarConfig);
 		FileHelper.saveJSONToFile("config/CaseList", logic.CaseList);
+		FileHelper.saveJSONToFile("config/RosInfo", logic.RosInfo);
 	*/
 
 
@@ -128,23 +142,11 @@ function load(logic)
 		scene_config: "content of a json file"
 	};
 
-	// 0:PointCloud 1:Image 2:IMU 3:GPS
-	logic.RosInfo = {
-		method:"ros_info",
-		status:0, //0:stop 1:stop 2:pause
-		config:[
-			{sid:1, type:0, name:"raw_point", running:true},
-			{sid:2, type:1, name:"raw_image", running:true},
-			{sid:3, type:2, name:"raw_gps", running:true},
-			{sid:4, type:3, name:"raw_imu", running:true},
-			{sid:4, type:4, name:"raw_drive", running:true}
-		]
-	};
-	
 	logic.SumoInfo = {
 		method: "sudomo_info",
 		status:0 //0:stop 1:stop 2:pause
 	}
+
 
 	//load
 	logic.SceneInfo=FileHelper.loadJSONFromFile("config/SceneInfo");
@@ -152,7 +154,10 @@ function load(logic)
 	logic.TrafficInfo= FileHelper.loadJSONFromFile("config/TrafficInfo");
 	logic.CarConfig = FileHelper.loadJSONFromFile("config/CarConfig");
 	logic.CaseList = FileHelper.loadJSONFromFile("config/CaseList");
+	logic.RosInfo=FileHelper.loadJSONFromFile("config/RosInfo");
 
+	//init
+	logic.RosInfo.status = 0;
 }
 
 exports.load = load;

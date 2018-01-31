@@ -300,7 +300,7 @@ function LogicServer()
 			case "ros_info":
 			{
 				this.RosInfo = pack;
-				if(client.type == 0)
+				if(client.isWeb())
 				{
 					if(this.cli_ue4!=null)
 					{
@@ -308,7 +308,7 @@ function LogicServer()
 					}					
 					this.send2ros(pack);
 				}
-				else if(client == this.cli_ros)
+				else if(client.isRos())
 				{
 					this.send2web(pack);
 				}
@@ -337,9 +337,9 @@ function LogicServer()
 			case "car_state":
 			{
 				this.CarState = pack;
-				if(client.type == 0)
+				if(client.isWeb())
 					this.send2ue4(this.CarState);
-				else if(client == this.cli_ue4)
+				else if(client.isUE4())
 					this.send2web(this.CarState);
 				break;
 			}
@@ -349,34 +349,34 @@ function LogicServer()
 				this.CaseList = pack;
 				FileHelper.saveJSONToFile("config/CaseList", pack);
 				
-				if(client.type == 0)
+				if(client.isWeb())
 					this.send2ue4(pack);
-				else if(client == this.cli_ue4)
+				else if(client.isUE4())
 					this.send2web(pack);
 				break;
 			}
 			case "case_info":
 			{
-				if(client.type == 0)
+				if(client.isWeb())
 					this.send2ue4(pack);
-				else if(client == this.cli_ue4)
+				else if(client.isUE4())
 					this.send2web(pack);
 				break;
 			}			
 			case "sumo_info"://"sumo_ready":
 			{
-				if(client.type == 0)
+				if(client.isWeb())
 					this.send2ue4(pack);
-				else if(client == this.cli_ue4)
+				else if(client.isUE4())
 					this.send2web(pack);
 				break;
 			}
 			
 			case "drive_info"://"ready":
 			{
-				if(client == this.cli_ros)
+				if(client.isRos())
 					this.send2web(pack);
-				else if(client.type == 0)
+				else if(client.isWeb())
 					this.send2ros(pack);
 				break;
 			}

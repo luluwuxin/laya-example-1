@@ -9,6 +9,7 @@
 
 function Client(cid,cli)
 {
+	this.type = -1;
     this.cid = cid;
     this.socket = cli;
 	this.remoteAddress = cli.remoteAddress;
@@ -38,6 +39,31 @@ function Client(cid,cli)
 	this.getInfo = function()
 	{
 		return this.socket.remoteAddress;
+	}
+
+	this.isWeb() = function()
+	{
+		this.type ==0;
+	}
+
+	this.isRos() = function()
+	{
+		this.type ==1;
+	}
+
+	this.isUE4() = function()
+	{
+		this.type ==2;
+	}
+
+	this.isUE4d() = function()
+	{
+		this.type ==3;
+	}
+
+	this.isTopic() = function()
+	{
+		this.type ==4;
 	}
 }
 /*
