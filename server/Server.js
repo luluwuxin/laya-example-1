@@ -84,8 +84,7 @@ function LogicServer()
         this.clients[cid]= client;
 		socket.client = client;
 		socket.cid = cid;
-		// socket.client= client;			
-        this.cids[cid]=cid;
+        this.cids[cid]=client;
 
 		switch(type)
 		{
@@ -175,7 +174,7 @@ function LogicServer()
     {
         for(var cid in this.cids)
         {
-            var client = this.clients[cid];
+            var client = this.cids[cid];
             if(client!=except)
                 client.send(msg);
         }
@@ -186,7 +185,7 @@ function LogicServer()
 	{
 		for(var cid in this.cli_web_map)
 		{
-			this.cli_webmap[cid].send(pack);
+			this.cli_web_map[cid].send(pack);
 		}
 	}
 
