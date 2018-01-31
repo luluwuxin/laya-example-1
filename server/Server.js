@@ -184,9 +184,9 @@ function LogicServer()
 	///////////////////////////////////	
 	this.send2web = function(pack)
 	{
-		for(var cli_web in this.cli_web_map)
+		for(var cid in this.cli_web_map)
 		{
-			cli_web.send(pack);
+			this.cli_webmap[cid].send(pack);
 		}
 	}
 
@@ -408,14 +408,6 @@ function LogicServer()
         }
 
 	}
-
-	// this.push_ue4_config = function()
-	// {
-	// this.send2ue4(this.SceneInfo);
-	// this.send2ue4(this.WeatherInfo);
-	// this.send2ue4(this.TrafficInfo);
-	// this.send2ue4(this.CarConfig);
-	// }
 	
 }
 exports.LogicServer = LogicServer;
