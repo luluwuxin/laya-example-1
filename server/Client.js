@@ -41,27 +41,27 @@ function Client(cid,cli)
 		return this.socket.remoteAddress;
 	}
 
-	this.isWeb() = function()
+	this.isWeb = function()
 	{
 		this.type ==0;
 	}
 
-	this.isRos() = function()
+	this.isRos = function()
 	{
 		this.type ==1;
 	}
 
-	this.isUE4() = function()
+	this.isUE4 = function()
 	{
 		this.type ==2;
 	}
 
-	this.isUE4d() = function()
+	this.isUE4d = function()
 	{
 		this.type ==3;
 	}
 
-	this.isTopic() = function()
+	this.isTopic = function()
 	{
 		this.type ==4;
 	}
