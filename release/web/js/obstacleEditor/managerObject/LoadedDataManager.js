@@ -23,6 +23,10 @@ class LoadedDataManager extends EventObject
         // event
         this._obstacleManager.registerEvent(ObstacleManagerEvent.ADDED, this, this._onObstacleAdded);
         this._obstacleManager.registerEvent(ObstacleManagerEvent.REMOVED, this, this._onDataChanged);
+
+        var mainCar = this._obstacleManager.getMainCar();
+        this._listenSceneObjectChange(mainCar);
+        this._listenRoutePointChange(mainCar.startPoint);
     }
 
     _onRoutePointAdded(sender, routePoint)
@@ -33,7 +37,7 @@ class LoadedDataManager extends EventObject
 
     _onObstacleAdded(sender, obstacle)
     {
-        this._listenObstacleChange(obstacle);
+        this._listenSceneObjectChange(obstacle);
         this._onDataChanged();
     }
 
@@ -42,11 +46,11 @@ class LoadedDataManager extends EventObject
         this.setDataDirty(true);
     }
 
-    _listenObstacleChange(obstacle)
+    _listenSceneObjectChange(sceneObject)
     {
-        obstacle.registerEvent(ObjectEvent.VALUE_CHANGED, this, this._onDataChanged);
-        obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, this._onRoutePointAdded);
-        obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, this._onDataChanged);
+        sceneObject.registerEvent(ObjectEvent.VALUE_CHANGED, this, this._onDataChanged);
+        sceneObject.registerEvent(SceneObjectEvent.ROUTE_POINT_ADDED, this, this._onRoutePointAdded);
+        sceneObject.registerEvent(SceneObjectEvent.ROUTE_POINT_REMOVED, this, this._onDataChanged);
     }
 
     _listenRoutePointChange(routePoint)
@@ -89,6 +93,8 @@ class LoadedDataManager extends EventObject
         this.sendEvent(LoadedDataManagerEvent.CASE_DATA_START_LOAD);
         this._user.clear();
         this._obstacleManager.clear();
+
+        // obstacles
         var obstaclesObj = jsonObj["obstacles"];
         var firstObstacle = null;
         var firstRoutePoint = null;
@@ -100,13 +106,13 @@ class LoadedDataManager extends EventObject
                 firstObstacle = obstacle;
             }
             this._obstacleManager.addObstacle(obstacle);
-            this._listenObstacleChange(obstacle);
+            this._listenSceneObjectChange(obstacle);
             var moveStatesObj = obstacleObj["moveStates"];
             for (var moveStateObj of moveStatesObj)
             {
                 var pose = new Pose(Quat.fromJson(moveStateObj["quat"]), Vec3.fromJson(moveStateObj["tran"]));
-                var routePoint = new RoutePoint2D(
-                    this.mapData,
+                var routePoint = obstacle.createRoutePoint(
+                    null,
                     pose,
                     moveStateObj["is_reversing"],
                     moveStateObj["timestamp_interval"],
@@ -120,6 +126,17 @@ class LoadedDataManager extends EventObject
                     firstRoutePoint = routePoint;
                 }
             }
+        }
+
+        // main car
+        var mainCarObj = jsonObj["mainCar"];
+        var mainCar = this._obstacleManager.getMainCar();
+        mainCar.setValue("timeLimit", mainCarObj.timeLimit);
+        mainCar.startPoint.fromJson(mainCarObj.startPoint);
+        for (var routePointObj of mainCarObj.route)
+        {
+            var routePoint = mainCar.createRoutePoint(null, new Pose(null, Vec3.fromJson(routePointObj)));
+            mainCar.addRoutePoint(routePoint);
         }
 
         if (isInit)
