@@ -22,13 +22,14 @@ CameraMoveScript.prototype._initialize = function (owner) {
     _parent.on("mousedown", this, this.mouseDown);
     _parent.on("mouseup", this, this.mouseUp);
     _parent.on("mouseout", this, this.mouseOut);
+    _parent.on("mousewheel", this, this.mouseWheel);
     _this.camera = owner;
-}
+};
 
 CameraMoveScript.prototype._update = function (state) {
     CameraMoveScript.__super.prototype._update.call(this,state);
     this.updateCamera(state.elapsedTime);
-}
+};
 
 CameraMoveScript.prototype.updateCamera = function (elapsedTime) {
     if (!isNaN(this.lastMouseX) && !isNaN(this.lastMouseY)) {
@@ -50,7 +51,7 @@ CameraMoveScript.prototype.updateCamera = function (elapsedTime) {
     }
     this.lastMouseX = Laya.stage.mouseX;
     this.lastMouseY = Laya.stage.mouseY;
-}
+};
 
 CameraMoveScript.prototype.updateRotation = function () {
     var yprElem = this.yawPitchRoll.elements;
@@ -67,19 +68,30 @@ CameraMoveScript.prototype.updateRotation = function () {
         forward.z *= -distance;
         this.camera.transform.position = forward;
     }
-}
+};
 
 CameraMoveScript.prototype.mouseDown = function (e) {
     this.camera.transform.localRotation.getYawPitchRoll(this.yawPitchRoll);
     this.lastMouseX = Laya.stage.mouseX;
     this.lastMouseY = Laya.stage.mouseY;
     this.isMouseDown = true;
-}
+};
 
 CameraMoveScript.prototype.mouseUp = function (e) {
     this.isMouseDown = false;
-}
+};
 
 CameraMoveScript.prototype.mouseOut = function (e) {
     this.isMouseDown = false;
-}
+};
+
+CameraMoveScript.prototype.mouseWheel = function (e) {
+    // Move the camera towards the target.
+    var distance = Laya.Vector3.distance(this.origin, this.camera.transform.position);
+    var forward = this.camera.transform.forward;
+    distance *= 1 + (0.05 * e.delta);
+    forward.x *= -distance;
+    forward.y *= -distance;
+    forward.z *= -distance;
+    this.camera.transform.position = forward;
+};
