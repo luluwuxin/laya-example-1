@@ -194,15 +194,30 @@ SensorChart.prototype.initChartData = function () {
         datasets: [],
     };
 
+    // Inherit old data if name matches.
+    var oldData = this.chart.data;
+
     // Add lines.
     var _this = this;
     this.client.data.ros_info.config.forEach(function (v) {
         if (v.name === "raw_drive" || v.name === "AirSimDriver") return;
+
+        // Find the old dataset if the name matches.
+        var inherited = [];
+        if (oldData && oldData.datasets) {
+            oldData.datasets.forEach(function (vv) {
+                if (vv.label === v.name) {
+                    inherited = vv.data;
+                }
+            });
+        }
+
+        // Add the new dataset.
         data.datasets.push({
             label: v.name,
             backgroundColor: _this.getColor(v.name),
             borderColor: _this.getColor(v.name),
-            data: [],
+            data: inherited,
             fill: false,
         });
     });

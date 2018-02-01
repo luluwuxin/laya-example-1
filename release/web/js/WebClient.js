@@ -208,6 +208,36 @@ var WebClient = (function (window, Laya, logger) {
         }
     };
 
+    // Rename the car_config.
+    WebClient.prototype.renameCarConfig = function (oldName, newName) {
+        // car_config has not been loaded yet.
+        if (!this.data.car_config || !this.data.car_config_list) return oldName;
+
+        // Check if the name conflicts.
+        var conflict = false;
+        this.data.car_config_list.list.forEach(function (p) {
+            if (p.name === newName) {
+                conflict = true;
+            }
+        });
+        if (conflict) {
+            this.fire("car_config_list");
+            return oldName;
+        }
+
+        // Find and rename the preset by name.
+        var _this = this;
+        this.data.car_config_list.list.forEach(function (p) {
+            if (p.name === oldName) {
+                p.name = newName;
+            }
+        });
+
+        // Commit
+        this.send("car_config_list");
+        return newName;
+    };
+
     // Add a sensor.
     WebClient.prototype.addSensor = function (sensor) {
         // car_config has not been loaded yet.

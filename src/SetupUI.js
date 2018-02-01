@@ -21,6 +21,10 @@ function SetupUI(pageChooser, client) {
         m_uiBanner_scenario: this.m_uiBanner_scenario,
     });
 
+    // This page maintains the current selection of car_config preset.
+    this.currentCarConfigName = undefined;
+    this.editingCarConfigName = undefined;
+
     // Model and WebSocket backend
     this.client = client
       .on("car_config_list", this, function () {
@@ -43,6 +47,7 @@ SetupUI.prototype.initCarConfigListUI = function () {
         var image  = e.getChildByName("image");
         var label  = e.getChildByName("label");
         var remove = e.getChildByName("remove");
+        var input  = e.getChildByName("popupedit");
 
         // Choose this specific preset from the car config list.
         image.offAll(Laya.Event.DOUBLE_CLICK);
@@ -58,6 +63,48 @@ SetupUI.prototype.initCarConfigListUI = function () {
                 this.currentCarConfigName = label.text;
             }
             this.refreshCarConfigListUI();
+        });
+
+        // Edit the name of the specific preset.
+        label.offAll(Laya.Event.DOUBLE_CLICK);
+        label.on(Laya.Event.DOUBLE_CLICK, this, function () {
+            // Copy the name of the preset, focus and select all.
+            input.text = label.text;
+            input.focus = true;
+            input.select();
+
+            // Show the popup input control.
+            this.editingCarConfigName = label.text;
+            this.refreshCarConfigListUI();
+        });
+
+        input.offAll(Laya.Event.BLUR);
+        input.on(Laya.Event.BLUR, this, function () {
+            // Hide the popup input control.
+            this.editingCarConfigName = undefined;
+
+            // Commit the name change.
+            var newName = this.client.renameCarConfig(label.text, input.text);
+
+            // Track the new name as current.
+            if (this.currentCarConfigName === label.text) {
+                this.currentCarConfigName = newName;
+            }
+        });
+
+        input.offAll(Laya.Event.ENTER);
+        input.on(Laya.Event.ENTER, this, function () {
+            // Hide the popup input control.
+            this.editingCarConfigName = undefined;
+            input.focus = false;
+
+            // Commit the name change.
+            var newName = this.client.renameCarConfig(label.text, input.text);
+
+            // Track the new name as current.
+            if (this.currentCarConfigName === label.text) {
+                this.currentCarConfigName = newName;
+            }
         });
 
         // Remove this specific preset from the car config list.
@@ -255,15 +302,21 @@ SetupUI.prototype.refreshCarConfigListUI = function () {
 
     var _this = this;
     this.client.data.car_config_list.list.forEach(function (p) {
+        var isCurrent = (p.name === _this.currentCarConfigName);
+        var isEditing = (p.name === _this.editingCarConfigName); 
         data.push({
             label: {
+                visible: !isEditing,
                 text: p.name,
             },
+            popupedit: {
+                visible: isEditing,
+            },
             highlight: {
-                visible: p.name === _this.currentCarConfigName,
+                visible: isCurrent,
             },
             remove: {
-                visible: p.name === _this.currentCarConfigName,
+                visible: isCurrent,
             },
         });
     });
@@ -278,11 +331,6 @@ SetupUI.prototype.refreshCarBoxUI = function () {
 
 // Refresh the parameters list UI.
 SetupUI.prototype.refreshParameterListUI = function () {
-    // Nothing to show.
-    if (!this.selectInfo) {
-        return;
-    }
-
     // A list of parameter name and its value.
     var data = [];
 
