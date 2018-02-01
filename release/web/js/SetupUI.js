@@ -4,7 +4,7 @@ function SetupUI(pageChooser, client) {
     SetupUI.super(this);
 
     // Initialize UI elements
-    this.initCarListUI();
+    this.initCarConfigListUI();
     this.initCarBoxUI();
     this.initInventoryListUI();
     this.initParameterListUI();
@@ -23,6 +23,9 @@ function SetupUI(pageChooser, client) {
 
     // Model and WebSocket backend
     this.client = client
+      .on("car_config_list", this, function () {
+          this.refreshCarConfigListUI();
+      })
       .on("car_config", this, function () {
           this.refreshCarBoxUI();
           this.refreshParameterListUI();
@@ -31,20 +34,44 @@ function SetupUI(pageChooser, client) {
 Laya.class(SetupUI, "SetupUI", SetupPageUI);
 
 // Init the car list UI.
-SetupUI.prototype.initCarListUI = function () {
-    this.m_uiCarList.array = [
-        {
-            label: {
-                text: "SUV",
-            },
-        },
-    ];
+SetupUI.prototype.initCarConfigListUI = function () {
+    // No data.
+    this.m_uiCarConfigList.array = [];
 
-    // Mouse events.
-    this.m_uiCarList.mouseHandler = new Handler(this, function (e, i) {
-        if (e.type === Laya.Event.CLICK) {
-            console.log("Choose " + i + "th car.");
-        }
+    // List elements
+    this.m_uiCarConfigList.on(Laya.Event.RENDER, this, function (e) {
+        var image  = e.getChildByName("image");
+        var label  = e.getChildByName("label");
+        var remove = e.getChildByName("remove");
+
+        // Choose this specific preset from the car config list.
+        image.offAll(Laya.Event.DOUBLE_CLICK);
+        image.on(Laya.Event.DOUBLE_CLICK, this, function () {
+            if (this.currentCarConfigName === label.text) {
+                // Unselect the preset.
+                this.currentCarConfigName = undefined;
+            } else {
+                // Load the preset by name.
+                this.client.loadCarConfig(label.text);
+
+                // Save the name of the current preset.
+                this.currentCarConfigName = label.text;
+            }
+            this.refreshCarConfigListUI();
+        });
+
+        // Remove this specific preset from the car config list.
+        remove.offAll(Laya.Event.CLICK);
+        remove.on(Laya.Event.CLICK, this, function () {
+            // Remove the preset by name.
+            this.currentCarConfigName = undefined;
+            this.client.removeCarConfig(label.text);
+        });
+    });
+
+    // Copy the current car_config as a new preset.
+    this.m_uiCarConfigList_AddButton.on(Laya.Event.CLICK, this, function () {
+        this.client.addCarConfig();
     });
 };
 
@@ -90,6 +117,7 @@ SetupUI.prototype.initInventoryListUI = function () {
                     indicator.stopDrag();
                     if (this.m_uiCarBox.hitTestPoint(indicator.x, indicator.y)) {
                         this.client.addSensor(JSON.parse(templateJson));
+                        this.client.saveCarConfig(this.currentCarConfigName);
                     }
                     indicator.destroy();
                 }
@@ -198,11 +226,13 @@ SetupUI.prototype.initParameterListUI = function () {
         input.offAll(Laya.Event.ENTER);
         input.on(Laya.Event.ENTER, this, function (e) {
             this.client.send("car_config");
+            this.client.saveCarConfig(this.currentCarConfigName);
         });
 
         input.offAll(Laya.Event.BLUR);
         input.on(Laya.Event.BLUR, this, function (e) {
             this.client.send("car_config");
+            this.client.saveCarConfig(this.currentCarConfigName);
         });
     });
 
@@ -210,6 +240,7 @@ SetupUI.prototype.initParameterListUI = function () {
     this.m_uiParameterList_delete.on(Laya.Event.CLICK, this, function () {
         if (this.selectInfo && this.selectInfo.type === "sensor") {
             this.client.removeSensor(this.selectInfo.sid);
+            this.client.saveCarConfig(this.currentCarConfigName);
             this.selectInfo = undefined;
         }
     });
@@ -219,16 +250,25 @@ SetupUI.prototype.initParameterListUI = function () {
 };
 
 // Refresh the scene list UI.
-SetupUI.prototype.refreshCarListUI = function () {
-    var data = [
-        {
-            label: {
-                text: "SUV",
-            },
-        }
-    ];
+SetupUI.prototype.refreshCarConfigListUI = function () {
+    var data = [];
 
-    this.m_uiCarList.array = data;
+    var _this = this;
+    this.client.data.car_config_list.list.forEach(function (p) {
+        data.push({
+            label: {
+                text: p.name,
+            },
+            highlight: {
+                visible: p.name === _this.currentCarConfigName,
+            },
+            remove: {
+                visible: p.name === _this.currentCarConfigName,
+            },
+        });
+    });
+
+    this.m_uiCarConfigList.array = data;
 };
 
 // Refresh the car and sensor box UI.
