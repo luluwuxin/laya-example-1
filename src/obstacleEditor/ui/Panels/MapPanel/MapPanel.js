@@ -213,7 +213,7 @@ function MapPanelScript(dependences)
         if (selectedRoutePoint != null && selectedRoutePoint.pointType == ObjectPointType.MAIN_CAR_START_POINT)
         {
             // It's main car's start point.
-            sceneObject.startPoint.setValue("x", pos.x, "y", pos.y);
+            sceneObject.startPoint.setValue("x", pos.x, "y", pos.y, "z", this.mapData.mapInfo.objectZ);
         }
         else
         {
