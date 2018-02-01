@@ -213,7 +213,7 @@ function MapPanelScript(dependences)
         if (selectedRoutePoint != null && selectedRoutePoint.pointType == ObjectPointType.MAIN_CAR_START_POINT)
         {
             // It's main car's start point.
-            sceneObject.startPoint.setValue("x", pos.x, "y", pos.y);
+            sceneObject.startPoint.setValue("x", pos.x, "y", pos.y, "z", this.mapData.mapInfo.objectZ);
         }
         else
         {
@@ -229,14 +229,16 @@ function MapPanelScript(dependences)
                     // Same as last
                     var prevRoutePoint = sceneObject.getRoutePoint(sceneObject.getRoutePointCount() - 1);
                     addedRoutePoint = prevRoutePoint.clone();
-                    addedRoutePoint.setLocation(pose.vec3);
+                    addedRoutePoint.x = pose.vec3.x;
+                    addedRoutePoint.y = pose.vec3.y;
                     sceneObject.addRoutePoint(addedRoutePoint);
                 }
                 else
                 {
                     var index = selectedRoutePoint.index;
                     addedRoutePoint = selectedRoutePoint.clone();
-                    addedRoutePoint.setLocation(pose.vec3);
+                    addedRoutePoint.x = pose.vec3.x;
+                    addedRoutePoint.y = pose.vec3.y;
                     sceneObject.addRoutePoint(addedRoutePoint, index + 1);
                 }
             }

@@ -3,7 +3,9 @@ class MainCarRoutePoint2D extends ObjectPoint
     constructor(vec3 = new Vec3())
     {
         super(ObjectPointType.MAIN_CAR_ROUTE_POINT);
-        this.setLocation(vec3);
+        this.x = vec3.x;
+        this.y = vec3.y;
+        this.z = vec3.z;
     }
 
     toJson()
@@ -13,11 +15,6 @@ class MainCarRoutePoint2D extends ObjectPoint
             "y": this.y,
             "z": this.z
         };
-    }
-
-    setLocation(vec3)
-    {
-        Object.assign(this, vec3);
     }
 
     clone ()
