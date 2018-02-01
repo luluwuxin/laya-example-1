@@ -1,1 +1,1 @@
-{"method":"ros_info","status":0,"config":[{"sid":1,"type":0,"name":"raw_point","running":true},{"sid":2,"type":1,"name":"raw_image","running":true},{"sid":3,"type":2,"name":"raw_gps","running":true},{"sid":4,"type":3,"name":"raw_imu","running":true}]}
+{"method":"ros_info","status":0,"config":[{"sid":1,"type":0,"name":"raw_point","running":true},{"sid":2,"type":1,"name":"raw_image","running":true},{"sid":3,"type":2,"name":"raw_gps","running":true},{"sid":4,"type":3,"name":"raw_imu","running":true},{"sid":5,"type":4,"name":"radar_detections","running":true}]}

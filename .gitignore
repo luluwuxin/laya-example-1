@@ -1,4 +1,5 @@
 /bin/*
+/server/web
 !/bin/libs
 !/bin/index.html
 !/bin/unpack.json
