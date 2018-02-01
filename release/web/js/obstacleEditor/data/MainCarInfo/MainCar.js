@@ -8,6 +8,7 @@ class MainCar extends SceneObject
         super(SceneObjectType.MAIN_CAR);
 
         this.startPoint = startPoint;
+        this.startPoint.setOwner(this);
         this.timeLimit = timeLimit;
     }
 

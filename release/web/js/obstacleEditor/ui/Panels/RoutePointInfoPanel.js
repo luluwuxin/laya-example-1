@@ -42,8 +42,13 @@ function RoutePointInfoPanelScript(dependences)
         }
         routePoint.setValue(key, Number(sender.text) / ratio);
     }
-
     //#endregion event callback
+
+    this._refreshObstacleRoutePointTotalTime = function (routePoint)
+    {
+        this.timestampValueLabel.text = routePoint.getTimestampSec().toFixed(3).toString();
+    }
+
     this._showUIByRoutePoint = function(routePoint)
     {
         var opt = ObjectPointType;
@@ -83,6 +88,17 @@ function RoutePointInfoPanelScript(dependences)
             this.contentPanel.visible = true;
             this._showUIByRoutePoint(routePoint);
 
+            // Actually, the "total time" shall be refreshed when any point before this routePoint is changing.
+            // But in this panel, this routePoint must be the selected one, in this case, other points can't be modified,
+            // but only can be removed, then the index of this routePoint will be changed.
+            // So, it's OK that we only refresh the "total time" when any value of THIS routePoint is changed,
+            // and do not care about OTHER routePoint's changing.
+            // If in the future, other points can be modified, add a timer.loop to refresh it.
+            if (routePoint.pointType == ObjectPointType.OBSTACLE_ROUTE_POINT)
+            {
+                this._refreshObstacleRoutePointTotalTime(routePoint);
+            }
+
             function setTextValueToInput (key)
             {
                 this[key + "Input"].text = (routePoint[key] * pointProperties[key].unitRatio).toFixed(3).toString();
@@ -118,16 +134,6 @@ function RoutePointInfoPanelScript(dependences)
         }
     }
 
-    function onLoop()
-    {
-        var routePoint = this._user.getSelectedRoutePoint();
-        if (routePoint == null || routePoint.pointType != ObjectPointType.OBSTACLE_ROUTE_POINT)
-        {
-            return;
-        }
-        this.timestampValueLabel.text = routePoint.getTimestampSec().toFixed(3).toString();
-    }
-
     //#region constructor
     RoutePointInfoPanelScript.super(this);
     
@@ -150,7 +156,6 @@ function RoutePointInfoPanelScript(dependences)
 
     this.setRoutePointInfo(this._user.getSelectedRoutePoint());
 
-    Laya.timer.loop(500, this, onLoop);
     //#endregion constructor
 }
 Laya.class(RoutePointInfoPanelScript, "RoutePointInfoPanelScript", RoutePointInfoPanelUI);

@@ -93,9 +93,13 @@ class ObstacleUIOnMap
 
 class MainCarUIOnMap extends ObstacleUIOnMap
 {
-    constructor(mapPanelScript, obstacle, container)
+    constructor(mapPanelScript, mainCar, container)
     {
-        super(mapPanelScript, obstacle, container);
+        super(mapPanelScript, mainCar, container);
+
+        // init start point view.
+        var routePointView = new RoutePointViewScript(this, mainCar.startPoint);
+        this.routePointContainer.addChild(routePointView);
     }
 
     addRoutePoint(routePoint)

@@ -8,7 +8,8 @@ function MainCarPanelScript(dependences)
 
     function onSceneObjectSelected(sender, sceneObject)
     {
-        this.markImage.visible = sceneObject.sceneObjectType == SceneObjectType.MAIN_CAR;
+        var selected = sceneObject != null && sceneObject.sceneObjectType == SceneObjectType.MAIN_CAR;
+        this.markImage.visible = selected;
     }
 
     //#endregion event callback

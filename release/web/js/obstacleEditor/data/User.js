@@ -15,7 +15,7 @@ class User extends EventObject
 
         this._obstacleManager.registerEvent(ObstacleManagerEvent.REMOVED, this, this.onObstacleRemoved);
         this._mainCar = this._obstacleManager.mainCar;
-        this._mainCar.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, this.onMainCarRoutePointRemoved);
+        this._mainCar.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, this.onRoutePointRemoved);
     }
 
     selectSceneObject(sceneObject)

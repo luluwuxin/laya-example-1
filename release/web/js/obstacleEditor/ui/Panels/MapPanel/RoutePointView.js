@@ -156,9 +156,12 @@ function RoutePointViewScript(obstacleUI, routePoint)
     {
         var index = this._routePoint.index;
         // index label
-        if (keys == null || keys.has("index"))
+        if (this._routePoint.pointType != ObjectPointType.MAIN_CAR_START_POINT)
         {
-            this.indexLabel.text = index.toString();
+            if (keys == null || keys.has("index"))
+            {
+                this.indexLabel.text = index.toString();
+            }
         }
 
         // position
@@ -205,6 +208,10 @@ function RoutePointViewScript(obstacleUI, routePoint)
 
     // init UI
     this.arrowImage.visible = canRotate;
+    if (this._routePoint.pointType == ObjectPointType.MAIN_CAR_START_POINT)
+    {
+        this.indexLabel.text = "S";
+    }
 
 
     this._onSelected(false);
