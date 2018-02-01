@@ -371,7 +371,7 @@ function LogicServer()
 					this.send2web(pack);
 				break;
 			}			
-			case "sumo_info"://"sumo_ready":
+			case "sumo_info":
 			{
 				if(client.isWeb())
 					this.send2ue4(pack);
@@ -380,7 +380,7 @@ function LogicServer()
 				break;
 			}
 			
-			case "drive_info"://"ready":
+			case "drive_info":
 			{
 				if(client.isRos())
 					this.send2web(pack);
@@ -389,7 +389,7 @@ function LogicServer()
 				break;
 			}
 
-			case "topic_info"://"ready":
+			case "topic_info":
 			{
 				if(client.isTopic())
 					this.send2web(pack);

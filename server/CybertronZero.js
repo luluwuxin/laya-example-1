@@ -30,7 +30,7 @@
 // app.use(express.static("release/layaweb/v1.0.0")).listen(8080);
 const url = require('url');
 const http = require('http');
-const WebSocket = require('ws');
+const socket = require('ws');
 const express = require('express');
 
 const utils = require("./Utils.js");
@@ -41,10 +41,10 @@ const app = express();
 // app.use(function (req, res) {
 // res.send({ msg: "hello" });
 // });
-app.use(express.static("../release/web"))
+app.use(express.static("web"))
 
 const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+const wss = new socket.Server({ server });
 
 var ccc = null;
 ////////////////////////////////////////////////////////////////////////
