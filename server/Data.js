@@ -145,14 +145,26 @@ function load(logic)
 	logic.SumoInfo = {
 		method: "sudomo_info",
 		status:0 //0:stop 1:stop 2:pause
+	};
+
+	logic.TopicInfo = {
+		method:"topic_info",
+		config:[
+			{sid:1, type:0, name:"raw_point", running:true},
+			{sid:2, type:1, name:"raw_image", running:true},
+			{sid:3, type:2, name:"raw_gps", running:true},
+			{sid:4, type:3, name:"raw_imu", running:true}
+		]
 	}
-
-
+	
+	logic.CarConfigList = {method:"car_config_list", list:[]};
+	FileHelper.saveJSONToFile("config/CarConfigList", logic.CarConfigList);
 	//load
 	logic.SceneInfo=FileHelper.loadJSONFromFile("config/SceneInfo");
 	logic.WeatherInfo = FileHelper.loadJSONFromFile("config/WeatherInfo");
 	logic.TrafficInfo= FileHelper.loadJSONFromFile("config/TrafficInfo");
 	logic.CarConfig = FileHelper.loadJSONFromFile("config/CarConfig");
+	logic.CarConfigList=FileHelper.loadJSONFromFile("config/CarConfigList");
 	logic.CaseList = FileHelper.loadJSONFromFile("config/CaseList");
 	logic.RosInfo=FileHelper.loadJSONFromFile("config/RosInfo");
 

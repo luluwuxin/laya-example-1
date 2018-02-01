@@ -231,6 +231,7 @@ function LogicServer()
 			client.send(this.WeatherInfo);
 			client.send(this.TrafficInfo);
 			client.send(this.CarConfig);
+			client.send(this.CarConfigList);
 			client.send(this.RosInfo);
 			client.send(this.CaseList);
 			break;
@@ -323,6 +324,13 @@ function LogicServer()
 				break;
 			}
 
+			case "car_config_list":
+			{
+				this.CarConfigList = pack;
+				FileHelper.saveJSONToFile("config/CarConfigList", pack);
+				break;
+			}
+
 			case "loading":
 			{
 				this.send2web(pack);//
@@ -378,6 +386,13 @@ function LogicServer()
 					this.send2web(pack);
 				else if(client.isWeb())
 					this.send2ros(pack);
+				break;
+			}
+
+			case "topic_info"://"ready":
+			{
+				if(client.isTopic())
+					this.send2web(pack);
 				break;
 			}
 
