@@ -43,27 +43,27 @@ function Client(cid,cli)
 
 	this.isWeb = function()
 	{
-		this.type ==0;
+		return this.type == 0;
 	}
 
 	this.isRos = function()
 	{
-		this.type ==1;
+		return this.type == 1;
 	}
 
 	this.isUE4 = function()
 	{
-		this.type ==2;
+		return this.type == 2;
 	}
 
 	this.isUE4d = function()
 	{
-		this.type ==3;
+		return this.type == 3;
 	}
 
 	this.isTopic = function()
 	{
-		this.type ==4;
+		return this.type == 4;
 	}
 }
 /*

@@ -47,6 +47,16 @@ class ObstacleEditor extends EventObject
         });
     }
 
+    static createDefaultCaseString()
+    {
+        if (this._obstacleEditorDefaultCaseString == null)
+        {
+            var obstacleManager = new ObstacleManager();
+            this._obstacleEditorDefaultCaseString = JSON.stringify(obstacleManager.toJson());
+        }
+        return this._obstacleEditorDefaultCaseString;
+    }
+
     loadMapData(mapName, mapDataString)
     {
         this._loadedDataManager.loadMapData(mapName, mapDataString);

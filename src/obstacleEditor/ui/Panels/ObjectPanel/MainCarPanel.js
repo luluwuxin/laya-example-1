@@ -6,9 +6,10 @@ function MainCarPanelScript(dependences)
         this._user.selectMainCar(true);
     }
 
-    function onMainCarSelected(sender, val)
+    function onSceneObjectSelected(sender, sceneObject)
     {
-        this.markImage.visible = val;
+        var selected = sceneObject != null && sceneObject.sceneObjectType == SceneObjectType.MAIN_CAR;
+        this.markImage.visible = selected;
     }
 
     //#endregion event callback
@@ -26,7 +27,7 @@ function MainCarPanelScript(dependences)
 
     // event
     this.mainCarImage.on(Event.CLICK, this, onMainCarClick);
-    this._user.registerEvent(UserEvent.MAIN_CAR_SELECTED, this, onMainCarSelected);
+    this._user.registerEvent(UserEvent.SCENE_OBJECT_SELECTED, this, onSceneObjectSelected);
 
     this.markImage.visible = false;
 

@@ -127,7 +127,7 @@ class WebClientCase
         var ret = {};
         ret.scene = sceneName;
         ret.name = this._createCaseName(sceneName);
-        ret.content = '{"obstacles":[]}';
+        ret.content = ObstacleEditor.createDefaultCaseString();
         ret.scene_config = this._getSceneConfigString(sceneName);
         this.insert(ret);
     }

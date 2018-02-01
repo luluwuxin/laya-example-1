@@ -16,4 +16,19 @@ class ObjectHelper
         ObjectHelper.swallowMouseDown(obj.slider.bar);
     }
 
+    static objectCheck(obj, key, value)
+    {
+        if (obj == null)
+        {
+            return null;
+        }
+        if (key in obj && obj[key] == value)
+        {
+            return obj;
+        }
+        else
+        {
+            return null;
+        }
+    }
 }

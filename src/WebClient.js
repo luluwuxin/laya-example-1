@@ -167,10 +167,10 @@ var WebClient = (function (window, Laya, logger) {
         this.sendJson(this.case.toJson());
     };
 
-    // Start Ros
-    WebClient.prototype.startRos = function () {
+    // Stop, Start or Pause Ros
+    WebClient.prototype.sendRosInfo = function (status) {
         // Make a copy of the ros_info. ros_info will be pushed from the
-        // backend with start=true.
+        // backend with the actual status.
         var ros_info = JSON.parse(JSON.stringify(this.data.ros_info));
 
         // Always set raw_drive to be running.
@@ -181,7 +181,7 @@ var WebClient = (function (window, Laya, logger) {
         });
 
         Object.assign(ros_info, {
-            start: true,
+            status: status,
         });
 
         // Push the data to the node backend.

@@ -18,18 +18,14 @@ function CarRenderer(parent) {
 
     // Lighting
     this.spot = this.scene.addChild(new Laya.SpotLight());
-    this.spot.diffuseColor = new Laya.Vector3(20, 20, 20);
-    this.spot.transform.position = new Laya.Vector3(0, 10, 0);
-    this.spot.direction = new Laya.Vector3(0, -1, 0);
+    this.spot.diffuseColor = new Laya.Vector3(1, 1, 1);
+    this.spot.transform.position = new Laya.Vector3(0, 10, 10);
+    this.spot.direction = new Laya.Vector3(0, -1, -1);
     this.spot.range = 20;
     this.spot.spot = 5;
     this.light = this.scene.addChild(new Laya.DirectionLight());
-    this.light.diffuseColor = new Laya.Vector3(2, 2, 2);
-    this.light.direction = new Laya.Vector3(0, -1, -1);
-    this.fill = this.scene.addChild(new Laya.PointLight());
-    this.fill.diffuseColor = new Laya.Vector3(150, 150, 150);
-    this.fill.transform.position = new Laya.Vector3(0, -10, -15);
-    this.fill.range = 20;
+    this.light.diffuseColor = new Laya.Vector3(1, 1, 1);
+    this.light.direction = new Laya.Vector3(0, -1, 1);
 
     // Render into parent node rectangle.
     var p0 = parent.localToGlobal(new Laya.Point(0, 0));
@@ -53,6 +49,29 @@ Laya.class(CarRenderer, "CarRenderer", Laya.EventDispatcher);
 CarRenderer.prototype.loadCar = function (url) {
     this.carObj = this.scene.addChild(Laya.Sprite3D.load(url));
     this.carObj.layer = Laya.Layer.getLayerByNumber(this.layer);
+
+    this.carObj.on(Laya.Event.HIERARCHY_LOADED, this, function (e) {
+        function AddSkyBoxReflect(obj) {
+            var childIdx = 0, childObj = undefined;
+
+            if (typeof obj.getChildAt === "function") {
+                while (!!(childObj = obj.getChildAt(childIdx++))) {
+                    AddSkyBoxReflect(childObj);
+                }
+            }
+
+            if (typeof obj.meshRender === "object") {
+                obj.meshRender.sharedMaterials.forEach(function (m) {
+                    if (m.name === "T_jeep_chenei_01") {
+                        return;
+                    }
+                    m.reflectTexture = Laya.TextureCube.load("skyBox/skyCube.ltc");
+                    m.reflectColor = new Laya.Vector3(0.3, 0.3, 0.3);
+                });
+            }
+        }
+        AddSkyBoxReflect(e);
+    });
 };
 
 // Load the debugging axis.

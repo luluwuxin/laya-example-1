@@ -10,4 +10,5 @@
    <item name="custom/combobox.png" type="ComboBox" compress="0" pack="0" quality="80" props="@@!@@" picType="0" scale="0"/>
    <item name="custom/hslider2.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=0,10,0,10" picType="0" scale="0"/>
    <item name="custom/frame_orange.png" type="Image" compress="0" pack="0" quality="80" props="sizeGrid=3,3,3,3" picType="0" scale="0"/>
+   <item name="LayaScene_SM_Jeep_Wrangler" type="" compress="0" pack="2" quality="80" props="" picType="0" scale="0"/>
 </res>

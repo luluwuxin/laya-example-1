@@ -1,19 +1,14 @@
 function MainCarInfoPanelScript(dependences)
 {
     //#region event callback
-    function onMainCarSelected(sender, val)
+    function onTimeLimitInput(sender)
+    {
+        this._mainCar.setValue("timeLimit", Number(sender.text));
+    }
+
+    function onSceneObjectSelected(sender, val)
     {
         this.refreshPanel();
-    }
-
-    function onMainCarRoutePointSelected(sender, point)
-    {
-        
-    }
-
-    function onMainCarSEPointSelected(sender, point)
-    {
-        
     }
 
     function onRoutePointAdded(sender, routePoint)
@@ -28,19 +23,18 @@ function MainCarInfoPanelScript(dependences)
 
     function onMainCarBaseInfoChanged(sender)
     {
-
+        this.setMainCarInfo();
     }
 
-    function onRoutePointSelected(sender, routePoint, oriRoutePoint)
+    function onPointSelected(sender, point, oriPoint)
     {
-        // TODO
-        this.updateRoutePointItem(oriRoutePoint);
-        this.updateRoutePointItem(routePoint);
+        this._changePoint(point, oriPoint);
     }
 
+    //#region same with ObstacleInfoPanel
+    // TODO this part is the same as ObstacleInfoPanel
     function onRoutePointButtonClick(routePoint, sender)
     {
-        // TODO
         if (this._user.getSelectedRoutePoint() == routePoint)
         {
             this._mainPanel.mapPanel.putRoutePointToMapCenter(routePoint);
@@ -53,13 +47,11 @@ function MainCarInfoPanelScript(dependences)
 
     function onRoutePointRemoveButtonClick(routePoint, sender)
     {
-        // TODO
-        routePoint.obstacle.removeRoutePoint(routePoint);
+        routePoint.getOwner().removeRoutePoint(routePoint);
     }
 
     function onRoutePointListRender(obj, index)
     {
-        // TODO
         obj.label = "point" + index;
 
         var routePoint = obj.dataSource.routePoint;
@@ -75,26 +67,21 @@ function MainCarInfoPanelScript(dependences)
 
     function onAddRoutePointButtonClick(sender)
     {
-        // TODO
-        var obstacle = this._user.getSelectedObstacle();
-        // TODO: main car selected
+        // Only this line is different from ObstacleInfoPanel.js
+        var sceneObject = this._user.getSelectedSceneObject();
         var addedRoutePoint = null;
-        if (obstacle.getRoutePointCount() == 0)
+        if (sceneObject.getRoutePointCount() == 0)
         {
             // Put map view center.
             var pose = new Pose();
             // get center pos of map view
-            var uiX = this._mainPanel.mapPanel.mainContainer.hScrollBar.value;
-            var uiY = this._mainPanel.mapPanel.mainContainer.vScrollBar.value;
-            uiX += this._mainPanel.mapPanel.mainContainer.width / 2;
-            uiY += this._mainPanel.mapPanel.mainContainer.height / 2;
-            var pos = this._loadedDataManager.mapData.uiToMapPosition({x: uiX, y: uiY});
+            var pos = this._loadedDataManager.mapData.uiToMapPosition(this._mainPanel.mapPanel.getViewCenter());
 
             pose.vec3.x = pos.x;
             pose.vec3.y = pos.y;
 
-            addedRoutePoint = new RoutePoint2D(this._loadedDataManager.mapData, pose)
-            obstacle.addRoutePoint(addedRoutePoint);
+            addedRoutePoint = sceneObject.createRoutePoint(this._loadedDataManager.mapData, pose)
+            sceneObject.addRoutePoint(addedRoutePoint);
         }
         else
         {
@@ -102,26 +89,39 @@ function MainCarInfoPanelScript(dependences)
             if (selectedRoutePoint == null)
             {
                 // Same as last
-                var prevRoutePoint = obstacle.getRoutePoint(obstacle.getRoutePointCount() - 1);
+                var prevRoutePoint = sceneObject.getRoutePoint(sceneObject.getRoutePointCount() - 1);
                 addedRoutePoint = prevRoutePoint.clone();
-                obstacle.addRoutePoint(addedRoutePoint);
+                sceneObject.addRoutePoint(addedRoutePoint);
             }
             else
             {
                 var index = selectedRoutePoint.index;
                 addedRoutePoint = selectedRoutePoint.clone();
-                obstacle.addRoutePoint(addedRoutePoint, index + 1);
+                sceneObject.addRoutePoint(addedRoutePoint, index + 1);
             }
         }
         this._user.selectRoutePoint(addedRoutePoint);
     }
+    //#endregion same with ObstacleInfoPanel
 
     //#endregion event callback
 
+    this._changePoint = function(point, oriPoint)
+    {
+        this._markPointButton(this.mainCarStartPointButton, point != null && point.pointType == ObjectPointType.MAIN_CAR_START_POINT);
+        this.updateRoutePointItem(oriPoint);
+        this.updateRoutePointItem(point);
+    }
+
+    this._markPointButton = function (pointButton, mark)
+    {
+        var markImage = pointButton.getChildByName("selectedMark");
+        markImage.visible = mark;
+    }
+
     this.updateRoutePointItem = function(routePoint)
     {
-        // TODO
-        if (routePoint == null || routePoint.index == -1)
+        if (routePoint == null || routePoint.pointType != ObjectPointType.MAIN_CAR_ROUTE_POINT)
         {
             return;
         }
@@ -136,10 +136,24 @@ function MainCarInfoPanelScript(dependences)
 
     this.setMainCarInfo = function()
     {
-        var mainCar = this._obstacleManager.getMainCar();
-        this.timeLimitInput.text = mainCar.timeLimit;
-        var selectedPoint = this._user.getSelectedRoutePoint();
-        // TODO
+        this.setMainCarBaseInfo();
+        this.setRoutePoints();
+    }
+
+    this.setMainCarBaseInfo = function()
+    {
+        this.timeLimitInput.text = this._mainCar.timeLimit;
+    }
+
+    this.setRoutePoints = function()
+    {
+        var routePoints = this._mainCar.getRoutePoints();
+        this.routePointList.array = [];
+        for (var i = 0; i < routePoints.length; i++)
+        {
+            this.addRoutePoint(routePoints[i], i, false);
+        }
+        this.refreshRoutePointList();
     }
 
     this.refreshRoutePointList = function()
@@ -147,19 +161,8 @@ function MainCarInfoPanelScript(dependences)
         this.routePointList.refresh();
     }
 
-    this.setRoutePoints = function(route)
-    {
-        // TODO
-        this.routePointList.array = [];
-        for (var i = 0; i < route.points.length; i++)
-        {
-            this.addRoutePoint(route.points[i], i, false);
-        }
-        this.refreshRoutePointList();
-    }
     this.addRoutePoint = function(routePoint, refresh = true)
     {
-        // TODO
         var index = routePoint.index;
         if (refresh)
         {
@@ -172,7 +175,6 @@ function MainCarInfoPanelScript(dependences)
     }
     this.removeRoutePoint = function(routePoint)
     {
-        // TODO
         this.routePointList.deleteItem(routePoint.index);
     }
     
@@ -185,14 +187,22 @@ function MainCarInfoPanelScript(dependences)
     // init ui
 
     // event
+    this._mainCar = this._obstacleManager.getMainCar();
     this.routePointList.renderHandler = new Handler(this, onRoutePointListRender);
     this.addRoutePointButton.on(Event.CLICK, this, onAddRoutePointButtonClick);
-    this._user.registerEvent(UserEvent.MAIN_CAR_SELECTED, this, onMainCarSelected);
-    this._user.registerEvent(UserEvent.MAIN_CAR_ROUTE_POINT_SELECTED, this, onMainCarRoutePointSelected);
-    this._user.registerEvent(UserEvent.MAIN_CAR_SE_POINT_SELECTED, this, onMainCarSEPointSelected);
+    this.mainCarStartPointButton.dataSource = {routePoint: this._mainCar.startPoint};
+    this.mainCarStartPointButton.on(Event.CLICK, this, onRoutePointButtonClick, [this._mainCar.startPoint]);
+    this._user.registerEvent(UserEvent.SCENE_OBJECT_SELECTED, this, onSceneObjectSelected);
+    this._user.registerEvent(UserEvent.ROUTE_POINT_SELECTED, this, onPointSelected);
+    this._mainCar.registerEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, onRoutePointAdded);
+    this._mainCar.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, onRoutePointRemoved);
+    this._mainCar.registerEvent(ObjectEvent.VALUE_CHANGED, this, onMainCarBaseInfoChanged);
+    this.timeLimitInput.on(Event.ENTER, this, onTimeLimitInput);
+    this.timeLimitInput.on(Event.BLUR, this, onTimeLimitInput);
 
     this.setMainCarInfo();
     this.refreshPanel();
+    this._changePoint(this._user.getSelectedRoutePoint(), null);
     //#endregion constructor
 }
 Laya.class(MainCarInfoPanelScript, "MainCarInfoPanelScript", MainCarInfoPanelUI);

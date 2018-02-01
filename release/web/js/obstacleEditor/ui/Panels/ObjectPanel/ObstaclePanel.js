@@ -151,7 +151,7 @@ function ObstaclePanelScript(dependences)
     this.addButton.on(Event.CLICK, this, onAddButtonClick);
     this._obstacleManager.registerEvent(ObstacleManagerEvent.ADDED, this, onObstacleAdded);
     this._obstacleManager.registerEvent(ObstacleManagerEvent.REMOVED, this, onObstacleRemoved);
-    this._user.registerEvent(UserEvent.OBSTACLE_SELECTED, this, onObstacleSelected);
+    this._user.registerEvent(UserEvent.SCENE_OBJECT_SELECTED, this, onObstacleSelected);
 
     this.init();
     //#endregion constructor

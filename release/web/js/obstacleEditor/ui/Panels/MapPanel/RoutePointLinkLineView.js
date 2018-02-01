@@ -9,7 +9,7 @@ class RoutePointLinkLineView
 
         routePoint.registerEvent(RoutePointEvent.LINK_LINE_CHANGED, this, this.onLinkLineChanged);
 
-        this.refreshLine(routePoint.bezierCurve);
+        this.refreshLine();
     }
 
     destroy()
@@ -18,8 +18,9 @@ class RoutePointLinkLineView
         this._sprite = null;
     }
 
-    refreshLine (bezierCurve)
+    refreshLine ()
     {
+        var bezierCurve = this._routePoint.bezierCurve;
         this._sprite.graphics.clear();
 
         if (bezierCurve == null)

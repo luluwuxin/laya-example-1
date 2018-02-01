@@ -1,10 +1,7 @@
 var UserEvent = 
 {
-    OBSTACLE_SELECTED: "obstacle selected",
+    SCENE_OBJECT_SELECTED: "scene object selected",
     ROUTE_POINT_SELECTED: "route point selected",
-    MAIN_CAR_SELECTED: "main car selected",
-    MAIN_CAR_SE_POINT_SELECTED: "main car start/end point selected",
-    MAIN_CAR_ROUTE_POINT_SELECTED: "main car route point selected"
 };
 
 class User extends EventObject
@@ -13,74 +10,38 @@ class User extends EventObject
         super();
 
         this._obstacleManager = obstacleManager;
-        this._selectedObstacle = null;
+        this._selectedSceneObject = null;
         this._selectedRoutePoint = null;
-        this._isMainCarSelected = false;
-        this._selectedMainCarRoutePoint = null;
 
-        this._obstacleManager.registerEvent(ObstacleManagerEvent.ADDED, this, this.onObstacleAdded);
         this._obstacleManager.registerEvent(ObstacleManagerEvent.REMOVED, this, this.onObstacleRemoved);
+        this._mainCar = this._obstacleManager.mainCar;
+        this._mainCar.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, this.onRoutePointRemoved);
     }
 
-    isObstacleSelected()
+    selectSceneObject(sceneObject)
     {
-        return this._selectedObstacle != null;
-    }
-
-    isMainCarSelected()
-    {
-        return this._isMainCarSelected;
-    }
-
-    selectMainCar(val)
-    {
-        if (val == this._isMainCarSelected)
-        {
-            return;
-        }
-        this._isMainCarSelected = val;
-        if (val)
-        {
-            this.selectObstacle(null);
-        }
-        else
-        {
-            this.selectMainCarRoutePoint(null);
-        }
-        this.sendEvent(UserEvent.MAIN_CAR_SELECTED, val);
-    }
-
-    selectObstacle(obstacle)
-    {
-        if (this._selectedObstacle == obstacle)
+        if (this._selectedSceneObject == sceneObject)
         {
             return;
         }
 
-        var originalSelectedObstacle = this._selectedObstacle;
-        this._selectedObstacle = obstacle;
+        var originalSelectedSceneObject = this._selectedSceneObject;
+        this._selectedSceneObject = sceneObject;
 
         // Unregister original obstacle event.
-        if (originalSelectedObstacle != null)
+        if (originalSelectedSceneObject != null)
         {
-            originalSelectedObstacle.unregisterEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, this.onRoutePointRemoved);
-            originalSelectedObstacle.unregisterEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, this.onRoutePointAdded);
+            originalSelectedSceneObject.unregisterEvent(SceneObjectEvent.ROUTE_POINT_REMOVED, this, this.onRoutePointRemoved);
         }
         // Add new obstacle listener.
-        if (obstacle != null)
+        if (sceneObject != null)
         {
-            obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, this.onRoutePointRemoved);
-            obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, this.onRoutePointAdded);
+            sceneObject.registerEvent(SceneObjectEvent.ROUTE_POINT_REMOVED, this, this.onRoutePointRemoved);
         }
 
-        if (obstacle != null)
-        {
-            this.selectMainCar(false);
-        }
+        this.sendEvent(UserEvent.SCENE_OBJECT_SELECTED, this._selectedSceneObject, originalSelectedSceneObject);
 
-        this.sendEvent(UserEvent.OBSTACLE_SELECTED, this._selectedObstacle, originalSelectedObstacle);
-
-        if (obstacle == null)
+        if (sceneObject == null)
         {
             // If no obstalce is selected, clear some relative data.
             this.selectRoutePoint(null);
@@ -88,54 +49,75 @@ class User extends EventObject
         else
         {
             // If new obstacle has no route point, select -1, or select the first one(index of which is 0);
-            if (obstacle.route.points.length == 0)
+            if (sceneObject.route.points.length == 0)
             {
                 this.selectRoutePoint(null);
             }
             else
             {
-                this.selectRoutePoint(obstacle.route.points[0]);
+                this.selectRoutePoint(sceneObject.route.points[0]);
             }
         }
     }
 
+    getSelectedSceneObject()
+    {
+        return this._selectedSceneObject;
+    }
+
+    //#region obstacle
+    isObstacleSelected()
+    {
+        return this._selectedSceneObject != null 
+        && this._selectedSceneObject.sceneObjectType == SceneObjectType.OBSTACLE;
+    }
+
+    selectObstacle(obstacle)
+    {
+        this.selectSceneObject(obstacle);
+    }
+
     getSelectedObstacle()
     {
-        return this._selectedObstacle;
+        if (this.isObstacleSelected())
+        {
+            return this._selectedSceneObject;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     onObstacleRemoved(sender, obstacle, index)
     {
         // If the removed obstacle is the selected obstacle, select null;
-        if (obstacle == this._selectedObstacle)
+        if (obstacle == this.getSelectedObstacle())
         {
             this.selectObstacle(null);
         }
     }
+    //#endregion obstacle
 
-    onObstacleAdded(sender, obstacle, index)
+    //#region main cara
+    isMainCarSelected()
     {
-        // do nothing
+        return this._selectedSceneObject != null 
+        && this._selectedSceneObject.sceneObjectType == SceneObjectType.MAIN_CAR;
     }
 
-    selectMainCarRoutePoint(routePoint)
+    selectMainCar(val)
     {
-        // TODO
-        // select same point, do nothing.
-        if (this._selectedRoutePoint == routePoint)
+        if (val)
         {
-            return;
+            this.selectSceneObject(this._mainCar);
         }
-
-        var oriRoutePoint = this._selectedRoutePoint;
-        this._selectedRoutePoint = routePoint;
-        this.sendEvent(UserEvent.ROUTE_POINT_SELECTED, this._selectedRoutePoint, oriRoutePoint);
+        else
+        {
+            this.selectSceneObject(null);
+        }
     }
-
-    getSelectedMainCarRoutePoint()
-    {
-        return this._selectedMainCarRoutePoint;
-    }
+    //#endregion main cara
 
     selectRoutePoint(routePoint)
     {
@@ -158,19 +140,14 @@ class User extends EventObject
     onRoutePointRemoved(sender, routePoint)
     {
         // If the removed route point is the selected one, select -1;
-        if (routePoint == this._selectedRoutePoint)
+        if (routePoint == this.getSelectedRoutePoint())
         {
             this.selectRoutePoint(null);
         }
     }
 
-    onRoutePointAdded(sender, routePoint)
-    {
-        // do nothing
-    }
-
     clear()
     {
-        this.selectObstacle(null);
+        this.selectSceneObject(null);
     }
 }

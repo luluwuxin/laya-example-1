@@ -1,19 +1,14 @@
-class MainCar extends Obstacle
+class MainCar extends SceneObject
 {
     constructor(
-        startPoint = new MainCarSEPoint2D(null, new Pose(), ObjectPointType.MAIN_CAR_START_POINT)
-        , endPoint = new MainCarSEPoint2D(null, new Pose(), ObjectPointType.MAIN_CAR_END_POINT)
+        startPoint = new MainCarStartPoint2D(null, new Pose(), ObjectPointType.MAIN_CAR_START_POINT)
         , timeLimit = 10
         )
     {
-        super();
-
-        delete this.type;
-        delete this.name;
+        super(SceneObjectType.MAIN_CAR);
 
         this.startPoint = startPoint;
-        this.endPoint = endPoint;
-        this.route = new Route();
+        this.startPoint.setOwner(this);
         this.timeLimit = timeLimit;
     }
 
@@ -26,9 +21,20 @@ class MainCar extends Obstacle
         }
         return {
             "startPoint": this.startPoint.toJson(),
-            "endPoint": this.endPoint.toJson(),
             "route": routePointsJsonObj,
             "timeLimit": this.timeLimit
         }
+    }
+
+    createRoutePoint(mapData, pose)
+    {
+        if (mapData != null)
+        {
+            pose.vec3.z = mapData.mapInfo.objectZ;
+        }
+
+        var point = new MainCarRoutePoint2D(pose.vec3);
+        
+        return point;
     }
 }

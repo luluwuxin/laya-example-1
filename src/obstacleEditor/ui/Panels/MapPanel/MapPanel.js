@@ -8,6 +8,7 @@ class ObstacleUIOnMap
         
         var createFullBox = function()
         {
+            // xxx: Panel, View's mouseThrough can't work, so use box.
             var box = new laya.ui.Box();
             box.left = 0;
             box.right = 0;
@@ -17,7 +18,6 @@ class ObstacleUIOnMap
             return box;
         };
 
-        // xxx: Panel, View's mouseThrough can't work, so use box.
         this.obstacleContainer = createFullBox();
         this._container.addChild(this.obstacleContainer);
 
@@ -91,6 +91,35 @@ class ObstacleUIOnMap
     }
 }
 
+class MainCarUIOnMap extends ObstacleUIOnMap
+{
+    constructor(mapPanelScript, mainCar, container)
+    {
+        super(mapPanelScript, mainCar, container);
+
+        // init start point view.
+        var routePointView = new RoutePointViewScript(this, mainCar.startPoint);
+        this.routePointContainer.addChild(routePointView);
+    }
+
+    addRoutePoint(routePoint)
+    {
+        var index = routePoint.index;
+        // point view
+        var routePointView = new RoutePointViewScript(this, routePoint);
+
+        this.routePointContainer.addChild(routePointView);
+        this.routePointViews.splice(index, 0, routePointView);
+        routePointView.update();
+
+        // link line view
+        // This class is not added to container, but create a sprite and add it to the container.
+        // The sprite will be destroyed when invoke routePointLinkLineView.destroy().
+        var routePointLinkLineView = new MainCarRoutePointLinkLineView(this, routePoint, this.routePointLinkLineContainer);
+        this.routePointLinkLineViews.splice(index, 0, routePointLinkLineView);
+    }
+}
+
 function MapPanelScript(dependences)
 {
     //#region event callback
@@ -102,12 +131,12 @@ function MapPanelScript(dependences)
 
     function onObstacleAdded(sender, obstacle, index)
     {
-        this.addObstacle(obstacle, index);
+        this._addSceneObject(obstacle);
     }
 
     function onObstacleRemoved(sender, obstacle, index)
     {
-        this.removeObstacle(obstacle, index);
+        this._removeSceneObject(obstacle);
     }
 
     function onRoutePointAdded(sender, routePoint)
@@ -120,9 +149,9 @@ function MapPanelScript(dependences)
         this.removeRoutePoint(routePoint);
     }
 
-    function onObstacleSelected(sender, obstacle, oriObstacle)
+    function onSceneObjectSelected(sender, sceneObject, oriSceneObject)
     {
-        this.selectObstacle(obstacle, oriObstacle);
+        this.selectSceneObject(sceneObject, oriSceneObject);
     }
 
     function onMapScrolled()
@@ -169,8 +198,8 @@ function MapPanelScript(dependences)
     }
     function onMainContainerClick()
     {
-        var obstacle = this._user.getSelectedObstacle();
-        if (obstacle == null)
+        var sceneObject = this._user.getSelectedSceneObject();
+        if (sceneObject == null)
         {
             return;
         }
@@ -179,31 +208,40 @@ function MapPanelScript(dependences)
         var pose = new Pose();
         pose.vec3.x = pos.x;
         pose.vec3.y = pos.y;
-        if (obstacle.getRoutePointCount() == 0)
+
+        var selectedRoutePoint = this._user.getSelectedRoutePoint();
+        if (selectedRoutePoint != null && selectedRoutePoint.pointType == ObjectPointType.MAIN_CAR_START_POINT)
         {
-            addedRoutePoint = new RoutePoint2D(this._mapData, pose);
-            obstacle.addRoutePoint(addedRoutePoint);
+            // It's main car's start point.
+            sceneObject.startPoint.setValue("x", pos.x, "y", pos.y);
         }
         else
         {
-            var selectedRoutePoint = this._user.getSelectedRoutePoint();
-            if (selectedRoutePoint == null)
+            if (sceneObject.getRoutePointCount() == 0)
             {
-                // Same as last
-                var prevRoutePoint = obstacle.getRoutePoint(obstacle.getRoutePointCount() - 1);
-                addedRoutePoint = new RoutePoint2D(this._mapData, pose);
-                addedRoutePoint.rotation = prevRoutePoint.rotation;
-                obstacle.addRoutePoint(addedRoutePoint);
+                addedRoutePoint = sceneObject.createRoutePoint(this._mapData, pose);
+                sceneObject.addRoutePoint(addedRoutePoint);
             }
             else
             {
-                var index = selectedRoutePoint.index;
-                addedRoutePoint = new RoutePoint2D(this._mapData, pose);
-                addedRoutePoint.rotation = selectedRoutePoint.rotation;
-                obstacle.addRoutePoint(addedRoutePoint, index + 1);
+                if (selectedRoutePoint == null)
+                {
+                    // Same as last
+                    var prevRoutePoint = sceneObject.getRoutePoint(sceneObject.getRoutePointCount() - 1);
+                    addedRoutePoint = prevRoutePoint.clone();
+                    addedRoutePoint.setLocation(pose.vec3);
+                    sceneObject.addRoutePoint(addedRoutePoint);
+                }
+                else
+                {
+                    var index = selectedRoutePoint.index;
+                    addedRoutePoint = selectedRoutePoint.clone();
+                    addedRoutePoint.setLocation(pose.vec3);
+                    sceneObject.addRoutePoint(addedRoutePoint, index + 1);
+                }
             }
+            this._user.selectRoutePoint(addedRoutePoint);
         }
-        this._user.selectRoutePoint(addedRoutePoint);
     }
 
     //#endregion event callback
@@ -220,7 +258,7 @@ function MapPanelScript(dependences)
     {
         this._obstacleManager.registerEvent(ObstacleManagerEvent.ADDED, this, onObstacleAdded);
         this._obstacleManager.registerEvent(ObstacleManagerEvent.REMOVED, this, onObstacleRemoved);
-        this._user.registerEvent(UserEvent.OBSTACLE_SELECTED, this, onObstacleSelected);
+        this._user.registerEvent(UserEvent.SCENE_OBJECT_SELECTED, this, onSceneObjectSelected);
         this.mainContainer.vScrollBar.on(Event.CHANGE, this, onMapScrolled);
         this.mainContainer.hScrollBar.on(Event.CHANGE, this, onMapScrolled);
         this.miniMapButton.on(Event.MOUSE_DOWN, this, onMiniMapButtonDown);
@@ -262,6 +300,15 @@ function MapPanelScript(dependences)
         this._refreshMiniMapFrame();
     }
 
+    this.getViewCenter = function ()
+    {
+        var uiX = this.mainContainer.hScrollBar.value;
+        var uiY = this.mainContainer.vScrollBar.value;
+        uiX += this.mainContainer.width / 2;
+        uiY += this.mainContainer.height / 2;
+        return {x: uiX, y: uiY};
+    }
+
     this.putPointToMapCenter = function (x, y)
     {
         x = Math.max(0, x - this.mainContainer.width / 2);
@@ -279,41 +326,50 @@ function MapPanelScript(dependences)
         this.putPointToMapCenter(uiPos.x, uiPos.y);
     }
 
-    this.addObstacle = function (obstacle, index)
+    this._addSceneObject = function (sceneObject)
     {
-        this._obstacleRouteUIs[obstacle.getUniqueID()] = new ObstacleUIOnMap(this, obstacle, this.mapImage);
-        obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, onRoutePointAdded);
-        obstacle.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, onRoutePointRemoved);
+        var newUI = null;
+        if (sceneObject.sceneObjectType == SceneObjectType.OBSTACLE)
+        {
+            newUI = new ObstacleUIOnMap(this, sceneObject, this.mapImage);
+        }
+        else
+        {
+            newUI = new MainCarUIOnMap(this, sceneObject, this.mapImage);
+        }
+        this._sceneObjectRouteUIs[sceneObject.getUniqueID()] = newUI;
+        sceneObject.registerEvent(ObstacleEvent.ROUTE_POINT_ADDED, this, onRoutePointAdded);
+        sceneObject.registerEvent(ObstacleEvent.ROUTE_POINT_REMOVED, this, onRoutePointRemoved);
     }
 
-    this.removeObstacle = function (obstacle, index)
+    this._removeSceneObject = function (sceneObject)
     {
-        this._obstacleRouteUIs[obstacle.getUniqueID()].destroy();
-        delete this._obstacleRouteUIs[obstacle.getUniqueID()];
+        this._sceneObjectRouteUIs[sceneObject.getUniqueID()].destroy();
+        delete this._sceneObjectRouteUIs[sceneObject.getUniqueID()];
     }
 
     this.addRoutePoint = function (routePoint)
     {
-        var obstacle = routePoint.obstacle;
-        this._obstacleRouteUIs[obstacle.getUniqueID()].addRoutePoint(routePoint);
+        var sceneObject = routePoint.getOwner();
+        this._sceneObjectRouteUIs[sceneObject.getUniqueID()].addRoutePoint(routePoint);
     }
 
     this.removeRoutePoint = function (routePoint)
     {
-        var obstacle = routePoint.obstacle;
-        this._obstacleRouteUIs[obstacle.getUniqueID()].removeRoutePoint(routePoint);
+        var sceneObject = routePoint.getOwner();
+        this._sceneObjectRouteUIs[sceneObject.getUniqueID()].removeRoutePoint(routePoint);
     }
 
-    this.selectObstacle = function (obstacle, oriObstacle)
+    this.selectSceneObject = function (obstacle, oriObstacle)
     {
-        if (oriObstacle != null && oriObstacle.getUniqueID() in this._obstacleRouteUIs)
+        if (oriObstacle != null && oriObstacle.getUniqueID() in this._sceneObjectRouteUIs)
         {
-            this._obstacleRouteUIs[oriObstacle.getUniqueID()].setSelected(false);
+            this._sceneObjectRouteUIs[oriObstacle.getUniqueID()].setSelected(false);
         }
 
-        if (obstacle != null && obstacle.getUniqueID() in this._obstacleRouteUIs)
+        if (obstacle != null && obstacle.getUniqueID() in this._sceneObjectRouteUIs)
         {
-            this._obstacleRouteUIs[obstacle.getUniqueID()].setSelected(true);
+            this._sceneObjectRouteUIs[obstacle.getUniqueID()].setSelected(true);
         }
     }
 
@@ -334,7 +390,7 @@ function MapPanelScript(dependences)
         var obstacles = this._obstacleManager.getObstacles();
         for (var i = 0; i < obstacles.length; i++)
         {
-            this.addObstacle(obstacles[i]);
+            this._addSceneObject(obstacles[i]);
             var routePoints = obstacles[i].getRoutePoints();
             for (var j = 0; j < routePoints.length; j++)
             {
@@ -347,13 +403,14 @@ function MapPanelScript(dependences)
     DependencesHelper.setDependences(this, dependences);
 
     // member variable
-    this._obstacleRouteUIs = {};
+    this._sceneObjectRouteUIs = {};
 
     // event
     this._loadedDataManager.registerEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this, onMapDataLoaded);
 
     ObjectHelper.swallowScrollMouseDown(this.mainContainer.hScrollBar);
     ObjectHelper.swallowScrollMouseDown(this.mainContainer.vScrollBar);
-    // do nothing, because map data hasn't been loaded.
+    
+    this._addSceneObject(this._obstacleManager.getMainCar());
 }
 Laya.class(MapPanelScript, "MapPanelScript", MapPanelUI);
