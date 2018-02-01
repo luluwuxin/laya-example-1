@@ -2,7 +2,7 @@
     "x":0,
     "type":"View",
     "selectedBox":20,
-    "selecteID":72,
+    "selecteID":73,
     "referenceLines":null,
     "props":{"top":0,"sceneWidth":1280,"sceneHeight":720,"sceneColor":"#000000","right":0,"left":0,"bottom":0},
     "nodeParent":-1,
@@ -331,6 +331,20 @@
                                                     "compId":22,
                                                     "child":[
                                                         ]
+                                                },
+                                                {
+                                                    "x":90,
+                                                    "type":"TextInput",
+                                                    "props":{"visible":false,"valign":"middle","skin":"custom/bg_listitem.png","right":10,"name":"popupedit","left":10,"color":"#f0f0f0","bottom":5,"align":"center"},
+                                                    "nodeParent":20,
+                                                    "label":"TextInput(popupedit)",
+                                                    "isDirectory":false,
+                                                    "isAniNode":false,
+                                                    "hasChild":false,
+                                                    "compId":73,
+                                                    "child":[
+                                                        ],
+                                                    "$HIDDEN":true
                                                 },
                                                 {
                                                     "x":90,
