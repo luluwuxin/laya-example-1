@@ -129,6 +129,85 @@ var WebClient = (function (window, Laya, logger) {
         return this;
     };
 
+    // Copy the current car_config as a new preset.
+    WebClient.prototype.addCarConfig = function () {
+        // car_config has not been loaded yet.
+        if (!this.data.car_config || !this.data.car_config_list) return;
+
+        // Determine the name of the new preset.
+        var pname  = "New Preset #";
+        var pidMax = 1;
+        this.data.car_config_list.list.forEach(function (p) {
+            if (p.name.startsWith(pname)) {
+                var pid = parseInt(p.name.substr(pname.length));
+                if (pid) {
+                    pidMax = pid + 1;
+                }
+            }
+        });
+
+        // Append to the car_config_list as a new preset.
+        this.data.car_config_list.list.push({
+            name: pname + pidMax,
+            car_config: JSON.parse(JSON.stringify(this.data.car_config)),
+        });
+
+        // Commit
+        this.send("car_config_list");
+    };
+
+    // Load the preset as the current car_config.
+    WebClient.prototype.loadCarConfig = function (name) {
+        // car_config has not been loaded yet.
+        if (!this.data.car_config || !this.data.car_config_list) return;
+
+        // Find and load the preset by name.
+        var _this = this;
+        this.data.car_config_list.list.forEach(function (p) {
+            if (p.name === name) {
+                _this.data.car_config = JSON.parse(JSON.stringify(p.car_config));
+            }
+        });
+
+        // Commit
+        this.send("car_config");
+    };
+
+    // Remove the preset by its name.
+    WebClient.prototype.removeCarConfig = function (name) {
+        // car_config has not been loaded yet.
+        if (!this.data.car_config || !this.data.car_config_list) return;
+
+        // Find and remove the preset by name.
+        this.data.car_config_list.list = this.data.car_config_list.list.filter(function (p) {
+            return p.name !== name;
+        });
+
+        // Commit
+        this.send("car_config_list");
+    };
+
+    // Save the current car_config.
+    WebClient.prototype.saveCarConfig = function (name) {
+        // car_config has not been loaded yet.
+        if (!this.data.car_config || !this.data.car_config_list) return;
+
+        // Find and load the preset by name.
+        var changed = false;
+        var _this = this;
+        this.data.car_config_list.list.forEach(function (p) {
+            if (p.name === name) {
+                p.car_config = JSON.parse(JSON.stringify(_this.data.car_config));
+                changed = true;
+            }
+        });
+
+        // Commit
+        if (changed) {
+            this.send("car_config_list");
+        }
+    };
+
     // Add a sensor.
     WebClient.prototype.addSensor = function (sensor) {
         // car_config has not been loaded yet.
