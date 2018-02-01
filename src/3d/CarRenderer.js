@@ -62,6 +62,9 @@ CarRenderer.prototype.loadCar = function (url) {
 
             if (typeof obj.meshRender === "object") {
                 obj.meshRender.sharedMaterials.forEach(function (m) {
+                    if (m.name === "T_jeep_chenei_01") {
+                        return;
+                    }
                     m.reflectTexture = Laya.TextureCube.load("skyBox/skyCube.ltc");
                     m.reflectColor = new Laya.Vector3(0.3, 0.3, 0.3);
                 });
