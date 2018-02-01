@@ -20,7 +20,9 @@ class RoutePoint2D extends ObjectPoint
         super(ObjectPointType.OBSTACLE_ROUTE_POINT);
         if (pose != null)
         {
-            this.setLocation(pose.vec3);
+            this.x = pose.vec3.x;
+            this.y = pose.vec3.y;
+            this.z = pose.vec3.z;
             this.rotation = Math.atan2(pose.quat.z, pose.quat.w) * 2 / Math.PI * 180;
         }
         this.timestampInterval = timestampInterval;
@@ -44,11 +46,6 @@ class RoutePoint2D extends ObjectPoint
         {
             return this.timestampInterval;
         }
-    }
-
-    setLocation(vec3)
-    {
-        Object.assign(this, vec3);
     }
 
     clone ()

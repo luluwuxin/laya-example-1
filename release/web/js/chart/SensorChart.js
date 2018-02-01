@@ -103,6 +103,9 @@ SensorChart.prototype.init = function () {
             type: "line",
             data: {},
             options: {
+                animation: {
+                    duration: 0,
+                },
                 maintainAspectRatio: false,
                 tooltips: {
                     enabled: false,
