@@ -321,11 +321,6 @@ SetupUI.prototype.refreshCarBoxUI = function () {
 
 // Refresh the parameters list UI.
 SetupUI.prototype.refreshParameterListUI = function () {
-    // Nothing to show.
-    if (!this.selectInfo) {
-        return;
-    }
-
     // A list of parameter name and its value.
     var data = [];
 
