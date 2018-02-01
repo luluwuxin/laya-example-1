@@ -1,14 +1,19 @@
 "use strict";
 
+// Chart graph for visualizing ROS sensor data.
 function SensorChart(client) {
     SensorChart.super(this);
-
-    // Client
-    this.client = client;
 
     // Init after Laya create the stage div element.
     this.later(1, function () {
         this.init();
+        this.client = client
+          .on("ros_info", this, function () {
+              this.initChartData();
+          })
+          .on("topic_info", this, function () {
+              this.refreshChartData();
+          });
     });
 }
 Laya.class(SensorChart, "SensorChart", Laya.EventDispatcher);
@@ -142,53 +147,6 @@ SensorChart.prototype.init = function () {
             },
         });
     }
-
-    // Sensor list
-    this.later(100, function () {
-        var data = {
-            labels: [],
-            datasets: [
-                {
-                    label: "points_raw",
-                    backgroundColor: this.getColor("points_raw"),
-                    borderColor: this.getColor("points_raw"),
-                    data: [],
-                    fill: false,
-                },
-                {
-                    label: "image_raw",
-                    backgroundColor: this.getColor("image_raw"),
-                    borderColor: this.getColor("image_raw"),
-                    data: [],
-                    fill: false,
-                },
-                {
-                    label: "imu_raw",
-                    backgroundColor: this.getColor("imu_raw"),
-                    borderColor: this.getColor("imu_raw"),
-                    data: [],
-                    fill: false,
-                },
-                {
-                    label: "nmea_sentence gps",
-                    backgroundColor: this.getColor("nmea_sentence gps"),
-                    borderColor: this.getColor("nmea_sentence gps"),
-                    data: [],
-                    fill: false,
-                },
-                {
-                    label: "RadarDetections",
-                    backgroundColor: this.getColor("RadarDetections"),
-                    borderColor: this.getColor("RadarDetections"),
-                    data: [],
-                    fill: false,
-                },
-                ]
-        };
-        this.chart.data = data;
-        this.chart.update();
-    });
-
 };
 
 SensorChart.prototype.bind = function (page) {
@@ -224,51 +182,65 @@ SensorChart.prototype.rebind = function () {
      this.bind(this.page);
 };
 
-SensorChart.prototype.stopRandomData = function () {
-    this.__feeding_random_data = false;
-};
-
-SensorChart.prototype.feedRandomData = function () {
-    if (this.__feeding_random_data) {
+SensorChart.prototype.initChartData = function () {
+    // No data ?
+    if (!this.client.data.ros_info) {
         return;
     }
 
-    this.__feeding_random_data = true;
-    this.later(1000, function AddDummyData() {
-        this.chart.data.datasets[0].data.push( {
-            x: new Date(),
-            y: Math.random() * 50 + 10,
-        });
-        this.chart.data.datasets[1].data.push( {
-            x: new Date(),
-            y: Math.random() * 50 + 10,
-        });
-        this.chart.data.datasets[2].data.push( {
-            x: new Date(),
-            y: Math.random() * 50 + 10,
-        });
-        this.chart.data.datasets[3].data.push( {
-            x: new Date(),
-            y: Math.random() * 50 + 10,
-        });
-        this.chart.data.datasets[4].data.push( {
-            x: new Date(),
-            y: Math.random() * 50 + 10,
-        });
-        while (this.chart.data.datasets[0].data.length > 30)
-            this.chart.data.datasets[0].data.shift();
-        while (this.chart.data.datasets[1].data.length > 30)
-            this.chart.data.datasets[1].data.shift();
-        while (this.chart.data.datasets[2].data.length > 30)
-            this.chart.data.datasets[2].data.shift();
-        while (this.chart.data.datasets[3].data.length > 30)
-            this.chart.data.datasets[3].data.shift();
-        while (this.chart.data.datasets[4].data.length > 30)
-            this.chart.data.datasets[4].data.shift();
-        this.chart.update();
+    // Init the chartjs data object.
+    var data = {
+        labels: [],
+        datasets: [],
+    };
 
-        if (this.__feeding_random_data) {
-            this.later(500, AddDummyData);
+    // Add lines.
+    var _this = this;
+    this.client.data.ros_info.config.forEach(function (v) {
+        if (v.name === "raw_drive" || v.name === "AirSimDriver") return;
+        data.datasets.push({
+            label: v.name,
+            backgroundColor: _this.getColor(v.name),
+            borderColor: _this.getColor(v.name),
+            data: [],
+            fill: false,
+        });
+    });
+
+    // Update the chart.
+    this.chart.data = data;
+    this.chart.update();
+};
+
+SensorChart.prototype.refreshChartData = function () {
+    // No data ?
+    if (!this.client.data.ros_info || !this.client.data.topic_info) {
+        return;
+    }
+
+    // Chart has not been initialized.. dropping..
+    if (!this.chart) {
+        return;
+    }
+
+    // Chart is initialized but the ros_info was dropped..
+    if (!this.chart.data.datasets || this.chart.data.datasets.length === 0) {
+        this.initChartData(); // lazy
+    }
+
+    // Update the chart with the new data.
+    var chart = this.chart;
+    this.client.data.topic_info.hz_info.forEach(function (v, i) {
+        var dataset = chart.data.datasets[i];
+        if (dataset) {
+            dataset.data.push({
+                x: new Date(),
+                y: v,
+            });
+            while (dataset.data.length > 100) {
+                dataset.data.shift();
+            }
         }
     });
+    this.chart.update();
 };

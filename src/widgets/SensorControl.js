@@ -32,19 +32,16 @@ SensorControl.prototype.initSensorButtonUI = function () {
     // Stop
     this.m_uiSensorButton1.on(Laya.Event.CLICK, this, function () {
         this.client.sendRosInfo(0);
-        this.pageChooser.sensorChart.stopRandomData();
     });
 
     // Start
     this.m_uiSensorButton2.on(Laya.Event.CLICK, this, function () {
         this.client.sendRosInfo(1);
-        this.pageChooser.sensorChart.feedRandomData();
     });
 
     // Pause
     this.m_uiSensorButton3.on(Laya.Event.CLICK, this, function () {
         this.client.sendRosInfo(2);
-        this.pageChooser.sensorChart.stopRandomData();
     });
 };
 
