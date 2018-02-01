@@ -211,7 +211,7 @@ var WebClient = (function (window, Laya, logger) {
     // Rename the car_config.
     WebClient.prototype.renameCarConfig = function (oldName, newName) {
         // car_config has not been loaded yet.
-        if (!this.data.car_config || !this.data.car_config_list) return;
+        if (!this.data.car_config || !this.data.car_config_list) return oldName;
 
         // Check if the name conflicts.
         var conflict = false;
@@ -222,7 +222,7 @@ var WebClient = (function (window, Laya, logger) {
         });
         if (conflict) {
             this.fire("car_config_list");
-            return;
+            return oldName;
         }
 
         // Find and rename the preset by name.
@@ -235,6 +235,7 @@ var WebClient = (function (window, Laya, logger) {
 
         // Commit
         this.send("car_config_list");
+        return newName;
     };
 
     // Add a sensor.

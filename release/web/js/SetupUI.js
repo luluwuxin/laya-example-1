@@ -84,7 +84,12 @@ SetupUI.prototype.initCarConfigListUI = function () {
             this.editingCarConfigName = undefined;
 
             // Commit the name change.
-            this.client.renameCarConfig(label.text, input.text);
+            var newName = this.client.renameCarConfig(label.text, input.text);
+
+            // Track the new name as current.
+            if (this.currentCarConfigName === label.text) {
+                this.currentCarConfigName = newName;
+            }
         });
 
         input.offAll(Laya.Event.ENTER);
@@ -94,7 +99,12 @@ SetupUI.prototype.initCarConfigListUI = function () {
             input.focus = false;
 
             // Commit the name change.
-            this.client.renameCarConfig(label.text, input.text);
+            var newName = this.client.renameCarConfig(label.text, input.text);
+
+            // Track the new name as current.
+            if (this.currentCarConfigName === label.text) {
+                this.currentCarConfigName = newName;
+            }
         });
 
         // Remove this specific preset from the car config list.
