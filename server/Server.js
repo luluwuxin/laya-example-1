@@ -411,6 +411,7 @@ function LogicServer()
 			
 			case "ping":
 			{
+				client.send(pack);
 				break;
 			}
 
