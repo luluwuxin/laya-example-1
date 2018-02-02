@@ -8,6 +8,7 @@
     "ws": "^4.0.0"
   },
   "devDependencies": {
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-uglify-es": "^1.0.0"
   },

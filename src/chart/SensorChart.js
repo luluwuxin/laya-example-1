@@ -32,11 +32,27 @@ SensorChart.prototype.show = function (value) {
         value = true;
     }
     this.container.style.display = value ? "block" : "none";
-}
+};
 
 SensorChart.prototype.hide = function () {
     this.show(false);
-}
+};
+
+SensorChart.prototype.foreground = function (value) {
+    // Not initialized ?
+    if (!this.container) {
+        return;
+    }
+
+    if (value === undefined) {
+        value = true;
+    }
+    this.container.style.zIndex = value ? 30000 : -30000;
+};
+
+SensorChart.prototype.background = function () {
+    this.foreground(false);
+};
 
 SensorChart.prototype.later = function (time, handler) {
     // Call handler after time milliseconds. Mostly used to reschedule handler to event loop.
@@ -201,33 +217,33 @@ SensorChart.prototype.initChartData = function () {
         datasets: [],
     };
 
-    // Inherit old data if name matches.
-    var oldData = this.chart.data;
-
     // Add lines.
     var _this = this;
     this.client.data.ros_info.config.forEach(function (v) {
         if (v.name === "raw_drive" || v.name === "AirSimDriver") return;
-
-        // Find the old dataset if the name matches.
-        var inherited = [];
-        if (oldData && oldData.datasets) {
-            oldData.datasets.forEach(function (vv) {
-                if (vv.label === v.name) {
-                    inherited = vv.data;
-                }
-            });
-        }
 
         // Add the new dataset.
         data.datasets.push({
             label: v.name,
             backgroundColor: _this.getColor(v.name),
             borderColor: _this.getColor(v.name),
-            data: inherited,
+            data: [],
             fill: false,
         });
     });
+
+    var changed = false;
+    if (this.chart.data && this.chart.data.datasets &&
+        this.chart.data.datasets.length === data.datasets.length) {
+        this.chart.data.datasets.forEach(function (v, i) {
+            if (v.label !== data.datasets[i].label) {
+                changed = true;
+            }
+        });
+        if (!changed) {
+            return;
+        }
+    }
 
     // Update the chart.
     this.chart.data = data;

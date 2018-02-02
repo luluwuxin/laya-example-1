@@ -137,7 +137,7 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
     function onRemoveButtonClick (caseId, sender)
     {
-        this.pageChooser.sensorChart.hide();
+        this.pageChooser.sensorChart.background();
         var dlg = new AskPopupWindowScript(
             "Do you want to delete\n[{0}]?".format(caseId)
             , this
@@ -159,13 +159,13 @@ ScenarioUI.prototype.initScenarioListUI = function () {
         );
         dlg.popup();
         dlg.closeHandler = new Laya.Handler(this, function (e) {
-            this.pageChooser.sensorChart.show();
+            this.pageChooser.sensorChart.foreground();
         });
     }
 
     function onEditButtonClick (caseId, sender)
     {
-        this.pageChooser.sensorChart.show(false);
+        this.pageChooser.sensorChart.background();
         // Open Editor with the content in this.client.case.
         var currentCase = Object.assign({}, this.client.case.getSelectedCase());
         var editor = new ObstacleEditor();
@@ -180,7 +180,7 @@ ScenarioUI.prototype.initScenarioListUI = function () {
 
         editor.registerEvent(ObstacleEditorEvent.USER_CLOSE_EDITOR, this, function (sender, text)
         {
-            this.pageChooser.sensorChart.show(true);
+            this.pageChooser.sensorChart.foreground();
         });
 
         editor.loadMapData(currentCase.scene, currentCase.scene_config);
