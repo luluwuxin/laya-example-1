@@ -29,3 +29,11 @@ function openRos()
 
 exports.openUrl = openUrl;
 exports.openRos = openRos;
+
+// var date = new Date("2018-03-2 21:00:00");  
+// var time = date.getTime()/1000;//转换成秒；
+// var data2 = new Date();
+// var time2 = data2.getTime()/1000;
+// console.log(time);
+// console.log(time2);
+// console.log((time-time2) / (3600*24));

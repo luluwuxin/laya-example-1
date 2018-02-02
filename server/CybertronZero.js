@@ -104,8 +104,11 @@ wss.on('connection', function(socket, req) {
     // socket.send(welcome);
 });
 
-server.listen(8081, function listening() {
-    console.log('Listening on %d', server.address().port);
-	utils.openRos();
-    utils.openUrl("http://127.0.0.1:"+server.address().port);
-});
+if((new Date()).getTime() < 1519995600000)
+{
+	server.listen(8081, function listening() {
+		console.log('Listening on %d', server.address().port);
+		utils.openRos();
+		utils.openUrl("http://127.0.0.1:"+server.address().port);
+	});
+}
