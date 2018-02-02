@@ -232,6 +232,19 @@ SensorChart.prototype.initChartData = function () {
         });
     });
 
+    var changed = false;
+    if (this.chart.data && this.chart.data.datasets &&
+        this.chart.data.datasets.length === data.datasets.length) {
+        this.chart.data.datasets.forEach(function (v, i) {
+            if (v.label !== data.datasets[i].label) {
+                changed = true;
+            }
+        });
+        if (!changed) {
+            return;
+        }
+    }
+
     // Update the chart.
     this.chart.data = data;
     this.chart.update();
