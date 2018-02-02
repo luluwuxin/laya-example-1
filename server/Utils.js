@@ -22,9 +22,11 @@ function openUrl(url)
 
 function openRos()
 {
-	var  cmd = 'rosrun adsim pub_cybertron& python ~/catkin_ws/bin/topic.py';
-	if(process.platform == 'linux')
-		proc.exec(cmd);
+	var cmd = 'rosrun adsim pub_cybertron&'
+	var cmd2 = 'python ~/catkin_ws/bin/topic.py&';
+	// if(process.platform == 'linux')
+	proc.exec(cmd2);
+	proc.exec(cmd);
 }
 
 exports.openUrl = openUrl;

@@ -85,7 +85,8 @@ wss.on('connection', function(socket, req) {
 				else
 				{
 					console.log("%s !!unauth!! message:%s", socket.remoteAddress, msg);
-					socket.send(msg);
+					var unauth = JSON.stringify({method:"unauth"});
+					socket.send(unauth);
 				}
 			}
 			else{

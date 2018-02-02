@@ -28,7 +28,7 @@ function Client(cid,cli)
 		try
 		{
 			this.socket.send(msg);
-			console.log("sent:%s->%s", this.socket.remoteAddress, msg);
+			console.log("sent:%d %s->%s", this.type, this.socket.remoteAddress, msg);
 		}catch(err)
 		{
 			console.log("xxx----sent:"+this.socket.remoteAddress+" err:"+err + " msg:" + msg + " type:" + this.type);

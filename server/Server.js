@@ -302,7 +302,10 @@ function LogicServer()
 					if(this.cli_ue4!=null)
 					{
 						pack.ip = this.cli_ue4.remoteAddress;
-					}					
+					}else
+					{
+						pack.ip = "127.0.0.1";
+					}
 					this.send2ros(pack);
 				}
 				else if(client.isRos())
