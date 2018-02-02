@@ -97,6 +97,7 @@ SensorControl.prototype.refreshSensorListUI = function () {
     // No data ?
     if (!this.client.data.ros_info) {
         this.m_uiSensorList.array = [];
+        return;
     }
 
     var data = [];
