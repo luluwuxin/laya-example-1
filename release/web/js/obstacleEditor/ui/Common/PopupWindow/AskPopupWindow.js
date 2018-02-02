@@ -1,17 +1,1 @@
-function AskPopupWindowScript(content, caller, yesMethod, noMethod)
-{
-    AskPopupWindowScript.super(this);
-
-    this.content.text = content;
-    this.yesButton.on(Event.CLICK, this, function()
-    {
-        this.close();
-        yesMethod.call(caller);
-    });
-    this.noButton.on(Event.CLICK, this, function()
-    {
-        this.close();
-        noMethod.call(caller);
-    });
-}
-Laya.class(AskPopupWindowScript, "AskPopupWindowScript", AskPopupWindowUI);
+function AskPopupWindowScript(t,o,i,n){AskPopupWindowScript.super(this),this.content.text=t,this.yesButton.on(Event.CLICK,this,function(){this.close(),i.call(o)}),this.noButton.on(Event.CLICK,this,function(){this.close(),n.call(o)})}Laya.class(AskPopupWindowScript,"AskPopupWindowScript",AskPopupWindowUI);
