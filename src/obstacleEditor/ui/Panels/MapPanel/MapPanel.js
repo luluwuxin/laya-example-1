@@ -120,6 +120,83 @@ class MainCarUIOnMap extends ObstacleUIOnMap
     }
 }
 
+class MiniMap
+{
+    constructor(mapPanel)
+    {
+        DependencesHelper.setDependencesByParent(this, mapPanel, "mapPanel");
+        this._loadedDataManager.registerEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this, this.onMapDataLoaded);
+    }
+
+    _miniMapFollowMouse(event)
+    {
+        var ratio = this._mapPanel.miniMapBox.width / this._mapData.mapInfo.width;
+        var x = this._mapPanel.miniMapButton.mouseX / ratio;
+        var y = this._mapPanel.miniMapButton.mouseY / ratio;
+        this._mapPanel.putPointToMapCenter(x, y);
+    }
+
+    onMiniMapButtonCancel(event)
+    {
+        this._mapPanel.miniMapButton.off(Event.MOUSE_MOVE, this, this.onMiniMapButtonMove);
+    }
+
+    onMiniMapButtonMove(event)
+    {
+        this._miniMapFollowMouse(event);
+    }
+
+    onMiniMapButtonDown(event)
+    {
+        this._mapPanel.miniMapButton.on(Event.MOUSE_MOVE, this, this.onMiniMapButtonMove);
+        this._miniMapFollowMouse(event);
+    }
+
+
+    init(mapData)
+    {
+        this._mapData = mapData;
+
+        this._mapPanel.miniMapButton.on(Event.MOUSE_DOWN, this, this.onMiniMapButtonDown);
+        this._mapPanel.miniMapButton.on(Event.MOUSE_UP, this, this.onMiniMapButtonCancel);
+        this._mapPanel.miniMapButton.on(Event.MOUSE_OUT, this, this.onMiniMapButtonCancel);
+
+        var targetWidth = 300;
+        var targetHeight = 200;
+        var mapInfo = mapData.mapInfo;
+        if (targetWidth / targetHeight < mapInfo.width / mapInfo.height)
+        {
+            targetHeight = mapInfo.height / mapInfo.width * targetWidth;
+        }
+        else
+        {
+            targetWidth = mapInfo.width / mapInfo.height * targetHeight;
+        }
+        this._mapPanel.miniMapBox.width = targetWidth;
+        this._mapPanel.miniMapBox.height = targetHeight;
+
+        this._mapPanel.miniMapImage.skin = mapData.getMapImagePath();
+        this._mapPanel.miniMapImageLight.skin = mapData.getMapImagePath();
+        this._refreshMiniMapFrame();
+    }
+
+    _refreshMiniMapFrame ()
+    {
+        var targetX = this._mapPanel.mainContainer.hScrollBar.value;
+        var targetY = this._mapPanel.mainContainer.vScrollBar.value;
+        var ratio = this._mapPanel.miniMapBox.width / this._mapData.mapInfo.width;
+        this._mapPanel.actualFrame.width = this._mapPanel.mainContainer.width * ratio;
+        this._mapPanel.actualFrame.height = this._mapPanel.mainContainer.height * ratio;
+        this._mapPanel.actualFrame.x = targetX * ratio;
+        this._mapPanel.actualFrame.y = targetY * ratio;
+    }
+
+    onMapDataLoaded(sender, mapData)
+    {
+        this.init(mapData);
+    }
+}
+
 function MapPanelScript(dependences)
 {
     //#region event callback
@@ -156,27 +233,9 @@ function MapPanelScript(dependences)
 
     function onMapScrolled()
     {
-        this._refreshMiniMapFrame();
+        this._miniMap._refreshMiniMapFrame();
     }
-
     
-
-    function onMiniMapButtonCancel(event)
-    {
-        this.miniMapButton.off(Event.MOUSE_MOVE, this, onMiniMapButtonMove);
-    }
-
-    function onMiniMapButtonMove(event)
-    {
-        this._miniMapFollowMouse(event);
-    }
-
-    function onMiniMapButtonDown(event)
-    {
-        this.miniMapButton.on(Event.MOUSE_MOVE, this, onMiniMapButtonMove);
-        this._miniMapFollowMouse(event);
-    }
-
     function onMainContainerMouseDown()
     {
         this._isMainContainerClick = true;
@@ -248,13 +307,7 @@ function MapPanelScript(dependences)
 
     //#endregion event callback
 
-    this._miniMapFollowMouse = function(event)
-    {
-        var ratio = this.miniMapBox.width / this._mapData.mapInfo.width;
-        var x = this.miniMapButton.mouseX / ratio;
-        var y = this.miniMapButton.mouseY / ratio;
-        this.putPointToMapCenter(x, y);
-    }
+    
 
     this.initEvent = function ()
     {
@@ -263,43 +316,8 @@ function MapPanelScript(dependences)
         this._user.registerEvent(UserEvent.SCENE_OBJECT_SELECTED, this, onSceneObjectSelected);
         this.mainContainer.vScrollBar.on(Event.CHANGE, this, onMapScrolled);
         this.mainContainer.hScrollBar.on(Event.CHANGE, this, onMapScrolled);
-        this.miniMapButton.on(Event.MOUSE_DOWN, this, onMiniMapButtonDown);
-        this.miniMapButton.on(Event.MOUSE_UP, this, onMiniMapButtonCancel);
-        this.miniMapButton.on(Event.MOUSE_OUT, this, onMiniMapButtonCancel);
         this.mainContainer.on(Event.MOUSE_DOWN, this, onMainContainerMouseDown);
         this.mainContainer.on(Event.MOUSE_UP, this, onMainContainerMouseUp);
-    }
-
-    this._refreshMiniMapFrame = function ()
-    {
-        var targetX = this.mainContainer.hScrollBar.value;
-        var targetY = this.mainContainer.vScrollBar.value;
-        var ratio = this.miniMapBox.width / this._mapData.mapInfo.width;
-        this.actualFrame.width = this.mainContainer.width * ratio;
-        this.actualFrame.height = this.mainContainer.height * ratio;
-        this.actualFrame.x = targetX * ratio;
-        this.actualFrame.y = targetY * ratio;
-    }
-
-    this._initMiniMap = function ()
-    {
-        var targetWidth = 300;
-        var targetHeight = 200;
-        var mapInfo = this._mapData.mapInfo;
-        if (targetWidth / targetHeight < mapInfo.width / mapInfo.height)
-        {
-            targetHeight = mapInfo.height / mapInfo.width * targetWidth;
-        }
-        else
-        {
-            targetWidth = mapInfo.width / mapInfo.height * targetHeight;
-        }
-        this.miniMapBox.width = targetWidth;
-        this.miniMapBox.height = targetHeight;
-
-        this.miniMapImage.skin = this._mapData.getMapImagePath();
-        this.miniMapImageLight.skin = this._mapData.getMapImagePath();
-        this._refreshMiniMapFrame();
     }
 
     this.getViewCenter = function ()
@@ -384,7 +402,6 @@ function MapPanelScript(dependences)
         this.mapImage.width = this._mapData.mapInfo.width;
         
         this.initObstacleInfo();
-        this._initMiniMap();
     }
 
     this.initObstacleInfo = function()
@@ -406,6 +423,7 @@ function MapPanelScript(dependences)
 
     // member variable
     this._sceneObjectRouteUIs = {};
+    this._miniMap = new MiniMap(this);
 
     // event
     this._loadedDataManager.registerEvent(LoadedDataManagerEvent.MAP_DATA_LOADED, this, onMapDataLoaded);
