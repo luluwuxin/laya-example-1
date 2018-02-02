@@ -1,16 +1,1 @@
-class UIHelper
-{
-    static setComboLabels(comboBox, enumList)
-    {
-        var typeListString = "";
-        for (var key in enumList)
-        {
-            if (typeListString != "")
-            {
-                typeListString += ",";
-            }
-            typeListString += enumList[key];
-        }
-        comboBox.labels = typeListString;
-    }
-}
+class UIHelper{static setComboLabels(a,s){var e="";for(var l in s)""!=e&&(e+=","),e+=s[l];a.labels=e}}

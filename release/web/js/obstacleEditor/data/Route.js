@@ -1,8 +1,1 @@
-class Route
-{
-    // [routePoint, ...]
-    constructor(points = [])
-    {
-        this.points = points;
-    }
-}
+class Route{constructor(s=[]){this.points=s}}

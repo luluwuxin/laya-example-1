@@ -1,12 +1,1 @@
-class AssetsPath
-{
-    static getMapConfigFilePath(mapName)
-    {
-        return AssetsPath.getMapDirectory(mapName) + "/" + "config.json";
-    }
-
-    static getMapDirectory(mapName)
-    {
-        return "Scenes" + "/" + mapName;
-    }
-}
+class AssetsPath{static getMapConfigFilePath(t){return AssetsPath.getMapDirectory(t)+"/config.json"}static getMapDirectory(t){return"Scenes/"+t}}
