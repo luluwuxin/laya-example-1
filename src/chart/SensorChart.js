@@ -4,6 +4,10 @@
 function SensorChart(client) {
     SensorChart.super(this);
 
+    // Buffer for the topic_info objects. They are consumed in
+    // onRefresh callback, which is called at regular interval.
+    this.buffer = [];
+
     // Init after Laya create the stage div element.
     this.later(1, function () {
         this.init();
@@ -36,9 +40,9 @@ SensorChart.prototype.hide = function () {
 
 SensorChart.prototype.later = function (time, handler) {
     // Call handler after time milliseconds. Mostly used to reschedule handler to event loop.
-    var self = this;
+    var _this = this;
     setTimeout(function() {
-        handler.apply(self);
+        handler.apply(_this);
     }, time);
 };
 
@@ -62,6 +66,8 @@ SensorChart.prototype.getColor = function (name) {
 };
 
 SensorChart.prototype.init = function () {
+    var _this = this;
+
     // A container div element for the chartjs canvas.
     var container = document.getElementById("sensor-chart-container");
 
@@ -81,12 +87,11 @@ SensorChart.prototype.init = function () {
 
         // Handle resize. Must wait for Laya to finish resizing..
         var resizeTimeout;
-        var self = this;
         window.addEventListener("resize", function () {
             if (!resizeTimeout) {
                 resizeTimeout = setTimeout(function() {
                     resizeTimeout = null;
-                    self.rebind();
+                    _this.rebind();
                 }, 1000);
             }
         }, false);
@@ -103,9 +108,6 @@ SensorChart.prototype.init = function () {
             type: "line",
             data: {},
             options: {
-                animation: {
-                    duration: 0,
-                },
                 maintainAspectRatio: false,
                 tooltips: {
                     enabled: false,
@@ -116,23 +118,16 @@ SensorChart.prototype.init = function () {
                 scales: {
                     xAxes: [
                         {
-                            type: "time",
+                            type: "realtime",
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: "Date",
+                                labelString: "Time",
                             },
                             time: {
+                                unit: "second",
                                 displayFormats: {
-                                    millisecond: "mm:ss",
                                     second: "mm:ss",
-                                    minute: "mm:ss",
-                                    hour: "mm:ss",
-                                    day: "mm:ss",
-                                    week: "mm:ss",
-                                    month: "mm:ss",
-                                    quarter: "mm:ss",
-                                    year: "mm:ss",
                                 },
                             },
                         },
@@ -142,10 +137,19 @@ SensorChart.prototype.init = function () {
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: "value",
+                                labelString: "Value",
                             },
                         },
                     ],
+                },
+                plugins: {
+                    streaming: {
+                        duration: 60000,
+                        delay: 1000,
+                        onRefresh: function (chart) {
+                            _this.consumeChartData(chart);
+                        },
+                    },
                 },
             },
         });
@@ -246,19 +250,32 @@ SensorChart.prototype.refreshChartData = function () {
         this.initChartData(); // lazy
     }
 
-    // Update the chart with the new data.
-    var chart = this.chart;
-    this.client.data.topic_info.hz_info.forEach(function (v, i) {
-        var dataset = chart.data.datasets[i];
-        if (dataset) {
-            dataset.data.push({
-                x: new Date(),
-                y: v,
-            });
-            while (dataset.data.length > 100) {
-                dataset.data.shift();
-            }
-        }
+    // Buffer the data objects.
+    this.buffer.push({
+        timestamp: new Date(),
+        topic_info: JSON.parse(JSON.stringify(this.client.data.topic_info)),
     });
-    this.chart.update();
+
+    // Fixed buffer window size.
+    while (this.buffer.length > 10000) {
+        this.buffer.shift();
+    }
+};
+
+SensorChart.prototype.consumeChartData = function (chart) {
+    chart = chart || this.chart;
+
+    // Consume the data object in the buffer one by one.
+    this.buffer.forEach(function (dataInBuffer) {
+        dataInBuffer.topic_info.hz_info.forEach(function (v, i) {
+            var dataset = chart.data.datasets[i];
+            if (dataset) {
+                dataset.data.push({
+                    x: dataInBuffer.timestamp,
+                    y: v,
+                });
+            }
+        });
+    });
+    this.buffer.length = 0;
 };
