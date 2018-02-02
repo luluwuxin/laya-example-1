@@ -1,3 +1,5 @@
+var proc = require("child_process");
+
 function openUrl(url)
 {
 	var  cmd = '';
@@ -15,8 +17,14 @@ function openUrl(url)
         return;
     }
     console.log("os:"+process.platform + " | "+ cmd+ ' ' + url);
-    var proc = require("child_process");
     proc.exec(cmd + ' ' + url);    
 }
 
+function openRos()
+{
+	var  cmd = 'rosrun adsim pub_cybertron& python ~/catkin_ws/bin/topic.py';
+    proc.exec(cmd);    
+}
+
 exports.openUrl = openUrl;
+exports.openRos = openRos;
