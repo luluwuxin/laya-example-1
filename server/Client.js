@@ -31,8 +31,8 @@ function Client(cid,cli)
 			console.log("sent:%s->%s", this.socket.remoteAddress, msg);
 		}catch(err)
 		{
-			console.log("sent:"+this.socket.remoteAddress+" err:"+err);
-			// this.send(msg);
+			console.log("xxx----sent:"+this.socket.remoteAddress+" err:"+err + " msg:" + msg + " type:" + this.type);
+			this.logic.removeSocket(this.socket);
 		}
     }
 

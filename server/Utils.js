@@ -23,7 +23,8 @@ function openUrl(url)
 function openRos()
 {
 	var  cmd = 'rosrun adsim pub_cybertron& python ~/catkin_ws/bin/topic.py';
-    proc.exec(cmd);    
+	if(process.platform == 'linux')
+		proc.exec(cmd);
 }
 
 exports.openUrl = openUrl;

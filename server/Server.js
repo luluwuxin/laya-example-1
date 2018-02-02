@@ -28,7 +28,6 @@ const FileHelper = require("./Helper.js");
 function LogicServer()
 {
     this.clients = {};
-    this.cids = {};
     this.cid_seed = 0;
 
 	this.cli_web_map = {}; //0
@@ -79,12 +78,12 @@ function LogicServer()
         var cid = this.genCid();
         var client = cli.create(type, cid, socket);
 		client.type = type;
+		client.logic = this;
 		
 		console.log("$$$$$$$$$ cid:"+cid);
         this.clients[cid]= client;
 		socket.client = client;
 		socket.cid = cid;
-        this.cids[cid]=client;
 
 		switch(type)
 		{
@@ -119,25 +118,23 @@ function LogicServer()
         var client = socket.client;
         if(client!=null)
         {
-			if(client.type = 0)
+			if(client.isWeb())
 				delete this.cli_web_map[socket.cid];
 
-			if(this.cli_ros == socket)
+			if(client.isRos())
 				this.cli_ros = null;
 			
-			if(this.cli_ue4 == socket)
+			if(client.isUE4())
 				this.cli_ue4 = null;
 
-			if(this.cli_ue4d == socket)
+			if(client.isUE4d())
 				this.cli_ue4d = null;
 
-			if(this.cli_topic == socket)
+			if(client.isTopic())
 				this.cli_topic = null;
 			
             var cid = client.cid;
             delete this.clients[cid];
-            // delete this.clients[socket];
-            delete this.cids[cid];
         }
     }
 
@@ -147,8 +144,7 @@ function LogicServer()
         if(client!=null)
         {
             var socket = client.socket;
-            delete this.clients[cid];
-            // delete this.clients[socket];
+			this.removeSocket(socket);
         }
     }
 
@@ -172,9 +168,9 @@ function LogicServer()
 
     this.broadcast = function(msg, except)
     {
-        for(var cid in this.cids)
+        for(var cid in this.clients)
         {
-            var client = this.cids[cid];
+            var client = this.clients[cid];
             if(client!=except)
                 client.send(msg);
         }
