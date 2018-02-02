@@ -142,6 +142,16 @@ function ObstacleInfoPanelScript(dependences)
         {
             return;
         }
+        if (routePoint.getOwner() != this._user.getSelectedSceneObject())
+        {
+            return;
+        }
+
+        if (routePoint.pointType != ObjectPointType.MAIN_CAR_ROUTE_POINT
+        && routePoint.pointType != ObjectPointType.OBSTACLE_ROUTE_POINT)
+        {
+            return;
+        }
         this.routePointList.changeItem(routePoint.index, {routePoint: routePoint});
     }
 
