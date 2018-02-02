@@ -32,11 +32,27 @@ SensorChart.prototype.show = function (value) {
         value = true;
     }
     this.container.style.display = value ? "block" : "none";
-}
+};
 
 SensorChart.prototype.hide = function () {
     this.show(false);
-}
+};
+
+SensorChart.prototype.foreground = function (value) {
+    // Not initialized ?
+    if (!this.container) {
+        return;
+    }
+
+    if (value === undefined) {
+        value = true;
+    }
+    this.container.style.zIndex = value ? 30000 : -30000;
+};
+
+SensorChart.prototype.background = function () {
+    this.foreground(false);
+};
 
 SensorChart.prototype.later = function (time, handler) {
     // Call handler after time milliseconds. Mostly used to reschedule handler to event loop.
